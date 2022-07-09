@@ -4,14 +4,14 @@ using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.DB.Enums;
 
-namespace Restaurant.API.Seeder
+namespace Restaurant.API.Services
 {
-    public class Seeder : ISeeder
+    public class SeederService : ISeederService
     {
         private readonly RestaurantDbContext _dbContext;
         private readonly IPasswordHasher<User> _passwordHasher;
 
-        public Seeder(RestaurantDbContext dbContext, IPasswordHasher<User> passwordHasher)
+        public SeederService(RestaurantDbContext dbContext, IPasswordHasher<User> passwordHasher)
         {
             _dbContext = dbContext;
             _passwordHasher = passwordHasher;

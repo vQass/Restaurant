@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.API.Interfaces
 {
-    public interface ISeeder
+    public interface ISeederService
     {
         public void Seed();
     }

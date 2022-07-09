@@ -1,4 +1,4 @@
-﻿namespace Restaurant.API.Services
+﻿namespace Restaurant.Services.Services
 {
     //public class AccountService : IAccountService
     //{
