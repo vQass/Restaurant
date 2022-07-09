@@ -2,10 +2,9 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Restaurant.API;
 using Restaurant.API.Entities;
 using Restaurant.API.Seeder;
-using RestaurantAPI;
-using RestaurantAPI.Interfaces;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -58,7 +57,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    using(var scope = app.Services.CreateScope())
+    using (var scope = app.Services.CreateScope())
     {
         var seeder = scope.ServiceProvider.GetService<Seeder>();
         seeder.Seed();
