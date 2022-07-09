@@ -1,4 +1,4 @@
-﻿namespace Restaurant.API.Models.UserModels
+﻿namespace Restaurant.Data.Models.UserModels
 {
     public class UserCreateRequestDto
     {

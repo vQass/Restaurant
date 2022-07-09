@@ -1,17 +1,21 @@
-﻿using Restaurant.Services.Interfaces;
+﻿using Restaurant.DB;
+using Restaurant.Services.Interfaces;
+using Restaurant.Data.Models.UserModels;
 
 namespace Restaurant.Services.Services
 {
     public class UserService : IUserService
     {
-        public UserService()
-        {
+        private readonly RestaurantDbContext _dbContext;
 
+        public UserService(RestaurantDbContext dbContext)
+        {
+            _dbContext = dbContext;
         }
 
-        public void AddUser()
+        public void AddUser(UserCreateRequestDto dto)
         {
-
+            
         }
     }
 }

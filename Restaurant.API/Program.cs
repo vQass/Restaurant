@@ -7,6 +7,7 @@ using Restaurant.API.Interfaces;
 using Restaurant.API.Services;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
+using Restaurant.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,9 +42,10 @@ builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddDbContext<RestaurantDbContext>(
                  options => options.UseSqlServer(
                                     builder.Configuration.GetConnectionString("Default")));
-
+builder.Services.AddRestaurantServices();
 builder.Services.AddScoped<ISeederService, SeederService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
 
 // skonczylem linia 59
 

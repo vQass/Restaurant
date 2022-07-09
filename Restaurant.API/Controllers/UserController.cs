@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Restaurant.API.Models.UserModels;
+using Restaurant.Data.Models.UserModels;
 
 namespace Restaurant.API.Controllers
 {

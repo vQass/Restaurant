@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Restaurant.Data\Restaurant.Data.csproj" />
-    <ProjectReference Include="..\Restaurant.DB\Restaurant.DB.csproj" />
+    <PackageReference Include="AutoMapper" Version="11.0.0" />
   </ItemGroup>
 
 </Project>
