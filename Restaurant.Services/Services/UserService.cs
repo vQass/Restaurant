@@ -1,6 +1,6 @@
-﻿using Restaurant.DB;
+﻿using Restaurant.Data.Models.UserModels;
+using Restaurant.DB;
 using Restaurant.Services.Interfaces;
-using Restaurant.Data.Models.UserModels;
 
 namespace Restaurant.Services.Services
 {
@@ -15,7 +15,7 @@ namespace Restaurant.Services.Services
 
         public void AddUser(UserCreateRequestDto dto)
         {
-            
+
         }
     }
 }
