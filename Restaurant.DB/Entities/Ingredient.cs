@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Restaurant.API.Entities
+namespace Restaurant.DB.Entities
 {
     public class Ingredient
     {

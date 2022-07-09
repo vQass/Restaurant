@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Restaurant.DB.Entities;
 
-namespace Restaurant.API.Entities
+namespace Restaurant.DB
 {
     public class RestaurantDbContext : DbContext
     {

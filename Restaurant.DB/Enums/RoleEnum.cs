@@ -1,4 +1,4 @@
-﻿namespace Restaurant.API.Models.Enums
+﻿namespace Restaurant.DB.Enums
 {
     public enum RoleEnum : byte
     {

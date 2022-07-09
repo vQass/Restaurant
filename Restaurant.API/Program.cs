@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Restaurant.API;
-using Restaurant.API.Entities;
 using Restaurant.API.Seeder;
+using Restaurant.DB;
+using Restaurant.DB.Entities;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);

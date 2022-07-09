@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Restaurant.API.Entities
+namespace Restaurant.DB.Entities
 {
     public class UserDetails
     {

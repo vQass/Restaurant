@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Restaurant.API.Entities;
 using Restaurant.API.Interfaces;
-using Restaurant.API.Models.Enums;
+using Restaurant.DB;
+using Restaurant.DB.Entities;
+using Restaurant.DB.Enums;
 
 namespace Restaurant.API.Seeder
 {
