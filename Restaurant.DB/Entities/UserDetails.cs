@@ -22,12 +22,15 @@ namespace Restaurant.DB.Entities
         [MaxLength(32)]
         [Phone]
         public string? PhoneNumber { get; set; }
+
         public DateTime Inserted { get; set; }
+
         public DateTime Updated { get; set; }
+
         [ForeignKey("UserId")]
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
         [ForeignKey("CityId")]
-        public City City { get; set; }
+        public virtual City? City { get; set; }
     }
 }

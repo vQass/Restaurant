@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Restaurant.Data.Validators
+namespace Restaurant.APIComponents.Validators
 {
     public class UserCreateRequestDtoValidator : AbstractValidator<UserCreateRequestDto>
     {
@@ -18,7 +18,7 @@ namespace Restaurant.Data.Validators
 
             RuleFor(x => x.Password).MinimumLength(6);
 
-            RuleFor(x => x.ConfirmPassword).Equal(x => x.Password);
+            RuleFor(x => x.ConfirmPassword).Equal(x => x.Password).WithMessage("Błędna wartość w polu potwierdzenia hasła");
 
             RuleFor(x => x.Email).Custom((value, context) =>
             {

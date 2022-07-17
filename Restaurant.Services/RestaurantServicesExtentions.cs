@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Restaurant.IServices.Interfaces;
 using Restaurant.Services.Services;
 
-namespace Restaurant.APIComponents.CollectionExtensions
+namespace Restaurant.Services
 {
     public static class RestaurantServicesExtentions
     {

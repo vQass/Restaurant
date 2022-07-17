@@ -131,7 +131,7 @@ namespace Restaurant.Services.Services
                 },
                 new User()
                 {
-                    Email = "test4@test",
+                    Email = "test5@test",
                     Password = "pass123",
                     Role = RoleEnum.User,
                     UserDetails = new UserDetails()
@@ -147,7 +147,7 @@ namespace Restaurant.Services.Services
                 },
                 new User()
                 {
-                    Email = "test5@test",
+                    Email = "test6@test",
                     Password = "pass123",
                     Role = RoleEnum.User,
                     UserDetails = new UserDetails()

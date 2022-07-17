@@ -10,6 +10,7 @@ namespace Restaurant.Data
         {
             CreateMap<UserCreateRequestDto, User>();
             CreateMap<UserCreateRequestDto, UserDetails>();
+            CreateMap<User, UserListItemDto>();
         }
     }
 }

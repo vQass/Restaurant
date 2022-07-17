@@ -2,9 +2,9 @@
 {
     public enum RoleEnum : byte
     {
-        HeadAdmin,
-        Admin,
+        User,
         Employee,
-        User
+        Admin,
+        HeadAdmin
     }
 }

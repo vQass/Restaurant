@@ -18,6 +18,8 @@ namespace Restaurant.DB
         public DbSet<User> Users { get; set; }
         public DbSet<UserDetails> UsersDetails { get; set; }
 
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Order>().HasKey(x => new { x.Id, x.MealId });

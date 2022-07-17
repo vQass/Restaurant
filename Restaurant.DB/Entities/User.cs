@@ -21,6 +21,9 @@ namespace Restaurant.DB.Entities
         [Column(TypeName = "tinyint")]
         public RoleEnum Role { get; set; }
 
+        [Required]
+        public bool IsActive { get; set; } = true;
+
         public virtual UserDetails UserDetails { get; set; }
     }
 }

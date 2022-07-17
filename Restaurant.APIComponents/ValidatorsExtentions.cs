@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using Restaurant.APIComponents.Validators;
 using Restaurant.Data.Models.UserModels;
-using Restaurant.Data.Validators;
 
 namespace Restaurant.APIComponents
 {

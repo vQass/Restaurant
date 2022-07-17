@@ -21,6 +21,11 @@ namespace Restaurant.APIComponents.Middlewares
                 context.Response.StatusCode = 404;
                 await context.Response.WriteAsync(ex.Message);
             }
+            catch (InternalErrorException ex)
+            {
+                context.Response.StatusCode = 500;
+                await context.Response.WriteAsync(ex.Message);
+            }
             catch
             {
                 context.Response.StatusCode = 500;
