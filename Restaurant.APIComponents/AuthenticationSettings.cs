@@ -1,4 +1,4 @@
-﻿namespace Restaurant.API
+﻿namespace Restaurant.APIComponents
 {
     public class AuthenticationSettings
     {

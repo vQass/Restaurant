@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Restaurant.APIComponents\Restaurant.APIComponents.csproj" />
     <ProjectReference Include="..\Restaurant.Data\Restaurant.Data.csproj" />
     <ProjectReference Include="..\Restaurant.DB\Restaurant.DB.csproj" />
     <ProjectReference Include="..\Restaurant.IServices\Restaurant.IServices.csproj" />

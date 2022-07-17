@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Restaurant.APIComponents;
 using Restaurant.Data.Models.UserModels;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
@@ -10,6 +12,8 @@ namespace Restaurant.Services.Services
     {
         private readonly RestaurantDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly AuthenticationSettings _authenticationSettings;
 
         public UserService(RestaurantDbContext dbContext, IMapper mapper)
         {

@@ -1,8 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Restaurant.IServices.Interfaces;
 using Restaurant.Services.Services;
 
-namespace Restaurant.API.CollectionExtensions
+namespace Restaurant.APIComponents.CollectionExtensions
 {
     public static class RestaurantServicesExtentions
     {

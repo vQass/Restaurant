@@ -1,6 +1,7 @@
-﻿using Restaurant.API.Exceptions;
+﻿using Microsoft.AspNetCore.Http;
+using Restaurant.APIComponents.Exceptions;
 
-namespace Restaurant.API.Middlewares
+namespace Restaurant.APIComponents.Middlewares
 {
     public class ErrorHandlingMiddleware : IMiddleware
     {

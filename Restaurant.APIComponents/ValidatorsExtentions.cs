@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using Restaurant.Data.Models.UserModels;
 using Restaurant.Data.Validators;
 
-namespace Restaurant.API.CollectionExtensions
+namespace Restaurant.APIComponents
 {
     public static class ValidatorsExtentions
     {

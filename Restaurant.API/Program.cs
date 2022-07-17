@@ -2,12 +2,13 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Restaurant.API;
-using Restaurant.API.CollectionExtensions;
+using Restaurant.APIComponents;
+using Restaurant.APIComponents.CollectionExtensions;
 using Restaurant.Data;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.IServices.Interfaces;
+
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);

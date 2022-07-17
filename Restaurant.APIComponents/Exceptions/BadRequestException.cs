@@ -1,4 +1,4 @@
-﻿namespace Restaurant.API.Exceptions
+﻿namespace Restaurant.APIComponents.Exceptions
 {
     public class BadRequestException : Exception
     {
