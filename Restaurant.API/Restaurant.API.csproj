@@ -20,11 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Validators\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Restaurant.DB\Restaurant.DB.csproj" />
+    <ProjectReference Include="..\Restaurant.IServices\Restaurant.IServices.csproj" />
     <ProjectReference Include="..\Restaurant.Services\Restaurant.Services.csproj" />
   </ItemGroup>
 

@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Restaurant.API;
-using Restaurant.API.Interfaces;
-using Restaurant.API.Services;
+using Restaurant.API.CollectionExtensions;
+using Restaurant.Data;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
-using Restaurant.Services;
+using Restaurant.IServices.Interfaces;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,7 +43,8 @@ builder.Services.AddDbContext<RestaurantDbContext>(
                  options => options.UseSqlServer(
                                     builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddRestaurantServices();
-builder.Services.AddScoped<ISeederService, SeederService>();
+builder.Services.AddValidators();
+builder.Services.AddAutoMapper(typeof(RestaurantDataMapperProfile));
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 

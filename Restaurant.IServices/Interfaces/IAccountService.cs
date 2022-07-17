@@ -1,4 +1,4 @@
-﻿namespace Restaurant.Services.Interfaces
+﻿namespace Restaurant.IServices.Interfaces
 {
     public interface IAccountService
     {

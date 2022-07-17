@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Restaurant.Data.Models.UserModels;
+using Restaurant.IServices.Interfaces;
 
 namespace Restaurant.API.Controllers
 {
@@ -7,11 +8,18 @@ namespace Restaurant.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private readonly IUserService _userService;
+
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
 
         [HttpPost]
-        public void AddUser([FromBody] UserCreateRequestDto userDto)
+        public IActionResult AddUser([FromBody] UserCreateRequestDto userDto)
         {
-
+            var id = _userService.AddUser(userDto);
+            return Created($"api/User/{id}", null);
         }
     }
 }
