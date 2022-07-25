@@ -48,10 +48,17 @@ namespace Restaurant.API.Controllers
             return Ok(usersList);
         }
 
-        [HttpPut("UpdateUser")]
-        public IActionResult UpdateUser(long id, [FromBody] UserUpdateRequest userUpdateRequest)
+        [HttpPut("UpdateUser/{id}")]
+        public IActionResult UpdateUser([FromRoute] long id, [FromBody] UserUpdateRequest userUpdateRequest)
         {
             _userService.UpdateUser(id, userUpdateRequest);
+            return Ok();
+        }
+
+        [HttpPut("UpdateUserEmail/{id}")]
+        public IActionResult UpdateUserEmail([FromRoute] long id, [FromBody] string newEmail)
+        {
+            _userService.UpdateUserEmail(id, newEmail);
             return Ok();
         }
     }

@@ -12,6 +12,7 @@ using Restaurant.IServices.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace Restaurant.Services.Services
 {
@@ -84,13 +85,15 @@ namespace Restaurant.Services.Services
             _dbContext.SaveChanges();
         }
 
-        public void UpdateUserEmail(long id) // TODO add EmailUpdateRequest class
+        public void UpdateUserEmail(long id, string newEmail)
         {
             var user = CheckIfUserExistsById(id);
 
-            //CheckIfEmailInUse(newEmail);
+            CheckIfEmailHasValidFormat(newEmail);
 
-            //user.Email = newEmail;
+            CheckIfEmailInUse(newEmail, id);
+
+            user.Email = newEmail;
 
             _dbContext.SaveChanges();
         }
@@ -199,6 +202,28 @@ namespace Restaurant.Services.Services
             }
 
             return user;
+        }
+
+        private void CheckIfEmailInUse(string email, long id = 0)
+        {
+            var emailInUse = _dbContext.Users.Where(x => x.Id != id).Any(x => x.Email.ToLower() == email.ToLower());
+
+            if(emailInUse)
+            {
+                throw new BadRequestException("Podany email jest zajęty.");
+            }
+        }
+
+        private void CheckIfEmailHasValidFormat(string email)
+        {
+            var valiadtor = new EmailAddressAttribute();
+
+            var emailValid = valiadtor.IsValid(email);
+
+            if(!emailValid)
+            {
+                throw new BadRequestException("Podany email ma błędny format.");
+            }
         }
 
         #endregion PrivateMethods

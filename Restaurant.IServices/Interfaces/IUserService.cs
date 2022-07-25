@@ -10,5 +10,6 @@ namespace Restaurant.IServices.Interfaces
         public List<UserListViewModel> GetUsersList();
         public string SignInUser(LoginRequest dto);
         public void UpdateUser(long id, UserUpdateRequest userUpdateRequest);
+        public void UpdateUserEmail(long id, string newEmail);
     }
 }
