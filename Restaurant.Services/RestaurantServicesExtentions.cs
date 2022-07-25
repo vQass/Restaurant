@@ -10,6 +10,8 @@ namespace Restaurant.Services
         public static IServiceCollection AddRestaurantServices(this IServiceCollection services)
         {
             services.TryAddScoped<IUserService, UserService>();
+            services.TryAddScoped<IMealService, MealService>();
+            services.TryAddScoped<IMealCategoryService, MealCategoryService>();
             services.TryAddScoped<ISeederService, SeederService>();
 
             return services;

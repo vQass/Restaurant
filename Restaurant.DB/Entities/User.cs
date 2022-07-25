@@ -25,5 +25,6 @@ namespace Restaurant.DB.Entities
         public bool IsActive { get; set; } = true;
 
         public virtual UserDetails UserDetails { get; set; }
+        public virtual List<Order> Orders { get; set; }
     }
 }

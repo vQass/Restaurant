@@ -10,5 +10,8 @@ namespace Restaurant.DB.Entities
         [Required]
         [MaxLength(127)]
         public string Name { get; set; }
+
+        public virtual UserDetails UserDetails { get; set; }
+        public virtual Order Order { get; set; }
     }
 }

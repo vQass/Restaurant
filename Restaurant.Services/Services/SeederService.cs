@@ -27,18 +27,23 @@ namespace Restaurant.Services.Services
                     _dbContext.Cities.AddRange(cities);
                     _dbContext.SaveChanges();
                 }
-                _dbContext.Users.RemoveRange(_dbContext.Users.ToList());
-                _dbContext.SaveChanges();
+                //_dbContext.Users.RemoveRange(_dbContext.Users.ToList());
+                //_dbContext.SaveChanges();
                 if (!_dbContext.Users.Any())
                 {
                     var users = GetUsersWithDetails();
-
-
                     _dbContext.Users.AddRange(users);
+                    _dbContext.SaveChanges();
+                }
+                if (!_dbContext.MealsCategories.Any())
+                {
+                    var categotries = GetMealsCategries();
+                    _dbContext.MealsCategories.AddRange(categotries);
                     _dbContext.SaveChanges();
                 }
             }
         }
+        #region CityList
 
         private IEnumerable<City> GetCities()
         {
@@ -60,6 +65,10 @@ namespace Restaurant.Services.Services
             return cities;
         }
 
+        #endregion CityList
+
+        #region UsersList
+
         private IEnumerable<User> GetUsersWithDetails()
         {
             var date = DateTime.Now;
@@ -72,7 +81,7 @@ namespace Restaurant.Services.Services
                     Role = RoleEnum.HeadAdmin,
                     UserDetails = new UserDetails()
                     {
-                        CityId = 1,
+                        City = _dbContext.Cities.FirstOrDefault(),
                         Address = "Testowa 1",
                         Name = "Patryk",
                         Surname = "Zub",
@@ -88,7 +97,7 @@ namespace Restaurant.Services.Services
                     Role = RoleEnum.Admin,
                     UserDetails = new UserDetails()
                     {
-                        CityId = 1,
+                        City = _dbContext.Cities.FirstOrDefault(),
                         Address = "Testowa 2",
                         Name = "Patryk 2",
                         Surname = "Zub 2",
@@ -104,7 +113,7 @@ namespace Restaurant.Services.Services
                     Role = RoleEnum.Employee,
                     UserDetails = new UserDetails()
                     {
-                        CityId = 1,
+                        City = _dbContext.Cities.FirstOrDefault(),
                         Address = "Testowa 3",
                         Name = "Patryk 3",
                         Surname = "Zub 3",
@@ -120,7 +129,7 @@ namespace Restaurant.Services.Services
                     Role = RoleEnum.User,
                     UserDetails = new UserDetails()
                     {
-                        CityId = 1,
+                        City = _dbContext.Cities.FirstOrDefault(),
                         Address = "Testowa 4",
                         Name = "Patryk 4",
                         Surname = "Zub 4",
@@ -136,7 +145,7 @@ namespace Restaurant.Services.Services
                     Role = RoleEnum.User,
                     UserDetails = new UserDetails()
                     {
-                        CityId = 1,
+                        City = _dbContext.Cities.FirstOrDefault(),
                         Address = "Testowa 4",
                         Name = "Patryk 4",
                         Surname = "Zub 4",
@@ -152,7 +161,7 @@ namespace Restaurant.Services.Services
                     Role = RoleEnum.User,
                     UserDetails = new UserDetails()
                     {
-                        CityId = 1,
+                        City = _dbContext.Cities.FirstOrDefault(),
                         Address = "Testowa 5",
                         PhoneNumber = "987654321",
                         Inserted = date,
@@ -168,5 +177,21 @@ namespace Restaurant.Services.Services
 
             return users;
         }
+
+        #endregion UsersList
+
+        #region MealsCategries
+
+        public IEnumerable<MealCategory> GetMealsCategries()
+        {
+            var categories = new List<MealCategory>()
+            {
+                new MealCategory() { Name = "Dania główne" },
+                new MealCategory() { Name = "Zupy" }
+            };
+            return categories;
+        }
+
+        #endregion MealsCategries
     }
 }

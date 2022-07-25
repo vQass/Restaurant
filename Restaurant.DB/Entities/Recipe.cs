@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Restaurant.DB.Entities
 {
-    public class Recipes
+    public class Recipe
     {
         [Required]
         public int IngredientId { get; set; }

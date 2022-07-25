@@ -24,6 +24,6 @@ namespace Restaurant.DB.Entities
         [Required]
         public bool IsManuallyDisabled { get; set; } = false;
 
-        public virtual OrderDetails OrderDetails { get; set; }
+        public virtual List<Order> Orders { get; set; }
     }
 }
