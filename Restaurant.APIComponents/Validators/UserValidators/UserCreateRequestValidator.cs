@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Restaurant.APIComponents.Validators
+namespace Restaurant.APIComponents.Validators.UserValidators
 {
-    public class UserCreateRequestDtoValidator : AbstractValidator<UserCreateRequestDto>
+    public class UserCreateRequestValidator : AbstractValidator<UserCreateRequest>
     {
 
-        public UserCreateRequestDtoValidator(RestaurantDbContext dbContext)
+        public UserCreateRequestValidator(RestaurantDbContext dbContext)
         {
             RuleFor(x => x.Email).NotEmpty().EmailAddress();
 
@@ -22,11 +22,21 @@ namespace Restaurant.APIComponents.Validators
 
             RuleFor(x => x.Email).Custom((value, context) =>
             {
-                var emailInUse = dbContext.Users.Any(x => x.Email == value);
+                var emailInUse = dbContext.Users.Any(x => x.Email.ToLower() == value.ToLower());
 
                 if (emailInUse)
                 {
                     context.AddFailure("Emial", "Adres email jest zajęty");
+                }
+            });
+
+            RuleFor(x => x.CityId).Custom((value, context) =>
+            {
+                var cityExists = dbContext.Cities.Any(x => x.Id == value);
+
+                if (!cityExists)
+                {
+                    context.AddFailure("CityId", "Podane miasto nie występuje w bazie danych");
                 }
             });
 
@@ -36,7 +46,7 @@ namespace Restaurant.APIComponents.Validators
 
             RuleFor(x => x.Surname).MaximumLength(127);
 
-            RuleFor(x => x.Phone).MaximumLength(32); // TODO consider validating phone number with regex
+            RuleFor(x => x.PhoneNumber).MaximumLength(32); // TODO consider validating phone number with regex
         }
     }
 }

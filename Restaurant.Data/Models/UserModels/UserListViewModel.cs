@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Data.Models.UserModels
 {
-    public class UserListItemDto
+    public class UserListViewModel
     {
         public long Id { get; set; }
         public string Email { get; set; }
