@@ -29,8 +29,8 @@ namespace Restaurant.API.Controllers
         [HttpPost("AddCity")]
         public IActionResult AddCity([FromBody] string cityName)
         {
-
-            return Ok();
+            short id = 0;
+            return Created($"api/City/GetCityById/{id}", null);
         }
 
         [HttpPut("UpdateCity/{id}")]
