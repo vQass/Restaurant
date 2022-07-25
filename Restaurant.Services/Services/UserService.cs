@@ -17,11 +17,17 @@ namespace Restaurant.Services.Services
 {
     public class UserService : IUserService
     {
+        #region Fields
+
         private readonly RestaurantDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly AuthenticationSettings _authenticationSettings;
         private readonly ILogger<UserService> _logger;
+
+        #endregion Fields
+
+        #region Ctors
 
         public UserService(
             RestaurantDbContext dbContext,
@@ -37,12 +43,16 @@ namespace Restaurant.Services.Services
             _logger = logger;
         }
 
-        public long AddUser(UserCreateRequestDto dto)
+        #endregion Ctors
+
+        #region PublicMethods
+
+        public long AddUser(UserCreateRequest userCreateRequest)
         {
             var date = new DateTime();
 
-            var user = _mapper.Map<User>(dto);
-            var userDetails = _mapper.Map<UserDetails>(dto);
+            var user = _mapper.Map<User>(userCreateRequest);
+            var userDetails = _mapper.Map<UserDetails>(userCreateRequest);
 
             user.Password = _passwordHasher.HashPassword(user, user.Password);
 
@@ -58,16 +68,36 @@ namespace Restaurant.Services.Services
             return user.Id;
         }
 
+        public void UpdateUser(long id, UserUpdateRequest userUpdateRequest)
+        {
+            var user = CheckIfUserExistsById(id);
+
+            _dbContext.Entry(user).Reference(x => x.UserDetails).Load();
+
+            user.UserDetails.Name = userUpdateRequest.Name;
+            user.UserDetails.Surname = userUpdateRequest.Surname;
+            user.UserDetails.Address = userUpdateRequest.Address;
+            user.UserDetails.CityId = userUpdateRequest.CityId;
+            user.UserDetails.PhoneNumber = userUpdateRequest.PhoneNumber;
+            user.UserDetails.Updated = new DateTime();
+
+            _dbContext.SaveChanges();
+        }
+
+        public void UpdateUserEmail(long id) // TODO add EmailUpdateRequest class
+        {
+            var user = CheckIfUserExistsById(id);
+
+            //CheckIfEmailInUse(newEmail);
+
+            //user.Email = newEmail;
+
+            _dbContext.SaveChanges();
+        }
+
         public void DisableUser(long id, List<Claim> userClaims)
         {
-            var users = _dbContext.Users.ToList();
-
-            var user = _dbContext.Users.FirstOrDefault(x => x.Id == id);
-
-            if (user is null)
-            {
-                throw new NotFoundException("Użytkownik z podanym id nie istnieje.");
-            }
+            var user = CheckIfUserExistsById(id);
 
             var currentUserIdFromClaim = userClaims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.NameIdentifier, StringComparison.OrdinalIgnoreCase))?.Value;
 
@@ -90,42 +120,43 @@ namespace Restaurant.Services.Services
                 user.Role.Equals(RoleEnum.Admin.ToString()) ||
                 user.Role.Equals(RoleEnum.HeadAdmin.ToString())))
             {
-                throw new BadRequestException("Administrator nie możne oznaczyć konta innego administratora jako nieaktywne.");
+                throw new UnauthorizedException("Administrator nie możne oznaczyć konta innego administratora jako nieaktywne.");
             }
 
             user.IsActive = false;
             _dbContext.SaveChanges();
         }
 
-        public List<UserListItemDto> GetUsersList()
+        public List<UserListViewModel> GetUsersList()
         {
             var users = _dbContext.Users.ToList();
 
-            var usersAsListItem = _mapper.Map<List<UserListItemDto>>(users);
+            var usersAsListItem = _mapper.Map<List<UserListViewModel>>(users);
 
             return usersAsListItem;
         }
 
-        public string SignInUser(LoginDto dto)
+        public string SignInUser(LoginRequest loginRequest)
         {
-            var user = _dbContext.Users.FirstOrDefault(x => x.Email == dto.Email);
+            var user = _dbContext.Users.FirstOrDefault(x => x.Email == loginRequest.Email);
 
-            if (user is null)
-            {
-                throw new BadRequestException("Invalid email or password");
-            }
+            CheckIfUserExistsByEmial(loginRequest.Email, "Niepoprawny email lub hasło.");
 
-            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, dto.Password);
+            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, loginRequest.Password);
 
             if (result == PasswordVerificationResult.Failed)
             {
-                throw new BadRequestException("Invalid email or password");
+                throw new BadRequestException("Niepoprawny email lub hasło.");
             }
 
             return GenerateJwt(user);
         }
 
-        internal string GenerateJwt(User user)
+        #endregion PublicMethods
+
+        #region PrivateMethods
+
+        private string GenerateJwt(User user)
         {
             var claims = new List<Claim>
             {
@@ -143,5 +174,33 @@ namespace Restaurant.Services.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             return tokenHandler.WriteToken(token);
         }
+
+        private User CheckIfUserExistsById(long id)
+        {
+            var user = _dbContext.Users.FirstOrDefault(x => x.Id == id);
+
+            if (user == null)
+            {
+                _logger.LogError($"User with id:{id} does not exist.");
+                throw new NotFoundException("Użytkownik o podanym id nie istnieje.");
+            }
+
+            return user;
+        }
+
+        private User CheckIfUserExistsByEmial(string email, string message)
+        {
+            var user = _dbContext.Users.FirstOrDefault(x => x.Email == email);
+
+            if (user == null)
+            {
+                _logger.LogError($"User with email:{email} does not exist.");
+                throw new NotFoundException(message);
+            }
+
+            return user;
+        }
+
+        #endregion PrivateMethods
     }
 }

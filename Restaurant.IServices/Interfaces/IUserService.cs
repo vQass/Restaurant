@@ -5,9 +5,10 @@ namespace Restaurant.IServices.Interfaces
 {
     public interface IUserService
     {
-        public long AddUser(UserCreateRequestDto dto);
+        public long AddUser(UserCreateRequest dto);
         public void DisableUser(long id, List<Claim> userClaims);
-        public List<UserListItemDto> GetUsersList();
-        public string SignInUser(LoginDto dto);
+        public List<UserListViewModel> GetUsersList();
+        public string SignInUser(LoginRequest dto);
+        public void UpdateUser(long id, UserUpdateRequest userUpdateRequest);
     }
 }

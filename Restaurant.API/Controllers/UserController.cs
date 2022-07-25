@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Restaurant.APIComponents.Attributes;
 using Restaurant.Data.Models.UserModels;
 using Restaurant.DB.Enums;
@@ -19,13 +18,13 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPost("AddUser")]
-        public IActionResult AddUser([FromBody] UserCreateRequestDto userDto)
+        public IActionResult AddUser([FromBody] UserCreateRequest userCreateRequest)
         {
-            var id = _userService.AddUser(userDto);
+            var id = _userService.AddUser(userCreateRequest);
             return Created($"api/User/{id}", null);
         }
 
-        [AuthorizeWithRoles(RoleEnum.HeadAdmin)]
+        [AuthorizeWithRoles(RoleEnum.HeadAdmin, RoleEnum.Admin)]
         [HttpPost("DisableUser/{id}")]
         public IActionResult DisableUser([FromRoute] long id)
         {
@@ -35,17 +34,25 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPost("SignInUser")]
-        public IActionResult SignInUser([FromBody] LoginDto dto)
+        public IActionResult SignInUser([FromBody] LoginRequest loginRequest)
         {
-            var token = _userService.SignInUser(dto);
+            var token = _userService.SignInUser(loginRequest);
             return Ok(token);
         }
 
+        //[AuthorizeWithRoles(RoleEnum.HeadAdmin, RoleEnum.Admin)]
         [HttpGet("GetUsersList")]
         public IActionResult GetUsersList()
         {
             var usersList = _userService.GetUsersList();
             return Ok(usersList);
+        }
+
+        [HttpPut("UpdateUser")]
+        public IActionResult UpdateUser(long id, [FromBody] UserUpdateRequest userUpdateRequest)
+        {
+            _userService.UpdateUser(id, userUpdateRequest);
+            return Ok();
         }
     }
 }
