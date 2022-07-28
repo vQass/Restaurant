@@ -41,6 +41,14 @@ namespace Restaurant.API.Controllers
         }
 
         //[AuthorizeWithRoles(RoleEnum.HeadAdmin, RoleEnum.Admin)]
+        [HttpGet("GetUserById/{id}")]
+        public IActionResult GetUserById([FromRoute] long id)
+        {
+            var user = _userService.GetUserById(id);
+            return Ok(user);
+        }
+
+        //[AuthorizeWithRoles(RoleEnum.HeadAdmin, RoleEnum.Admin)]
         [HttpGet("GetUsersList")]
         public IActionResult GetUsersList()
         {

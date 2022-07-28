@@ -11,11 +11,10 @@ namespace Restaurant.DB.Entities
 {
     public class MealCategory
     {
-        [Key]
         public short Id { get; set; }
-        [MaxLength(127)]
         public string Name { get; set; }
-        [JsonIgnore]
-        public virtual List<Meal>? Meals { get; set; }
+        
+        [JsonIgnore] // might be not needed after ignoring
+        public virtual List<Meal> Meals { get; set; }
     }
 }

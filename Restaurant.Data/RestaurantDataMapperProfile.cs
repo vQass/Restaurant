@@ -11,8 +11,8 @@ namespace Restaurant.Data
         public RestaurantDataMapperProfile()
         {
             CreateMap<UserCreateRequest, User>();
-            CreateMap<UserCreateRequest, UserDetails>();
             CreateMap<User, UserListViewModel>();
+            CreateMap<User, UserWithDetailsViewModel>();
 
             CreateMap<MealCreateRequest, Meal>();
             CreateMap<MealUpdateRequest, Meal>();

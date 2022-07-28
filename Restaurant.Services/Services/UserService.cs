@@ -13,6 +13,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Restaurant.Services.Services
 {
@@ -51,16 +52,11 @@ namespace Restaurant.Services.Services
         public long AddUser(UserCreateRequest userCreateRequest)
         {
             var date = new DateTime();
-
             var user = _mapper.Map<User>(userCreateRequest);
-            var userDetails = _mapper.Map<UserDetails>(userCreateRequest);
 
             user.Password = _passwordHasher.HashPassword(user, user.Password);
-
-            userDetails.Inserted = date;
-            userDetails.Updated = date;
-
-            user.UserDetails = userDetails;
+            user.Inserted = date;
+            user.Updated = date;
             user.Role = (byte)RoleEnum.User;
 
             _dbContext.Users.Add(user);
@@ -73,14 +69,17 @@ namespace Restaurant.Services.Services
         {
             var user = CheckIfUserExistsById(id);
 
-            _dbContext.Entry(user).Reference(x => x.UserDetails).Load();
+            if(user == null)
+            {
+                throw new NotFoundException("Użytkownik o podanym id nie istnieje");
+            }
 
-            user.UserDetails.Name = userUpdateRequest.Name;
-            user.UserDetails.Surname = userUpdateRequest.Surname;
-            user.UserDetails.Address = userUpdateRequest.Address;
-            user.UserDetails.CityId = userUpdateRequest.CityId;
-            user.UserDetails.PhoneNumber = userUpdateRequest.PhoneNumber;
-            user.UserDetails.Updated = new DateTime();
+            user.Name = userUpdateRequest.Name;
+            user.Surname = userUpdateRequest.Surname;
+            user.Address = userUpdateRequest.Address;
+            user.CityId = userUpdateRequest.CityId;
+            user.PhoneNumber = userUpdateRequest.PhoneNumber;
+            user.Updated = DateTime.Now;
 
             _dbContext.SaveChanges();
         }
@@ -94,6 +93,7 @@ namespace Restaurant.Services.Services
             CheckIfEmailInUse(newEmail, id);
 
             user.Email = newEmail;
+            user.Updated = DateTime.Now;
 
             _dbContext.SaveChanges();
         }
@@ -102,7 +102,8 @@ namespace Restaurant.Services.Services
         {
             var user = CheckIfUserExistsById(id);
 
-            var currentUserIdFromClaim = userClaims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.NameIdentifier, StringComparison.OrdinalIgnoreCase))?.Value;
+            var currentUserIdFromClaim = userClaims?
+                .FirstOrDefault(x => x.Type.Equals(ClaimTypes.NameIdentifier, StringComparison.OrdinalIgnoreCase))?.Value;
 
             long currentUserId;
 
@@ -137,6 +138,15 @@ namespace Restaurant.Services.Services
             var usersAsListItem = _mapper.Map<List<UserListViewModel>>(users);
 
             return usersAsListItem;
+        }
+
+        public UserWithDetailsViewModel GetUserById(long id)
+        {
+            var user = CheckIfUserExistsById(id);
+
+            var userWithDetails = _mapper.Map<UserWithDetailsViewModel>(user);
+
+            return userWithDetails;
         }
 
         public string SignInUser(LoginRequest loginRequest)
@@ -210,6 +220,7 @@ namespace Restaurant.Services.Services
 
             if(emailInUse)
             {
+                _logger.LogError($"Email:{email} is already taken.");
                 throw new BadRequestException("Podany email jest zajęty.");
             }
         }
@@ -222,6 +233,7 @@ namespace Restaurant.Services.Services
 
             if(!emailValid)
             {
+                _logger.LogError($"Email:{email} has invalid format.");
                 throw new BadRequestException("Podany email ma błędny format.");
             }
         }

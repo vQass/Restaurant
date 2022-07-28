@@ -6,25 +6,21 @@ namespace Restaurant.DB.Entities
 {
     public class User
     {
-        [Key]
         public long Id { get; set; }
-
-        [Required]
-        [MaxLength(320)]
         [EmailAddress]
         public string Email { get; set; }
-
-        [Required]
         public string Password { get; set; }
-
-        [Required]
-        [Column(TypeName = "tinyint")]
         public RoleEnum Role { get; set; }
-
-        [Required]
         public bool IsActive { get; set; } = true;
-
-        public virtual UserDetails UserDetails { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public short? CityId { get; set; }
+        public string Address { get; set; }
+        [Phone]
+        public string PhoneNumber { get; set; }
+        public DateTime Inserted { get; set; }
+        public DateTime Updated { get; set; }
+        public virtual City City { get; set; }
         public virtual List<Order> Orders { get; set; }
     }
 }
