@@ -44,18 +44,37 @@ namespace Restaurant.Services.Services
                     _dbContext.MealsCategories.AddRange(categotries);
                     _dbContext.SaveChanges();
                 }
-                if(!_dbContext.Meals.Any())
+                if (!_dbContext.Meals.Any())
                 {
                     var meals = GetMeals();
                     _dbContext.Meals.AddRange(meals);
                     _dbContext.SaveChanges();
                 }
-                if(!_dbContext.Orders.Any())
+                if (!_dbContext.Orders.Any())
                 {
                     var orders = GetOrders();
                     _dbContext.Orders.AddRange(orders);
                     _dbContext.SaveChanges();
                 }
+                if (!_dbContext.Promotions.Any())
+                {
+                    var promotions = GetPromotions();
+                    _dbContext.Promotions.AddRange(promotions);
+                    _dbContext.SaveChanges();
+                }
+                if (!_dbContext.Ingredients.Any())
+                {
+                    var ingredients = GetIngredients();
+                    _dbContext.Ingredients.AddRange(ingredients);
+                    _dbContext.SaveChanges();
+                }               
+                if (!_dbContext.Recipes.Any())
+                {
+                    var recipies = GetRecipes();
+                    _dbContext.Recipes.AddRange(recipies);
+                    _dbContext.SaveChanges();
+                }
+
             }
         }
         #region Cities
@@ -197,14 +216,14 @@ namespace Restaurant.Services.Services
                     MealCategory = _dbContext.MealsCategories.FirstOrDefault(x => x.Name == MealCategoryMainMeals),
                     Price = 10.4m,
                     Available = true,
-                }, 
+                },
                 new Meal
                 {
                     Name = "Rosół",
                     MealCategory = _dbContext.MealsCategories.FirstOrDefault(x => x.Name == MealCategorySoups),
                     Price = 6.4m,
                     Available = true,
-                }, 
+                },
                 new Meal
                 {
                     Name = "Kwaśnica",
@@ -286,5 +305,374 @@ namespace Restaurant.Services.Services
         }
 
         #endregion
-    }
+
+        #region Promotions
+
+        private IEnumerable<Promotion> GetPromotions()
+        {
+            var promotions = new List<Promotion>()
+            {
+                new Promotion
+                {
+                    Code = "Promo5",
+                    DiscountPercentage = 5,
+                    StartDate = DateTime.Now.AddDays(-3),
+                    EndDate = DateTime.Now.AddDays(3),
+                    IsManuallyDisabled = false
+                },
+                new Promotion
+                {
+                    Code = "Promo10",
+                    DiscountPercentage = 10,
+                    StartDate = DateTime.Now.AddDays(-3),
+                    EndDate = DateTime.Now.AddDays(3),
+                    IsManuallyDisabled = true
+                }
+            };
+
+            return promotions;
+        }
+
+        #endregion
+
+        #region Ingredients
+
+        private IEnumerable<Ingredient> GetIngredients()
+        {
+            var ingredients = new List<Ingredient>()
+            {
+                new Ingredient
+                {
+                    Name = "Pierś z kurczaka"
+                },
+                new Ingredient
+                {
+                    Name = "Bułka tarta"
+                },
+                new Ingredient
+                {
+                    Name = "Jajka"
+                },
+                new Ingredient
+                {
+                    Name = "Kura"
+                },
+                new Ingredient
+                {
+                    Name = "Marchewka"
+                },
+                new Ingredient
+                {
+                    Name = "Pietruszka"
+                },
+                new Ingredient
+                {
+                    Name = "Cebula"
+                },
+                new Ingredient
+                {
+                    Name = "Seler"
+                },
+                new Ingredient
+                {
+                    Name = "Czosnek"
+                },
+                new Ingredient
+                {
+                    Name = "Liść laurowy"
+                },
+                new Ingredient
+                {
+                    Name = "Ziele angielskie"
+                },
+                new Ingredient
+                {
+                    Name = "Pieprz"
+                },
+                new Ingredient
+                {
+                    Name = "Sól"
+                },
+                new Ingredient
+                {
+                    Name = "Żeberka wędzone"
+                },
+                new Ingredient
+                {
+                    Name = "Boczek"
+                },
+                new Ingredient
+                {
+                    Name = "Kminek"
+                },
+                new Ingredient
+                {
+                    Name = "Ziemniaki"
+                },
+                new Ingredient
+                {
+                    Name = "Kiszona kapusta"
+                },
+                new Ingredient
+                {
+                    Name = "Majeranek"
+                }
+
+            };
+            return ingredients;
+        }
+
+        #endregion
+
+        #region Recipe 
+
+        private IEnumerable<RecipeElement> GetRecipes()
+        {
+            var meals = _dbContext.Meals.ToList();
+            var ingredients = _dbContext.Ingredients.ToList();
+
+            var recipes = new List<RecipeElement>()
+            {
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Kotlet z piersi kurczaka")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Pierś z kurczaka")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Kotlet z piersi kurczaka")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Bułka tarta")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Kotlet z piersi kurczaka")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Jajka")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Kotlet z piersi kurczaka")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Sól")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Kotlet z piersi kurczaka")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Pieprz")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Rosół")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Kura")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Rosół")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Marchewka")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Rosół")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Pietruszka")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Rosół")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Cebula")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Rosół")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Seler")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Rosół")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Czosnek")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Rosół")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Liść laurowy")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Rosół")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Ziele angielskie")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Rosół")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Pieprz")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Rosół")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Sól")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Kwaśnica")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Czosnek")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Kwaśnica")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Liść laurowy")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Kwaśnica")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Ziele angielskie")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Kwaśnica")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Pieprz")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Kwaśnica")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Sól")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Kwaśnica")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Żeberka wędzone")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Kwaśnica")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Boczek")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Kwaśnica")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Kminek")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Kwaśnica")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Ziemniaki")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Kwaśnica")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Majeranek")
+                        .First()
+                },
+                new RecipeElement
+                {
+                    Meal = meals
+                    .Where(x => x.Name == "Kwaśnica")
+                    .FirstOrDefault(),
+                    Ingredient =  ingredients
+                        .Where(x => x.Name == "Kiszona kapusta")
+                        .First()
+                }
+            };
+
+            return recipes;
+        }
+
+    #endregion
+
+}
 }

@@ -11,6 +11,6 @@ namespace Restaurant.DB.Entities
         public bool Available { get; set; } = false;
         public virtual MealCategory MealCategory { get; set; }
         public virtual List<OrderElement> OrderElements { get; set; }
-        public virtual List<Recipe> Recipes { get; set; }
+        public virtual List<RecipeElement> RecipeElements { get; set; }
     }
 }

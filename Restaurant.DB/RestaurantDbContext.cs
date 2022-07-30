@@ -16,35 +16,73 @@ namespace Restaurant.DB
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderElement> OrdersElements { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
-        public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<RecipeElement> Recipes { get; set; }
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<OrderElement>().HasKey(x => new { x.OrderId, x.MealId });
-            modelBuilder.Entity<Recipe>().HasKey(x => new { x.MealId, x.IngredientId });
+            modelBuilder.Entity<OrderElement>()
+                .HasKey(x => new { x.OrderId, x.MealId });
 
-            modelBuilder.Entity<User>().HasOne(x => x.City).WithMany(x => x.Users);
-            modelBuilder.Entity<User>().HasMany(x => x.Orders).WithOne(x => x.User);
+            modelBuilder.Entity<User>()
+                .HasOne(x => x.City)
+                .WithMany(x => x.Users);
 
-            modelBuilder.Entity<Meal>().HasOne(x => x.MealCategory).WithMany(x => x.Meals);
-            modelBuilder.Entity<Meal>().HasMany(x => x.Recipes).WithOne(x => x.Meal);
-            modelBuilder.Entity<Meal>().HasMany(x => x.OrderElements).WithOne(x => x.Meal);
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.Orders)
+                .WithOne(x => x.User);
 
-            modelBuilder.Entity<MealCategory>().HasMany(x => x.Meals).WithOne(x => x.MealCategory);
+            modelBuilder.Entity<Meal>()
+                .HasOne(x => x.MealCategory)
+                .WithMany(x => x.Meals);
 
-            modelBuilder.Entity<Order>().HasOne(x => x.User).WithMany(x => x.Orders);
-            modelBuilder.Entity<Order>().HasOne(x => x.City).WithMany(x => x.Orders);
-            modelBuilder.Entity<Order>().HasOne(x => x.Promotion).WithMany(x => x.Orders);
-            modelBuilder.Entity<Order>().HasMany(x => x.OrderElements).WithOne(x => x.Order);
+            modelBuilder.Entity<Meal>()
+                .HasMany(x => x.RecipeElements)
+                .WithOne(x => x.Meal);
 
-            modelBuilder.Entity<OrderElement>().HasOne(x => x.Order).WithMany(x => x.OrderElements);
-            modelBuilder.Entity<OrderElement>().HasOne(x => x.Meal).WithMany(x => x.OrderElements);
+            modelBuilder.Entity<Meal>()
+                .HasMany(x => x.OrderElements)
+                .WithOne(x => x.Meal);
 
-            modelBuilder.Entity<Promotion>().HasMany(x => x.Orders).WithOne(x => x.Promotion);
+            modelBuilder.Entity<MealCategory>()
+                .HasMany(x => x.Meals)
+                .WithOne(x => x.MealCategory);
 
-            modelBuilder.Entity<Recipe>().HasOne(x => x.Meal).WithMany(x => x.Recipes);
-            modelBuilder.Entity<Recipe>().HasOne(x => x.Ingredient).WithMany(x => x.Recipes);
+            modelBuilder.Entity<Order>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Orders);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(x => x.City)
+                .WithMany(x => x.Orders);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(x => x.Promotion)
+                .WithMany(x => x.Orders);
+
+            modelBuilder.Entity<Order>()
+                .HasMany(x => x.OrderElements)
+                .WithOne(x => x.Order);
+
+            modelBuilder.Entity<OrderElement>()
+                .HasOne(x => x.Order)
+                .WithMany(x => x.OrderElements);
+
+            modelBuilder.Entity<OrderElement>()
+                .HasOne(x => x.Meal)
+                .WithMany(x => x.OrderElements);
+
+            modelBuilder.Entity<Promotion>()
+                .HasMany(x => x.Orders)
+                .WithOne(x => x.Promotion);
+
+            modelBuilder.Entity<RecipeElement>()
+                .HasOne(x => x.Meal)
+                .WithMany(x => x.RecipeElements);
+
+            modelBuilder.Entity<RecipeElement>()
+                .HasOne(x => x.Ingredient)
+                .WithMany(x => x.RecipeElements);
 
             modelBuilder.Entity<User>(entity =>
             {
@@ -58,7 +96,7 @@ namespace Restaurant.DB
                 entity.Property(x => x.Address).IsRequired(false).HasMaxLength(255);
                 entity.Property(x => x.PhoneNumber).IsRequired(false).HasMaxLength(32);
                 entity.Property(x => x.Inserted).IsRequired(true).HasColumnType("smalldatetime");
-                entity.Property(x => x.Inserted).IsRequired(true).HasColumnType("smalldatetime");
+                entity.Property(x => x.Updated).IsRequired(true).HasColumnType("smalldatetime");
             });
 
             modelBuilder.Entity<Meal>(entity =>
@@ -66,7 +104,6 @@ namespace Restaurant.DB
                 entity.Property(x => x.Name).IsRequired(true).HasMaxLength(127);
                 entity.Property(x => x.Price).IsRequired(true).HasColumnType("money");
                 entity.Property(x => x.Available).IsRequired(true).HasDefaultValue(false);
-                entity.Property(x => x.CategoryId).IsRequired(true);
             });
 
             modelBuilder.Entity<MealCategory>(entity =>
@@ -105,12 +142,6 @@ namespace Restaurant.DB
             modelBuilder.Entity<Ingredient>(entity =>
             {
                 entity.Property(x => x.Name).IsRequired(true).HasMaxLength(127);
-            });
-
-            modelBuilder.Entity<Recipe>(entity =>
-            {
-                entity.Property(x => x.IngredientId).IsRequired(true);
-                entity.Property(x => x.MealId).IsRequired(true);
             });
 
             //modelBuilder.Entity<City>().Ignore(c => c.UserDetails);

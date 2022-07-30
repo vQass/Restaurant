@@ -3,10 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Restaurant.DB.Entities
 {
-    public class Recipe
+    public class RecipeElement
     {
-        public int IngredientId { get; set; }
-        public int MealId { get; set; }
+        public int Id { get; set; }
         public virtual Meal Meal { get; set; }
         public virtual Ingredient Ingredient { get; set; }
     }

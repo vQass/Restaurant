@@ -81,7 +81,7 @@ namespace Restaurant.Services.Services
 
             meal.Name = mealUpdateRequest.Name;
             meal.Price = mealUpdateRequest.Price;
-            meal.CategoryId = mealUpdateRequest.CategoryId;
+            meal.MealCategory.Id = mealUpdateRequest.CategoryId;
 
             _dbContext.SaveChanges();
         }
