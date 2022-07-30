@@ -131,7 +131,7 @@ namespace Restaurant.Services.Services
             _dbContext.SaveChanges();
         }
 
-        public List<UserListViewModel> GetUsersList()
+        public IEnumerable<UserListViewModel> GetUsersList()
         {
             var users = _dbContext.Users.ToList();
 

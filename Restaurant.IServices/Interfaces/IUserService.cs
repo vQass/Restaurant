@@ -7,7 +7,7 @@ namespace Restaurant.IServices.Interfaces
     {
         public long AddUser(UserCreateRequest dto);
         public void DisableUser(long id, List<Claim> userClaims);
-        public List<UserListViewModel> GetUsersList();
+        public IEnumerable<UserListViewModel> GetUsersList();
         public UserWithDetailsViewModel GetUserById(long id);
         public string SignInUser(LoginRequest dto);
         public void UpdateUser(long id, UserUpdateRequest userUpdateRequest);

@@ -23,7 +23,7 @@ namespace Restaurant.Services.Services
             _mapper = mapper;
             _logger = logger;
         }
-        public List<MealCategory> GetAllMealsCategories()
+        public IEnumerable<MealCategory> GetAllMealsCategories()
         {
             var mealCategories = _dbContext.MealsCategories.ToList();
 

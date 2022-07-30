@@ -10,7 +10,7 @@ namespace Restaurant.IServices.Interfaces
 {
     public interface IMealCategoryService
     {
-        List<MealCategory> GetAllMealsCategories();
+        IEnumerable<MealCategory> GetAllMealsCategories();
         short AddMealCategory(MealCategoryCreateRequest mealCategory);
         void UpdateMealCategory(short id, MealCategoryUpdateRequest mealCategory);
         void DeleteMealCategory(short id);

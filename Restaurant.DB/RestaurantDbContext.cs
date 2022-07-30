@@ -105,6 +105,12 @@ namespace Restaurant.DB
                 entity.Property(x => x.Price).IsRequired(true).HasColumnType("money");
                 entity.Property(x => x.Available).IsRequired(true).HasDefaultValue(false);
             });
+            
+            modelBuilder.Entity<City>(entity =>
+            {
+                entity.Property(x => x.Name).IsRequired(true).HasMaxLength(127);
+                entity.Property(x => x.IsActive).IsRequired(true).HasDefaultValue(false);
+            });
 
             modelBuilder.Entity<MealCategory>(entity =>
             {
@@ -143,23 +149,6 @@ namespace Restaurant.DB
             {
                 entity.Property(x => x.Name).IsRequired(true).HasMaxLength(127);
             });
-
-            //modelBuilder.Entity<City>().Ignore(c => c.UserDetails);
-            //modelBuilder.Entity<City>().Ignore(c => c.Order);
-
-            //modelBuilder.Entity<Ingredient>().Ignore(i => i.Recipes);
-           
-            //modelBuilder.Entity<Meal>().Ignore(m => m.Recipes);
-            
-            //modelBuilder.Entity<MealCategory>().Ignore(mc => mc.Meals);
-
-            //modelBuilder.Entity<Promotion>().Ignore(p => p.Orders);
-
-            //modelBuilder.Entity<UserDetails>().HasIndex(x => x.CityId).IsUnique(false);
-            //modelBuilder.Entity<UserDetails>().HasOne(x => x.City).WithMany(y => y.UserDetails).HasForeignKey(x => x.CityId).IsRequired(false);
-
-            //modelBuilder.Entity<User>().Ignore(u => u.Orders);
-            //modelBuilder.Entity<User>().Ignore(u => u.UserDetails);
 
             base.OnModelCreating(modelBuilder);
         }
