@@ -120,9 +120,9 @@ namespace Restaurant.Services.Services
 
             var role = userClaims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Role, StringComparison.OrdinalIgnoreCase))?.Value;
 
-            if(role.Equals(RoleEnum.Admin.ToString()) && (
-                user.Role.Equals(RoleEnum.Admin.ToString()) ||
-                user.Role.Equals(RoleEnum.HeadAdmin.ToString())))
+            if(role.Equals(RoleEnum.Admin.ToString()) 
+                && (user.Role.Equals(RoleEnum.Admin.ToString()) 
+                    || user.Role.Equals(RoleEnum.HeadAdmin.ToString())))
             {
                 throw new UnauthorizedException("Administrator nie możne oznaczyć konta innego administratora jako nieaktywne.");
             }
@@ -182,7 +182,12 @@ namespace Restaurant.Services.Services
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var expires = DateTime.Now.AddDays(_authenticationSettings.JwtExpireDays);
-            var token = new JwtSecurityToken(_authenticationSettings.JwtIssuer, _authenticationSettings.JwtIssuer, claims, expires: expires, signingCredentials: cred);
+            var token = new JwtSecurityToken(
+                _authenticationSettings.JwtIssuer,
+                _authenticationSettings.JwtIssuer,
+                claims,
+                expires: expires,
+                signingCredentials: cred);
 
             var tokenHandler = new JwtSecurityTokenHandler();
             return tokenHandler.WriteToken(token);
