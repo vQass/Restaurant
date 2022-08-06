@@ -58,6 +58,7 @@ namespace Restaurant.Services.Services
             var city = CheckIfCityExistsById(id);
 
             city.IsActive = false;
+            _dbContext.SaveChanges();
         }
 
         public void EnableCity(short id)
@@ -65,6 +66,7 @@ namespace Restaurant.Services.Services
             var city = CheckIfCityExistsById(id);
 
             city.IsActive = true;
+            _dbContext.SaveChanges();
         }
 
         public City GetCityById(short id)
