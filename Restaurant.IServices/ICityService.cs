@@ -16,6 +16,5 @@ namespace Restaurant.IServices
         public void DeleteCity(short id);
         public void EnableCity(short id);
         public void DisableCity(short id);
-
     }
 }
