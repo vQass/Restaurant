@@ -6,7 +6,7 @@ using Restaurant.Data.Models.MealModels;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.DB.Enums;
-using Restaurant.IServices.Interfaces;
+using Restaurant.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;

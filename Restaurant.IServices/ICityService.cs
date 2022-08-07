@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Restaurant.IServices.Interfaces
+namespace Restaurant.IServices
 {
     public interface ICityService
     {

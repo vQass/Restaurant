@@ -2,7 +2,7 @@
 using Restaurant.APIComponents.Exceptions;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
-using Restaurant.IServices.Interfaces;
+using Restaurant.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;

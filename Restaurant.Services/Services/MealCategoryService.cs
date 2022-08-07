@@ -4,7 +4,7 @@ using Restaurant.APIComponents.Exceptions;
 using Restaurant.Data.Models.MealCategoryModels;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
-using Restaurant.IServices.Interfaces;
+using Restaurant.IServices;
 
 namespace Restaurant.Services.Services
 {

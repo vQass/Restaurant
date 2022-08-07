@@ -8,7 +8,7 @@ using Restaurant.Data.Models.UserModels;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.DB.Enums;
-using Restaurant.IServices.Interfaces;
+using Restaurant.IServices;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;

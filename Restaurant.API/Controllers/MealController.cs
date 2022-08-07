@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Restaurant.Data.Models.MealModels;
-using Restaurant.IServices.Interfaces;
+using Restaurant.IServices;
 
 namespace Restaurant.API.Controllers
 {

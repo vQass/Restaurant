@@ -1,4 +1,4 @@
-﻿namespace Restaurant.IServices.Interfaces
+﻿namespace Restaurant.IServices
 {
     public interface ISeederService
     {

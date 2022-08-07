@@ -2,7 +2,7 @@
 using Restaurant.APIComponents.Attributes;
 using Restaurant.Data.Models.UserModels;
 using Restaurant.DB.Enums;
-using Restaurant.IServices.Interfaces;
+using Restaurant.IServices;
 
 namespace Restaurant.API.Controllers
 {

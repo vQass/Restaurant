@@ -1,7 +1,7 @@
 ﻿using Restaurant.Data.Models.UserModels;
 using System.Security.Claims;
 
-namespace Restaurant.IServices.Interfaces
+namespace Restaurant.IServices
 {
     public interface IUserService
     {
