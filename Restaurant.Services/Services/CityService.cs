@@ -103,7 +103,7 @@ namespace Restaurant.Services.Services
 
             if(city is null)
             {
-                throw new NotFoundException("Miasto o podanym id nie istnieje");
+                throw new NotFoundException("Miasto o podanym id nie istnieje.");
             }
 
             return city;
@@ -116,7 +116,7 @@ namespace Restaurant.Services.Services
 
             if (city is null)
             {
-                throw new NotFoundException("Miasto o podanej nazwie nie istnieje");
+                throw new NotFoundException("Miasto o podanej nazwie nie istnieje.");
             }
 
             return city;
@@ -132,8 +132,8 @@ namespace Restaurant.Services.Services
 
             if (cityNameInUse)
             {
-                _logger.LogError("Given name is taken");
-                throw new NotFoundException("Podana nazwa miasta jest zajęta");
+                _logger.LogError("Given name is taken.");
+                throw new NotFoundException("Podana nazwa miasta jest zajęta.");
             }
         }
 
@@ -143,16 +143,16 @@ namespace Restaurant.Services.Services
 
             if(cityUsedInUsers)
             {
-                _logger.LogError($"City with name {city.Name} is used in users table");
-                throw new BadRequestException("Podane miasto używane jest w adresie co najmniej jednego użytkownika");
+                _logger.LogError($"City with name {city.Name} is used in users table.");
+                throw new BadRequestException("Podane miasto używane jest w adresie co najmniej jednego użytkownika.");
             }
 
             var cityUsedInOrders = _dbContext.Orders.Any(x => x.City == city);
 
             if (cityUsedInUsers)
             {
-                _logger.LogError($"City with name {city.Name} is used in orders table");
-                throw new BadRequestException("Podane miasto używane jest w adresie co najmniej jednego zamówienia");
+                _logger.LogError($"City with name {city.Name} is used in orders table.");
+                throw new BadRequestException("Podane miasto używane jest w adresie co najmniej jednego zamówienia.");
             }
         }
 
