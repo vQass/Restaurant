@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Restaurant.IServices;
 
 namespace Restaurant.API.Controllers
 {
@@ -7,57 +8,58 @@ namespace Restaurant.API.Controllers
     [ApiController]
     public class CityController : ControllerBase
     {
-        public CityController()
-        {
+        private readonly ICityService _cityService;
 
+        public CityController(ICityService cityService)
+        {
+            _cityService = cityService;
         }
 
         [HttpGet("GetCityList")]
         public IActionResult GetCityList()
         {
-
-            return Ok();
+            return Ok(_cityService.GetCityList());
         }
 
         [HttpGet("GetCityById/{id}")]
         public IActionResult GetCityById([FromRoute] short id)
         {
 
-            return Ok();
+            return Ok(_cityService.GetCityById(id));
         }
 
         [HttpPost("AddCity")]
         public IActionResult AddCity([FromBody] string cityName)
         {
-            short id = 0;
+            short id = _cityService.AddCity(cityName);
             return Created($"api/City/GetCityById/{id}", null);
         }
 
         [HttpPut("UpdateCity/{id}")]
         public IActionResult UpdateCity([FromRoute] short id, [FromBody] string cityName)
         {
-
+            _cityService.UpdateCity(id, cityName);
             return Ok();
         }
 
         [HttpDelete("DeleteCity/{id}")]
         public IActionResult DeleteCity([FromRoute] short id)
         {
-
-            return Ok();
+            _cityService.DeleteCity(id);
+            return NoContent();
         }
 
         [HttpPut("EnableCity/{id}")]
         public IActionResult EnableCity([FromRoute] short id)
         {
-
+            _cityService.EnableCity(id);
             return Ok();
         }
 
         [HttpPut("DisableCity/{id}")]
         public IActionResult DisableCity([FromRoute] short id)
         {
-
+            _cityService.DisableCity(id);
             return Ok();
         }
     }

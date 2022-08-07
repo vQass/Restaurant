@@ -11,7 +11,7 @@ namespace Restaurant.IServices
     {
         public IEnumerable<City> GetCityList();
         public City GetCityById(short id);
-        public void AddCity(string cityName);
+        public short AddCity(string cityName);
         public void UpdateCity(short id, string cityName);
         public void DeleteCity(short id);
         public void EnableCity(short id);

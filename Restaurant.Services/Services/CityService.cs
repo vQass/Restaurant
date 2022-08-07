@@ -32,7 +32,7 @@ namespace Restaurant.Services.Services
 
         #region PublicMethods
 
-        public void AddCity(string cityName)
+        public short AddCity(string cityName)
         {
             CheckIfCityNameInUse(cityName);
 
@@ -41,6 +41,7 @@ namespace Restaurant.Services.Services
 
             _dbContext.Cities.Add(city);
             _dbContext.SaveChanges();
+            return city.Id;
         }
 
         public void DeleteCity(short id)
