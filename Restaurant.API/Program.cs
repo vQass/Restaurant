@@ -8,7 +8,7 @@ using Restaurant.APIComponents.Middlewares;
 using Restaurant.Data;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
-using Restaurant.IServices.Interfaces;
+using Restaurant.IServices;
 using Restaurant.Services;
 using System.Globalization;
 using System.Text;
@@ -60,7 +60,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "JWTToken_Auth_API",
+        Title = "Restaurant_API",
         Version = "v1"
     });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
