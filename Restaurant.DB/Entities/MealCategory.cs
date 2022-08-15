@@ -13,8 +13,6 @@ namespace Restaurant.DB.Entities
     {
         public short Id { get; set; }
         public string Name { get; set; }
-        
-        [JsonIgnore] // might be not needed after ignoring
         public virtual List<Meal> Meals { get; set; }
     }
 }
