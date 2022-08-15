@@ -32,26 +32,10 @@ namespace Restaurant.DB
                 .WithMany(x => x.Users)
                 .HasForeignKey(x => x.CityId);
 
-            //modelBuilder.Entity<User>()
-            //    .HasMany(x => x.Orders)
-            //    .WithOne(x => x.User);
-
             modelBuilder.Entity<Meal>()
                 .HasOne(x => x.MealCategory)
                 .WithMany(x => x.Meals)
                 .HasForeignKey(x => x.MealCategoryId);
-
-            //modelBuilder.Entity<Meal>()
-            //    .HasMany(x => x.RecipeElements)
-            //    .WithOne(x => x.Meal);
-
-            //modelBuilder.Entity<Meal>()
-            //    .HasMany(x => x.OrderElements)
-            //    .WithOne(x => x.Meal);
-
-            //modelBuilder.Entity<MealCategory>()
-            //    .HasMany(x => x.Meals)
-            //    .WithOne(x => x.MealCategory);
 
             modelBuilder.Entity<Order>()
                 .HasOne(x => x.User)
@@ -68,10 +52,6 @@ namespace Restaurant.DB
                 .WithMany(x => x.Orders)
                 .HasForeignKey(x => x.PromotionCodeId);
 
-            //modelBuilder.Entity<Order>()
-            //    .HasMany(x => x.OrderElements)
-            //    .WithOne(x => x.Order);
-
             modelBuilder.Entity<OrderElement>()
                 .HasOne(x => x.Order)
                 .WithMany(x => x.OrderElements)
@@ -82,10 +62,6 @@ namespace Restaurant.DB
                 .WithMany(x => x.OrderElements)
                 .HasForeignKey(x => x.MealId);
 
-            //modelBuilder.Entity<Promotion>()
-            //    .HasMany(x => x.Orders)
-            //    .WithOne(x => x.Promotion);
-
             modelBuilder.Entity<RecipeElement>()
                 .HasOne(x => x.Meal)
                 .WithMany(x => x.RecipeElements)
@@ -95,8 +71,6 @@ namespace Restaurant.DB
                 .HasOne(x => x.Ingredient)
                 .WithMany()
                 .HasForeignKey(x => x.IngredientId);
-
-            modelBuilder.Entity<Ingredient>().HasMany(x => x.RecipeElements).WithOne(x => x.Ingredient);
 
             modelBuilder.Entity<User>(entity =>
             {

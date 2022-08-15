@@ -39,7 +39,10 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddControllers().AddFluentValidation();
+builder.Services.AddControllers()
+    .AddFluentValidation()
+    .AddNewtonsoftJson(options =>
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 builder.Services.AddDbContext<RestaurantDbContext>(
                  options => options.UseSqlServer(

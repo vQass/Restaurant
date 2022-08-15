@@ -22,7 +22,7 @@ namespace Restaurant.Services.Services
 
         #region Ctors
 
-        public CityService(RestaurantDbContext dbContext, ILogger logger)
+        public CityService(RestaurantDbContext dbContext, ILogger<CityService> logger)
         {
             _dbContext = dbContext;
             _logger = logger;
@@ -127,14 +127,12 @@ namespace Restaurant.Services.Services
         {
             var cityNameInUse = _dbContext.Cities
                 .Where(x => x.Id != id)
-                .Any(
-                    x => x.Name.Trim().ToLower() ==
-                    cityName.Trim().ToLower());
+                .Any(x => x.Name.Equals(cityName.Trim().ToLowerInvariant()));
 
             if (cityNameInUse)
             {
                 _logger.LogError("Given name is taken.");
-                throw new NotFoundException("Podana nazwa miasta jest zajęta.");
+                throw new BadRequestException("Podana nazwa miasta jest zajęta.");
             }
         }
 

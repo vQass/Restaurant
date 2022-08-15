@@ -9,10 +9,14 @@ namespace Restaurant.Services
     {
         public static IServiceCollection AddRestaurantServices(this IServiceCollection services)
         {
-            services.TryAddScoped<IUserService, UserService>();
-            services.TryAddScoped<IMealService, MealService>();
-            services.TryAddScoped<IMealCategoryService, MealCategoryService>();
+            services.TryAddScoped<ICityService, CityService>();
             services.TryAddScoped<IIngredientService, IngredientService>();
+            services.TryAddScoped<IMealCategoryService, MealCategoryService>();
+            services.TryAddScoped<IMealService, MealService>();
+            services.TryAddScoped<IPromotionService, PromotionService>();
+            services.TryAddScoped<IRecipeService, RecipeService>();
+            services.TryAddScoped<IUserService, UserService>();
+
             services.TryAddScoped<ISeederService, SeederService>();
 
             return services;
