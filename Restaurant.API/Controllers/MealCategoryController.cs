@@ -16,8 +16,8 @@ namespace Restaurant.API.Controllers
             _mealCategoryService = mealCategoryService;
         }
 
-        [HttpGet("GetAllMealsCategories")]
-        public IActionResult GetAllMealsCategories()
+        [HttpGet("GetMealCategories")]
+        public IActionResult GetMealCategories()
         {
             return Ok(_mealCategoryService.GetMealCategories());
         }
