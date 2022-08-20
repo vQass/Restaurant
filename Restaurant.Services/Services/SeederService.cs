@@ -256,7 +256,7 @@ namespace Restaurant.Services.Services
                     PhoneNumber = "123456789",
                     Name = "Patryk",
                     Surname = "Zub",
-                    Status = OrderStatusEnum.Realizowane,
+                    //Status = OrderStatusEnum.Realizowane,
                     OrderElements = new List<OrderElement>()
                     {
                         new OrderElement
@@ -282,7 +282,7 @@ namespace Restaurant.Services.Services
                     PhoneNumber = "987654321",
                     Name = "Adam",
                     Surname = "Nowak",
-                    Status = OrderStatusEnum.Realizowane,
+                    //Status = OrderStatusEnum.Realizowane,
                     OrderElements = new List<OrderElement>()
                     {
                         new OrderElement

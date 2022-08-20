@@ -13,16 +13,16 @@
     {
         static OrderStatusDictionary()
         {
-            OrderStatusesWithDescription = new Dictionary<OrderStatusEnum, string>()
+            OrderStatusesWithDescription = new Dictionary<byte, string>()
             {
-                { OrderStatusEnum.Pending, "W oczekiwaniu" },
-                { OrderStatusEnum.InProgress, "W trakcie realizajci"},
-                { OrderStatusEnum.Completed, "Zrealizowane"},
-                { OrderStatusEnum.Cancelled, "Anulowane"},
-                { OrderStatusEnum.Suspended, "Tymczasowo zawieszone"}
+                { (byte)OrderStatusEnum.Pending, "Oczekujące" },
+                { (byte)OrderStatusEnum.InProgress, "W trakcie realizacji"},
+                { (byte)OrderStatusEnum.Completed, "Zrealizowane"},
+                { (byte)OrderStatusEnum.Cancelled, "Anulowane"},
+                { (byte)OrderStatusEnum.Suspended, "Tymczasowo zawieszone"}
             };
         }
 
-        public static Dictionary<OrderStatusEnum, string> OrderStatusesWithDescription { get; }
+        public static Dictionary<byte, string> OrderStatusesWithDescription { get; }
     }
 }

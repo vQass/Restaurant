@@ -17,11 +17,8 @@ namespace Restaurant.DB.Entities
         public long? PromotionCodeId { get; set; }
         public OrderStatusEnum Status { get; set; }
         public DateTime OrderDate { get; set; }
-        [ForeignKey("UserId")]
         public virtual User User { get; set; }
-        [ForeignKey("CityId")]
         public virtual City City { get; set; }
-        [ForeignKey("PromotionCodeId")]
         public virtual Promotion Promotion { get; set; }
         public virtual List<OrderElement> OrderElements { get; set; }
     }

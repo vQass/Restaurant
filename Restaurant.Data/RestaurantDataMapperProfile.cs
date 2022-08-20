@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Restaurant.Data.Models.MealCategoryModels;
 using Restaurant.Data.Models.MealModels;
+using Restaurant.Data.Models.OrderModels;
 using Restaurant.Data.Models.PromotionModels;
 using Restaurant.Data.Models.RecipeModels;
 using Restaurant.Data.Models.UserModels;
@@ -38,6 +39,9 @@ namespace Restaurant.Data
                 .ForMember(dest => dest.IngredientId, opt => opt.MapFrom(src => src.IngredientId))
                 .ForMember(dest => dest.MealName, opt => opt.MapFrom(src => src.Meal.Name))
                 .ForMember(dest => dest.MealId, opt => opt.MapFrom(src => src.MealId));
+
+            CreateMap<OrderCreateRequest, Order>();
+            CreateMap<OrderElementCreateRequest, OrderElement>();
         }
     }
 }
