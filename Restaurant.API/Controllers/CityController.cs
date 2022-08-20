@@ -18,14 +18,13 @@ namespace Restaurant.API.Controllers
         [HttpGet("GetCityList")]
         public IActionResult GetCityList()
         {
-            return Ok(_cityService.GetCityList());
+            return Ok(_cityService.GetCities());
         }
 
-        [HttpGet("GetCityById/{id}")]
-        public IActionResult GetCityById([FromRoute] short id)
+        [HttpGet("GetCity/{id}")]
+        public IActionResult GetCity([FromRoute] short id)
         {
-
-            return Ok(_cityService.GetCityById(id));
+            return Ok(_cityService.GetCity(id));
         }
 
         [HttpPost("AddCity")]

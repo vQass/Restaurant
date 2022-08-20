@@ -9,8 +9,8 @@ namespace Restaurant.IServices
 {
     public interface ICityService
     {
-        public IEnumerable<City> GetCityList();
-        public City GetCityById(short id);
+        public IEnumerable<City> GetCities();
+        public City GetCity(short id);
         public short AddCity(string cityName);
         public void UpdateCity(short id, string cityName);
         public void DeleteCity(short id);

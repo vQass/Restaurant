@@ -1,14 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
-using Restaurant.APIComponents.Exceptions;
-using Restaurant.DB;
-using Restaurant.DB.Entities;
+﻿using Restaurant.DB.Entities;
 using Restaurant.IRepository;
 using Restaurant.IServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Restaurant.Services.Services
 {
@@ -32,7 +24,7 @@ namespace Restaurant.Services.Services
 
         #region PublicMethods
 
-        public City GetCityById(short id)
+        public City GetCity(short id)
         {
             var city = _cityRepository.GetCity(id);
 
@@ -41,7 +33,7 @@ namespace Restaurant.Services.Services
             return city;
         }
 
-        public IEnumerable<City> GetCityList()
+        public IEnumerable<City> GetCities()
         {
             return _cityRepository.GetCities();
         }
@@ -51,7 +43,7 @@ namespace Restaurant.Services.Services
             _cityRepository.EnsureCityNameNotTaken(cityName);
 
             var cityId = _cityRepository
-                .AddCity(new City() { Name = cityName }); 
+                .AddCity(new City() { Name = cityName.Trim() }); 
 
             return cityId;
         }
@@ -95,7 +87,7 @@ namespace Restaurant.Services.Services
 
             _cityRepository.EnsureCityNotInUse(city);
 
-            _cityRepository.UpdateCity(city, cityName);
+            _cityRepository.UpdateCity(city, cityName.Trim());
         }
 
         #endregion

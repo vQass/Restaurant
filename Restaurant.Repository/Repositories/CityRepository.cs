@@ -99,7 +99,7 @@ namespace Restaurant.Repository.Repositories
         {
             var cityNameInUse = _dbContext.Cities
                 .Where(x => x.Id != id)
-                .Any(x => x.Name.Equals(cityName.Trim(), StringComparison.InvariantCultureIgnoreCase));
+                .Any(x => x.Name.Equals(cityName.Trim().Replace(" ", ""), StringComparison.InvariantCultureIgnoreCase));
 
             if (cityNameInUse)
             {
