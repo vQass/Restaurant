@@ -19,21 +19,20 @@ namespace Restaurant.API.Controllers
         [HttpGet("GetAllMealsCategories")]
         public IActionResult GetAllMealsCategories()
         {
-            var mealCategories = _mealCategoryService.GetAllMealsCategories();
-            return Ok(mealCategories);
+            return Ok(_mealCategoryService.GetMealCategories());
         }
 
         [HttpPost("AddMealCategory")]
         public IActionResult AddMealCategory([FromBody] MealCategoryCreateRequest mealCategoryCreateRequest)
         {
-            var id = _mealCategoryService.AddMealCategory(mealCategoryCreateRequest);
+            var id = _mealCategoryService.AddMealCategory(mealCategoryCreateRequest.Name);
             return Created($"api/User/{id}", null);
         }
 
         [HttpPut("UpdateMealCategory/{id}")]
         public IActionResult UpdateMealCategory([FromRoute] short id, [FromBody] MealCategoryUpdateRequest mealCategoryUpdateRequest)
         {
-            _mealCategoryService.UpdateMealCategory(id, mealCategoryUpdateRequest);
+            _mealCategoryService.UpdateMealCategory(id, mealCategoryUpdateRequest.Name);
             return Ok();
         }
 

@@ -4,80 +4,54 @@ using Restaurant.APIComponents.Exceptions;
 using Restaurant.Data.Models.MealCategoryModels;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
+using Restaurant.IRepository;
 using Restaurant.IServices;
 
 namespace Restaurant.Services.Services
 {
     public class MealCategoryService : IMealCategoryService
     {
-        private readonly RestaurantDbContext _dbContext;
-        private readonly IMapper _mapper;
-        private readonly ILogger<MealCategoryService> _logger;
+        private readonly IMealCategoryRepository _mealCategoryRepository;
 
-        public MealCategoryService(
-            RestaurantDbContext dbContext,
-            IMapper mapper,
-            ILogger<MealCategoryService> logger)
+        public MealCategoryService(IMealCategoryRepository mealCategoryRepository)
         {
-            _dbContext = dbContext;
-            _mapper = mapper;
-            _logger = logger;
+            _mealCategoryRepository = mealCategoryRepository;
         }
-        public IEnumerable<MealCategory> GetAllMealsCategories()
-        {
-            var mealCategories = _dbContext.MealsCategories.ToList();
 
-            return mealCategories;
+        public IEnumerable<MealCategory> GetMealCategories()
+        {
+            return _mealCategoryRepository.GetMealCategories();
         }
-        public short AddMealCategory(MealCategoryCreateRequest mealCategoryCreateRequest)
+        public short AddMealCategory(string mealCategoryName)
         {
-            var mealCategory = _mapper.Map<MealCategory>(mealCategoryCreateRequest);
+            _mealCategoryRepository.EnsureMealCategoryNameNotTaken(mealCategoryName);
 
-            _dbContext.MealsCategories.Add(mealCategory);
-            _dbContext.SaveChanges();
+            var id = _mealCategoryRepository.AddMealCategory(new MealCategory() { Name = mealCategoryName });
 
-            return mealCategory.Id;
+            return id;
         }
-        public void UpdateMealCategory(short id, MealCategoryUpdateRequest mealCategoryUpdateRequest)
+        public void UpdateMealCategory(short id, string mealCategoryName)
         {
-            var mealCategory = CheckIfMealCategoryExists(id);
+            var mealCategory = _mealCategoryRepository.GetMealCategory(id);
 
-            CheckIfMealCategoryUsedInAnyMeal(mealCategory);
+            _mealCategoryRepository.EnsureMealCategoryExists(mealCategory);
 
-            mealCategory.Name = mealCategoryUpdateRequest.Name;
-            _dbContext.SaveChanges();
+            _mealCategoryRepository.EnsureMealCategoryNameNotTaken(mealCategoryName, id);
+
+            _mealCategoryRepository.EnsureMealCategoryNotInUse(mealCategory);
+
+            _mealCategoryRepository.UpdateMealCategory(mealCategory, mealCategoryName);
         }
 
         public void DeleteMealCategory(short id)
         {
-            var mealCategory = CheckIfMealCategoryExists(id);
+            var mealCategory = _mealCategoryRepository.GetMealCategory(id);
 
-            CheckIfMealCategoryUsedInAnyMeal(mealCategory);
+            _mealCategoryRepository.EnsureMealCategoryExists(mealCategory);
 
-            _dbContext.MealsCategories.Remove(mealCategory);
-            _dbContext.SaveChanges();
-        }
+            _mealCategoryRepository.EnsureMealCategoryNotInUse(mealCategory);
 
-        private MealCategory CheckIfMealCategoryExists(short id)
-        {
-            var mealCategory = _dbContext.MealsCategories.FirstOrDefault(x => x.Id == id);
-
-            if (mealCategory == null)
-            {
-                _logger.LogError($"Meal category with id:{id} does not exist.");
-                throw new NotFoundException("Kategoria dań o podanym id nie istnieje.");
-            }
-
-            return mealCategory;
-        }
-
-        private void CheckIfMealCategoryUsedInAnyMeal(MealCategory mealCategory)
-        {
-            if (_dbContext.Meals.Any(x => x.MealCategory == mealCategory))
-            {
-                _logger.LogError($"Selected category with id:{mealCategory.Id} is used in at least one meal.");
-                throw new BadRequestException("Wybrana kategoria przypisana jest do co najmniej jednego dania.");
-            }
+            _mealCategoryRepository.DeleteMealCategory(mealCategory);   
         }
     }
 }

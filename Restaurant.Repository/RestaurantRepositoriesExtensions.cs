@@ -10,6 +10,8 @@ namespace Restaurant.Repository
             public static IServiceCollection AddRestaurantRepositories(this IServiceCollection services)
             {
                 services.TryAddScoped<ICityRepository, CityRepository>();
+                services.TryAddScoped<IIngredientRepository, IngredientRepository>();
+                services.TryAddScoped<IMealCategoryRepository, MealCategoryRepository>();
 
                 return services;
             }
