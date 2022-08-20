@@ -51,6 +51,7 @@ namespace Restaurant.Services.Services
 
         public long AddPromotion(PromotionCreateRequest promotionRequest)
         {
+            promotionRequest.Code = promotionRequest.Code.Trim();
             CheckIfPromotionCodeInUse(promotionRequest.Code, promotionRequest.StartDate, promotionRequest.EndDate);
 
             var promotion = _mapper.Map<Promotion>(promotionRequest);
@@ -69,7 +70,7 @@ namespace Restaurant.Services.Services
             promotion.DiscountPercentage = promotionRequest.DiscountPercentage;
             promotion.StartDate = promotionRequest.StartDate;
             promotion.EndDate = promotionRequest.EndDate;
-            promotion.Code = promotionRequest.Code;
+            promotion.Code = promotionRequest.Code.Trim();
 
             _dbContext.SaveChanges();
         }
@@ -110,10 +111,11 @@ namespace Restaurant.Services.Services
             return promotion;
         }
 
-        private Promotion CheckIfPromotionExistsByName(string promotionCode)
+        private Promotion CheckIfPromotionExistsByCode(string promotionCode)
         {
             var promotion = _dbContext.Promotions
-                .FirstOrDefault(x => x.Code == promotionCode);
+                .FirstOrDefault(x => x.Code
+                    .Equals(promotionCode, StringComparison.InvariantCultureIgnoreCase));
 
             if (promotion is null)
             {
@@ -125,12 +127,13 @@ namespace Restaurant.Services.Services
 
         private void CheckIfPromotionCodeInUse(string promotionCode, DateTime startDate, DateTime endDate, int id = 0)
         {
-            var promotionCodeInUse = _dbContext.Promotions
+            var promotionInUse = _dbContext.Promotions
                 .Where(x => x.Id != id)
                 .Where(x => x.StartDate < startDate && x.EndDate > endDate)
-                .Any(x => x.Code == promotionCode);
+                .Any(x => x.Code
+                    .Equals(promotionCode, StringComparison.InvariantCultureIgnoreCase));
 
-            if (promotionCodeInUse)
+            if (promotionInUse)
             {
                 _logger.LogError($"Name of promotion {promotionCode} is taken in given period of time ({startDate} - {endDate}).");
                 throw new NotFoundException("Podana nazwa promocji jest zajęta.");
