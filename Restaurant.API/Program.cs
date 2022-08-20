@@ -10,7 +10,7 @@ using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.IServices;
 using Restaurant.Services;
-using System.Globalization;
+using Restaurant.Repository;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,6 +50,7 @@ builder.Services.AddDbContext<RestaurantDbContext>(
                      b => b.MigrationsAssembly("Restaurant.DB")));
 
 builder.Services.AddRestaurantServices();
+builder.Services.AddRestaurantRepositories();
 builder.Services.AddValidators();
 builder.Services.AddMiddlewares();
 builder.Services.AddAutoMapper(typeof(RestaurantDataMapperProfile));
