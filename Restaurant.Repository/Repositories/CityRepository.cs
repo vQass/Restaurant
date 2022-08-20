@@ -61,7 +61,7 @@ namespace Restaurant.Repository.Repositories
 
         #endregion
 
-        #region CityModificationMethods
+        #region EntityModificationMethods
 
         public short AddCity(City city)
         {
