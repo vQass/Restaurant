@@ -39,6 +39,16 @@ namespace Restaurant.Services.Services
 
         #region PublicMethods
 
+        public IEnumerable<Promotion> GetPromotionsList()
+        {
+            return _dbContext.Promotions.ToList();
+        }
+
+        public Promotion GetPromotionById(long id)
+        {
+            return CheckIfPromotionExistsById(id);
+        }
+
         public long AddPromotion(PromotionCreateRequest promotionRequest)
         {
             CheckIfPromotionCodeInUse(promotionRequest.Code, promotionRequest.StartDate, promotionRequest.EndDate);
@@ -50,9 +60,25 @@ namespace Restaurant.Services.Services
             return promotion.Id;
         }
 
+        public void UpdatePromotion(long id, PromotionUpdateRequest promotionRequest)
+        {
+            var promotion = CheckIfPromotionExistsById(id);
+
+            CheckIfPromotionInUse(promotion);
+
+            promotion.DiscountPercentage = promotionRequest.DiscountPercentage;
+            promotion.StartDate = promotionRequest.StartDate;
+            promotion.EndDate = promotionRequest.EndDate;
+            promotion.Code = promotionRequest.Code;
+
+            _dbContext.SaveChanges();
+        }
+
         public void DeletePromotion(long id)
         {
             var promotion = CheckIfPromotionExistsById(id);
+
+            CheckIfPromotionInUse(promotion);
 
             _dbContext.Promotions.Remove(promotion);
             _dbContext.SaveChanges();
@@ -63,28 +89,6 @@ namespace Restaurant.Services.Services
             var promotion = CheckIfPromotionExistsById(id);
 
             promotion.IsManuallyDisabled = true;
-
-            _dbContext.SaveChanges();
-        }
-
-        public Promotion GetPromotionById(long id)
-        {
-            return CheckIfPromotionExistsById(id);
-        }
-
-        public IEnumerable<Promotion> GetPromotionsList()
-        {
-            return _dbContext.Promotions.ToList();
-        }
-
-        public void UpdatePromotion(long id, PromotionUpdateRequest promotionRequest)
-        {
-            var promotion = CheckIfPromotionExistsById(id);
-
-            promotion.DiscountPercentage = promotionRequest.DiscountPercentage;
-            promotion.StartDate = promotionRequest.StartDate;
-            promotion.EndDate = promotionRequest.EndDate;
-            promotion.Code = promotionRequest.Code;
 
             _dbContext.SaveChanges();
         }
@@ -124,9 +128,7 @@ namespace Restaurant.Services.Services
             var promotionCodeInUse = _dbContext.Promotions
                 .Where(x => x.Id != id)
                 .Where(x => x.StartDate < startDate && x.EndDate > endDate)
-                .Any(
-                    x => x.Code.Trim().ToLower() ==
-                    promotionCode.Trim().ToLower());
+                .Any(x => x.Code == promotionCode);
 
             if (promotionCodeInUse)
             {
