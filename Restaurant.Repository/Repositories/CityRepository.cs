@@ -33,25 +33,19 @@ namespace Restaurant.Repository.Repositories
 
         public City GetCity(short id)
         {
-            var city = _dbContext.Cities.FirstOrDefault(x => x.Id == id);
-
-            return city;
+            return _dbContext.Cities.FirstOrDefault(x => x.Id == id);
         }
 
         public City GetCity(string cityName)
         {
-            var city = _dbContext.Cities.FirstOrDefault(x => x.Name == cityName);
-
-            return city;
+            return _dbContext.Cities.FirstOrDefault(x => x.Name == cityName);
         }
 
         public IEnumerable<City> GetCities()
         {
-            var cities = _dbContext.Cities
+            return _dbContext.Cities
                 .AsNoTracking()
                 .ToList();
-
-            return cities;
         }
 
         #endregion
@@ -105,7 +99,7 @@ namespace Restaurant.Repository.Repositories
         {
             var cityNameInUse = _dbContext.Cities
                 .Where(x => x.Id != id)
-                .Any(x => x.Name.Equals(cityName));
+                .Any(x => x.Name.Equals(cityName.Trim(), StringComparison.InvariantCultureIgnoreCase));
 
             if (cityNameInUse)
             {
