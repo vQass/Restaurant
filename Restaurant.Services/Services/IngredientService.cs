@@ -24,7 +24,7 @@ namespace Restaurant.Services.Services
 
         #region PublicMethods
 
-        public Ingredient GetIngredientById(int id)
+        public Ingredient GetIngredient(int id)
         {
             var ingredient = _ingredientRepository.GetIngredient(id);
 
@@ -33,15 +33,17 @@ namespace Restaurant.Services.Services
             return ingredient;
         }
 
-        public async Task<IEnumerable<Ingredient>> GetIngredientsList()
+        public async Task<IEnumerable<Ingredient>> GetIngredients()
         {
             return await _ingredientRepository.GetIngredients();
         }
 
         public int AddIngredient(string ingredientName)
         {
+            _ingredientRepository.EnsureIngredientNameNotTaken(ingredientName);
+
             var id = _ingredientRepository
-                .AddIngredient(new Ingredient { Name = ingredientName } );
+                .AddIngredient(new Ingredient { Name = ingredientName.Trim() } );
 
             return id;
         }
@@ -63,7 +65,7 @@ namespace Restaurant.Services.Services
 
             _ingredientRepository.EnsureIngredientNameNotTaken(ingredientName, id);
 
-            _ingredientRepository.UpdateIngredient(ingredient, ingredientName);
+            _ingredientRepository.UpdateIngredient(ingredient, ingredientName.Trim());
         }
 
         #endregion

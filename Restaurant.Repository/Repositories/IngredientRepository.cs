@@ -93,8 +93,9 @@ namespace Restaurant.Repository.Repositories
         {
             var ingredientNameTaken = _dbContext.Ingredients
                 .Where(x => x.Id != id)
-                .Any(x => x.Name.Equals(
-                    ingredientName.Trim(), StringComparison.InvariantCultureIgnoreCase));
+                .Any(x => x.Name
+                    .Replace(" ", "")
+                    .Equals(ingredientName.Replace(" ", ""), StringComparison.InvariantCultureIgnoreCase));
 
             if (ingredientNameTaken)
             {

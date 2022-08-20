@@ -15,16 +15,16 @@ namespace Restaurant.API.Controllers
             _ingredientServices = ingredientServices;
         }
 
-        [HttpGet("GetIngredientList")]
-        public async Task<IActionResult> GetIngredientList()
+        [HttpGet("GetIngredients")]
+        public async Task<IActionResult> GetIngredients()
         {
-            return Ok(await _ingredientServices.GetIngredientsList());
+            return Ok(await _ingredientServices.GetIngredients());
         }
 
-        [HttpGet("GetIngredientById/{id}")]
-        public IActionResult GetIngredientById([FromRoute] int id)
+        [HttpGet("GetIngredient/{id}")]
+        public IActionResult GetIngredient([FromRoute] int id)
         {
-            return Ok(_ingredientServices.GetIngredientById(id));
+            return Ok(_ingredientServices.GetIngredient(id));
         }
 
         [HttpPost("AddIngredient")]

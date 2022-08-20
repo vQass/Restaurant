@@ -79,8 +79,11 @@ namespace Restaurant.Repository.Repositories
 
         public void EnsureMealCategoryNameNotTaken(string mealCategoryName, int id = 0)
         {
-            var mealCategoryNameTaken = _dbContext.MealsCategories.Any(x => x.Name
-                .Equals(mealCategoryName.Trim(), StringComparison.InvariantCultureIgnoreCase));
+            var mealCategoryNameTaken = _dbContext.MealsCategories
+                .Where(x => x.Id != id)
+                .Any(x => x.Name
+                    .Replace(" ", "")
+                    .Equals(mealCategoryName.Replace(" ", ""), StringComparison.InvariantCultureIgnoreCase));
 
             if (mealCategoryNameTaken)
             {
