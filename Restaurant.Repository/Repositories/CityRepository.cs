@@ -118,7 +118,7 @@ namespace Restaurant.Repository.Repositories
 
         public void EnsureCityNotUsedInUsers(City city)
         {
-            var cityUsedInUsers = _dbContext.Users.Any(x => x.City == city);
+            var cityUsedInUsers = _dbContext.Users.Any(x => x.City.Id == city.Id);
 
             if (cityUsedInUsers)
             {
@@ -129,7 +129,7 @@ namespace Restaurant.Repository.Repositories
 
         public void EnsureCityNotUsedInOrders(City city)
         {
-            var cityUsedInOrders = _dbContext.Orders.Any(x => x.City == city);
+            var cityUsedInOrders = _dbContext.Orders.Any(x => x.CityId == city.Id);
 
             if (cityUsedInOrders)
             {

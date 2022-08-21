@@ -94,7 +94,7 @@ namespace Restaurant.Repository.Repositories
 
         public void EnsureMealCategoryNotInUse(MealCategory mealCategory)
         {
-            var mealCategoryInUse = _dbContext.Meals.Any(x => x.MealCategory == mealCategory);
+            var mealCategoryInUse = _dbContext.Meals.Any(x => x.MealCategoryId == mealCategory.Id);
 
             if (mealCategoryInUse)
             {

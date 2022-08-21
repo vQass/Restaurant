@@ -107,7 +107,7 @@ namespace Restaurant.Repository.Repositories
         public void EnsureIngredientNotInUse(Ingredient ingredient)
         {
             var ingredientInUse = _dbContext.Recipes
-                .Any(x => x.Ingredient == ingredient);
+                .Any(x => x.IngredientId == ingredient.Id);
 
             if (ingredientInUse)
             {
