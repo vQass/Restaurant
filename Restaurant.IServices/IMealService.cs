@@ -16,6 +16,6 @@ namespace Restaurant.IServices
         public void SetMealAsUnavailable(int id);
         public void SetMealAsAvailable(int id);
         public void UpdateMealsPrice(int id, decimal newPrice);
-        public IEnumerable<Meal> GetAllMeals();
+        public Task<IEnumerable<Meal>> GetMeals();
     }
 }

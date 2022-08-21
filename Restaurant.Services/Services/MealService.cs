@@ -7,6 +7,7 @@ using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.DB.Enums;
 using Restaurant.IServices;
+using Restaurant.Repository.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,125 +18,92 @@ namespace Restaurant.Services.Services
 {
     public class MealService : IMealService
     {
-        
         #region Fields
 
-        private readonly RestaurantDbContext _dbContext;
         private readonly IMapper _mapper;
-        private readonly ILogger<MealService> _logger;
+        private readonly IMealRepository _mealRepository;
 
         #endregion Fields
 
         #region Ctors
 
         public MealService(
-            RestaurantDbContext dbContext,
             IMapper mapper,
-
-            ILogger<MealService> logger)
+            IMealRepository mealRepository)
         {
-            _dbContext = dbContext;
             _mapper = mapper;
-            _logger = logger;
+            _mealRepository = mealRepository;
         }
 
         #endregion Ctors
 
         #region PublicMethods
 
-        public IEnumerable<Meal> GetAllMeals()
+        public async Task<IEnumerable<Meal>> GetMeals()
         {
-            var meals = 
-                _dbContext.Meals
-                    .Include(x => x.MealCategory)
-                    .ToList();
-
-            return meals;
+            return await _mealRepository.GetMeals();
         }
 
         public int AddMeal(MealCreateRequest mealCreateRequest)
         {
-            var meal = _mapper.Map<Meal>(mealCreateRequest);
+            _mealRepository.EnsureMealNameNotTaken(mealCreateRequest.Name);
 
-            _dbContext.Meals.Add(meal);
-            _dbContext.SaveChanges();
+            var id = _mealRepository.AddMeal(mealCreateRequest);
 
-            return meal.Id;
+            return id;
         }
 
         public void DeleteMeal(int id)
         {
-            var meal = CheckIfMealExists(id);
+            var meal = _mealRepository.GetMeal(id);
 
-            CheckIfMealInAnyOrder(meal);
+            _mealRepository.EnsureMealExists(meal);
 
-            _dbContext.Meals.Remove(meal);
-            _dbContext.SaveChanges();
+            _mealRepository.EnsureMealNotInUse(meal);
+
+            _mealRepository.DeleteMeal(meal);
         }
 
         public void UpdateMeal(int id, MealUpdateRequest mealUpdateRequest)
         {
-            var meal = CheckIfMealExists(id);
+            var meal = _mealRepository.GetMeal(id);
 
-            CheckIfMealInAnyOrder(meal);
+            _mealRepository.EnsureMealExists(meal);
 
-            meal.Name = mealUpdateRequest.Name;
-            meal.Price = mealUpdateRequest.Price;
-            meal.MealCategory.Id = mealUpdateRequest.CategoryId;
+            _mealRepository.EnsureMealNameNotTaken(mealUpdateRequest.Name, id);
 
-            _dbContext.SaveChanges();
+            _mealRepository.EnsureMealNotInUse(meal);
+
+            _mealRepository.UpdateMeal(meal, mealUpdateRequest);
         }
 
         public void SetMealAsUnavailable(int id)
         {
-            var meal = CheckIfMealExists(id);
+            var meal = _mealRepository.GetMeal(id);
 
-            meal.Available = false;
-            _dbContext.SaveChanges();
+            _mealRepository.EnsureMealExists(meal);
+
+            _mealRepository.SetMealAsUnavailable(meal);
         }
 
         public void SetMealAsAvailable(int id)
         {
-            var meal = CheckIfMealExists(id);
+            var meal = _mealRepository.GetMeal(id);
 
-            meal.Available = true;
-            _dbContext.SaveChanges();
+            _mealRepository.EnsureMealExists(meal);
+
+            _mealRepository.SetMealAsAvailable(meal);
         }
 
         public void UpdateMealsPrice(int id, decimal newPrice)
         {
-            var meal = CheckIfMealExists(id);
+            var meal = _mealRepository.GetMeal(id);
 
-            meal.Price = newPrice;
-            _dbContext.SaveChanges();
+            _mealRepository.EnsureMealExists(meal);
+
+            _mealRepository.UpdateMealsPrice(meal, newPrice);
         }
 
         #endregion PublicMethods
-
-        #region PrivateMethods
-
-        private Meal CheckIfMealExists(int id)
-        {
-            var meal = _dbContext.Meals.FirstOrDefault(x => x.Id == id);
-
-            if (meal == null)
-            {
-                _logger.LogError($"Dish with id:{id} does not exist.");
-                throw new NotFoundException("Danie o podanym id nie istnieje.");
-            }
-
-            return meal;
-        }
-
-        private void CheckIfMealInAnyOrder(Meal meal)
-        {
-            if (_dbContext.OrdersElements.Any(x => x.Meal == meal))
-            {
-                _logger.LogError($"Dish with id:{meal.Id} is used in at least one user's order.");
-                throw new BadRequestException("Wybrane danie znajduje się w zamówieniu co najmniej jednego użytkownika.");
-            }
-        }
-
-        #endregion PrivateMethods
     }
 }

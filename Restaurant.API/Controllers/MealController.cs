@@ -15,10 +15,10 @@ namespace Restaurant.API.Controllers
             _mealService = mealService;
         }
 
-        [HttpGet("GetAllMeals")]
-        public IActionResult GetAllMeals()
+        [HttpGet("GetMeals")]
+        public IActionResult GetMeals()
         {
-            var meals = _mealService.GetAllMeals();
+            var meals = _mealService.GetMeals();
             return Ok(meals);
         }
 
