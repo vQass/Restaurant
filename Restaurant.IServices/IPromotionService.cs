@@ -10,7 +10,7 @@ namespace Restaurant.IServices
 {
     public interface IPromotionService
     {
-        public IEnumerable<Promotion> GetPromotionsList();
+        public Task<IEnumerable<Promotion>> GetPromotionsList();
         public Promotion GetPromotionById(long id);
         public long AddPromotion(PromotionCreateRequest promotion);
         public void UpdatePromotion(long id, PromotionUpdateRequest promotion);

@@ -13,15 +13,17 @@ namespace Restaurant.Data
     {
         public RestaurantDataMapperProfile()
         {
+            // Users
             CreateMap<UserCreateRequest, User>();
             CreateMap<User, UserListViewModel>();
             CreateMap<User, UserWithDetailsViewModel>();
 
+            // Meals
             CreateMap<MealCreateRequest, Meal>();
-            CreateMap<MealUpdateRequest, Meal>();
 
             CreateMap<MealCategoryCreateRequest, MealCategory>();
 
+            // Promotions
             CreateMap<PromotionCreateRequest, Promotion>();
 
             // Recipes
@@ -40,6 +42,7 @@ namespace Restaurant.Data
                 .ForMember(dest => dest.MealName, opt => opt.MapFrom(src => src.Meal.Name))
                 .ForMember(dest => dest.MealId, opt => opt.MapFrom(src => src.MealId));
 
+            // Orders
             CreateMap<OrderCreateRequest, Order>();
             CreateMap<OrderElementCreateRequest, OrderElement>();
         }

@@ -4,6 +4,7 @@ using Restaurant.APIComponents.Exceptions;
 using Restaurant.Data.Models.PromotionModels;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
+using Restaurant.IRepository;
 using Restaurant.IServices;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,7 @@ namespace Restaurant.Services.Services
     {
         #region Fields
 
-        private readonly RestaurantDbContext _dbContext;
-        private readonly ILogger<PromotionService> _logger;
+        private readonly IPromotionRepository _promotionRepository;
         private readonly IMapper _mapper;
 
         #endregion
@@ -26,12 +26,10 @@ namespace Restaurant.Services.Services
         #region Ctors
 
         public PromotionService(
-            RestaurantDbContext dbContext,
-            ILogger<PromotionService> logger,
+            IPromotionRepository promotionRepository,
             IMapper mapper)
         {
-            _dbContext = dbContext;
-            _logger = logger;
+            _promotionRepository = promotionRepository;
             _mapper = mapper;
         }
 
@@ -39,117 +37,67 @@ namespace Restaurant.Services.Services
 
         #region PublicMethods
 
-        public IEnumerable<Promotion> GetPromotionsList()
+        public async Task<IEnumerable<Promotion>> GetPromotionsList()
         {
-            return _dbContext.Promotions.ToList();
+            return await _promotionRepository.GetPromotions();
         }
 
         public Promotion GetPromotionById(long id)
         {
-            return CheckIfPromotionExistsById(id);
+            var promotion = _promotionRepository.GetPromotion(id);
+
+            _promotionRepository.EnsurePromotionExists(promotion);
+
+            return promotion;
         }
 
         public long AddPromotion(PromotionCreateRequest promotionRequest)
         {
-            promotionRequest.Code = promotionRequest.Code.Trim();
-            CheckIfPromotionCodeInUse(promotionRequest.Code, promotionRequest.StartDate, promotionRequest.EndDate);
+            _promotionRepository.EnsurePromotionCodeNotTaken(
+                promotionRequest.Code,
+                promotionRequest.StartDate,
+                promotionRequest.EndDate);
 
-            var promotion = _mapper.Map<Promotion>(promotionRequest);
+            var id = _promotionRepository.AddPromotion(promotionRequest);
 
-            _dbContext.Promotions.Add(promotion);
-            _dbContext.SaveChanges();
-            return promotion.Id;
+            return id;
         }
 
         public void UpdatePromotion(long id, PromotionUpdateRequest promotionRequest)
         {
-            var promotion = CheckIfPromotionExistsById(id);
+            var promotion = _promotionRepository.GetPromotion(id);
 
-            CheckIfPromotionInUse(promotion);
+            _promotionRepository.EnsurePromotionExists(promotion);
 
-            promotion.DiscountPercentage = promotionRequest.DiscountPercentage;
-            promotion.StartDate = promotionRequest.StartDate;
-            promotion.EndDate = promotionRequest.EndDate;
-            promotion.Code = promotionRequest.Code.Trim();
+            _promotionRepository.EnsurePromotionCodeNotTaken(
+                promotionRequest.Code,
+                promotionRequest.StartDate,
+                promotionRequest.EndDate,
+                id);
 
-            _dbContext.SaveChanges();
+            _promotionRepository.EnsurePromotionNotInUse(promotion);
+
+            _promotionRepository.UpdatePromotion(promotion, promotionRequest);
         }
 
         public void DeletePromotion(long id)
         {
-            var promotion = CheckIfPromotionExistsById(id);
+            var promotion = _promotionRepository.GetPromotion(id);
 
-            CheckIfPromotionInUse(promotion);
+            _promotionRepository.EnsurePromotionExists(promotion);
 
-            _dbContext.Promotions.Remove(promotion);
-            _dbContext.SaveChanges();
+            _promotionRepository.EnsurePromotionNotInUse(promotion);
+
+            _promotionRepository.DeletePromotion(promotion);
         }
 
         public void DisablePromotion(long id)
         {
-            var promotion = CheckIfPromotionExistsById(id);
+            var promotion = _promotionRepository.GetPromotion(id);
 
-            promotion.IsManuallyDisabled = true;
+            _promotionRepository.EnsurePromotionExists(promotion);
 
-            _dbContext.SaveChanges();
-        }
-
-        #endregion
-
-        #region PrivateMethods
-
-        private Promotion CheckIfPromotionExistsById(long id)
-        {
-            var promotion = _dbContext.Promotions
-                .FirstOrDefault(x => x.Id == id);
-
-            if (promotion is null)
-            {
-                throw new NotFoundException("Promocja o podanym id nie istnieje.");
-            }
-
-            return promotion;
-        }
-
-        private Promotion CheckIfPromotionExistsByCode(string promotionCode)
-        {
-            var promotion = _dbContext.Promotions
-                .FirstOrDefault(x => x.Code
-                    .Equals(promotionCode, StringComparison.InvariantCultureIgnoreCase));
-
-            if (promotion is null)
-            {
-                throw new NotFoundException("Promocja o podanym kodzie nie istnieje.");
-            }
-
-            return promotion;
-        }
-
-        private void CheckIfPromotionCodeInUse(string promotionCode, DateTime startDate, DateTime endDate, int id = 0)
-        {
-            var promotionInUse = _dbContext.Promotions
-                .Where(x => x.Id != id)
-                .Where(x => x.StartDate < startDate && x.EndDate > endDate)
-                .Any(x => x.Code
-                    .Equals(promotionCode, StringComparison.InvariantCultureIgnoreCase));
-
-            if (promotionInUse)
-            {
-                _logger.LogError($"Name of promotion {promotionCode} is taken in given period of time ({startDate} - {endDate}).");
-                throw new NotFoundException("Podana nazwa promocji jest zajęta.");
-            }
-        }
-
-        private void CheckIfPromotionInUse(Promotion promotion)
-        {
-            var promotionInUse = _dbContext.Orders
-                .Any(x => x.Promotion.Id == promotion.Id);
-
-            if (promotionInUse)
-            {
-                _logger.LogError($"Promotion with code {promotion.Code} is used in orders table.");
-                throw new BadRequestException("Podana promocja używana jest w co najmniej jednym zamówieniu.");
-            }
+            _promotionRepository.DeletePromotion(promotion);
         }
 
         #endregion

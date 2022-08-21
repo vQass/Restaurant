@@ -48,6 +48,8 @@ namespace Restaurant.Repository.Repositories
 
         public short AddMealCategory(MealCategory mealCategory)
         {
+            mealCategory.Name = mealCategory.Name;
+
             _dbContext.MealsCategories.Add(mealCategory);
             _dbContext.SaveChanges();
             return mealCategory.Id;
@@ -82,8 +84,12 @@ namespace Restaurant.Repository.Repositories
             var mealCategoryNameTaken = _dbContext.MealsCategories
                 .Where(x => x.Id != id)
                 .Any(x => x.Name
+                    .ToLower()
                     .Replace(" ", "")
-                    .Equals(mealCategoryName.Replace(" ", ""), StringComparison.InvariantCultureIgnoreCase));
+                    .Equals(
+                        mealCategoryName
+                            .ToLower()
+                            .Replace(" ", "")));
 
             if (mealCategoryNameTaken)
             {

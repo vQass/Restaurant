@@ -1,7 +1,7 @@
 ﻿using Restaurant.Data.Models.MealModels;
 using Restaurant.DB.Entities;
 
-namespace Restaurant.Repository.Repositories
+namespace Restaurant.IRepository
 {
     public interface IMealRepository
     {

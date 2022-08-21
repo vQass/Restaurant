@@ -33,12 +33,14 @@ namespace Restaurant.Repository.Repositories
 
         public City GetCity(short id)
         {
-            return _dbContext.Cities.FirstOrDefault(x => x.Id == id);
+            return _dbContext.Cities
+                .FirstOrDefault(x => x.Id == id);
         }
 
         public City GetCity(string cityName)
         {
-            return _dbContext.Cities.FirstOrDefault(x => x.Name == cityName);
+            return _dbContext.Cities
+                .FirstOrDefault(x => x.Name == cityName);
         }
 
         public IEnumerable<City> GetCities()
@@ -56,6 +58,7 @@ namespace Restaurant.Repository.Repositories
         {
             _dbContext.Cities.Add(city);
             _dbContext.SaveChanges();
+
             return city.Id;
         }
 
@@ -100,8 +103,12 @@ namespace Restaurant.Repository.Repositories
             var cityNameInUse = _dbContext.Cities
                 .Where(x => x.Id != id)
                 .Any(x => x.Name
+                    .ToLower()
                     .Replace(" ", "")
-                    .Equals(cityName.Replace(" ", ""), StringComparison.InvariantCultureIgnoreCase));
+                    .Equals(
+                        cityName
+                            .ToLower()
+                            .Replace(" ", "")));
 
             if (cityNameInUse)
             {

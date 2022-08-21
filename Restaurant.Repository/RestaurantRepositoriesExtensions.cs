@@ -13,6 +13,7 @@ namespace Restaurant.Repository
                 services.TryAddScoped<IIngredientRepository, IngredientRepository>();
                 services.TryAddScoped<IMealCategoryRepository, MealCategoryRepository>();
                 services.TryAddScoped<IMealRepository, MealRepository>();
+                services.TryAddScoped<IPromotionRepository, PromotionRepository>();
 
                 return services;
             }
