@@ -27,12 +27,12 @@ namespace Restaurant.Data
             CreateMap<PromotionCreateRequest, Promotion>();
 
             // Recipes
-            CreateMap<Meal, RecipeViewModel>()
+            CreateMap<Meal, Recipe>()
                 .ForMember(dest => dest.MealId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.MealName, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.RecipeElementViewModels, opt => opt.MapFrom(src => src.RecipeElements));
+                .ForMember(dest => dest.RecipeIngredients, opt => opt.MapFrom(src => src.RecipeElements));
            
-            CreateMap<RecipeElement, RecipeIngredientViewModel>()
+            CreateMap<RecipeElement, RecipeIngredient>()
                 .ForMember(dest => dest.IngredientName, opt => opt.MapFrom(src => src.Ingredient.Name))
                 .ForMember(dest => dest.IngredientId, opt => opt.MapFrom(src => src.IngredientId));
            

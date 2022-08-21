@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Data.Models.RecipeModels
 {
-    public class RecipeViewModel
+    public class Recipe
     {
         public int MealId { get; set; }
         public string MealName { get; set; }
-        public List<RecipeIngredientViewModel> RecipeElementViewModels { get; set; }
+        public List<RecipeIngredient> RecipeIngredients { get; set; }
     }
 }

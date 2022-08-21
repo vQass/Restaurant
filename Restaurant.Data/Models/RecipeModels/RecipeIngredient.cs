@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Data.Models.RecipeModels
 {
-    public class RecipeIngredientViewModel
+    public class RecipeIngredient
     {
         public int IngredientId { get; set; }
         public string IngredientName { get; set; }

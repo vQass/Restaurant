@@ -15,16 +15,16 @@ namespace Restaurant.API.Controllers
             _recipeService = recipeService;
         }
 
-        [HttpGet("GetRecipies")]
-        public async Task<IActionResult> GetRecipies()
+        [HttpGet("GetRecipes")]
+        public async Task<IActionResult> GetRecipes()
         {
-            return Ok(await _recipeService.GetRecipies());
+            return Ok(await _recipeService.GetRecipes());
         }
 
-        [HttpGet("GetRecipies/{mealId}")]
-        public IActionResult GetRecipie([FromRoute] int mealId)
+        [HttpGet("GetRecipe/{mealId}")]
+        public IActionResult GetRecipe([FromRoute] int mealId)
         {
-            return Ok( _recipeService.GetRecipeByMealId(mealId));
+            return Ok(_recipeService.GetRecipe(mealId));
         }
 
         [HttpGet("GetRecipeElement/{mealId}/{ingredientId}")]
