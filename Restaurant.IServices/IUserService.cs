@@ -7,8 +7,8 @@ namespace Restaurant.IServices
     {
         public long AddUser(UserCreateRequest dto);
         public void DisableUser(long id, List<Claim> userClaims);
-        public IEnumerable<UserListViewModel> GetUsersList();
-        public UserWithDetailsViewModel GetUserById(long id);
+        public Task<IEnumerable<UserListViewModel>> GetUsers();
+        public UserWithDetailsViewModel GetUser(long id);
         public string SignInUser(LoginRequest dto);
         public void UpdateUser(long id, UserUpdateRequest userUpdateRequest);
         public void UpdateUserEmail(long id, string newEmail);

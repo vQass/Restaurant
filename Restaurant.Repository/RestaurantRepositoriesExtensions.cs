@@ -15,6 +15,7 @@ namespace Restaurant.Repository
                 services.TryAddScoped<IMealRepository, MealRepository>();
                 services.TryAddScoped<IPromotionRepository, PromotionRepository>();
                 services.TryAddScoped<IRecipeRepository, RecipeRepository>();
+                services.TryAddScoped<IUserRepository, UserRepository>();
 
                 return services;
             }

@@ -14,6 +14,8 @@ using System.Security.Claims;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
+using Restaurant.IRepository;
+using System.Data;
 
 namespace Restaurant.Services.Services
 {
@@ -25,6 +27,7 @@ namespace Restaurant.Services.Services
         private readonly IMapper _mapper;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly AuthenticationSettings _authenticationSettings;
+        private readonly IUserRepository _userRepository;
         private readonly ILogger<UserService> _logger;
 
         #endregion Fields
@@ -32,135 +35,102 @@ namespace Restaurant.Services.Services
         #region Ctors
 
         public UserService(
-            RestaurantDbContext dbContext,
             IMapper mapper,
             IPasswordHasher<User> passwordHasher,
             AuthenticationSettings authenticationSettings,
-            ILogger<UserService> logger)
+            IUserRepository userRepository)
         {
-            _dbContext = dbContext;
             _mapper = mapper;
             _passwordHasher = passwordHasher;
             _authenticationSettings = authenticationSettings;
-            _logger = logger;
+            _userRepository = userRepository;
         }
 
         #endregion Ctors
 
         #region PublicMethods
 
-        public long AddUser(UserCreateRequest userCreateRequest)
+        public async Task<IEnumerable<UserListViewModel>> GetUsers()
         {
-            var date = new DateTime();
-            var user = _mapper.Map<User>(userCreateRequest);
+            var users = await _userRepository.GetUsers();
 
-            user.Password = _passwordHasher.HashPassword(user, user.Password);
-            user.Inserted = date;
-            user.Updated = date;
-            user.Role = (byte)RoleEnum.User;
+            var usersViewModels = _mapper.Map<List<UserListViewModel>>(users);
 
-            _dbContext.Users.Add(user);
-            _dbContext.SaveChanges();
-
-            return user.Id;
+            return usersViewModels;
         }
 
-        public void UpdateUser(long id, UserUpdateRequest userUpdateRequest)
+        public UserWithDetailsViewModel GetUser(long id)
         {
-            var user = CheckIfUserExistsById(id);
+            var user = _userRepository.GetUser(id);
 
-            if(user == null)
-            {
-                throw new NotFoundException("Użytkownik o podanym id nie istnieje");
-            }
-
-            user.Name = userUpdateRequest.Name;
-            user.Surname = userUpdateRequest.Surname;
-            user.Address = userUpdateRequest.Address;
-            user.CityId = userUpdateRequest.CityId;
-            user.PhoneNumber = userUpdateRequest.PhoneNumber;
-            user.Updated = DateTime.Now;
-
-            _dbContext.SaveChanges();
-        }
-
-        public void UpdateUserEmail(long id, string newEmail)
-        {
-            var user = CheckIfUserExistsById(id);
-
-            CheckIfEmailHasValidFormat(newEmail);
-
-            CheckIfEmailInUse(newEmail, id);
-
-            user.Email = newEmail;
-            user.Updated = DateTime.Now;
-
-            _dbContext.SaveChanges();
-        }
-
-        public void DisableUser(long id, List<Claim> userClaims)
-        {
-            var user = CheckIfUserExistsById(id);
-
-            var currentUserIdFromClaim = userClaims?
-                .FirstOrDefault(x => x.Type.Equals(ClaimTypes.NameIdentifier, StringComparison.OrdinalIgnoreCase))?.Value;
-
-            long currentUserId;
-
-            if(!long.TryParse(currentUserIdFromClaim, out currentUserId))
-            {
-                _logger.LogError("Error during convering current user id from claims");
-                throw new InternalErrorException("Błąd podczas konwertowania twojego ID na wartość numeryczną, skontaktuj się z oddziałem wsparcia.");
-            }
-
-            if (user.Id == currentUserId)
-            {
-                throw new BadRequestException("Nie można oznaczyć swojego konta jako nieaktywne.");
-            }
-
-            var role = userClaims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Role, StringComparison.OrdinalIgnoreCase))?.Value;
-
-            if(role.Equals(RoleEnum.Admin.ToString()) 
-                && (user.Role.Equals(RoleEnum.Admin.ToString()) 
-                    || user.Role.Equals(RoleEnum.HeadAdmin.ToString())))
-            {
-                throw new UnauthorizedException("Administrator nie możne oznaczyć konta innego administratora jako nieaktywne.");
-            }
-
-            user.IsActive = false;
-            _dbContext.SaveChanges();
-        }
-
-        public IEnumerable<UserListViewModel> GetUsersList()
-        {
-            var users = _dbContext.Users.ToList();
-
-            var usersAsListItem = _mapper.Map<List<UserListViewModel>>(users);
-
-            return usersAsListItem;
-        }
-
-        public UserWithDetailsViewModel GetUserById(long id)
-        {
-            var user = CheckIfUserExistsById(id);
+            _userRepository.EnsureUserExists(user);
 
             var userWithDetails = _mapper.Map<UserWithDetailsViewModel>(user);
 
             return userWithDetails;
         }
 
+        public long AddUser(UserCreateRequest userCreateRequest)
+        {
+            _userRepository.EnsureEmailHasValidFormat(userCreateRequest.Email);
+
+            _userRepository.EnsureEmailNotTaken(userCreateRequest.Email);
+
+            var id = _userRepository.AddUser(userCreateRequest);
+
+            return id;
+        }
+
+        public void UpdateUser(long id, UserUpdateRequest userUpdateRequest)
+        {
+            var user = _userRepository.GetUser(id);
+
+            _userRepository.EnsureUserExists(user);
+
+            _userRepository.UpdateUser(user, userUpdateRequest);
+        }
+
+        public void UpdateUserEmail(long id, string newEmail)
+        {
+            var user = _userRepository.GetUser(id);
+
+            _userRepository.EnsureUserExists(user);
+
+            _userRepository.EnsureEmailHasValidFormat(newEmail);
+
+            _userRepository.EnsureEmailNotTaken(newEmail, id);
+
+            _userRepository.UpdateUserEmail(user, newEmail);
+        }
+
+        public void DisableUser(long id, List<Claim> userClaims)
+        {
+            var user = _userRepository.GetUser(id);
+
+            _userRepository.EnsureUserExists(user);
+
+            var loggedInUsersIdFromClaims = GetIdFromClaims(userClaims);
+
+            long adminId = TryParseLoggedInUsersId(loggedInUsersIdFromClaims);
+
+            EnsureUserNotDisablingOwnAccount(user.Id, adminId);
+
+            var role = GetRoleFromClaims(userClaims);
+
+            EnsureUserHasPermissionToDisableAccount(user, role);
+
+            _userRepository.DisableUser(user);
+        }
+
         public string SignInUser(LoginRequest loginRequest)
         {
-            var user = _dbContext.Users.FirstOrDefault(x => x.Email == loginRequest.Email);
+            var user = _userRepository.GetUser(loginRequest.Email);
 
-            CheckIfUserExistsByEmial(loginRequest.Email, "Niepoprawny email lub hasło.");
+            _userRepository.EnsureUserExists(user);
 
-            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, loginRequest.Password);
+            var passwordVerificationResult = ComparePasswordHashes(user, loginRequest);
 
-            if (result == PasswordVerificationResult.Failed)
-            {
-                throw new BadRequestException("Niepoprawny email lub hasło.");
-            }
+            EnsurePasswordHashesMatch(passwordVerificationResult);
 
             return GenerateJwt(user);
         }
@@ -169,80 +139,150 @@ namespace Restaurant.Services.Services
 
         #region PrivateMethods
 
+        #region JwtToken
+
         private string GenerateJwt(User user)
         {
-            var claims = new List<Claim>
+            var claims = GetUserClaims(user);
+
+            var securityKey = GetSymmetricSecurityKey(_authenticationSettings.JwtKey);
+            var signingCredentials = GetSigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var keyExpirationDateTime = GetJwtExpirationDateTime(_authenticationSettings.JwtExpireDays);
+
+            var token = GetJwtToken(
+                _authenticationSettings.JwtIssuer,
+                _authenticationSettings.JwtIssuer,
+                claims,
+                keyExpirationDateTime,
+                signingCredentials);
+
+            return SerializeToken(token);
+        }
+
+        private List<Claim> GetUserClaims(User user)
+        {
+            return new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };
+        }
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
-            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        private SymmetricSecurityKey GetSymmetricSecurityKey(string jwtKey)
+        {
+            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+        }
 
-            var expires = DateTime.Now.AddDays(_authenticationSettings.JwtExpireDays);
-            var token = new JwtSecurityToken(
+        private SigningCredentials GetSigningCredentials(SymmetricSecurityKey key, string securityAlgorithms)
+        {
+            return new SigningCredentials(key, securityAlgorithms);
+        }
+
+        private DateTime GetJwtExpirationDateTime(int timeInDays)
+        {
+            return DateTime.Now.AddDays(timeInDays);
+        }
+
+        private JwtSecurityToken GetJwtToken(
+            string issuer,
+            string audience,
+            List<Claim> claims,
+            DateTime expirationDateTime,
+            SigningCredentials signingCredentials)
+        {
+            return new JwtSecurityToken(
                 _authenticationSettings.JwtIssuer,
                 _authenticationSettings.JwtIssuer,
                 claims,
-                expires: expires,
-                signingCredentials: cred);
+                expires: expirationDateTime,
+                signingCredentials: signingCredentials);
+        }
 
+        private string SerializeToken(JwtSecurityToken token)
+        {
             var tokenHandler = new JwtSecurityTokenHandler();
             return tokenHandler.WriteToken(token);
         }
 
-        private User CheckIfUserExistsById(long id)
-        {
-            var user = _dbContext.Users.FirstOrDefault(x => x.Id == id);
+        #endregion
 
-            if (user == null)
+        #region ClaimsParsing
+
+        private long TryParseLoggedInUsersId(string id)
+        {
+            long parsedId;
+
+            if (!long.TryParse(id, out parsedId))
             {
-                _logger.LogError($"User with id:{id} does not exist.");
-                throw new NotFoundException("Użytkownik o podanym id nie istnieje.");
+                _logger.LogError("Error during convering current user id from claims");
+                throw new InternalErrorException("Błąd podczas konwertowania twojego ID na wartość numeryczną, skontaktuj się z oddziałem wsparcia.");
             }
 
-            return user;
+            return parsedId;
         }
 
-        private User CheckIfUserExistsByEmial(string email, string message)
+        private string GetIdFromClaims(List<Claim> userClaims)
         {
-            var user = _dbContext.Users.FirstOrDefault(x => x.Email == email);
-
-            if (user == null)
-            {
-                _logger.LogError($"User with email:{email} does not exist.");
-                throw new NotFoundException(message);
-            }
-
-            return user;
+            return userClaims?
+                .FirstOrDefault(x => x.Type
+                    .Equals(
+                        ClaimTypes.NameIdentifier,
+                        StringComparison.OrdinalIgnoreCase))
+                ?.Value;
         }
 
-        private void CheckIfEmailInUse(string email, long id = 0)
+        private string GetRoleFromClaims(List<Claim> userClaims)
         {
-            var emailInUse = _dbContext.Users.Where(x => x.Id != id).Any(x => x.Email.ToLower() == email.ToLower());
-
-            if(emailInUse)
-            {
-                _logger.LogError($"Email:{email} is already taken.");
-                throw new BadRequestException("Podany email jest zajęty.");
-            }
+            return userClaims?
+                .FirstOrDefault(x => x.Type
+                    .Equals(
+                        ClaimTypes.Role,
+                        StringComparison.OrdinalIgnoreCase))
+                ?.Value;
         }
 
-        private void CheckIfEmailHasValidFormat(string email)
+        #endregion
+
+        #region AccountDisablingValidation
+
+        private void EnsureUserNotDisablingOwnAccount(long userId, long adminId)
         {
-            var valiadtor = new EmailAddressAttribute();
-
-            var emailValid = valiadtor.IsValid(email);
-
-            if(!emailValid)
+            if (userId == adminId)
             {
-                _logger.LogError($"Email:{email} has invalid format.");
-                throw new BadRequestException("Podany email ma błędny format.");
+                throw new BadRequestException("Nie można oznaczyć swojego konta jako nieaktywne.");
             }
         }
 
-        #endregion PrivateMethods
+        private void EnsureUserHasPermissionToDisableAccount(User user, string role)
+        {
+            if (role.Equals(RoleEnum.Admin.ToString())
+                    && (user.Role.Equals(RoleEnum.Admin.ToString())
+                || user.Role.Equals(RoleEnum.HeadAdmin.ToString())))
+            {
+                throw new UnauthorizedException("Administrator nie możne oznaczyć konta innego administratora jako nieaktywne.");
+            }
+        }
+
+        #endregion
+
+        #region PasswordHasher
+
+        private PasswordVerificationResult ComparePasswordHashes(User user, LoginRequest loginRequest)
+        {
+            return _passwordHasher.VerifyHashedPassword(user, user.Password, loginRequest.Password);
+        }
+
+        private void EnsurePasswordHashesMatch(PasswordVerificationResult passwordVerificationResult)
+        {
+            if (passwordVerificationResult == PasswordVerificationResult.Failed)
+            {
+                throw new BadRequestException("Niepoprawny email lub hasło.");
+            }
+        }
+
+        #endregion
+
+        #endregion
     }
 }

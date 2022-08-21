@@ -17,6 +17,22 @@ namespace Restaurant.API.Controllers
             _userService = userService;
         }
 
+        //[AuthorizeWithRoles(RoleEnum.HeadAdmin, RoleEnum.Admin)]
+        [HttpGet("GetUserById/{id}")]
+        public IActionResult GetUserById([FromRoute] long id)
+        {
+            var user = _userService.GetUser(id);
+            return Ok(user);
+        }
+
+        //[AuthorizeWithRoles(RoleEnum.HeadAdmin, RoleEnum.Admin)]
+        [HttpGet("GetUsersList")]
+        public IActionResult GetUsersList()
+        {
+            var usersList = _userService.GetUsers();
+            return Ok(usersList);
+        }
+
         [HttpPost("AddUser")]
         public IActionResult AddUser([FromBody] UserCreateRequest userCreateRequest)
         {
@@ -38,22 +54,6 @@ namespace Restaurant.API.Controllers
         {
             var token = _userService.SignInUser(loginRequest);
             return Ok(token);
-        }
-
-        //[AuthorizeWithRoles(RoleEnum.HeadAdmin, RoleEnum.Admin)]
-        [HttpGet("GetUserById/{id}")]
-        public IActionResult GetUserById([FromRoute] long id)
-        {
-            var user = _userService.GetUserById(id);
-            return Ok(user);
-        }
-
-        //[AuthorizeWithRoles(RoleEnum.HeadAdmin, RoleEnum.Admin)]
-        [HttpGet("GetUsersList")]
-        public IActionResult GetUsersList()
-        {
-            var usersList = _userService.GetUsersList();
-            return Ok(usersList);
         }
 
         [HttpPut("UpdateUser/{id}")]
