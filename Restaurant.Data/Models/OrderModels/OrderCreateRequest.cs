@@ -9,6 +9,7 @@
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public string PromotionCode { get; set; }
+        public long? PromotionId { get; set; }
         public virtual List<OrderElementCreateRequest> OrderElements { get; set; }
     }
 }

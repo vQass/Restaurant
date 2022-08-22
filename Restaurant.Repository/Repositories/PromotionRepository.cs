@@ -44,6 +44,7 @@ namespace Restaurant.Repository.Repositories
         public Promotion GetPromotion(string promotionCode)
         {
             return _dbContext.Promotions
+                .OrderByDescending(x => x.StartDate)
                 .FirstOrDefault(x => x.Code
                     .Equals(promotionCode));
         }
@@ -100,6 +101,21 @@ namespace Restaurant.Repository.Repositories
             if (promotion is null)
             {
                 throw new NotFoundException("Podana promocja nie istnieje.");
+            }
+        }
+
+        public void EnsurePromotionIsActive(Promotion promotion)
+        {
+            var currentDateTime = DateTime.Now;
+
+            if (promotion.IsManuallyDisabled)
+            {
+                throw new BadRequestException("Podana promocja została wyłączona przez administratora.");
+            }
+
+            if(promotion.StartDate > currentDateTime || promotion.EndDate < currentDateTime)
+            {
+                throw new BadRequestException("Podana promocja nie jest już aktywna.");
             }
         }
 

@@ -14,7 +14,7 @@ namespace Restaurant.DB.Entities
         public string Address { get; set; }
         [Phone]
         public string PhoneNumber { get; set; }
-        public long? PromotionCodeId { get; set; }
+        public long? PromotionId { get; set; }
         public OrderStatusEnum Status { get; set; }
         public DateTime OrderDate { get; set; }
         public virtual User User { get; set; }

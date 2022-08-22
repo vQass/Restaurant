@@ -10,6 +10,7 @@ namespace Restaurant.IRepository
         void DisablePromotion(Promotion promotion);
         void EnsurePromotionCodeNotTaken(string promotionCode, DateTime startDate, DateTime endDate, long id = 0);
         void EnsurePromotionExists(Promotion promotion);
+        public void EnsurePromotionIsActive(Promotion promotion);
         void EnsurePromotionNotInUse(Promotion promotion);
         Promotion GetPromotion(long id);
         Promotion GetPromotion(string promotionCode);

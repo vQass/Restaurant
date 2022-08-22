@@ -11,10 +11,10 @@ namespace Restaurant.IServices
 {
     public interface IOrderService
     {
-        public Task<IEnumerable<Order>> GetOrders(List<OrderStatusEnum> orderStatuses);
-        public Task<IEnumerable<Order>> GetOrdersByUserId(long userId, List<OrderStatusEnum> orderStatuses);
-        public Order GetOrderById(long id);
+        public Task<IEnumerable<Order>> GetOrders(IEnumerable<OrderStatusEnum> orderStatuses);
+        public Order GetOrder(long id);
         public long AddOrder(OrderCreateRequest orderCreateRequest);
+        void UpdateOrder(long id, OrderUpdateRequest orderUpdateRequest);
         public void ChangeOrderStatus(long id, OrderStatusEnum orderStatus);
     }
 }

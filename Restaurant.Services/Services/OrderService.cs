@@ -5,6 +5,7 @@ using Restaurant.Data.Models.OrderModels;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.DB.Enums;
+using Restaurant.IRepository;
 using Restaurant.IServices;
 using System;
 using System.Collections.Generic;
@@ -18,131 +19,98 @@ namespace Restaurant.Services.Services
     {
         #region Fields
 
-        private readonly RestaurantDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IPromotionRepository _promotionRepository;
 
         #endregion
 
         #region Ctors
 
-        public OrderService(RestaurantDbContext dbContext, IMapper mapper)
+        public OrderService(
+            IMapper mapper,
+            IOrderRepository orderRepository,
+            IPromotionRepository promotionRepository)
         {
-            _dbContext = dbContext;
             _mapper = mapper;
+            _orderRepository = orderRepository;
+            _promotionRepository = promotionRepository;
         }
 
         #endregion
 
         #region PublicMethods
 
-        public Order GetOrderById(long id)
+        public Order GetOrder(long id)
         {
-            throw new NotImplementedException();
-        }
+            var order = _orderRepository.GetOrder(id);
 
-        public async Task<IEnumerable<Order>> GetOrders(List<OrderStatusEnum> orderStatuses)
-        {
-            var ordersQuery = GetFilteredOrdersQuery(orderStatuses);
-
-            return await ordersQuery.ToListAsync();
-        }
-
-        public async Task<IEnumerable<Order>> GetOrdersByUserId(long userId, List<OrderStatusEnum> orderStatuses)
-        {
-            var ordersQuery = GetFilteredOrdersQuery(orderStatuses, userId);
-
-            return await ordersQuery.ToListAsync();
-        }
-
-        public long AddOrder(OrderCreateRequest orderCreateRequest)
-        {
-            var order = _mapper.Map<Order>(orderCreateRequest);
-
-            order.OrderDate = DateTime.Now;
-            order.Status = OrderStatusEnum.Pending;
-
-            _dbContext.Orders.Add(order);
-            _dbContext.SaveChanges();
-            return order.Id;
-        }
-
-        public long UpdateOrder(long id, OrderUpdateRequest orderUpdateRequest)
-        {
-            var order = CheckIfOrderExists(id);
-
-            order.Address = orderUpdateRequest.Address;
-            order.PhoneNumber = orderUpdateRequest.PhoneNumber;
-            order.Surname = orderUpdateRequest.Surname;
-            order.Name = orderUpdateRequest.Name;
-            order.CityId = orderUpdateRequest.CityId;
-            order.PromotionCodeId = GetActivePromotionId(orderUpdateRequest.PromotionCode);
-
-            _dbContext.Orders.Add(order);
-            _dbContext.SaveChanges();
-            return order.Id;
-        }
-
-        public void ChangeOrderStatus(long id, OrderStatusEnum orderStatus)
-        {
-            var order = CheckIfOrderExists(id);
-            order.Status = orderStatus;
-            _dbContext.SaveChanges();
-        }
-
-        #endregion
-
-        #region PrivateMethods
-
-        private Order CheckIfOrderExists(long id)
-        {
-            var order = _dbContext.Orders.FirstOrDefault(x => x.Id == id);
-
-            if(order is null)
-            {
-                throw new NotFoundException("Zamówienie o podanym id nie istnieje");
-            }
+            _orderRepository.EnsureOrderExists(order);
 
             return order;
         }
 
-        private IQueryable<Order> GetFilteredOrdersQuery(List<OrderStatusEnum> orderStatuses, long userId = 0)
+        public async Task<IEnumerable<Order>> GetOrders(IEnumerable<OrderStatusEnum> orderStatuses = null, long userId = 0)
         {
-            var ordersQuery = _dbContext.Orders.Include(x => x.OrderElements);
+            return await _orderRepository.GetOrders(orderStatuses, userId);
+        }
 
-            if (orderStatuses is not null)
-            {
-                ordersQuery.Where(x => orderStatuses.Any(y => y == x.Status));
-            }
+        public long AddOrder(OrderCreateRequest orderCreateRequest)
+        {
+            var promotion = _promotionRepository.GetPromotion(orderCreateRequest.PromotionCode);
 
-            if(userId != 0)
-            {
-                ordersQuery.Where(x => x.UserId == userId);
-            }
+            _promotionRepository.EnsurePromotionExists(promotion);
 
-            return ordersQuery;
+            _promotionRepository.EnsurePromotionIsActive(promotion);
+
+            orderCreateRequest.PromotionId = promotion?.Id;
+
+            var id = _orderRepository.AddOrder(orderCreateRequest);
+            
+            return id;
+        }
+
+        public void UpdateOrder(long id, OrderUpdateRequest orderUpdateRequest)
+        {   
+            var order = _orderRepository.GetOrder(id);
+
+            _orderRepository.EnsureOrderExists(order);
+
+            EnsureOrderHasPendingStatus(order);
+
+            var promotion = _promotionRepository.GetPromotion(orderUpdateRequest.PromotionCode);
+
+            _promotionRepository.EnsurePromotionExists(promotion);
+
+            _promotionRepository.EnsurePromotionIsActive(promotion);
+
+            orderUpdateRequest.PromotionId = promotion?.Id;
+
+            _orderRepository.UpdateOrder(order, orderUpdateRequest);
+        }
+
+        public void ChangeOrderStatus(long id, OrderStatusEnum orderStatus)
+        {
+            var order = _orderRepository.GetOrder(id);
+
+            _orderRepository.EnsureOrderExists(order);
+
+            _orderRepository.ChangeOrderStatus(order, orderStatus);
         }
 
         #endregion
 
         #region PrivateMethods
 
-        private long GetActivePromotionId(string promotionCode)
+        private void EnsureOrderHasPendingStatus(Order order)
         {
-            var currentDateTime = DateTime.Now;
-             var id = _dbContext.Promotions
-                .FirstOrDefault(x => x.Code == promotionCode.Trim()
-                    && x.StartDate <= currentDateTime
-                    && x.EndDate >= currentDateTime)
-                ?.Id;
-
-            if(!id.HasValue)
+            if (order.Status != OrderStatusEnum.Pending)
             {
-                throw new BadRequestException("Nie znaleziono aktywnej promocji o podanym kodzie.");
+                throw new BadRequestException($"Brak możliwości edytowania zamówienia. Obecny status zamówienia: " +
+                    $"{OrderStatusDictionary.OrderStatusesWithDescription.FirstOrDefault(x => x.Key == (byte)order.Status).Value}");
             }
-
-            return id.Value;
         }
-
         #endregion
+
     }
 }
