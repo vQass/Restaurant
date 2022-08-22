@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Restaurant.Data.Models.CityModels;
 using Restaurant.IServices;
 
 namespace Restaurant.API.Controllers
@@ -28,16 +29,16 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPost("AddCity")]
-        public IActionResult AddCity([FromBody] string cityName)
+        public IActionResult AddCity([FromBody] CityCreateRequest cityCreateRequest)
         {
-            short id = _cityService.AddCity(cityName);
+            short id = _cityService.AddCity(cityCreateRequest.Name);
             return Created($"api/City/GetCityById/{id}", null);
         }
 
         [HttpPut("UpdateCity/{id}")]
-        public IActionResult UpdateCity([FromRoute] short id, [FromBody] string cityName)
+        public IActionResult UpdateCity([FromRoute] short id, [FromBody] CityCreateRequest cityUpdateRequest)
         {
-            _cityService.UpdateCity(id, cityName);
+            _cityService.UpdateCity(id, cityUpdateRequest.Name);
             return Ok();
         }
 

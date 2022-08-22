@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Restaurant.Data.Models.IngredientModels;
 using Restaurant.IServices;
 
 namespace Restaurant.API.Controllers
@@ -28,16 +29,16 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPost("AddIngredient")]
-        public IActionResult AddIngredient([FromBody] string ingredientName)
+        public IActionResult AddIngredient([FromBody] IngredientCreateRequest ingredientCreateRequest)
         {
-            var id = _ingredientServices.AddIngredient(ingredientName);
+            var id = _ingredientServices.AddIngredient(ingredientCreateRequest.Name);
             return Created($"api/Ingredient/GetIngredientById/{id}", null);
         }
 
         [HttpPut("UpdateIngredient/{id}")]
-        public IActionResult UpdateIngredient([FromRoute] int id, [FromBody] string ingredientName)
+        public IActionResult UpdateIngredient([FromRoute] int id, [FromBody] IngredientUpdateRequest ingredientUpdateRequest)
         {
-            _ingredientServices.UpdateIngredient(id, ingredientName);
+            _ingredientServices.UpdateIngredient(id, ingredientUpdateRequest.Name);
             return Ok();
         }
 
