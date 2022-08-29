@@ -8,7 +8,5 @@ namespace Restaurant.DB.Entities
         public short Id { get; set; }
         public string Name { get; set; }
         public bool IsActive { get; set; }
-        public virtual List<User> Users { get; set; }
-        public virtual List<Order> Orders { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace Restaurant.DB
 
             modelBuilder.Entity<User>()
                 .HasOne(x => x.City)
-                .WithMany(x => x.Users)
+                .WithMany()
                 .HasForeignKey(x => x.CityId);
 
             modelBuilder.Entity<Meal>()
@@ -44,7 +44,7 @@ namespace Restaurant.DB
 
             modelBuilder.Entity<Order>()
                 .HasOne(x => x.City)
-                .WithMany(x => x.Orders)
+                .WithMany()
                 .HasForeignKey(x => x.CityId);
 
             modelBuilder.Entity<Order>()
