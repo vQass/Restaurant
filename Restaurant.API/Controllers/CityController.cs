@@ -16,8 +16,8 @@ namespace Restaurant.API.Controllers
             _cityService = cityService;
         }
 
-        [HttpGet("GetCityList")]
-        public IActionResult GetCityList()
+        [HttpGet("GetCities")]
+        public IActionResult GetCities()
         {
             return Ok(_cityService.GetCities());
         }
