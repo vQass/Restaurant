@@ -7,6 +7,6 @@
     <!-- Command to create an optimized build of the project that's ready for publishing -->
     <ProductionBuildCommand>npm run build</ProductionBuildCommand>
     <!-- Folder where production build objects will be placed -->
-    <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\Restaurant.AngularProject</BuildOutputFolder>
+    <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\Restaurant.App</BuildOutputFolder>
   </PropertyGroup>
 </Project>

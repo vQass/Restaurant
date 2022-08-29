@@ -6,8 +6,6 @@ import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { CityService } from 'src/app/services/ApiServices/city.service';
 import { City } from 'src/models/city/City';
-import { CityWrapper } from 'src/models/city/CityWrapper';
-import { CityTableDataSource, CityTableItem } from './city-table-datasource';
 
 @Component({
   selector: 'app-city-table',
@@ -19,14 +17,11 @@ export class CityTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   
-  @ViewChild(MatTable) table!: MatTable<CityTableItem>;
-  dataSource!: CityTableDataSource;
-  
   cities: City[] = [];
   
   resultsLength = 0;
   isLoadingResults = true;
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['id', 'name', 'isActive', 'action'];
 
   constructor(private cityService : CityService) {
   }
@@ -50,7 +45,8 @@ export class CityTableComponent implements AfterViewInit {
       map(data => {
         // Flip flag to show that loading has finished.
         this.isLoadingResults = false;
-
+        console.log(data);
+        
         if (data === null) {
           return [];
         }

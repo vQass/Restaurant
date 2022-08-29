@@ -5,7 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-// import { ApiEndpointsConfig } from 'src/apiEndpointsConfig';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 import { AppComponent } from './app.component';
 import { ButtonComponent } from './components/shared/button/button.component';
@@ -19,7 +20,13 @@ import { CityTableComponent } from './components/city/city-table/city-table.comp
     CityTableComponent,
   ],
   imports: [
-    BrowserModule, HttpClientModule, BrowserAnimationsModule, MatTableModule, MatPaginatorModule, MatSortModule
+    BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatTableModule, 
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
