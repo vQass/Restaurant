@@ -1,4 +1,5 @@
-﻿using Restaurant.DB.Entities;
+﻿using Restaurant.Data.Models.CityModels;
+using Restaurant.DB.Entities;
 using Restaurant.IRepository;
 using Restaurant.IServices;
 
@@ -33,9 +34,16 @@ namespace Restaurant.Services.Services
             return city;
         }
 
-        public IEnumerable<City> GetCities()
+        public CityWrapper GetCities()
         {
-            return _cityRepository.GetCities();
+            var cities = _cityRepository.GetCities();
+            var cityCount = _cityRepository.GetCitiesCount();
+
+            return new CityWrapper()
+            {
+                Items = cities,
+                ItemCount = cityCount
+            };
         }
 
         public short AddCity(string cityName)

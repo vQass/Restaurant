@@ -1,9 +1,4 @@
 ﻿using Restaurant.DB.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Restaurant.IRepository
 {
@@ -14,6 +9,7 @@ namespace Restaurant.IRepository
         City GetCity(short id);
         City GetCity(string cityName);
         IEnumerable<City> GetCities();
+        short GetCitiesCount();
 
         #endregion
 
