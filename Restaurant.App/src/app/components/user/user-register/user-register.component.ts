@@ -1,13 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators
-} from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { FormGroupErrorStateMatcher, SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
 import { ValidationConsts } from 'src/app/Validation/ValidationConsts';
 
@@ -22,26 +14,35 @@ export class UserRegisterComponent implements OnInit {
   minPassLength = ValidationConsts.MIN_PASSWORD_LENGTH;
   maxPassLength = ValidationConsts.MAX_PASSWORD_LENGTH;
 
-  passwordFormGroup: FormGroup;
-
   singleControlMatcher = new SingleControlErrorStateMatcher();
   groupMatcher = new FormGroupErrorStateMatcher();
 
-  mainForm = new FormGroup({
-
-  });
-
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  registerForm;
 
   constructor(private fb: FormBuilder) {
-    this.passwordFormGroup = this.fb.group({
-      password: ['', [Validators.required, Validators.minLength(this.minPassLength), Validators.maxLength(this.maxPassLength)]],
-      confirmPassword: ['']
-    },
-      { validators: this.checkPasswords })
-  }
+    this.registerForm = fb.group({
+      email: fb.control(null, [Validators.required, Validators.email]),
+      password: fb.control(null, [Validators.required, Validators.minLength(this.minPassLength), Validators.maxLength(this.maxPassLength)]),
+      confirmPassword: fb.control(null)
+    }
+      , { validators: this.checkPasswords }
+    )
+  };
 
   ngOnInit(): void {
+
+  }
+
+  get email() {
+    return this.registerForm.get('email');
+  }
+
+  get password() {
+    return this.registerForm.get('password');
+  }
+
+  get confirmPassword() {
+    return this.registerForm.get('confirmPassword');
   }
 
   checkPasswords: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {

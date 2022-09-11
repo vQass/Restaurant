@@ -1,4 +1,5 @@
-<form class="container">
+<form class="container"
+      [formGroup]="registerForm">
 
   <!-- Email -->
   <mat-form-field class="example-full-width"
@@ -6,64 +7,62 @@
     <mat-label>Email</mat-label>
     <input type="email"
            matInput
-           [formControl]="emailFormControl"
+           formControlName="email"
            [errorStateMatcher]="singleControlMatcher"
            placeholder="example@email.com" />
-    <mat-error *ngIf="
-    emailFormControl?.hasError('email')">
+    <mat-error *ngIf="email?.errors?.['email']">
       Proszę wprowadzić poprawny adres email
     </mat-error>
-    <mat-error *ngIf="emailFormControl?.hasError('required')">
+    <mat-error *ngIf="email?.errors?.['required']">
       Email jest wymagany
     </mat-error>
   </mat-form-field>
 
-  <ng-container [formGroup]="passwordFormGroup">
 
-    <!-- Password -->
-    <mat-form-field class="example-full-width"
-                    appearance="fill">
-      <mat-label>Password</mat-label>
-      <input type="password"
-             matInput
-             placeholder="Hasło"
-             formControlName="password" />
-      <mat-error *ngIf="passwordFormGroup.hasError('required', 'password')">
-        Hasło jest wymagane
-      </mat-error>
-      <mat-error *ngIf="
-      passwordFormGroup.hasError('minlength', 'password')">
-        Hasło powinno zawierać co najmniej {{ minPassLength }} znaków
-      </mat-error>
-      <mat-error *ngIf="
-      passwordFormGroup.hasError('maxlength', 'password')">
-        Hasło powinno zawierać nie więcej niż {{ maxPassLength }} znaki
-      </mat-error>
-    </mat-form-field>
+  <!-- Password -->
+  <mat-form-field class="example-full-width"
+                  appearance="fill">
+    <mat-label>Password</mat-label>
+    <input type="password"
+           matInput
+           placeholder="Hasło"
+           formControlName="password" />
+    <mat-error *ngIf="password?.errors?.['required']">
+      Hasło jest wymagane
+    </mat-error>
+    <mat-error *ngIf="
+      password?.errors?.['minlength']">
+      Hasło powinno zawierać co najmniej {{ minPassLength }} znaków
+    </mat-error>
+    <mat-error *ngIf="
+      password?.errors?.['maxlength']">
+      Hasło powinno zawierać nie więcej niż {{ maxPassLength }} znaki
+    </mat-error>
+  </mat-form-field>
 
-    <!-- Confirm Password -->
-    <mat-form-field class="example-full-width"
-                    appearance="fill">
-      <mat-label>Password</mat-label>
-      <input type="password"
-             matInput
-             placeholder="Potwierdź hasło"
-             [errorStateMatcher]="groupMatcher"
-             formControlName="confirmPassword" />
-      <mat-error *ngIf="passwordFormGroup.hasError('required')">
-        Potwierdzenie hasła jest wymagane
-      </mat-error>
-      <mat-error *ngIf="passwordFormGroup.hasError('notSame')">
-        Wprowadzone hasła są różne
-      </mat-error>
-    </mat-form-field>
+  <!-- Confirm Password -->
+  <mat-form-field class="example-full-width"
+                  appearance="fill">
+    <mat-label>Password</mat-label>
+    <input type="password"
+           matInput
+           placeholder="Potwierdź hasło"
+           [errorStateMatcher]="groupMatcher"
+           formControlName="confirmPassword" />
+    <mat-error *ngIf="registerForm.hasError('notSame')">
+      Wprowadzone hasła są różne
+    </mat-error>
+  </mat-form-field>
 
-  </ng-container>
+
+  <p>
+    Form Status: {{ registerForm.status }}
+  </p>
 
   <button class="btn"
           mat-raised-button
           color="primary"
-          [disabled]="!passwordFormGroup.valid || !emailFormControl.valid">
+          [disabled]="!registerForm.valid">
     Zarejestruj
   </button>
 </form>
