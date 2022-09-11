@@ -4,8 +4,6 @@ import { environment } from 'src/environments/environment';
 import { apiEndpoints } from 'src/apiEndpointsConfig'
 import { CityWrapper } from 'src/models/city/CityWrapper';
 import { Observable } from 'rxjs/internal/Observable';
-import { CityTableItem } from 'src/app/components/city/city-table/city-table-datasource';
-import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

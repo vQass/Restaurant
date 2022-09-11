@@ -1,0 +1,31 @@
+<mat-toolbar>
+  <button mat-icon-button
+          class="example-icon"
+          aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span style="margin: 0 10px 0 20px">Restauracja</span>
+
+  <a class="btn"
+     mat-stroked-button
+     color="primary">Menu</a>
+  <a class="btn"
+     mat-stroked-button
+     color="primary">Złóż zamówienie</a>
+
+  <span class="navbar-spacer"></span>
+  <ng-container *ngIf="isLoggedIn">
+    <a class="btn"
+       mat-stroked-button
+       color="primary">Zaloguj</a>
+    <a class="btn"
+       mat-raised-button
+       color="primary">Zarejestruj</a>
+  </ng-container>
+
+  <button *ngIf="!isLoggedIn"
+          class="btn"
+          mat-stroked-button
+          color="primary"
+          (click)="clickEvent()">Wyloguj</button>
+</mat-toolbar>

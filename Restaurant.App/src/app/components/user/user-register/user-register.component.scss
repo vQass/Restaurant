@@ -1,0 +1,25 @@
+.container {
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  height: 500px;
+  background-color: rgb(33, 33, 33);
+  margin: 50px auto 0px auto;
+}
+
+.backgroundtest {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  margin-top: 8px;
+  border-radius: 10px;
+  width: 100%;
+  color: white !important;
+}
