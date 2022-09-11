@@ -32,11 +32,14 @@ namespace Restaurant.APIComponents.Validators.UserValidators
 
             RuleFor(x => x.CityId).Custom((value, context) =>
             {
-                var cityExists = dbContext.Cities.Any(x => x.Id == value);
-
-                if (!cityExists)
+                if (value != null)
                 {
-                    context.AddFailure("CityId", "Podane miasto nie występuje w bazie danych");
+                    var cityExists = dbContext.Cities.Any(x => x.Id == value);
+
+                    if (!cityExists)
+                    {
+                        context.AddFailure("CityId", "Podane miasto nie występuje w bazie danych");
+                    }
                 }
             });
 

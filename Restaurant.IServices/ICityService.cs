@@ -1,4 +1,5 @@
-﻿using Restaurant.DB.Entities;
+﻿using Restaurant.Data.Models.CityModels;
+using Restaurant.DB.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Restaurant.IServices
 {
     public interface ICityService
     {
-        public IEnumerable<City> GetCities();
+        public CityWrapper GetCities();
         public City GetCity(short id);
         public short AddCity(string cityName);
         public void UpdateCity(short id, string cityName);

@@ -70,7 +70,7 @@ namespace Restaurant.Repository.Repositories
 
         public long AddUser(UserCreateRequest userCreateRequest)
         {
-            var date = new DateTime();
+            var date = DateTime.Now;
             var user = _mapper.Map<User>(userCreateRequest);
 
             user.Password = _passwordHasher.HashPassword(user, user.Password);

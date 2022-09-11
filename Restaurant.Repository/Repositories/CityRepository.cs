@@ -50,6 +50,11 @@ namespace Restaurant.Repository.Repositories
                 .ToList();
         }
 
+        public short GetCitiesCount()
+        {
+            return (short)_dbContext.Cities.Count();
+        }
+
         #endregion
 
         #region EntityModificationMethods
