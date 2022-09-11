@@ -1,10 +1,11 @@
 .container {
   display: flex;
+  align-content: space-between;
   flex-direction: column;
   padding: 30px;
   width: 90%;
   max-width: 500px;
-  height: 500px;
+  min-height: 500px;
   background-color: rgb(33, 33, 33);
   margin: 50px auto 0px auto;
 }
@@ -31,6 +32,6 @@ h1 {
 }
 
 .btn {
-  margin-top: 20px;
+  margin-top: 100px;
   align-self: end;
 }

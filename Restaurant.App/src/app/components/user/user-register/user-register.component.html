@@ -1,69 +1,69 @@
 <form class="container"
       [formGroup]="registerForm">
+  <div>
+    <h1>Rejestacja</h1>
 
-  <h1>Rejestacja</h1>
-
-  <!-- Email -->
-  <mat-form-field class="example-full-width"
-                  appearance="fill">
-    <mat-label>Email</mat-label>
-    <input type="email"
-           matInput
-           formControlName="email"
-           [errorStateMatcher]="singleControlMatcher"
-           placeholder="example@email.com" />
-    <mat-error *ngIf="email?.errors?.['email']">
-      Proszę wprowadzić poprawny adres email
-    </mat-error>
-    <mat-error *ngIf="email?.errors?.['required']">
-      Email jest wymagany
-    </mat-error>
-  </mat-form-field>
-
-  <div formGroupName="passwordGroup">
-
-    <!-- Password -->
+    <!-- Email -->
     <mat-form-field class="example-full-width"
                     appearance="fill">
-      <mat-label>Password</mat-label>
-      <input type="password"
+      <mat-label>Email</mat-label>
+      <input type="email"
              matInput
-             placeholder="Hasło"
-             formControlName="password" />
-      <mat-error *ngIf="password?.errors?.['required']">
-        Hasło jest wymagane
+             formControlName="email"
+             [errorStateMatcher]="singleControlMatcher"
+             placeholder="example@email.com" />
+      <mat-error *ngIf="email?.errors?.['email']">
+        Proszę wprowadzić poprawny adres email
       </mat-error>
-      <mat-error *ngIf="
-password?.errors?.['minlength']">
-        Hasło powinno zawierać co najmniej {{ minPassLength }} znaków
-      </mat-error>
-      <mat-error *ngIf="
-password?.errors?.['maxlength']">
-        Hasło powinno zawierać nie więcej niż {{ maxPassLength }} znaki
+      <mat-error *ngIf="email?.errors?.['required']">
+        Email jest wymagany
       </mat-error>
     </mat-form-field>
 
-    <!-- Confirm Password -->
-    <mat-form-field class="example-full-width"
-                    appearance="fill">
-      <mat-label>Password</mat-label>
-      <input type="password"
-             matInput
-             placeholder="Potwierdź hasło"
-             [errorStateMatcher]="groupMatcher"
-             formControlName="confirmPassword" />
-      <mat-error *ngIf="PasswordGroupForm?.errors?.['notSame']">
-        Wprowadzone hasła są różne
-      </mat-error>
-      <mat-error *ngIf="password?.errors && !PasswordGroupForm?.errors?.['notSame']">
-        Hasło nie spełnia wymagań
-      </mat-error>
+    <div formGroupName="passwordGroup">
 
-    </mat-form-field>
+      <!-- Password -->
+      <mat-form-field class="example-full-width"
+                      appearance="fill">
+        <mat-label>Password</mat-label>
+        <input type="password"
+               matInput
+               placeholder="Hasło"
+               formControlName="password" />
+        <mat-error *ngIf="password?.errors?.['required']">
+          Hasło jest wymagane
+        </mat-error>
+        <mat-error *ngIf="password?.errors?.['minlength']">
+          Hasło powinno zawierać co najmniej {{ minPassLength }} znaków
+        </mat-error>
+        <mat-error *ngIf="password?.errors?.['maxlength']">
+          Hasło powinno zawierać nie więcej niż {{ maxPassLength }} znaki
+        </mat-error>
+      </mat-form-field>
 
+      <!-- Confirm Password -->
+      <mat-form-field class="example-full-width"
+                      appearance="fill">
+        <mat-label>Password</mat-label>
+        <input type="password"
+               matInput
+               placeholder="Potwierdź hasło"
+               [errorStateMatcher]="groupMatcher"
+               formControlName="confirmPassword" />
+        <mat-error *ngIf="PasswordGroupForm?.errors?.['notSame']">
+          Wprowadzone hasła są różne
+        </mat-error>
+        <mat-error *ngIf="password?.errors && !PasswordGroupForm?.errors?.['notSame']">
+          Hasło nie spełnia wymagań
+        </mat-error>
+
+      </mat-form-field>
+
+    </div>
   </div>
 
   <button class="btn"
+          (click)="onSubmit()"
           mat-raised-button
           color="primary"
           [disabled]="!registerForm.valid">

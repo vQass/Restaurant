@@ -16,9 +16,11 @@
   <span class="navbar-spacer"></span>
   <ng-container *ngIf="isLoggedIn">
     <a class="btn"
+       routerLink="login"
        mat-stroked-button
        color="primary">Zaloguj</a>
     <a class="btn"
+       routerLink="/register"
        mat-raised-button
        color="primary">Zarejestruj</a>
   </ng-container>

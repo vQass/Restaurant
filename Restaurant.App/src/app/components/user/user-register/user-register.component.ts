@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { UserService } from 'src/app/services/ApiServices/user.service';
 import { FormGroupErrorStateMatcher, SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
 import { ValidationConsts } from 'src/app/Validation/ValidationConsts';
+import { UserCreateRequest } from 'src/models/user/UserCreateRequest';
 
 @Component
   ({
@@ -19,13 +21,13 @@ export class UserRegisterComponent implements OnInit {
 
   registerForm;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private userService: UserService) {
     this.registerForm = fb.group({
-      email: fb.control(null, [Validators.required, Validators.email]),
+      email: fb.control('', [Validators.required, Validators.email]),
       passwordGroup: fb.group(
         {
-          password: fb.control(null, [Validators.required, Validators.minLength(this.minPassLength), Validators.maxLength(this.maxPassLength)]),
-          confirmPassword: fb.control(null)
+          password: fb.control('', [Validators.required, Validators.minLength(this.minPassLength), Validators.maxLength(this.maxPassLength)]),
+          confirmPassword: fb.control('')
         }, { validators: this.checkPasswords }
       )
     }
@@ -58,7 +60,9 @@ export class UserRegisterComponent implements OnInit {
     return pass === confirmPass ? null : { notSame: true }
   }
 
-  Test() {
-    console.log(this.registerForm);
+  onSubmit() {
+    let user = { email: this.registerForm.value.email, ...this.registerForm.value.passwordGroup } as UserCreateRequest;
+    this.userService.addUser(user).subscribe().unsubscribe();
+
   }
 }
