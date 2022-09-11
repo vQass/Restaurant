@@ -27,9 +27,9 @@ namespace Restaurant.API.Controllers
 
         //[AuthorizeWithRoles(RoleEnum.HeadAdmin, RoleEnum.Admin)]
         [HttpGet("GetUsersList")]
-        public IActionResult GetUsersList()
+        public async Task<IActionResult> GetUsersList()
         {
-            var usersList = _userService.GetUsers();
+            var usersList = await _userService.GetUsers();
             return Ok(usersList);
         }
 
