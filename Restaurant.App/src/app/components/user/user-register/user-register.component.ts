@@ -27,7 +27,7 @@ export class UserRegisterComponent implements OnInit {
       passwordGroup: fb.group(
         {
           password: fb.control('', [Validators.required, Validators.minLength(this.minPassLength), Validators.maxLength(this.maxPassLength)]),
-          confirmPassword: fb.control('')
+          confirmPassword: fb.control('', [Validators.required])
         }, { validators: this.checkPasswords }
       )
     }

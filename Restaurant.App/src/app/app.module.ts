@@ -21,6 +21,8 @@ import { CityComponent } from './components/city/city/city.component';
 import { ButtonComponent } from './components/shared/button/button.component';
 import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
 import { UserRegisterComponent } from './components/user/user-register/user-register.component';
+import { HomePageComponent } from './components/shared/home/home-page/home-page.component';
+import { UserLoginComponent } from './components/user/user-login/user-login.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { UserRegisterComponent } from './components/user/user-register/user-regi
     NavBarComponent,
     CityComponent,
     UserRegisterComponent,
+    HomePageComponent,
+    UserLoginComponent,
 
   ],
   imports: [
