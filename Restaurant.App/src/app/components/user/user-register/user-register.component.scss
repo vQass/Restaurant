@@ -1,4 +1,6 @@
 .container {
+  display: flex;
+  flex-direction: column;
   padding: 30px;
   width: 90%;
   max-width: 500px;
@@ -9,6 +11,10 @@
 
 .backgroundtest {
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+h1 {
+  color: white;
 }
 
 .example-form {
@@ -22,4 +28,9 @@
   border-radius: 10px;
   width: 100%;
   color: white !important;
+}
+
+.btn {
+  margin-top: 20px;
+  align-self: end;
 }

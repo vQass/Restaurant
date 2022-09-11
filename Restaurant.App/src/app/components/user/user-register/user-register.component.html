@@ -1,6 +1,8 @@
 <form class="container"
       [formGroup]="registerForm">
 
+  <h1>Rejestacja</h1>
+
   <!-- Email -->
   <mat-form-field class="example-full-width"
                   appearance="fill">
@@ -18,46 +20,48 @@
     </mat-error>
   </mat-form-field>
 
+  <div formGroupName="passwordGroup">
 
-  <!-- Password -->
-  <mat-form-field class="example-full-width"
-                  appearance="fill">
-    <mat-label>Password</mat-label>
-    <input type="password"
-           matInput
-           placeholder="Hasło"
-           formControlName="password" />
-    <mat-error *ngIf="password?.errors?.['required']">
-      Hasło jest wymagane
-    </mat-error>
-    <mat-error *ngIf="
-      password?.errors?.['minlength']">
-      Hasło powinno zawierać co najmniej {{ minPassLength }} znaków
-    </mat-error>
-    <mat-error *ngIf="
-      password?.errors?.['maxlength']">
-      Hasło powinno zawierać nie więcej niż {{ maxPassLength }} znaki
-    </mat-error>
-  </mat-form-field>
+    <!-- Password -->
+    <mat-form-field class="example-full-width"
+                    appearance="fill">
+      <mat-label>Password</mat-label>
+      <input type="password"
+             matInput
+             placeholder="Hasło"
+             formControlName="password" />
+      <mat-error *ngIf="password?.errors?.['required']">
+        Hasło jest wymagane
+      </mat-error>
+      <mat-error *ngIf="
+password?.errors?.['minlength']">
+        Hasło powinno zawierać co najmniej {{ minPassLength }} znaków
+      </mat-error>
+      <mat-error *ngIf="
+password?.errors?.['maxlength']">
+        Hasło powinno zawierać nie więcej niż {{ maxPassLength }} znaki
+      </mat-error>
+    </mat-form-field>
 
-  <!-- Confirm Password -->
-  <mat-form-field class="example-full-width"
-                  appearance="fill">
-    <mat-label>Password</mat-label>
-    <input type="password"
-           matInput
-           placeholder="Potwierdź hasło"
-           [errorStateMatcher]="groupMatcher"
-           formControlName="confirmPassword" />
-    <mat-error *ngIf="registerForm.hasError('notSame')">
-      Wprowadzone hasła są różne
-    </mat-error>
-  </mat-form-field>
+    <!-- Confirm Password -->
+    <mat-form-field class="example-full-width"
+                    appearance="fill">
+      <mat-label>Password</mat-label>
+      <input type="password"
+             matInput
+             placeholder="Potwierdź hasło"
+             [errorStateMatcher]="groupMatcher"
+             formControlName="confirmPassword" />
+      <mat-error *ngIf="PasswordGroupForm?.errors?.['notSame']">
+        Wprowadzone hasła są różne
+      </mat-error>
+      <mat-error *ngIf="password?.errors && !PasswordGroupForm?.errors?.['notSame']">
+        Hasło nie spełnia wymagań
+      </mat-error>
 
+    </mat-form-field>
 
-  <p>
-    Form Status: {{ registerForm.status }}
-  </p>
+  </div>
 
   <button class="btn"
           mat-raised-button

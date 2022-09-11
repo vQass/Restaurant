@@ -22,10 +22,13 @@ export class UserRegisterComponent implements OnInit {
   constructor(private fb: FormBuilder) {
     this.registerForm = fb.group({
       email: fb.control(null, [Validators.required, Validators.email]),
-      password: fb.control(null, [Validators.required, Validators.minLength(this.minPassLength), Validators.maxLength(this.maxPassLength)]),
-      confirmPassword: fb.control(null)
+      passwordGroup: fb.group(
+        {
+          password: fb.control(null, [Validators.required, Validators.minLength(this.minPassLength), Validators.maxLength(this.maxPassLength)]),
+          confirmPassword: fb.control(null)
+        }, { validators: this.checkPasswords }
+      )
     }
-      , { validators: this.checkPasswords }
     )
   };
 
@@ -38,16 +41,24 @@ export class UserRegisterComponent implements OnInit {
   }
 
   get password() {
-    return this.registerForm.get('password');
+    return this.registerForm.get('passwordGroup.password');
   }
 
   get confirmPassword() {
-    return this.registerForm.get('confirmPassword');
+    return this.registerForm.get('passwordGroup.confirmPassword');
+  }
+
+  get PasswordGroupForm() {
+    return this.registerForm.get('passwordGroup');
   }
 
   checkPasswords: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
     let pass = group.get('password')?.value;
     let confirmPass = group.get('confirmPassword')?.value
     return pass === confirmPass ? null : { notSame: true }
+  }
+
+  Test() {
+    console.log(this.registerForm);
   }
 }
