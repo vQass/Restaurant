@@ -6,8 +6,6 @@ import { HomePageComponent } from './components/mainPage/home-page/home-page.com
 import { UserLoginComponent } from './components/mainPage/user/user-login/user-login.component';
 import { UserRegisterComponent } from './components/mainPage/user/user-register/user-register.component';
 
-
-
 const routes: Routes = [
   { path: 'home', component: HomePageComponent },
   { path: 'city', component: CityComponent },

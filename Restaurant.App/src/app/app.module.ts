@@ -22,6 +22,7 @@ import { HomePageComponent } from './components/mainPage/home-page/home-page.com
 import { UserLoginComponent } from './components/mainPage/user/user-login/user-login.component';
 import { UserRegisterComponent } from './components/mainPage/user/user-register/user-register.component';
 import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
+import { MenuPageComponent } from './components/mainPage/menu-page/menu-page.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
     UserRegisterComponent,
     HomePageComponent,
     UserLoginComponent,
+    MenuPageComponent,
   ],
   imports: [
     BrowserModule,
