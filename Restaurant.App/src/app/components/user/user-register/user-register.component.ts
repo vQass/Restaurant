@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/ApiServices/user.service';
 import { FormGroupErrorStateMatcher, SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
 import { ValidationConsts } from 'src/app/Validation/ValidationConsts';
@@ -19,7 +19,7 @@ export class UserRegisterComponent implements OnInit {
   singleControlMatcher = new SingleControlErrorStateMatcher();
   groupMatcher = new FormGroupErrorStateMatcher();
 
-  registerForm;
+  registerForm: FormGroup;
 
   constructor(private fb: FormBuilder, private userService: UserService) {
     this.registerForm = fb.group({

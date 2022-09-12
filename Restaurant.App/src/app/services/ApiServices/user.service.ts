@@ -5,6 +5,7 @@ import { apiEndpoints } from 'src/apiEndpointsConfig';
 import { environment } from 'src/environments/environment';
 import { UserCreateRequest } from 'src/models/user/UserCreateRequest';
 import { UserListElement } from 'src/models/user/UserListElement';
+import { UserLoginRequest } from 'src/models/user/UserLoginRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,16 @@ export class UserService {
         catchError(this.handleError)
       );
   }
+
+  login(login: UserLoginRequest): Observable<any> {
+    let url = this.baseApiUrl + this.userEndpoints.addUser;
+
+    return this.http.post<UserCreateRequest>(url, login)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
