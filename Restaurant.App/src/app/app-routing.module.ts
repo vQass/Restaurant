@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CityComponent } from './components/city/city/city.component';
-import { HomePageComponent } from './components/shared/home/home-page/home-page.component';
-import { UserLoginComponent } from './components/user/user-login/user-login.component';
-import { UserRegisterComponent } from './components/user/user-register/user-register.component';
+import { CityComponent } from './components/adminPanel/city/city/city.component';
+import { HomePageComponent } from './components/mainPage/home-page/home-page.component';
+import { UserLoginComponent } from './components/mainPage/user/user-login/user-login.component';
+import { UserRegisterComponent } from './components/mainPage/user/user-register/user-register.component';
+
+
 
 const routes: Routes = [
   { path: 'home', component: HomePageComponent },

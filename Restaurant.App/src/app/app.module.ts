@@ -16,25 +16,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CityTableComponent } from './components/city/city-table/city-table.component';
-import { CityComponent } from './components/city/city/city.component';
-import { ButtonComponent } from './components/shared/button/button.component';
+import { CityTableComponent } from './components/adminPanel/city/city-table/city-table.component';
+import { CityComponent } from './components/adminPanel/city/city/city.component';
+import { HomePageComponent } from './components/mainPage/home-page/home-page.component';
+import { UserLoginComponent } from './components/mainPage/user/user-login/user-login.component';
+import { UserRegisterComponent } from './components/mainPage/user/user-register/user-register.component';
 import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
-import { UserRegisterComponent } from './components/user/user-register/user-register.component';
-import { HomePageComponent } from './components/shared/home/home-page/home-page.component';
-import { UserLoginComponent } from './components/user/user-login/user-login.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ButtonComponent,
     CityTableComponent,
     NavBarComponent,
     CityComponent,
     UserRegisterComponent,
     HomePageComponent,
     UserLoginComponent,
-
   ],
   imports: [
     BrowserModule,
