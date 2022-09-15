@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuPageComponent implements OnInit {
 
+  sectionName = "test";
+
   constructor() { }
 
   ngOnInit(): void {

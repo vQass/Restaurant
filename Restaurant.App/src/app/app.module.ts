@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -19,11 +20,12 @@ import { AppComponent } from './app.component';
 import { CityTableComponent } from './components/adminPanel/city/city-table/city-table.component';
 import { CityComponent } from './components/adminPanel/city/city/city.component';
 import { HomePageComponent } from './components/mainPage/home-page/home-page.component';
+import { MenuItemComponent } from './components/mainPage/menu/menu-item/menu-item.component';
+import { MenuPageComponent } from './components/mainPage/menu/menu-page/menu-page.component';
 import { UserLoginComponent } from './components/mainPage/user/user-login/user-login.component';
 import { UserRegisterComponent } from './components/mainPage/user/user-register/user-register.component';
 import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
-import { MenuPageComponent } from './components/mainPage/menu-page/menu-page.component';
-
+import { MenuSectionComponent } from './components/mainPage/menu/menu-section/menu-section.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { MenuPageComponent } from './components/mainPage/menu-page/menu-page.com
     UserRegisterComponent,
     HomePageComponent,
     UserLoginComponent,
+    MenuItemComponent,
     MenuPageComponent,
+    MenuSectionComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +57,7 @@ import { MenuPageComponent } from './components/mainPage/menu-page/menu-page.com
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatExpansionModule,
     ReactiveFormsModule
   ],
   providers: [],
