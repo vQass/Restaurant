@@ -7,10 +7,10 @@
           {{meal.name}}
         </mat-panel-title>
         <mat-panel-description>
-          {{meal.price}}
+          {{meal.price | number : '1.2-2'}} zł
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <h4>Składniki:</h4>
+      <p class="ingredient-header">Składniki:</p>
       <p class="ingredient"
          *ngFor="let ingredient of meal.ingredients">{{ingredient.name}}</p>
     </mat-expansion-panel>
