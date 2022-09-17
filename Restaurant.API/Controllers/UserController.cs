@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Restaurant.APIComponents.Attributes;
-using Restaurant.Data.Models.UserModels;
+using Restaurant.Data.Models.UserModels.Requests;
 using Restaurant.DB.Enums;
 using Restaurant.IServices;
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Restaurant.Data.Models.UserModels
+namespace Restaurant.Data.Models.UserModels.ViewModels
 {
     public class UserListViewModel
     {

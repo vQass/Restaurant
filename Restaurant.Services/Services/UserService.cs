@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Restaurant.APIComponents;
 using Restaurant.APIComponents.Exceptions;
-using Restaurant.Data.Models.UserModels;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.DB.Enums;
@@ -16,6 +15,9 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Restaurant.IRepository;
 using System.Data;
+using Restaurant.Data.Models.UserModels.Requests;
+using Restaurant.Data.Models.UserModels.ViewModels;
+using Restaurant.Data.Models.UserModels.Responses;
 
 namespace Restaurant.Services.Services
 {
@@ -122,7 +124,7 @@ namespace Restaurant.Services.Services
             _userRepository.DisableUser(user);
         }
 
-        public string SignInUser(LoginRequest loginRequest)
+        public LoginResponse SignInUser(LoginRequest loginRequest)
         {
             var user = _userRepository.GetUser(loginRequest.Email);
 
@@ -132,7 +134,15 @@ namespace Restaurant.Services.Services
 
             EnsurePasswordHashesMatch(passwordVerificationResult);
 
-            return GenerateJwt(user);
+            var token = GenerateJwt(user);
+
+            var response = new LoginResponse()
+            {
+                JwtToken = token,
+                Role = user.Role.ToString()
+            };
+
+            return response;
         }
 
         #endregion PublicMethods

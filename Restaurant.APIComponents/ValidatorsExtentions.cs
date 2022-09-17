@@ -14,7 +14,7 @@ using Restaurant.Data.Models.MealCategoryModels;
 using Restaurant.Data.Models.MealModels;
 using Restaurant.Data.Models.OrderModels;
 using Restaurant.Data.Models.PromotionModels;
-using Restaurant.Data.Models.UserModels;
+using Restaurant.Data.Models.UserModels.Requests;
 
 namespace Restaurant.APIComponents
 {

@@ -1,4 +1,4 @@
-﻿namespace Restaurant.Data.Models.UserModels
+﻿namespace Restaurant.Data.Models.UserModels.Requests
 {
     public class LoginRequest
     {

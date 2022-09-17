@@ -5,7 +5,8 @@ using Restaurant.Data.Models.MealModels;
 using Restaurant.Data.Models.OrderModels;
 using Restaurant.Data.Models.PromotionModels;
 using Restaurant.Data.Models.RecipeModels;
-using Restaurant.Data.Models.UserModels;
+using Restaurant.Data.Models.UserModels.Requests;
+using Restaurant.Data.Models.UserModels.ViewModels;
 using Restaurant.DB.Entities;
 
 namespace Restaurant.Data

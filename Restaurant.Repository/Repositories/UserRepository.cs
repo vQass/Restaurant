@@ -3,7 +3,6 @@ using Restaurant.APIComponents.Exceptions;
 using Restaurant.DB.Entities;
 using Restaurant.DB;
 using Microsoft.EntityFrameworkCore;
-using Restaurant.Data.Models.UserModels;
 using Restaurant.DB.Enums;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +10,7 @@ using System.Xml.Linq;
 using System.Security.Claims;
 using System.ComponentModel.DataAnnotations;
 using Restaurant.IRepository;
+using Restaurant.Data.Models.UserModels.Requests;
 
 namespace Restaurant.Repository.Repositories
 {
