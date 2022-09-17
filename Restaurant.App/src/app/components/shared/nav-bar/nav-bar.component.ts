@@ -8,20 +8,19 @@ import { UserService } from 'src/app/services/ApiServices/user.service';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
+  isLoggedIn: boolean = false;
+  userRole: string = "";
 
-  isLoggedIn: boolean;
-
-  constructor(private userService: UserService, public dialog: MatDialog) 
-  {
-    this.isLoggedIn = userService.isLoggedIn;
+  constructor(private userService: UserService, public dialog: MatDialog) {
+    userService.getIsLoggedIn().subscribe((value) => this.isLoggedIn = value);
   }
 
   ngOnInit(): void {
   }
 
-  clickEvent()
-  {
-    this.isLoggedIn = !this.isLoggedIn;
+  logout() {
+    this.userService.logout();
+    this.userService.setIsLoggedIn(false);
+    this.userService.setRole("");
   }
-
 }

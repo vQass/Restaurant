@@ -10,7 +10,8 @@ export const apiEndpoints =
   },
   userEndpoints: {
     "addUser": "User/AddUser",
-    "getUsers": "User/GetUsersList"
+    "getUsers": "User/GetUsersList",
+    "singIn": "User/SignInUser"
   },
   mealEndpoints: {
     "getMealsGroups": "Meal/GetMealsGroupedByCategory"

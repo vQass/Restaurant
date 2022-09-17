@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { apiEndpoints } from 'src/apiEndpointsConfig';
 import { environment } from 'src/environments/environment';
+import { LoginResponse } from 'src/models/user/LoginResponse';
 import { UserCreateRequest } from 'src/models/user/UserCreateRequest';
 import { UserListElement } from 'src/models/user/UserListElement';
 import { UserLoginRequest } from 'src/models/user/UserLoginRequest';
@@ -13,9 +14,14 @@ import { UserLoginRequest } from 'src/models/user/UserLoginRequest';
 export class UserService {
   baseApiUrl = environment.baseApiUrl;
   userEndpoints = apiEndpoints.userEndpoints;
-  isLoggedIn: boolean = true;
 
-  constructor(private http: HttpClient) { }
+  private isLoggedIn: BehaviorSubject<boolean>;
+  private role: BehaviorSubject<string>;
+
+  constructor(private http: HttpClient) {
+    this.isLoggedIn = new BehaviorSubject<boolean>(false);
+    this.role = new BehaviorSubject<string>("");
+  }
 
   getUsers(): Observable<UserListElement[]> {
     let url = this.baseApiUrl + this.userEndpoints.getUsers;
@@ -31,24 +37,41 @@ export class UserService {
       );
   }
 
-  login(login: UserLoginRequest): Observable<any> {
-    let url = this.baseApiUrl + this.userEndpoints.addUser;
+  login(login: UserLoginRequest): Observable<LoginResponse> {
+    let url = this.baseApiUrl + this.userEndpoints.singIn;
 
-    return this.http.post<UserCreateRequest>(url, login)
+    return this.http.post<LoginResponse>(url, login)
       .pipe(
         catchError(this.handleError)
       );
   }
 
+  logout() {
+    sessionStorage.removeItem("token");
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.log('An error occurred:', error.error);
     } else {
-      console.log(
-        `Backend returned code ${error.status}, body was: `, error.error);
+      console.log(`Backend returned code ${error.status}, body was: `, error.error);
+      return throwError(() => new Error(error.error))
     }
-    // Return an observable with a user-facing error message.
-    return throwError(() => new Error('Something bad happened; please try again later.'));
+    return throwError(() => new Error('Coś poszło nie tak, proszę spróbować później'));
+  }
+
+  getIsLoggedIn(): Observable<boolean> {
+    return this.isLoggedIn.asObservable();
+  }
+
+  setIsLoggedIn(value: boolean): void {
+    this.isLoggedIn.next(value);
+  }
+
+  getRole(): Observable<string> {
+    return this.role.asObservable();
+  }
+  setRole(role: string): void {
+    this.role.next(role);
   }
 }

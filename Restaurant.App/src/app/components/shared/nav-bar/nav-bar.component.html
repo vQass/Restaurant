@@ -15,7 +15,7 @@
      color="primary">Złóż zamówienie</a>
 
   <span class="navbar-spacer"></span>
-  <ng-container *ngIf="isLoggedIn">
+  <ng-container *ngIf="!isLoggedIn">
     <a class="btn"
        routerLink="login"
        mat-stroked-button
@@ -26,9 +26,9 @@
        color="primary">Zarejestruj</a>
   </ng-container>
 
-  <button *ngIf="!isLoggedIn"
+  <button *ngIf="isLoggedIn"
           class="btn"
           mat-stroked-button
           color="primary"
-          (click)="clickEvent()">Wyloguj</button>
+          (click)="logout()">Wyloguj</button>
 </mat-toolbar>

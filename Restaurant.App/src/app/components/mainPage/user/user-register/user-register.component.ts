@@ -62,7 +62,7 @@ export class UserRegisterComponent implements OnInit {
 
   onSubmit() {
     let user = { email: this.registerForm.value.email, ...this.registerForm.value.passwordGroup } as UserCreateRequest;
-    this.userService.addUser(user).subscribe().unsubscribe();
-
+    this.userService.addUser(user).subscribe();
+    console.log("sent");
   }
 }

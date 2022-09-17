@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/ApiServices/user.service';
 import { SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
 import { ValidationConsts } from 'src/app/Validation/ValidationConsts';
@@ -18,7 +19,7 @@ export class UserLoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
     this.loginForm = fb.group({
       email: fb.control('', [Validators.required, Validators.email]),
       password: fb.control('', [Validators.required, Validators.minLength(this.minPassLength), Validators.maxLength(this.maxPassLength)])
@@ -38,6 +39,16 @@ export class UserLoginComponent implements OnInit {
 
   onSubmit() {
     let user = { email: this.loginForm.value.email, password: this.loginForm.value.password } as UserLoginRequest;
-    this.userService.login(user).subscribe().unsubscribe();
+    this.userService.login(user).subscribe({
+      next: (resp) => {
+        console.log(resp)
+        this.userService.setIsLoggedIn(true);
+        this.userService.setRole(resp.role);
+        sessionStorage.setItem('authToken', resp.token);
+        this.router.navigate(['home']);
+      },
+      error: (e) => console.error(e.message),
+      complete: () => console.info('complete')
+    });
   }
 }
