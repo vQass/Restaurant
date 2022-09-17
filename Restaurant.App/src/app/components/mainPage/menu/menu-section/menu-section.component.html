@@ -1,5 +1,8 @@
-<h1>{{ sectionName }}</h1>
-<hr style="margin-bottom: 7px;">
-<div class="container">
-  <app-menu-item></app-menu-item>
+<div class="section-container">
+  <h1>{{ mealGroup.groupName }}</h1>
+  <hr style="margin-bottom: 7px;">
+  <div class="item-container">
+    <app-menu-item *ngFor="let meal of mealGroup.meals"
+                   [meal]="meal"></app-menu-item>
+  </div>
 </div>

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Restaurant.Data.Models.IngredientModels;
 using Restaurant.Data.Models.MealCategoryModels;
 using Restaurant.Data.Models.MealModels;
 using Restaurant.Data.Models.OrderModels;
@@ -13,6 +14,9 @@ namespace Restaurant.Data
     {
         public RestaurantDataMapperProfile()
         {
+            // Ingredients
+            CreateMap<Ingredient, IngredientViewModel>();
+
             // Users
             CreateMap<UserCreateRequest, User>();
             CreateMap<User, UserListViewModel>();
@@ -20,8 +24,11 @@ namespace Restaurant.Data
 
             // Meals
             CreateMap<MealCreateRequest, Meal>();
+            CreateMap<Meal, MealViewModel>().ForMember(dest => dest.Ingredients, opt => opt.MapFrom(src => src.RecipeElements.Where(x => x.MealId == src.Id).Select(x => x.Ingredient.Name).ToList()));
 
             CreateMap<MealCategoryCreateRequest, MealCategory>();
+            CreateMap<MealCategory, MealGroupViewModel>()
+                .ForMember(dest => dest.GroupName, opt => opt.MapFrom(src => src.Name));
 
             // Promotions
             CreateMap<PromotionCreateRequest, Promotion>();

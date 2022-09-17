@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Restaurant.APIComponents.Exceptions;
+using Restaurant.Data.Models.IngredientModels;
 using Restaurant.Data.Models.MealModels;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
@@ -42,6 +43,27 @@ namespace Restaurant.Services.Services
         public async Task<IEnumerable<Meal>> GetMeals()
         {
             return await _mealRepository.GetMeals();
+        }
+
+        public async Task<IEnumerable<MealGroupViewModel>> GetMealsGroupedByCategory()
+        {
+            var mealCategories = await _mealRepository.GetMealsGroupedByCategory();
+
+            var mealGroups = mealCategories.Select(x => new MealGroupViewModel()
+            {
+                GroupName = x.Name,
+                Meals = x.Meals.Select(y => new MealViewModel()
+                {
+                    Name = y.Name,
+                    Price = y.Price,
+                    Ingredients = y.RecipeElements.Select(z => new IngredientViewModel()
+                    {
+                        Name = z.Ingredient.Name
+                    }).ToList()
+                }).ToList()
+            });
+
+            return mealGroups;
         }
 
         public int AddMeal(MealCreateRequest mealCreateRequest)

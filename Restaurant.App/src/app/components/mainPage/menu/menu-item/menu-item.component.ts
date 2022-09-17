@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { MealViewModel } from 'src/models/meal/MealViewModel';
 
 @Component({
   selector: 'app-menu-item',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menu-item.component.scss']
 })
 export class MenuItemComponent implements OnInit {
+  @Input() meal!: MealViewModel;
+
   panelOpenState = false;
   constructor() { }
 

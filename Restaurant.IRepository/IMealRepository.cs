@@ -12,6 +12,7 @@ namespace Restaurant.IRepository
         void EnsureMealNotInUse(Meal meal);
         Meal GetMeal(int id);
         Task<IEnumerable<Meal>> GetMeals();
+        Task<IEnumerable<MealCategory>> GetMealsGroupedByCategory();
         void SetMealAsAvailable(Meal meal);
         void SetMealAsUnavailable(Meal meal);
         void UpdateMeal(Meal meal, MealUpdateRequest mealUpdateRequest);

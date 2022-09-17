@@ -1,3 +1,4 @@
 <div class="container">
-  <app-menu-section [sectionName]="sectionName"></app-menu-section>
+  <app-menu-section *ngFor="let group of mealGroups"
+                    [mealGroup]="group"></app-menu-section>
 </div>

@@ -17,5 +17,6 @@ namespace Restaurant.IServices
         public void SetMealAsAvailable(int id);
         public void UpdateMealsPrice(int id, decimal newPrice);
         public Task<IEnumerable<Meal>> GetMeals();
+        public Task<IEnumerable<MealGroupViewModel>> GetMealsGroupedByCategory();
     }
 }

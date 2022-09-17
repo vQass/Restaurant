@@ -22,10 +22,10 @@ import { CityComponent } from './components/adminPanel/city/city/city.component'
 import { HomePageComponent } from './components/mainPage/home-page/home-page.component';
 import { MenuItemComponent } from './components/mainPage/menu/menu-item/menu-item.component';
 import { MenuPageComponent } from './components/mainPage/menu/menu-page/menu-page.component';
+import { MenuSectionComponent } from './components/mainPage/menu/menu-section/menu-section.component';
 import { UserLoginComponent } from './components/mainPage/user/user-login/user-login.component';
 import { UserRegisterComponent } from './components/mainPage/user/user-register/user-register.component';
 import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
-import { MenuSectionComponent } from './components/mainPage/menu/menu-section/menu-section.component';
 
 @NgModule({
   declarations: [

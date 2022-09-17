@@ -42,6 +42,15 @@ namespace Restaurant.Repository.Repositories
                 .Include(x => x.MealCategory)
                 .ToListAsync();
         }
+        
+        public async Task<IEnumerable<MealCategory>> GetMealsGroupedByCategory()
+        {
+            return await _dbContext.MealsCategories
+                .Include(x => x.Meals)
+                .ThenInclude(x => x.RecipeElements)
+                .ThenInclude(x => x.Ingredient)
+                .ToListAsync();
+        }
 
         public Meal GetMeal(int id)
         {
