@@ -19,8 +19,6 @@
     "node_modules": true,
     ".angular": true,
     "src\\assets": true,
-    "src\\app\\app.component.ts": true,
-    "src\\app\\app.component.html": true,
     "src\\app\\app.component.css": true,
     "src\\main.ts": true,
     "package-lock.json": true

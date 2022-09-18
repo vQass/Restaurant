@@ -26,6 +26,8 @@ import { MenuSectionComponent } from './components/mainPage/menu/menu-section/me
 import { UserLoginComponent } from './components/mainPage/user/user-login/user-login.component';
 import { UserRegisterComponent } from './components/mainPage/user/user-register/user-register.component';
 import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
+import { ToastComponent } from './components/shared/toast/toast.component';
+import { ToasterComponent } from './components/shared/toaster/toaster.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
     MenuItemComponent,
     MenuPageComponent,
     MenuSectionComponent,
+    ToastComponent,
+    ToasterComponent,
   ],
   imports: [
     BrowserModule,
