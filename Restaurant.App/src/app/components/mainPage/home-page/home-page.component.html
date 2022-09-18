@@ -1,1 +1,14 @@
-<p>home-page works!</p>
+<div class="buttons">
+  <button class="btn btn-primary"
+          (click)="showInfo()"
+          ngbTooltip="Will disappear in 5s">
+    Info toast</button>&nbsp;
+  <button class="btn btn-success"
+          (click)="showSuccess()"
+          ngbTooltip="Will disappear in 10s">
+    Success toast</button>&nbsp;
+  <button class="btn btn-danger"
+          (click)="showDanger()"
+          ngbTooltip="Will disappear in 15s">
+    Danger toast</button>&nbsp;
+</div>

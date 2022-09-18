@@ -14,6 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,9 +24,13 @@ import { HomePageComponent } from './components/mainPage/home-page/home-page.com
 import { MenuItemComponent } from './components/mainPage/menu/menu-item/menu-item.component';
 import { MenuPageComponent } from './components/mainPage/menu/menu-page/menu-page.component';
 import { MenuSectionComponent } from './components/mainPage/menu/menu-section/menu-section.component';
+import { OrderPageComponent } from './components/mainPage/order/order-page/order-page.component';
 import { UserLoginComponent } from './components/mainPage/user/user-login/user-login.component';
 import { UserRegisterComponent } from './components/mainPage/user/user-register/user-register.component';
 import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
+import { ToastComponent } from './components/shared/toast/toast.component';
+import { OrderSectionComponent } from './components/mainPage/order/order-section/order-section.component';
+import { OrderItemComponent } from './components/mainPage/order/order-item/order-item.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +44,10 @@ import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
     MenuItemComponent,
     MenuPageComponent,
     MenuSectionComponent,
+    ToastComponent,
+    OrderPageComponent,
+    OrderSectionComponent,
+    OrderItemComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +67,8 @@ import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatExpansionModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

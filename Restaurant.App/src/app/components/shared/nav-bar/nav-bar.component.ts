@@ -20,7 +20,6 @@ export class NavBarComponent implements OnInit {
 
   logout() {
     this.userService.logout();
-    this.userService.setIsLoggedIn(false);
-    this.userService.setRole("");
+
   }
 }

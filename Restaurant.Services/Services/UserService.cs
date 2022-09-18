@@ -128,11 +128,11 @@ namespace Restaurant.Services.Services
         {
             var user = _userRepository.GetUser(loginRequest.Email);
 
-            _userRepository.EnsureUserExists(user);
+            EnsureUserExistsForSigningIn(user);
 
             var passwordVerificationResult = ComparePasswordHashes(user, loginRequest);
 
-            EnsurePasswordHashesMatch(passwordVerificationResult);
+            EnsurePasswordVerificationNotFailed(passwordVerificationResult);
 
             var token = GenerateJwt(user);
 
@@ -283,9 +283,25 @@ namespace Restaurant.Services.Services
             return _passwordHasher.VerifyHashedPassword(user, user.Password, loginRequest.Password);
         }
 
-        private void EnsurePasswordHashesMatch(PasswordVerificationResult passwordVerificationResult)
+        private void EnsurePasswordVerificationNotFailed(PasswordVerificationResult passwordVerificationResult)
         {
             if (passwordVerificationResult == PasswordVerificationResult.Failed)
+            {
+                throw new BadRequestException("Niepoprawny email lub hasło.");
+            }
+        }
+
+        #endregion
+
+        #region Validation
+
+        private void EnsureUserExistsForSigningIn(User user)
+        {
+            try
+            {
+                _userRepository.EnsureUserExists(user);
+            }
+            catch(NotFoundException)
             {
                 throw new BadRequestException("Niepoprawny email lub hasło.");
             }

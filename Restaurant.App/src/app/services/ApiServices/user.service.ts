@@ -8,6 +8,8 @@ import { UserCreateRequest } from 'src/models/user/UserCreateRequest';
 import { UserListElement } from 'src/models/user/UserListElement';
 import { UserLoginRequest } from 'src/models/user/UserLoginRequest';
 
+import { ToastService } from '../OtherServices/toast.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +20,7 @@ export class UserService {
   private isLoggedIn: BehaviorSubject<boolean>;
   private role: BehaviorSubject<string>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toastService: ToastService) {
     this.isLoggedIn = new BehaviorSubject<boolean>(false);
     this.role = new BehaviorSubject<string>("");
   }
@@ -48,6 +50,9 @@ export class UserService {
 
   logout() {
     sessionStorage.removeItem("token");
+    this.setIsLoggedIn(false);
+    this.setRole("");
+    this.toastService.showSuccess("Wylogowano!", 2500);
   }
 
   private handleError(error: HttpErrorResponse) {

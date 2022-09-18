@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Repository", "Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.IRepository", "Restaurant.IRepository\Restaurant.IRepository.csproj", "{4B744F6C-E83D-4E93-A4AD-91BF0DE1F5AE}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Restaurant.App", "Restaurant.App\Restaurant.App.esproj", "{84A0835B-797B-4AAC-810A-294BE879DAFD}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Restaurant.AppOld", "Restaurant.App\Restaurant.AppOld.esproj", "{84A0835B-797B-4AAC-810A-294BE879DAFD}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Restaurant.App", "Restaurant.App\Restaurant.App.esproj", "{55D6A1D6-180D-48BB-88BF-C7AF45A4433D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,12 @@ Global
 		{84A0835B-797B-4AAC-810A-294BE879DAFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84A0835B-797B-4AAC-810A-294BE879DAFD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84A0835B-797B-4AAC-810A-294BE879DAFD}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{55D6A1D6-180D-48BB-88BF-C7AF45A4433D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55D6A1D6-180D-48BB-88BF-C7AF45A4433D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55D6A1D6-180D-48BB-88BF-C7AF45A4433D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{55D6A1D6-180D-48BB-88BF-C7AF45A4433D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55D6A1D6-180D-48BB-88BF-C7AF45A4433D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55D6A1D6-180D-48BB-88BF-C7AF45A4433D}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
