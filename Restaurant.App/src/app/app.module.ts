@@ -14,6 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,7 +28,6 @@ import { UserLoginComponent } from './components/mainPage/user/user-login/user-l
 import { UserRegisterComponent } from './components/mainPage/user/user-register/user-register.component';
 import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
 import { ToastComponent } from './components/shared/toast/toast.component';
-import { ToasterComponent } from './components/shared/toaster/toaster.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,6 @@ import { ToasterComponent } from './components/shared/toaster/toaster.component'
     MenuPageComponent,
     MenuSectionComponent,
     ToastComponent,
-    ToasterComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +61,8 @@ import { ToasterComponent } from './components/shared/toaster/toaster.component'
     ReactiveFormsModule,
     MatFormFieldModule,
     MatExpansionModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

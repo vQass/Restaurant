@@ -6,28 +6,28 @@
   </button>
   <a routerLink="home">Restauracja</a>
 
-  <a class="btn"
+  <a class="button"
      routerLink="menu"
      mat-stroked-button
      color="primary">Menu</a>
-  <a class="btn"
+  <a class="button"
      mat-stroked-button
      color="primary">Złóż zamówienie</a>
 
   <span class="navbar-spacer"></span>
   <ng-container *ngIf="!isLoggedIn">
-    <a class="btn"
+    <a class="button"
        routerLink="login"
        mat-stroked-button
        color="primary">Zaloguj</a>
-    <a class="btn"
+    <a class="button"
        routerLink="/register"
        mat-raised-button
        color="primary">Zarejestruj</a>
   </ng-container>
 
   <button *ngIf="isLoggedIn"
-          class="btn"
+          class="button"
           mat-stroked-button
           color="primary"
           (click)="logout()">Wyloguj</button>

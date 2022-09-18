@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/ApiServices/user.service';
+import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
 import { ValidationConsts } from 'src/app/Validation/ValidationConsts';
 import { UserLoginRequest } from 'src/models/user/UserLoginRequest';
@@ -19,7 +20,7 @@ export class UserLoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
+  constructor(fb: FormBuilder, private userService: UserService, private toastService: ToastService, private router: Router) {
     this.loginForm = fb.group({
       email: fb.control('', [Validators.required, Validators.email]),
       password: fb.control('', [Validators.required, Validators.minLength(this.minPassLength), Validators.maxLength(this.maxPassLength)])
@@ -45,9 +46,13 @@ export class UserLoginComponent implements OnInit {
         this.userService.setIsLoggedIn(true);
         this.userService.setRole(resp.role);
         sessionStorage.setItem('authToken', resp.token);
+        this.toastService.showSuccess("Pomyślnie zalogowano!")
         this.router.navigate(['home']);
       },
-      error: (e) => console.error(e.message),
+      error: (e) => {
+        this.toastService.showDanger("Błąd logowania: " + e.message);
+      }
+      ,
       complete: () => console.info('complete')
     });
   }

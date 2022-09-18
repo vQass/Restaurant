@@ -14,17 +14,17 @@ body {
 }
 
 /* #region Buttons */
-.btn {
+.button {
   margin-left: 5px !important;
   cursor: pointer;
   text-decoration: none;
 }
 
-.btn:focus {
+.button:focus {
   outline: none;
 }
 
-.btn:active {
+.button:active {
   transform: scale(0.98);
 }
 

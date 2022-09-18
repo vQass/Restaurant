@@ -6,7 +6,6 @@
     ".editorconfig": true,
     ".gitignore": true,
     ".vscode": true,
-    "angular.json": true,
     "karma.conf.js": true,
     "node_modules": true,
     "nuget.config": true,

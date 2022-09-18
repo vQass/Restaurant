@@ -1,15 +1,12 @@
-<div #toastElement
-     class="toast fade toast-width mt-2"
-     [ngClass]="type"
-     role="alert"
-     aria-live="assertive"
-     aria-atomic="true">
-  <div class="toast-header">
-    <strong class="me-auto">{{ title }}</strong>
-    <button type="button"
-            class="btn-close"
-            aria-label="Close"
-            (click)="hide()"></button>
-  </div>
-  <div class="toast-body">{{ message }}</div>
-</div>
+<ngb-toast *ngFor="let toast of toastService.toasts"
+           [class]="toast.classname"
+           [autohide]="true"
+           [delay]="toast.delay || 5000"
+           (hidden)="toastService.remove(toast)">
+  <ng-template [ngIf]="false"
+               [ngIfElse]="text">
+    <ng-template [ngTemplateOutlet]="toast.text"></ng-template>
+  </ng-template>
+
+  <ng-template #text>{{ toast.text }}</ng-template>
+</ngb-toast>

@@ -1,48 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { EventTypes } from 'src/models/toast/EventTypes';
-import { ToastEvent } from 'src/models/toast/ToastEvent';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ToastService {
-  toastEvents: Observable<ToastEvent>;
-  private _toastEvents = new Subject<ToastEvent>();
+  toasts: any[] = [];
 
-  constructor() {
-    this.toastEvents = this._toastEvents.asObservable();
+  show(text: string, options: any = {}) {
+    this.toasts.push({ text, ...options });
   }
 
-  showSuccessToast(title: string, message: string) {
-    this._toastEvents.next({
-      message,
-      title,
-      type: EventTypes.Success,
-    });
+  remove(toast: any) {
+    this.toasts = this.toasts.filter(t => t !== toast);
   }
 
-  showInfoToast(title: string, message: string) {
-    this._toastEvents.next({
-      message,
-      title,
-      type: EventTypes.Info,
-    });
+  showInfo(text: string, delay: number = 5000) {
+
+    this.show(text, { classname: 'bg-primary text-light', delay: delay });
   }
 
-  showWarningToast(title: string, message: string) {
-    this._toastEvents.next({
-      message,
-      title,
-      type: EventTypes.Warning,
-    });
+  showSuccess(text: string, delay: number = 10000) {
+    this.show(text, { classname: 'bg-success text-light', delay: delay });
   }
 
-  showErrorToast(title: string, message: string) {
-    this._toastEvents.next({
-      message,
-      title,
-      type: EventTypes.Error,
-    });
+  showDanger(text: string, delay: number = 15000) {
+    console.log(text, delay);
+
+    this.show(text, { classname: 'bg-danger text-light', delay: delay });
+  }
+
+  clear() {
+    this.toasts.splice(0, this.toasts.length);
   }
 }
