@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/ApiServices/user.service';
+import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { FormGroupErrorStateMatcher, SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
 import { ValidationConsts } from 'src/app/Validation/ValidationConsts';
 import { UserCreateRequest } from 'src/models/user/UserCreateRequest';
@@ -21,7 +23,7 @@ export class UserRegisterComponent implements OnInit {
 
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(fb: FormBuilder, private userService: UserService, private toastService: ToastService, private router: Router) {
     this.registerForm = fb.group({
       email: fb.control('', [Validators.required, Validators.email]),
       passwordGroup: fb.group(
@@ -62,7 +64,16 @@ export class UserRegisterComponent implements OnInit {
 
   onSubmit() {
     let user = { email: this.registerForm.value.email, ...this.registerForm.value.passwordGroup } as UserCreateRequest;
-    this.userService.addUser(user).subscribe();
-    console.log("sent");
+    this.userService.addUser(user).subscribe({
+      next: (resp) => {
+        console.log(resp)
+        this.toastService.showSuccess("Pomyślnie zarejestrowano! \n Można przystąpić do logowania!")
+        this.router.navigate(['home']);
+      },
+      error: (e) => {
+        this.toastService.showDanger("Błąd podczas rejestracji");
+      }
+    })
   }
 }
+

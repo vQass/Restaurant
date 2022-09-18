@@ -24,10 +24,13 @@ import { HomePageComponent } from './components/mainPage/home-page/home-page.com
 import { MenuItemComponent } from './components/mainPage/menu/menu-item/menu-item.component';
 import { MenuPageComponent } from './components/mainPage/menu/menu-page/menu-page.component';
 import { MenuSectionComponent } from './components/mainPage/menu/menu-section/menu-section.component';
+import { OrderPageComponent } from './components/mainPage/order/order-page/order-page.component';
 import { UserLoginComponent } from './components/mainPage/user/user-login/user-login.component';
 import { UserRegisterComponent } from './components/mainPage/user/user-register/user-register.component';
 import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
 import { ToastComponent } from './components/shared/toast/toast.component';
+import { OrderSectionComponent } from './components/mainPage/order/order-section/order-section.component';
+import { OrderItemComponent } from './components/mainPage/order/order-item/order-item.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,9 @@ import { ToastComponent } from './components/shared/toast/toast.component';
     MenuPageComponent,
     MenuSectionComponent,
     ToastComponent,
+    OrderPageComponent,
+    OrderSectionComponent,
+    OrderItemComponent
   ],
   imports: [
     BrowserModule,

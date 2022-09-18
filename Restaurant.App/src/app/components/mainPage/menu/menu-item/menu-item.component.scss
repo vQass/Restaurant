@@ -2,26 +2,33 @@
   margin-left: 8px;
 }
 
-.container {
+.item-container {
   margin-top: 5px;
 }
 
 .ingredient-header {
+  margin-top: 15px;
+  letter-spacing: 0.15px;
   color: #eee !important;
 }
 
 .ingredient {
   color: #ccc;
+  letter-spacing: 0.15px;
+  line-height: 4.75px;
 }
 
-.mat-expansion-panel-header-description {
-  justify-content: flex-end;
-  margin-right: 25px;
+.price {
+  margin-right: 5px;
   color: #fff;
   font-size: 17px;
   letter-spacing: -0.5px;
 }
 
-.mat-expansion-panel-header-title {
+.meal-name {
   letter-spacing: 0.75px;
+}
+
+.mat-expansion-panel-header {
+  background-color: rgb(50, 50, 50) !important;
 }

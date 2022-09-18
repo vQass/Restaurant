@@ -52,8 +52,6 @@ export class UserLoginComponent implements OnInit {
       error: (e) => {
         this.toastService.showDanger("Błąd logowania: " + e.message);
       }
-      ,
-      complete: () => console.info('complete')
     });
   }
 }
