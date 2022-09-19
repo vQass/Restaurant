@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,13 +25,13 @@ import { HomePageComponent } from './components/mainPage/home-page/home-page.com
 import { MenuItemComponent } from './components/mainPage/menu/menu-item/menu-item.component';
 import { MenuPageComponent } from './components/mainPage/menu/menu-page/menu-page.component';
 import { MenuSectionComponent } from './components/mainPage/menu/menu-section/menu-section.component';
+import { OrderItemComponent } from './components/mainPage/order/order-item/order-item.component';
 import { OrderPageComponent } from './components/mainPage/order/order-page/order-page.component';
+import { OrderSectionComponent } from './components/mainPage/order/order-section/order-section.component';
 import { UserLoginComponent } from './components/mainPage/user/user-login/user-login.component';
 import { UserRegisterComponent } from './components/mainPage/user/user-register/user-register.component';
 import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
 import { ToastComponent } from './components/shared/toast/toast.component';
-import { OrderSectionComponent } from './components/mainPage/order/order-section/order-section.component';
-import { OrderItemComponent } from './components/mainPage/order/order-item/order-item.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { OrderItemComponent } from './components/mainPage/order/order-item/order
     MatFormFieldModule,
     MatExpansionModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

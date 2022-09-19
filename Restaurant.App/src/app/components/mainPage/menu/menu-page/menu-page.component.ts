@@ -9,7 +9,6 @@ import { MealGroupViewModel } from 'src/models/meal/MealGroupViewModel';
 })
 export class MenuPageComponent implements OnInit {
   mealGroups!: MealGroupViewModel[];
-  sectionName = "test";
 
   constructor(private mealService: MealService) { }
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MealService } from 'src/app/services/ApiServices/meal.service';
+import { MealGroupViewModel } from 'src/models/meal/MealGroupViewModel';
 
 @Component({
   selector: 'app-order-page',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order-page.component.css']
 })
 export class OrderPageComponent implements OnInit {
+  mealGroups!: MealGroupViewModel[];
 
-  constructor() { }
+  constructor(private mealService: MealService) { }
 
   ngOnInit(): void {
+    this.mealService.getGroupedMeals().subscribe(data => this.mealGroups = data);
   }
-
 }

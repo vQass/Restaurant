@@ -1,1 +1,8 @@
-<p>order-section works!</p>
+<div class="section-container">
+  <h1>{{ mealGroup.groupName }}</h1>
+  <hr style="margin-bottom: 7px;">
+  <div class="item-container">
+    <app-order-item *ngFor="let meal of mealGroup.meals"
+                    [meal]="meal"></app-order-item>
+  </div>
+</div>

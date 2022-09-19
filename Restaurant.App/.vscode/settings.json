@@ -1,7 +1,6 @@
 {
   "files.exclude": {
     "tsconfig.spec.json": true,
-    ".angular": true,
     ".browserslistrc": true,
     ".editorconfig": true,
     ".gitignore": true,

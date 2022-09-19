@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { MealGroupViewModel } from 'src/models/meal/MealGroupViewModel';
 
 @Component({
   selector: 'app-order-section',
@@ -6,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order-section.component.scss']
 })
 export class OrderSectionComponent implements OnInit {
+  @Input() mealGroup!: MealGroupViewModel;
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

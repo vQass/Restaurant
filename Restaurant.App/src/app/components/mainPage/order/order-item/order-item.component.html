@@ -1,1 +1,28 @@
-<p>order-item works!</p>
+<div class="item-container">
+  <mat-card>
+    <mat-card-title class="d-flex justify-content-between">
+      <div class="meal-name">
+        {{meal.name}}
+      </div>
+      <div class="text-nowrap price">
+        {{meal.price | number : '1.2-2'}} zł
+      </div>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <div class="ingredients-list-container">
+        <span class="ingredients-list"
+              *ngFor="let ingredient of meal.ingredients; let last = last">
+          {{ingredient.name}}<ng-container *ngIf="!last">,</ng-container>
+        </span>
+      </div>
+    </mat-card-subtitle>
+    <mat-card-actions>
+      <div class="example-button-row">
+        <button mat-stroked-button
+                class="button button-red">-1</button>
+        <button mat-stroked-button
+                class="button button-green">+1</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>
