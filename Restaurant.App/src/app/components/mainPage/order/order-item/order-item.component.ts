@@ -9,9 +9,24 @@ import { MealViewModel } from 'src/models/meal/MealViewModel';
 export class OrderItemComponent implements OnInit {
   @Input() meal!: MealViewModel;
 
-  panelOpenState = false;
+  amount = 1;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  add() {
+    this.amount++;
+    console.log(this.amount, this.meal);
+  }
+
+  remove() {
+    this.amount--;
+    console.log(this.amount, this.meal);
+  }
+
+  addToCart() {
+
   }
 }
