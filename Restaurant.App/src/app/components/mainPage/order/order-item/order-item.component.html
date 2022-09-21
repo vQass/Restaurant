@@ -17,10 +17,17 @@
       </div>
     </mat-card-subtitle>
     <mat-card-actions>
-      <div class="example-button-row">
+      <div class="d-flex flex-row">
         <button mat-stroked-button
+                [disabled]="amount <= 1"
+                (click)="remove()"
                 class="button button-red">-1</button>
+        <div class="amount">
+          {{amount}}
+        </div>
         <button mat-stroked-button
+                [disabled]="amount >= 20"
+                (click)="add()"
                 class="button button-green">+1</button>
       </div>
     </mat-card-actions>
