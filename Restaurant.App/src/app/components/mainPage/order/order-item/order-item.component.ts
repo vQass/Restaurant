@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CartService } from 'src/app/services/OtherServices/cart.service';
+import { ValidationConsts } from 'src/app/Validation/ValidationConsts';
+import { CartItem } from 'src/models/cart/CartItem';
 import { MealViewModel } from 'src/models/meal/MealViewModel';
 
 @Component({
@@ -9,9 +12,10 @@ import { MealViewModel } from 'src/models/meal/MealViewModel';
 export class OrderItemComponent implements OnInit {
   @Input() meal!: MealViewModel;
 
-  amount = 1;
+  maxMealCount = ValidationConsts.MAX_MEAL_COUNT_IN_ORDER;
+  amount = 0;
 
-  constructor() { }
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
   }
@@ -27,6 +31,17 @@ export class OrderItemComponent implements OnInit {
   }
 
   addToCart() {
+    if (this.amount <= 0) {
+      return;
+    }
 
+    const cartItem: CartItem = {
+      amount: this.amount,
+      mealId: this.meal.id,
+      mealName: this.meal.name,
+      singleMealPrice: this.meal.price
+    };
+    this.cartService.addToCart(cartItem);
+    this.amount = 0;
   }
 }

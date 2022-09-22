@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -32,6 +33,9 @@ import { UserLoginComponent } from './components/mainPage/user/user-login/user-l
 import { UserRegisterComponent } from './components/mainPage/user/user-register/user-register.component';
 import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
 import { ToastComponent } from './components/shared/toast/toast.component';
+import { MainNavComponent } from './components/shared/main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,8 @@ import { ToastComponent } from './components/shared/toast/toast.component';
     ToastComponent,
     OrderPageComponent,
     OrderSectionComponent,
-    OrderItemComponent
+    OrderItemComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +75,10 @@ import { ToastComponent } from './components/shared/toast/toast.component';
     MatExpansionModule,
     ReactiveFormsModule,
     NgbModule,
-    MatCardModule
+    MatCardModule,
+    MatSidenavModule,
+    LayoutModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,13 +4,9 @@
   padding: 0;
 }
 
-html {
-  height: 100%;
-}
-
+html,
 body {
-  min-height: 100%;
-  margin-top: 0px !important;
+  height: 100%;
 }
 
 /* #region Buttons */
