@@ -54,6 +54,7 @@ namespace Restaurant.Services.Services
                 GroupName = x.Name,
                 Meals = x.Meals.Select(y => new MealViewModel()
                 {
+                    Id = y.Id,
                     Name = y.Name,
                     Price = y.Price,
                     Ingredients = y.RecipeElements.Select(z => new IngredientViewModel()

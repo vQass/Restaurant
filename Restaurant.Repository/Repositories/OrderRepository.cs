@@ -75,6 +75,7 @@ namespace Restaurant.Repository.Repositories
 
             order.OrderDate = DateTime.Now;
             order.Status = OrderStatusEnum.Pending;
+            // TODO get current price of a meal
 
             _dbContext.Orders.Add(order);
             _dbContext.SaveChanges();

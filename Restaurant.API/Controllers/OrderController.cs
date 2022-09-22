@@ -41,7 +41,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("GetOrderById/{id}")]
-        public async Task<IActionResult> GetOrderById([FromRoute] long id)
+        public IActionResult GetOrderById([FromRoute] long id)
         {
             return Ok(_orderService.GetOrder(id));
         }
