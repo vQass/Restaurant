@@ -1,3 +1,4 @@
+import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -8,6 +9,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -31,17 +33,14 @@ import { OrderPageComponent } from './components/mainPage/order/order-page/order
 import { OrderSectionComponent } from './components/mainPage/order/order-section/order-section.component';
 import { UserLoginComponent } from './components/mainPage/user/user-login/user-login.component';
 import { UserRegisterComponent } from './components/mainPage/user/user-register/user-register.component';
-import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
-import { ToastComponent } from './components/shared/toast/toast.component';
 import { MainNavComponent } from './components/shared/main-nav/main-nav.component';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatListModule } from '@angular/material/list';
+import { ToastComponent } from './components/shared/toast/toast.component';
+import { CartSidebarComponent } from './components/shared/cart-sidebar/cart-sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CityTableComponent,
-    NavBarComponent,
     CityComponent,
     UserRegisterComponent,
     HomePageComponent,
@@ -53,7 +52,8 @@ import { MatListModule } from '@angular/material/list';
     OrderPageComponent,
     OrderSectionComponent,
     OrderItemComponent,
-    MainNavComponent
+    MainNavComponent,
+    CartSidebarComponent
   ],
   imports: [
     BrowserModule,
