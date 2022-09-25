@@ -11,22 +11,20 @@ import { CartItem } from 'src/models/cart/CartItem';
   styleUrls: ['./cart-sidebar.component.scss']
 })
 export class CartSidebarComponent {
-  isCartHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isMobileView$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small])
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
 
-  // cart: Observable<CartItem[]> = this.cartService.getCart()
-  //   .pipe(
-  //     map(result => result.),
-  //     shareReplay()
-  //   );
-
   cart: CartItem[] = [];
 
   constructor(private cartService: CartService, private breakpointObserver: BreakpointObserver) {
     this.cart = this.cartService.cartItems;
+  }
+
+  cartSum(): number {
+    return this.cart.reduce((partialSum, cartItem) => partialSum + cartItem.amount * cartItem.singleMealPrice, 0);
   }
 
 }

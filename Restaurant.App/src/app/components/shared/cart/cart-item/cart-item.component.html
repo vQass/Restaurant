@@ -1,0 +1,23 @@
+<div class="cart-item-container">
+  <p class="meal-name">{{cartItem.mealName}}</p>
+  <div class="flex-container">
+    <div class="text-container">
+      <p class="amount">Ilość: {{cartItem.amount}} szt.</p>
+      <p class="price">Cena razem: {{cartItem.singleMealPrice * cartItem.amount | number : '1.2-2'}} zł</p>
+    </div>
+    <div class="icons-container">
+      <button mat-mini-fab
+              class="icon-button"
+              color="warn"
+              (click)="decrementCartItem()">
+        <mat-icon>remove</mat-icon>
+      </button>
+      <button mat-mini-fab
+              class="icon-button"
+              color="warn"
+              (click)="removeCartItem()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

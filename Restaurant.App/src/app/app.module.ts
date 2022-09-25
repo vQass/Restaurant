@@ -33,9 +33,10 @@ import { OrderPageComponent } from './components/mainPage/order/order-page/order
 import { OrderSectionComponent } from './components/mainPage/order/order-section/order-section.component';
 import { UserLoginComponent } from './components/mainPage/user/user-login/user-login.component';
 import { UserRegisterComponent } from './components/mainPage/user/user-register/user-register.component';
+import { CartSidebarComponent } from './components/shared/cart/cart-sidebar/cart-sidebar.component';
 import { MainNavComponent } from './components/shared/main-nav/main-nav.component';
 import { ToastComponent } from './components/shared/toast/toast.component';
-import { CartSidebarComponent } from './components/shared/cart-sidebar/cart-sidebar.component';
+import { CartItemComponent } from './components/shared/cart/cart-item/cart-item.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { CartSidebarComponent } from './components/shared/cart-sidebar/cart-side
     OrderSectionComponent,
     OrderItemComponent,
     MainNavComponent,
-    CartSidebarComponent
+    CartSidebarComponent,
+    CartItemComponent
   ],
   imports: [
     BrowserModule,

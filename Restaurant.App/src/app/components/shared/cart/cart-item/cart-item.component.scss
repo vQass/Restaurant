@@ -1,0 +1,47 @@
+.cart-item-container {
+  background-color: rgb(82, 82, 82);
+  width: 94%;
+  border-radius: 8px;
+  margin: 8px auto;
+  padding: 6px;
+}
+
+p {
+  margin: 5px 0 5px 0;
+}
+
+.meal-name {
+  font-size: 16px !important;
+  letter-spacing: 0.4px;
+}
+
+.amount {
+  font-size: 13px !important;
+  color: rgb(199, 199, 199);
+}
+
+.price {
+  font-size: 13px !important;
+  color: rgb(199, 199, 199);
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.icon-button {
+  transform: scale(0.85);
+}
+
+.icons-container {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.text-container {
+  width: 50%;
+}

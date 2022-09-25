@@ -36,4 +36,19 @@ export class CartService {
   public getCart(): Observable<CartItem[]> {
     return this.observableCartItems;
   }
+
+  public decrementCartItem(cartItem: CartItem) {
+    var item = this.cartItems.filter(x => x.mealId == cartItem.mealId)[0];
+    item.amount--;
+    if (item.amount == 0) {
+      this.removeCartItem(cartItem)
+    }
+  }
+
+  public removeCartItem(cartItem: CartItem) {
+    const index: number = this.cartItems.indexOf(cartItem);
+    if (index !== -1) {
+      this.cartItems.splice(index, 1);
+    }
+  }
 }

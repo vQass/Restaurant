@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/ApiServices/user.service';
 })
 export class MainNavComponent {
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.XSmall])
     .pipe(
       map(result => result.matches),
       shareReplay()
@@ -26,6 +26,14 @@ export class MainNavComponent {
 
   logout() {
     this.userService.logout();
+  }
+
+  loga() {
+    let variable;
+    this.isHandset$.subscribe((value) => variable = value);
+
+    console.log(variable);
+
   }
 
 }
