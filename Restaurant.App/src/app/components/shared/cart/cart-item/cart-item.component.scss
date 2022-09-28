@@ -31,17 +31,17 @@ p {
 }
 
 .icon-button {
-  transform: scale(0.85);
+  transform: scale(0.80);
 }
 
 .icons-container {
-  width: 50%;
+  width: 40%;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .text-container {
-  width: 50%;
+  width: 60%;
 }
