@@ -6,16 +6,24 @@
                [attr.role]="(isMobileView$ | async) ? 'dialog' : 'navigation'"
                [mode]="(isMobileView$ | async) ? 'over' : 'side'"
                [opened]="!(isMobileView$ | async)">
+    <div>
+      <div class="cart-title-container">
+        <h1 class="cart-title">Koszyk</h1>
+        <p *ngIf="cart.length == 0"> Koszyk jest pusty</p>
+      </div>
 
-    <div class="cart-title-container">
-      <h1 class="cart-title">Koszyk</h1>
-      <p *ngIf="cart.length == 0"> Koszyk jest pusty</p>
+      <app-cart-item *ngFor="let cartItem of cart"
+                     [cartItem]="cartItem"></app-cart-item>
     </div>
 
-    <app-cart-item *ngFor="let cartItem of cart"
-                   [cartItem]="cartItem"></app-cart-item>
-
-    <p>{{cartSum() | number : '1.2-2'}} zł</p>
+    <div class="cart-sum-container">
+      <span class="cart-sum-title">
+        Suma zamówienia:
+      </span>
+      <span class="cart-sum-price">
+        {{cartSum() | number : '1.2-2'}} zł
+      </span>
+    </div>
   </mat-sidenav>
 
   <mat-sidenav-content>

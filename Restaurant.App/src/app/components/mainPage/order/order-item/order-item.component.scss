@@ -1,21 +1,13 @@
 .item-container {
   color: white;
   width: 100%;
-  background-color: rgb(66, 66, 66);
-  border-radius: 25px;
+  background-color: #495057 !important;
+  border-radius: 5px;
   margin: 20px auto;
 }
 
-.test2 {
-  padding: 0px;
-  // border: 3px solid red;
-  height: 50%;
-}
-
-.test {
-  padding: 0px;
-  border: 1px solid blue;
-  border-radius: 5px;
+mat-card {
+  background-color: transparent !important;
 }
 
 .order-button-base {
