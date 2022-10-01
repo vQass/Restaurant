@@ -9,14 +9,8 @@ namespace Restaurant.Repository.Repositories
 {
     public class MealCategoryRepository : IMealCategoryRepository
     {
-        #region Fields
-
         private readonly RestaurantDbContext _dbContext;
         private readonly ILogger<MealCategoryRepository> _logger;
-
-        #endregion
-
-        #region Ctors
 
         public MealCategoryRepository(
             RestaurantDbContext dbContext,
@@ -25,10 +19,6 @@ namespace Restaurant.Repository.Repositories
             _dbContext = dbContext;
             _logger = logger;
         }
-
-        #endregion
-
-        #region Methods
 
         #region GetMethods
 
@@ -108,8 +98,6 @@ namespace Restaurant.Repository.Repositories
                 throw new BadRequestException("Wybrana kategoria dań przypisana jest do co najmniej jednego dania.");
             }
         }
-
-        #endregion
 
         #endregion
     }

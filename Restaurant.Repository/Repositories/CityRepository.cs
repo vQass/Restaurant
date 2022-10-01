@@ -9,14 +9,8 @@ namespace Restaurant.Repository.Repositories
 {
     public class CityRepository : ICityRepository
     {
-        #region Fields
-
         private readonly RestaurantDbContext _dbContext;
         private readonly ILogger<CityRepository> _logger;
-
-        #endregion
-
-        #region Ctors
 
         public CityRepository(RestaurantDbContext dbContext,
             ILogger<CityRepository> logger)
@@ -25,9 +19,6 @@ namespace Restaurant.Repository.Repositories
             _logger = logger;
         }
 
-        #endregion
-
-        #region Methods
 
         #region GetMethods
 
@@ -149,8 +140,6 @@ namespace Restaurant.Repository.Repositories
                 throw new BadRequestException("Podane miasto używane jest w adresie co najmniej jednego zamówienia.");
             }
         }
-
-        #endregion
 
         #endregion
     }

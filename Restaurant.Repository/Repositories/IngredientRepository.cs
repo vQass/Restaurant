@@ -9,14 +9,8 @@ namespace Restaurant.Repository.Repositories
 {
     public class IngredientRepository : IIngredientRepository
     {
-        #region Fields
-
         private readonly RestaurantDbContext _dbContext;
         private readonly ILogger<IngredientRepository> _logger;
-
-        #endregion
-
-        #region Ctors
 
         public IngredientRepository(
             RestaurantDbContext dbContext,
@@ -25,10 +19,6 @@ namespace Restaurant.Repository.Repositories
             _dbContext = dbContext;
             _logger = logger;
         }
-
-        #endregion
-
-        #region Methods
 
         #region GetMethods
 
@@ -119,8 +109,6 @@ namespace Restaurant.Repository.Repositories
                 throw new BadRequestException("Podany składnik używany jest w co najmniej jednym przepisie.");
             }
         }
-
-        #endregion
 
         #endregion
     }

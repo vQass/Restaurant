@@ -17,14 +17,8 @@ namespace Restaurant.Repository.Repositories
 {
     public class OrderRepository : IOrderRepository
     {
-        #region Fields
-
         private readonly RestaurantDbContext _dbContext;
         private readonly IMapper _mapper;
-
-        #endregion
-
-        #region Ctors
 
         public OrderRepository(
             RestaurantDbContext dbContext,
@@ -33,10 +27,6 @@ namespace Restaurant.Repository.Repositories
             _dbContext = dbContext;
             _mapper = mapper;
         }
-
-        #endregion
-
-        #region Methods
 
         #region GetMethods
 
@@ -111,8 +101,6 @@ namespace Restaurant.Repository.Repositories
                 throw new NotFoundException("Podane zamówienie nie istnieje.");
             }
         }
-
-        #endregion
 
         #endregion
     }

@@ -16,15 +16,9 @@ namespace Restaurant.Repository.Repositories
 {
     public class RecipeRepository : IRecipeRepository
     {
-        #region Fields
-
         private readonly RestaurantDbContext _dbContext;
         private readonly ILogger<RecipeRepository> _logger;
         private readonly IMapper _mapper;
-
-        #endregion
-
-        #region Ctors
 
         public RecipeRepository(
             RestaurantDbContext dbContext,
@@ -35,10 +29,6 @@ namespace Restaurant.Repository.Repositories
             _logger = logger;
             _mapper = mapper;
         }
-
-        #endregion
-
-        #region Methods
 
         #region GetMethods
 
@@ -132,8 +122,6 @@ namespace Restaurant.Repository.Repositories
                 throw new NotFoundException("Element przepisu już istnieje.");
             }
         }
-
-        #endregion
 
         #endregion
     }

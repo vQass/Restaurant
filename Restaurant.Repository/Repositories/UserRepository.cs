@@ -16,16 +16,10 @@ namespace Restaurant.Repository.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        #region Fields
-
         private readonly RestaurantDbContext _dbContext;
         private readonly ILogger<UserRepository> _logger;
         private IMapper _mapper;
         private readonly IPasswordHasher<User> _passwordHasher;
-
-        #endregion
-
-        #region Ctors
 
         public UserRepository(
             RestaurantDbContext dbContext,
@@ -38,10 +32,6 @@ namespace Restaurant.Repository.Repositories
             _mapper = mapper;
             _passwordHasher = passwordHasher;
         }
-
-        #endregion
-
-        #region Methods
 
         #region GetMethods
 
@@ -149,8 +139,6 @@ namespace Restaurant.Repository.Repositories
                 throw new BadRequestException("Podany email ma błędny format.");
             }
         }
-
-        #endregion
 
         #endregion
     }

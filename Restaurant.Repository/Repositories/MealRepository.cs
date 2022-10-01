@@ -14,11 +14,6 @@ namespace Restaurant.Repository.Repositories
         private readonly ILogger<MealRepository> _logger;
         private readonly IMapper _mapper;
         private readonly RestaurantDbContext _dbContext;
-        #region Fields
-
-        #endregion
-
-        #region Ctors
 
         public MealRepository(
             RestaurantDbContext dbContext,
@@ -29,10 +24,6 @@ namespace Restaurant.Repository.Repositories
             _mapper = mapper;
             _dbContext = dbContext;
         }
-
-        #endregion
-
-        #region Methods
 
         #region GetMethods
 
@@ -148,9 +139,6 @@ namespace Restaurant.Repository.Repositories
                 throw new BadRequestException("Podane danie używane jest w co najmniej jednym zamówieniu.");
             }
         }
-
-
-        #endregion
 
         #endregion
     }

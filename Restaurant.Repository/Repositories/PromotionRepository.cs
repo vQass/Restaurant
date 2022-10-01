@@ -11,15 +11,9 @@ namespace Restaurant.Repository.Repositories
 {
     public class PromotionRepository : IPromotionRepository
     {
-        #region Fields
-
         private readonly RestaurantDbContext _dbContext;
         private readonly ILogger<PromotionRepository> _logger;
         private readonly IMapper _mapper;
-
-        #endregion
-
-        #region Ctors
 
         public PromotionRepository(RestaurantDbContext dbContext,
             ILogger<PromotionRepository> logger,
@@ -29,10 +23,6 @@ namespace Restaurant.Repository.Repositories
             _logger = logger;
             _mapper = mapper;
         }
-
-        #endregion
-
-        #region Methods
 
         #region GetMethods
 
@@ -154,8 +144,6 @@ namespace Restaurant.Repository.Repositories
                 throw new BadRequestException("Podana promocja używana jest w co najmniej jednym zamówieniu.");
             }
         }
-
-        #endregion
 
         #endregion
     }
