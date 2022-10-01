@@ -17,14 +17,8 @@ namespace Restaurant.Services.Services
     public class RecipeService : IRecipeService
     {
         private readonly IRecipeRepository _recipeRepository;
-        #region Fields
-
         private readonly IMapper _mapper;
-
-        #endregion
-
-        #region Ctors
-
+  
         public RecipeService(
             IRecipeRepository recipeRepository,
             IMapper mapper)
@@ -33,9 +27,6 @@ namespace Restaurant.Services.Services
             _mapper = mapper;
         }
 
-        #endregion
-
-        #region PublicMethods
 
         public async Task<IEnumerable<Recipe>> GetRecipes()
         {
@@ -81,7 +72,5 @@ namespace Restaurant.Services.Services
 
             _recipeRepository.DeleteRecipeElement(recipeElement);
         }
-
-        #endregion
     }
 }

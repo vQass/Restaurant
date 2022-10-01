@@ -7,22 +7,13 @@ namespace Restaurant.Services.Services
 {
     public class IngredientService : IIngredientService
     {
-        #region Fields
-
         private readonly IIngredientRepository _ingredientRepository;
-
-        #endregion
-
-        #region Ctors
 
         public IngredientService(IIngredientRepository ingredientRepository)
         {
             _ingredientRepository = ingredientRepository;
         }
 
-        #endregion
-
-        #region PublicMethods
 
         public Ingredient GetIngredient(int id)
         {
@@ -67,7 +58,5 @@ namespace Restaurant.Services.Services
 
             _ingredientRepository.UpdateIngredient(ingredient, ingredientName.Trim());
         }
-
-        #endregion
     }
 }

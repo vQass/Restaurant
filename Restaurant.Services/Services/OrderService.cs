@@ -17,15 +17,9 @@ namespace Restaurant.Services.Services
 {
     public class OrderService : IOrderService
     {
-        #region Fields
-
         private readonly IMapper _mapper;
         private readonly IOrderRepository _orderRepository;
         private readonly IPromotionRepository _promotionRepository;
-
-        #endregion
-
-        #region Ctors
 
         public OrderService(
             IMapper mapper,
@@ -37,9 +31,6 @@ namespace Restaurant.Services.Services
             _promotionRepository = promotionRepository;
         }
 
-        #endregion
-
-        #region PublicMethods
 
         public Order GetOrder(long id)
         {
@@ -98,10 +89,6 @@ namespace Restaurant.Services.Services
             _orderRepository.ChangeOrderStatus(order, orderStatus);
         }
 
-        #endregion
-
-        #region PrivateMethods
-
         private void EnsureOrderHasPendingStatus(Order order)
         {
             if (order.Status != OrderStatusEnum.Pending)
@@ -110,7 +97,5 @@ namespace Restaurant.Services.Services
                     $"{OrderStatusDictionary.OrderStatusesWithDescription.FirstOrDefault(x => x.Key == (byte)order.Status).Value}");
             }
         }
-        #endregion
-
     }
 }

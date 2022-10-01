@@ -10,16 +10,14 @@ namespace Restaurant.Services.Services
 {
     public class MealService : IMealService
     {
-        private readonly IMapper _mapper;
         private readonly IMealRepository _mealRepository;
 
         public MealService(
-            IMapper mapper,
             IMealRepository mealRepository)
         {
-            _mapper = mapper;
             _mealRepository = mealRepository;
         }
+
 
         public async Task<IEnumerable<Meal>> GetMeals()
         {

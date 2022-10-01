@@ -7,13 +7,7 @@ namespace Restaurant.Services.Services
 {
     public class CityService : ICityService
     {
-        #region Fields
-
         private readonly ICityRepository _cityRepository;
-
-        #endregion
-
-        #region Ctors
 
         public CityService(
             ICityRepository cityRepository)
@@ -21,9 +15,6 @@ namespace Restaurant.Services.Services
             _cityRepository = cityRepository;
         }
 
-        #endregion
-
-        #region PublicMethods
 
         public City GetCity(short id)
         {
@@ -97,7 +88,5 @@ namespace Restaurant.Services.Services
 
             _cityRepository.UpdateCity(city, cityName.Trim());
         }
-
-        #endregion
     }
 }

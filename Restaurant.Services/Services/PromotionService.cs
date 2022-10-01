@@ -16,14 +16,8 @@ namespace Restaurant.Services.Services
 {
     public class PromotionService : IPromotionService
     {
-        #region Fields
-
         private readonly IPromotionRepository _promotionRepository;
         private readonly IMapper _mapper;
-
-        #endregion
-
-        #region Ctors
 
         public PromotionService(
             IPromotionRepository promotionRepository,
@@ -33,9 +27,6 @@ namespace Restaurant.Services.Services
             _mapper = mapper;
         }
 
-        #endregion
-
-        #region PublicMethods
 
         public async Task<IEnumerable<Promotion>> GetPromotionsList()
         {
@@ -99,7 +90,5 @@ namespace Restaurant.Services.Services
 
             _promotionRepository.DeletePromotion(promotion);
         }
-
-        #endregion
     }
 }

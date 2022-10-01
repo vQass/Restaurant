@@ -18,10 +18,12 @@ namespace Restaurant.Services.Services
             _mealCategoryRepository = mealCategoryRepository;
         }
 
+
         public IEnumerable<MealCategory> GetMealCategories()
         {
             return _mealCategoryRepository.GetMealCategories();
         }
+
         public short AddMealCategory(string mealCategoryName)
         {
             _mealCategoryRepository.EnsureMealCategoryNameNotTaken(mealCategoryName);
@@ -30,6 +32,7 @@ namespace Restaurant.Services.Services
 
             return id;
         }
+
         public void UpdateMealCategory(short id, string mealCategoryName)
         {
             var mealCategory = _mealCategoryRepository.GetMealCategory(id);
