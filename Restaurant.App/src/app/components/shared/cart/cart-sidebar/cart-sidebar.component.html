@@ -16,13 +16,23 @@
                      [cartItem]="cartItem"></app-cart-item>
     </div>
 
-    <div class="cart-sum-container">
-      <span class="cart-sum-title">
-        Suma zamówienia:
-      </span>
-      <span class="cart-sum-price">
-        {{cartSum() | number : '1.2-2'}} zł
-      </span>
+    <div class="cart-bottom-container">
+
+      <div class="cart-sum-container">
+        <span class="cart-sum-title">
+          Suma zamówienia:
+        </span>
+        <span class="cart-sum-price">
+          {{cartSum() | number : '1.2-2'}} zł
+        </span>
+      </div>
+
+      <a class="button go-to-order"
+         routerLink="/order-summary"
+         [disabled]="cart.length == 0"
+         mat-raised-button
+         color="primary">Przejdź do zamówienia</a>
+
     </div>
   </mat-sidenav>
 

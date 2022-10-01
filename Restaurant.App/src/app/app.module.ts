@@ -37,6 +37,7 @@ import { CartSidebarComponent } from './components/shared/cart/cart-sidebar/cart
 import { MainNavComponent } from './components/shared/main-nav/main-nav.component';
 import { ToastComponent } from './components/shared/toast/toast.component';
 import { CartItemComponent } from './components/shared/cart/cart-item/cart-item.component';
+import { OrderSummaryComponent } from './components/mainPage/order/order-summary/order-summary.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { CartItemComponent } from './components/shared/cart/cart-item/cart-item.
     OrderItemComponent,
     MainNavComponent,
     CartSidebarComponent,
-    CartItemComponent
+    CartItemComponent,
+    OrderSummaryComponent
   ],
   imports: [
     BrowserModule,

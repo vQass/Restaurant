@@ -24,19 +24,21 @@
   margin-top: 10px !important;
 }
 
-.cart-sum-container {
+.cart-bottom-container {
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 40px;
-  line-height: 39px;
+  height: 85px;
+  line-height: 40px;
   background-color: #495057;
   color: white;
 }
 
+.cart-sum-container {}
+
 .cart-sum-title {
-  margin-left: 5px;
+  margin-left: 7px;
   font-weight: bold;
   letter-spacing: 0.55px;
   font-size: 16px;
@@ -46,4 +48,11 @@
   font-weight: bold;
   letter-spacing: -0.15px;
   font-size: 16px;
+}
+
+.go-to-order {
+  display: block;
+  margin-left: auto !important;
+  margin-right: auto;
+  width: 95% !important;
 }
