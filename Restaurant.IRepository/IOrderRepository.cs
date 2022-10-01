@@ -6,11 +6,13 @@ namespace Restaurant.IRepository
 {
     public interface IOrderRepository
     {
-        long AddOrder(OrderCreateRequest orderCreateRequest);
-        void ChangeOrderStatus(Order order, OrderStatusEnum orderStatus);
-        void EnsureOrderExists(Order order);
         Order GetOrder(long id);
         Task<List<Order>> GetOrders(IEnumerable<OrderStatusEnum> orderStatuses = null, long userId = 0);
+
+        long AddOrder(OrderCreateRequest orderCreateRequest);
         void UpdateOrder(Order order, OrderUpdateRequest orderUpdateRequest);
+        void ChangeOrderStatus(Order order, OrderStatusEnum orderStatus);
+
+        void EnsureOrderExists(Order order);
     }
 }

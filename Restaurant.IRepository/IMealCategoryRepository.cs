@@ -6,8 +6,10 @@ namespace Restaurant.IRepository
     {
         IEnumerable<MealCategory> GetMealCategories();
         MealCategory GetMealCategory(short id);
+
         short AddMealCategory(MealCategory mealCategory);
         void DeleteMealCategory(MealCategory mealCategory);
+
         void EnsureMealCategoryExists(MealCategory mealCategory);
         void EnsureMealCategoryNameNotTaken(string mealCategoryName, int id = 0);
         void EnsureMealCategoryNotInUse(MealCategory mealCategory);

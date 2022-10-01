@@ -10,14 +10,8 @@ namespace Restaurant.Services.Services
 {
     public class MealService : IMealService
     {
-        #region Fields
-
         private readonly IMapper _mapper;
         private readonly IMealRepository _mealRepository;
-
-        #endregion Fields
-
-        #region Ctors
 
         public MealService(
             IMapper mapper,
@@ -26,10 +20,6 @@ namespace Restaurant.Services.Services
             _mapper = mapper;
             _mealRepository = mealRepository;
         }
-
-        #endregion Ctors
-
-        #region PublicMethods
 
         public async Task<IEnumerable<Meal>> GetMeals()
         {
@@ -117,7 +107,5 @@ namespace Restaurant.Services.Services
 
             _mealRepository.UpdateMealsPrice(meal, newPrice);
         }
-
-        #endregion PublicMethods
     }
 }
