@@ -45,6 +45,7 @@ export class UserLoginComponent implements OnInit {
         console.log(resp)
         this.userService.setIsLoggedIn(true);
         this.userService.setRole(resp.role);
+        this.userService.setId(resp.id);
         sessionStorage.setItem('authToken', resp.token);
         this.toastService.showSuccess("Pomyślnie zalogowano!")
         this.router.navigate(['home']);

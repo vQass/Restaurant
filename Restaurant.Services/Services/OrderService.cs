@@ -48,13 +48,16 @@ namespace Restaurant.Services.Services
 
         public long AddOrder(OrderCreateRequest orderCreateRequest)
         {
-            var promotion = _promotionRepository.GetPromotion(orderCreateRequest.PromotionCode);
+            if(orderCreateRequest.PromotionCode != null)
+            {
+                var promotion = _promotionRepository.GetPromotion(orderCreateRequest.PromotionCode);
 
-            _promotionRepository.EnsurePromotionExists(promotion);
+                _promotionRepository.EnsurePromotionExists(promotion);
 
-            _promotionRepository.EnsurePromotionIsActive(promotion);
+                _promotionRepository.EnsurePromotionIsActive(promotion);
 
-            orderCreateRequest.PromotionId = promotion?.Id;
+                orderCreateRequest.PromotionId = promotion?.Id;
+            }
 
             var id = _orderRepository.AddOrder(orderCreateRequest);
             

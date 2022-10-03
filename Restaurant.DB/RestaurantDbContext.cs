@@ -50,7 +50,7 @@ namespace Restaurant.DB
             modelBuilder.Entity<Order>()
                 .HasOne(x => x.Promotion)
                 .WithMany(x => x.Orders)
-                .HasForeignKey(x => x.PromotionId);
+                .HasForeignKey(x => x.PromotionCodeId);
 
             modelBuilder.Entity<OrderElement>()
                 .HasOne(x => x.Order)
@@ -113,7 +113,7 @@ namespace Restaurant.DB
                 entity.Property(x => x.Surname).IsRequired(true).HasMaxLength(127);
                 entity.Property(x => x.Address).IsRequired(true).HasMaxLength(255);
                 entity.Property(x => x.Status).IsRequired(true).HasColumnType("tinyint");
-                entity.Property(x => x.PromotionId).IsRequired(false);
+                entity.Property(x => x.PromotionCodeId).IsRequired(false);
                 entity.Property(x => x.OrderDate).IsRequired(true).HasColumnType("smalldatetime");
             });
 

@@ -43,10 +43,16 @@
          color="primary">Menu</a>
 
       <a class="button"
-         *ngIf="!(isHandset$ | async)"
+         *ngIf="isLoggedIn && !(isHandset$ | async)"
          routerLink="order"
          mat-stroked-button
          color="primary">Złóż zamówienie</a>
+
+      <a class="button"
+         *ngIf="isLoggedIn && !(isHandset$ | async)"
+         routerLink="order-history"
+         mat-stroked-button
+         color="primary">Historia zamówień</a>
 
       <span class="navbar-spacer"></span>
 

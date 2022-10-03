@@ -50,6 +50,11 @@ namespace Restaurant.APIComponents.Validators.OrderValidators.OrderCreate
 
             RuleFor(x => x.PromotionCode).Custom((code, context) =>
             {
+                if(code is null)
+                {
+                    return;
+                }
+
                 var codeTrimmed = code.Trim();
                 var currentDateTime = DateTime.Now;
 

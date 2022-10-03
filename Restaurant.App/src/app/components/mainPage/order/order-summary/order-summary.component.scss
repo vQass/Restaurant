@@ -4,13 +4,79 @@
 }
 
 .title-container {
-  color: #343a40
+  color: #343a40 !important;
+  text-align: center;
+}
+
+.summary-container {
+  width: 92%;
+  margin: 30px auto 0 auto;
 }
 
 .summary-item {
-  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px auto 0 auto;
   background-color: #6c757d;
-  height: 50px;
-  width: 90%;
+  height: 40px;
+  width: 96%;
+  padding: 5px 10px;
+  border-radius: 5px;
   color: white;
+}
+
+.summary-text {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0px;
+}
+
+.summary-line {
+  color: #343a40;
+  margin: 10px 0 5px 0;
+}
+
+.summary-price-title {
+  color: #343a40;
+  margin-left: 10px;
+}
+
+.form-container {
+  border-radius: 10px;
+  display: flex;
+  align-content: space-between;
+  flex-direction: column;
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  min-height: 500px;
+  background-color: rgb(33, 33, 33);
+  margin: 20px auto 0px auto;
+}
+
+.backgroundtest {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.full-width {
+  margin-top: 8px;
+  border-radius: 10px;
+  width: 100%;
+  color: white !important;
+}
+
+.button {
+  margin-top: 20px;
+  align-self: end;
+}
+
+.spacer {
+  height: 20px;
 }

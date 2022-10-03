@@ -79,7 +79,7 @@ namespace Restaurant.Repository.Repositories
             order.Surname = orderUpdateRequest.Surname;
             order.Name = orderUpdateRequest.Name;
             order.CityId = orderUpdateRequest.CityId;
-            order.PromotionId = orderUpdateRequest.PromotionId;
+            order.PromotionCodeId = orderUpdateRequest.PromotionId;
 
             _dbContext.SaveChanges();
         }

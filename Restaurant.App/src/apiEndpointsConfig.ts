@@ -15,6 +15,9 @@ export const apiEndpoints =
   },
   mealEndpoints: {
     "getMealsGroups": "Meal/GetMealsGroupedByCategory"
+  },
+  orderEndpoints: {
+    "addOrder": "Order/AddOrder"
   }
 };
 

@@ -1,11 +1,108 @@
 <div class="main-container">
+
   <div class="title-container">
     <h1>Podsumowanie zamówienia</h1>
     <hr>
   </div>
 
-  <div class="summary-item">test</div>
-  <div class="summary-item">test2</div>
-  <div class="summary-item"
-       *ngFor="let cartItem of cart">{{cartItem.mealName}}</div>
+  <div class="summary-container">
+    <div class="summary-item"
+         *ngFor="let cartItem of cart">
+      <p class="summary-text">
+        {{cartItem.mealName}} x {{cartItem.amount}}
+      </p>
+      <p class="summary-text">{{cartItem.singleMealPrice * cartItem.amount | number : '1.2-2'}} zł</p>
+    </div>
+    <hr class="summary-line">
+    <h3 class="summary-price-title">Suma zamówienia: <span>{{cartSum() | number : '1.2-2'}} zł</span> </h3>
+  </div>
+
+  <form class="form-container"
+        [formGroup]="orderForm">
+    <div>
+      <h1 style="margin-bottom: 20px;">Szczegóły dostawy</h1>
+
+      <!-- Name -->
+      <mat-form-field class="full-width"
+                      appearance="fill">
+        <mat-label>Imię</mat-label>
+        <input type="text"
+               matInput
+               formControlName="name"
+               [errorStateMatcher]="singleControlMatcher"
+               placeholder="Jan" />
+        <mat-error *ngIf="name?.errors?.['required']">
+          Imię jest wymagane
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Surname -->
+      <mat-form-field class="full-width"
+                      appearance="fill">
+        <mat-label>Nazwisko</mat-label>
+        <input type="text"
+               matInput
+               [errorStateMatcher]="singleControlMatcher"
+               placeholder="Kowalski"
+               formControlName="surname" />
+        <mat-error *ngIf="surname?.errors?.['required']">
+          Nazwisko jest wymagane
+        </mat-error>
+      </mat-form-field>
+
+      <!-- City -->
+      <mat-form-field class="full-width"
+                      appearance="fill">
+        <mat-label>Miasto</mat-label>
+        <mat-select matInput
+                    formControlName="city">
+          <mat-option *ngFor="let city of cities"
+                      value="{{city.id}}">{{city.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="city?.errors?.['required']">
+          Miasto jest wymagane
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Address -->
+      <mat-form-field class="full-width"
+                      appearance="fill">
+        <mat-label>Adres</mat-label>
+        <input type="text"
+               matInput
+               [errorStateMatcher]="singleControlMatcher"
+               placeholder="Polna 12/5"
+               formControlName="address" />
+        <mat-error *ngIf="address?.errors?.['required']">
+          Adres jest wymagane
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Phone -->
+      <mat-form-field class="full-width"
+                      appearance="fill">
+        <mat-label>Numer telefonu</mat-label>
+        <input type="text"
+               matInput
+               [errorStateMatcher]="singleControlMatcher"
+               placeholder="123123123"
+               formControlName="phoneNumber" />
+        <mat-error *ngIf="phoneNumber?.errors?.['required']">
+          Numer telefonu jest wymagane
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <button class="button"
+            (click)="onSubmit()"
+            mat-raised-button
+            color="primary"
+            [disabled]="!orderForm.valid">
+      Złóż zamówienie
+    </button>
+  </form>
+
+  <div class="spacer"></div>
+
 </div>

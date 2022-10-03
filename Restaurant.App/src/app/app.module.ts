@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -31,13 +32,14 @@ import { MenuSectionComponent } from './components/mainPage/menu/menu-section/me
 import { OrderItemComponent } from './components/mainPage/order/order-item/order-item.component';
 import { OrderPageComponent } from './components/mainPage/order/order-page/order-page.component';
 import { OrderSectionComponent } from './components/mainPage/order/order-section/order-section.component';
+import { OrderSummaryComponent } from './components/mainPage/order/order-summary/order-summary.component';
 import { UserLoginComponent } from './components/mainPage/user/user-login/user-login.component';
 import { UserRegisterComponent } from './components/mainPage/user/user-register/user-register.component';
+import { CartItemComponent } from './components/shared/cart/cart-item/cart-item.component';
 import { CartSidebarComponent } from './components/shared/cart/cart-sidebar/cart-sidebar.component';
 import { MainNavComponent } from './components/shared/main-nav/main-nav.component';
 import { ToastComponent } from './components/shared/toast/toast.component';
-import { CartItemComponent } from './components/shared/cart/cart-item/cart-item.component';
-import { OrderSummaryComponent } from './components/mainPage/order/order-summary/order-summary.component';
+import { OrderHistoryComponent } from './components/mainPage/order/order-history/order-history.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { OrderSummaryComponent } from './components/mainPage/order/order-summary
     MainNavComponent,
     CartSidebarComponent,
     CartItemComponent,
-    OrderSummaryComponent
+    OrderSummaryComponent,
+    OrderHistoryComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -82,7 +86,8 @@ import { OrderSummaryComponent } from './components/mainPage/order/order-summary
     MatCardModule,
     MatSidenavModule,
     LayoutModule,
-    MatListModule
+    MatListModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

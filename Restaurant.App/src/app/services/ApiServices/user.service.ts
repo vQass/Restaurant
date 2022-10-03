@@ -19,10 +19,12 @@ export class UserService {
 
   private isLoggedIn: BehaviorSubject<boolean>;
   private role: BehaviorSubject<string>;
+  private id: BehaviorSubject<number>;
 
   constructor(private http: HttpClient, private toastService: ToastService) {
     this.isLoggedIn = new BehaviorSubject<boolean>(false);
     this.role = new BehaviorSubject<string>("");
+    this.id = new BehaviorSubject<number>(0);
   }
 
   getUsers(): Observable<UserListElement[]> {
@@ -76,7 +78,16 @@ export class UserService {
   getRole(): Observable<string> {
     return this.role.asObservable();
   }
+
   setRole(role: string): void {
     this.role.next(role);
+  }
+
+  setId(id: number): void {
+    this.id.next(id);
+  }
+
+  getId(): number {
+    return this.id.value;
   }
 }

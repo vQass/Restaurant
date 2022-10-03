@@ -52,8 +52,8 @@ namespace Restaurant.API.Controllers
         [HttpPost("SignInUser")]
         public IActionResult SignInUser([FromBody] LoginRequest loginRequest)
         {
-            var token = _userService.SignInUser(loginRequest);
-            return Ok(token);
+            var user = _userService.SignInUser(loginRequest);
+            return Ok(user);
         }
 
         [HttpPut("UpdateUser/{id}")]

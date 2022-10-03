@@ -136,7 +136,8 @@ namespace Restaurant.Services.Services
             var response = new LoginResponse()
             {
                 JwtToken = token,
-                Role = user.Role.ToString()
+                Role = user.Role.ToString(),
+                Id = user.Id
             };
 
             return response;
