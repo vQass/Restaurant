@@ -15,10 +15,9 @@ namespace Restaurant.Services.Services
             _cityRepository = cityRepository;
         }
 
-
         public City GetCity(short id)
         {
-            var city = _cityRepository.GetCity(id);
+            var city = _cityRepository.GetCity(id).FirstOrDefault();
 
             _cityRepository.EnsureCityExists(city);
 
@@ -27,7 +26,7 @@ namespace Restaurant.Services.Services
 
         public CityWrapper GetCities()
         {
-            var cities = _cityRepository.GetCities();
+            var cities = _cityRepository.GetCities().ToList();
             var cityCount = _cityRepository.GetCitiesCount();
 
             return new CityWrapper()
@@ -49,7 +48,7 @@ namespace Restaurant.Services.Services
 
         public void DeleteCity(short id)
         {
-            var city = _cityRepository.GetCity(id);
+            var city = _cityRepository.GetCity(id).FirstOrDefault();
 
             _cityRepository.EnsureCityExists(city);
 
@@ -60,7 +59,7 @@ namespace Restaurant.Services.Services
 
         public void DisableCity(short id)
         {
-            var city = _cityRepository.GetCity(id);
+            var city = _cityRepository.GetCity(id).FirstOrDefault();
 
             _cityRepository.EnsureCityExists(city);
 
@@ -69,7 +68,7 @@ namespace Restaurant.Services.Services
 
         public void EnableCity(short id)
         {
-            var city = _cityRepository.GetCity(id);
+            var city = _cityRepository.GetCity(id).FirstOrDefault();
 
             _cityRepository.EnsureCityExists(city);
 
@@ -78,7 +77,7 @@ namespace Restaurant.Services.Services
 
         public void UpdateCity(short id, string cityName)
         {
-            var city = _cityRepository.GetCity(id);
+            var city = _cityRepository.GetCity(id).FirstOrDefault();
 
             _cityRepository.EnsureCityExists(city);
 

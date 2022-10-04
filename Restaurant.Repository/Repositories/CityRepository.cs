@@ -19,26 +19,24 @@ namespace Restaurant.Repository.Repositories
             _logger = logger;
         }
 
-
         #region GetMethods
 
-        public City GetCity(short id)
+        public IQueryable<City> GetCity(short id)
         {
             return _dbContext.Cities
-                .FirstOrDefault(x => x.Id == id);
+                .Where(x => x.Id == id);
         }
 
-        public City GetCity(string cityName)
+        public IQueryable<City> GetCity(string cityName)
         {
             return _dbContext.Cities
-                .FirstOrDefault(x => x.Name == cityName);
+                .Where(x => x.Name == cityName);
         }
 
-        public IEnumerable<City> GetCities()
+        public IQueryable<City> GetCities()
         {
             return _dbContext.Cities
-                .AsNoTracking()
-                .ToList();
+                .AsNoTracking();
         }
 
         public short GetCitiesCount()

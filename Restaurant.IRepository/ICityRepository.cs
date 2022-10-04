@@ -4,9 +4,9 @@ namespace Restaurant.IRepository
 {
     public interface ICityRepository
     {
-        City GetCity(short id);
-        City GetCity(string cityName);
-        IEnumerable<City> GetCities();
+        IQueryable<City> GetCity(short id);
+        IQueryable<City> GetCity(string cityName);
+        IQueryable<City> GetCities();
         short GetCitiesCount();
 
         short AddCity(City city);
