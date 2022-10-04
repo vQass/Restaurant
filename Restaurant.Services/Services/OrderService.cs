@@ -10,6 +10,7 @@ using Restaurant.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,15 +21,21 @@ namespace Restaurant.Services.Services
         private readonly IMapper _mapper;
         private readonly IOrderRepository _orderRepository;
         private readonly IPromotionRepository _promotionRepository;
+        private readonly ICityRepository _cityRepository;
+        private readonly IMealRepository _mealRepository;
 
         public OrderService(
             IMapper mapper,
             IOrderRepository orderRepository,
-            IPromotionRepository promotionRepository)
+            IPromotionRepository promotionRepository, 
+            ICityRepository cityRepository,
+            IMealRepository mealRepository)
         {
             _mapper = mapper;
             _orderRepository = orderRepository;
             _promotionRepository = promotionRepository;
+            _cityRepository = cityRepository;
+            _mealRepository = mealRepository;
         }
 
 
@@ -45,6 +52,36 @@ namespace Restaurant.Services.Services
         {
             return await _orderRepository.GetOrders(orderStatuses, userId);
         }
+        
+        public async Task<IEnumerable<OrderHistoryViewModel>> GetOrdersHistory(long userId = 0)
+        {
+            var orders = await _orderRepository.GetOrders(null, userId);
+
+            var cities = _cityRepository.GetCities();
+
+            var meals = await _mealRepository.GetMeals();
+
+            var ordersHistory = orders.Select(x => new OrderHistoryViewModel()
+            {
+                Name = x.Name,
+                Surname = x.Surname,
+                Address = x.Address,
+                City = cities.FirstOrDefault(y => y.Id == x.CityId).Name,
+                OrderDate = x.OrderDate,
+                PhoneNumber = x.PhoneNumber,
+                Status = OrderStatusDictionary.OrderStatusesWithDescription.GetValueOrDefault((byte)x.Status),
+                OrderElements = x.OrderElements
+                    .Select(y => new OrderElementViewModel()
+                    {
+                        Amount = y.Amount,
+                        MealName = meals.FirstOrDefault(z => z.Id == y.MealId).Name,
+                        Price = y.CurrentPrice
+                    })
+                    .ToList()
+            });
+
+            return ordersHistory;
+        }
 
         public long AddOrder(OrderCreateRequest orderCreateRequest)
         {
@@ -58,6 +95,8 @@ namespace Restaurant.Services.Services
 
                 orderCreateRequest.PromotionId = promotion?.Id;
             }
+
+            // TODO private metthod "FillCurrentMealPrice" or so
 
             var id = _orderRepository.AddOrder(orderCreateRequest);
             

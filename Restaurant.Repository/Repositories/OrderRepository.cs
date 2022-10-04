@@ -52,6 +52,10 @@ namespace Restaurant.Repository.Repositories
                 ordersQuery.Where(x => x.UserId == userId);
             }
 
+            ordersQuery
+                .OrderByDescending(x => x.Status)
+                .ThenBy(x => x.OrderDate);
+
             return await ordersQuery.ToListAsync();
         }
 

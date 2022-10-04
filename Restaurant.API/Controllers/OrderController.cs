@@ -11,22 +11,12 @@ namespace Restaurant.API.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        #region Fields
-
         private readonly IOrderService _orderService;
-
-        #endregion
-
-        #region Ctors
-
+  
         public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
         }
-
-        #endregion
-
-        #region Methods
 
         [HttpGet("GetOrderStatuses")]
         public IActionResult GetOrderStatuses()
@@ -35,9 +25,15 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("GetOrders")]
-        public async Task<IActionResult> GetOrders([FromQuery] List<OrderStatusEnum> orderStatuses)
+        public async Task<IActionResult> GetOrders([FromQuery] List<OrderStatusEnum> orderStatuses, [FromQuery] long userId = 0)
         {
-            return Ok(await _orderService.GetOrders(orderStatuses));
+            return Ok(await _orderService.GetOrders(orderStatuses, userId));
+        }
+
+        [HttpGet("GetOrdersHistory")]
+        public async Task<IActionResult> GetOrdersHistory([FromQuery] long userId = 0)
+        {
+            return Ok(await _orderService.GetOrdersHistory(userId));
         }
 
         [HttpGet("GetOrderById/{id}")]
@@ -59,7 +55,5 @@ namespace Restaurant.API.Controllers
             _orderService.ChangeOrderStatus(id, orderStatus);
             return Ok();
         }
-
-        #endregion
     }
 }

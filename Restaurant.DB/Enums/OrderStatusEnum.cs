@@ -16,10 +16,10 @@
             OrderStatusesWithDescription = new Dictionary<byte, string>()
             {
                 { (byte)OrderStatusEnum.Pending, "Oczekujące" },
-                { (byte)OrderStatusEnum.InProgress, "W trakcie realizacji"},
-                { (byte)OrderStatusEnum.Completed, "Zrealizowane"},
-                { (byte)OrderStatusEnum.Cancelled, "Anulowane"},
-                { (byte)OrderStatusEnum.Suspended, "Tymczasowo zawieszone"}
+                { (byte)OrderStatusEnum.InProgress, "W trakcie realizacji" },
+                { (byte)OrderStatusEnum.Completed, "Zrealizowane" },
+                { (byte)OrderStatusEnum.Cancelled, "Anulowane" },
+                { (byte)OrderStatusEnum.Suspended, "Tymczasowo zawieszone" }
             };
         }
 
