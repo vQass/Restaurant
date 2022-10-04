@@ -96,7 +96,7 @@ namespace Restaurant.Services.Services
                 orderCreateRequest.PromotionId = promotion?.Id;
             }
 
-            // TODO private metthod "FillCurrentMealPrice" or so
+            FillOrderMealsPrices(orderCreateRequest);
 
             var id = _orderRepository.AddOrder(orderCreateRequest);
             
@@ -138,6 +138,11 @@ namespace Restaurant.Services.Services
                 throw new BadRequestException($"Brak możliwości edytowania zamówienia. Obecny status zamówienia: " +
                     $"{OrderStatusDictionary.OrderStatusesWithDescription.FirstOrDefault(x => x.Key == (byte)order.Status).Value}");
             }
+        }
+
+        private void FillOrderMealsPrices(OrderCreateRequest orderCreateRequest)
+        {
+            var meals = _mealRepository.GetMeals();
         }
     }
 }
