@@ -93,9 +93,10 @@ builder.Services.AddCors(setup =>
 {
     setup.AddPolicy("ui", builder =>
     {
-        builder.AllowAnyHeader().
-        AllowAnyMethod().
-        AllowAnyOrigin();
+        builder
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin();
     });
 });
 
