@@ -79,7 +79,7 @@ namespace Restaurant.Services.Services
                         Price = y.CurrentPrice
                     })
                     .ToList()
-            });
+            }).ToList();
 
             return ordersHistory;
         }

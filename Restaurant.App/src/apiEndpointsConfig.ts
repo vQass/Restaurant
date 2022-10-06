@@ -17,7 +17,8 @@ export const apiEndpoints =
     "getMealsGroups": "Meal/GetMealsGroupedByCategory"
   },
   orderEndpoints: {
-    "addOrder": "Order/AddOrder"
+    "addOrder": "Order/AddOrder",
+    "getOrderHistory": "Order/GetOrdersHistory"
   }
 };
 
