@@ -70,6 +70,7 @@ namespace Restaurant.Services.Services
                 OrderDate = x.OrderDate,
                 PhoneNumber = x.PhoneNumber,
                 Status = OrderStatusDictionary.OrderStatusesWithDescription.GetValueOrDefault((byte)x.Status),
+                StatusTag = OrderStatusDictionary.OrderStatusesTags.GetValueOrDefault((byte)x.Status),
                 OrderElements = x.OrderElements
                     .Select(y => new OrderElementViewModel()
                     {

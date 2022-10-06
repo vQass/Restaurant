@@ -21,8 +21,19 @@
                 { (byte)OrderStatusEnum.Cancelled, "Anulowane" },
                 { (byte)OrderStatusEnum.Suspended, "Tymczasowo zawieszone" }
             };
+
+            // DO NOT CHANGE TAGS. THEY ARE BEEING USED AS CSS CLASSES IN FRONT
+            OrderStatusesTags = new Dictionary<byte, string>()
+            {
+                { (byte)OrderStatusEnum.Pending, "Pending" },
+                { (byte)OrderStatusEnum.InProgress, "InProgress" },
+                { (byte)OrderStatusEnum.Completed, "Completed" },
+                { (byte)OrderStatusEnum.Cancelled, "Cancelled" },
+                { (byte)OrderStatusEnum.Suspended, "Suspended" }
+            };
         }
 
         public static Dictionary<byte, string> OrderStatusesWithDescription { get; }
+        public static Dictionary<byte, string> OrderStatusesTags { get; }
     }
 }
