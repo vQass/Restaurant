@@ -17,9 +17,9 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("GetCities")]
-        public IActionResult GetCities()
+        public IActionResult GetCities([FromQuery] bool? cityActivity = null)
         {
-            return Ok(_cityService.GetCities());
+            return Ok(_cityService.GetCities(cityActivity));
         }
 
         [HttpGet("GetCity/{id}")]

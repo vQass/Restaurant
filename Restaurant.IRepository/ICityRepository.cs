@@ -6,7 +6,7 @@ namespace Restaurant.IRepository
     {
         City GetCity(short id);
         City GetCity(string cityName);
-        IEnumerable<City> GetCities();
+        IEnumerable<City> GetCities(bool? cityActivity);
         short GetCitiesCount();
 
         short AddCity(City city);

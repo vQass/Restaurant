@@ -34,10 +34,10 @@ namespace Restaurant.Repository.Repositories
 
         public async Task<List<Recipe>> GetRecipes()
         {
-            var mealsWithRecipe = _dbContext.Meals
+            var mealsWithRecipe = await _dbContext.Meals
                 .Include(x => x.RecipeElements)
                 .ThenInclude(x => x.Ingredient)
-                .ToList();
+                .ToListAsync();
 
             return _mapper.Map<List<Recipe>>(mealsWithRecipe); ;
         }

@@ -57,7 +57,7 @@ namespace Restaurant.Services.Services
         {
             var orders = await _orderRepository.GetOrders(null, userId);
 
-            var cities = _cityRepository.GetCities();
+            var cities = _cityRepository.GetCities(null);
 
             var meals = await _mealRepository.GetMeals();
 
@@ -95,8 +95,6 @@ namespace Restaurant.Services.Services
 
                 orderCreateRequest.PromotionId = promotion?.Id;
             }
-
-            FillOrderMealsPrices(orderCreateRequest);
 
             var id = _orderRepository.AddOrder(orderCreateRequest);
             
@@ -138,11 +136,6 @@ namespace Restaurant.Services.Services
                 throw new BadRequestException($"Brak możliwości edytowania zamówienia. Obecny status zamówienia: " +
                     $"{OrderStatusDictionary.OrderStatusesWithDescription.FirstOrDefault(x => x.Key == (byte)order.Status).Value}");
             }
-        }
-
-        private void FillOrderMealsPrices(OrderCreateRequest orderCreateRequest)
-        {
-            var meals = _mealRepository.GetMeals();
         }
     }
 }

@@ -34,11 +34,17 @@ namespace Restaurant.Repository.Repositories
                 .FirstOrDefault(x => x.Name == cityName);
         }
 
-        public IEnumerable<City> GetCities()
+        public IEnumerable<City> GetCities(bool? cityActivity)
         {
-            return _dbContext.Cities
-                .AsNoTracking()
-                .ToList();
+            var cities = _dbContext.Cities
+                .AsNoTracking();
+
+            if(cityActivity.HasValue)
+            {
+                cities = cities.Where(x => x.IsActive == cityActivity);
+            }
+
+            return cities.ToList();
         }
 
         public short GetCitiesCount()

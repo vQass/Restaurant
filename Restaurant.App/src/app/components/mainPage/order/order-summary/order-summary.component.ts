@@ -46,7 +46,7 @@ export class OrderSummaryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cityService.getCities().subscribe((val) => this.cities = val.items);
+    this.cityService.getCitiesWithSpecifiedActivity(true).subscribe((val) => this.cities = val.items);
   };
 
   get name() {

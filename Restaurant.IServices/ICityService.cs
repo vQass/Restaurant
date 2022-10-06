@@ -10,7 +10,7 @@ namespace Restaurant.IServices
 {
     public interface ICityService
     {
-        public CityWrapper GetCities();
+        public CityWrapper GetCities(bool? cityActivity);
         public City GetCity(short id);
         public short AddCity(string cityName);
         public void UpdateCity(short id, string cityName);

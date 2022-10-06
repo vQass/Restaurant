@@ -25,9 +25,9 @@ namespace Restaurant.Services.Services
             return city;
         }
 
-        public CityWrapper GetCities()
+        public CityWrapper GetCities(bool? cityActivity)
         {
-            var cities = _cityRepository.GetCities();
+            var cities = _cityRepository.GetCities(cityActivity);
             var cityCount = _cityRepository.GetCitiesCount();
 
             return new CityWrapper()

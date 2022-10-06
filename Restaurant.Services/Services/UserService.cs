@@ -22,7 +22,6 @@ namespace Restaurant.Services.Services
     {
         #region Fields
 
-        private readonly RestaurantDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly AuthenticationSettings _authenticationSettings;
@@ -37,12 +36,14 @@ namespace Restaurant.Services.Services
             IMapper mapper,
             IPasswordHasher<User> passwordHasher,
             AuthenticationSettings authenticationSettings,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            ILogger<UserService> logger)
         {
             _mapper = mapper;
             _passwordHasher = passwordHasher;
             _authenticationSettings = authenticationSettings;
             _userRepository = userRepository;
+            _logger = logger;
         }
 
         #endregion Ctors
