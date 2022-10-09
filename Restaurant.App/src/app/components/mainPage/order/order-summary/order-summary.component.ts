@@ -19,6 +19,8 @@ import { OrderElement } from 'src/models/order/OrderElement';
 })
 export class OrderSummaryComponent implements OnInit {
 
+  disableSubmitButton = false;
+
   cities!: City[];
 
   cart: CartItem[];
@@ -36,6 +38,11 @@ export class OrderSummaryComponent implements OnInit {
     private toastService: ToastService,
     private router: Router) {
     this.cart = this.cartService.cartItems;
+
+    if (this.cart.length == 0) {
+      this.router.navigate(['order']);
+    }
+
     this.orderForm = fb.group({
       name: fb.control('', [Validators.required]),
       surname: fb.control('', [Validators.required]),
@@ -74,6 +81,8 @@ export class OrderSummaryComponent implements OnInit {
   }
 
   onSubmit() {
+    this.disableSubmitButton = true;
+
     let order = {
       userId: this.userService.getId(),
       cityId: this.orderForm.value.city,
@@ -87,10 +96,13 @@ export class OrderSummaryComponent implements OnInit {
       next: (resp) => {
         console.log(resp)
         this.toastService.showSuccess("Pomyślnie złożono zamówienie!")
+        this.disableSubmitButton = false;
+        this.cartService.cartItems = [];
         this.router.navigate(['home']);
       },
       error: (e) => {
         this.toastService.showDanger("Błąd podczas składania zamówienia!");
+        this.disableSubmitButton = false;
       }
     })
   }

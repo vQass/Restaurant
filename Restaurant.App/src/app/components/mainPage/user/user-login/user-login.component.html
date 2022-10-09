@@ -45,7 +45,7 @@
           (click)="onSubmit()"
           mat-raised-button
           color="primary"
-          [disabled]="!loginForm.valid">
+          [disabled]="!loginForm.valid || disableSubmitButton">
     Zaloguj
   </button>
 </form>

@@ -98,7 +98,7 @@
             (click)="onSubmit()"
             mat-raised-button
             color="primary"
-            [disabled]="!orderForm.valid">
+            [disabled]="!orderForm.valid || disableSubmitButton || cart.length == 0">
       Złóż zamówienie
     </button>
   </form>

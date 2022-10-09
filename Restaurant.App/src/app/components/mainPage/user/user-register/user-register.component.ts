@@ -23,6 +23,8 @@ export class UserRegisterComponent implements OnInit {
 
   registerForm: FormGroup;
 
+  disableSubmitButton = false;
+
   constructor(fb: FormBuilder, private userService: UserService, private toastService: ToastService, private router: Router) {
     this.registerForm = fb.group({
       email: fb.control('', [Validators.required, Validators.email]),
@@ -63,14 +65,17 @@ export class UserRegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    this.disableSubmitButton = true;
     let user = { email: this.registerForm.value.email, ...this.registerForm.value.passwordGroup } as UserCreateRequest;
     this.userService.addUser(user).subscribe({
       next: (resp) => {
         console.log(resp)
         this.toastService.showSuccess("Pomyślnie zarejestrowano! \n Można przystąpić do logowania!")
+        this.disableSubmitButton = false;
         this.router.navigate(['home']);
       },
       error: (e) => {
+        this.disableSubmitButton = false;
         this.toastService.showDanger("Błąd podczas rejestracji");
       }
     })

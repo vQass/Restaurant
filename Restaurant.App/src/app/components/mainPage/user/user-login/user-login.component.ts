@@ -15,10 +15,9 @@ import { UserLoginRequest } from 'src/models/user/UserLoginRequest';
 export class UserLoginComponent implements OnInit {
   minPassLength = ValidationConsts.MIN_PASSWORD_LENGTH;
   maxPassLength = ValidationConsts.MAX_PASSWORD_LENGTH;
-
   singleControlMatcher = new SingleControlErrorStateMatcher();
-
   loginForm: FormGroup;
+  disableSubmitButton = false;
 
   constructor(fb: FormBuilder, private userService: UserService, private toastService: ToastService, private router: Router) {
     this.loginForm = fb.group({
@@ -39,9 +38,13 @@ export class UserLoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.disableSubmitButton = true;
+
     let user = { email: this.loginForm.value.email, password: this.loginForm.value.password } as UserLoginRequest;
     this.userService.login(user).subscribe({
       next: (resp) => {
+
+        this.disableSubmitButton = false;
 
         this.userService.setIsLoggedIn(true);
         this.userService.setAuthToken(resp.jwtToken);
@@ -55,6 +58,8 @@ export class UserLoginComponent implements OnInit {
 
       },
       error: (e) => {
+        this.disableSubmitButton = false;
+
         this.toastService.showDanger("Błąd logowania: " + e.message);
       }
     });
