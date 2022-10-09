@@ -10,15 +10,33 @@
   text-align: center;
 }
 
+.mat-expansion-panel-header {
+  height: 130px;
+}
+
 .item-container {
   margin: 5px auto 0 auto;
   width: 96%;
-
 }
 
+.flex-container {
+  width: 100% !important;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.mobile-container {
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .history-item-container {
-  height: 100px;
+  height: 150px;
   width: 96%;
   background-color: gray;
   border-radius: 10px;

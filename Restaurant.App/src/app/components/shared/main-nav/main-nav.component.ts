@@ -33,7 +33,6 @@ export class MainNavComponent {
     this.isHandset$.subscribe((value) => variable = value);
 
     console.log(variable);
-
   }
 
 }

@@ -10,12 +10,30 @@
     <mat-accordion>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
-          <mat-panel-title class="d-flex justify-content-between">
-            <div class="meal-name">
-              {{order.name}} {{order.surname}}
-            </div>
-            <div class="text-nowrap price">
-              {{1 | number : '1.2-2'}} zł
+          <mat-panel-title>
+            <div class="flex-container">
+              <div [ngClass]="{'mobile-container' : !(isMobileView$ | async)}">
+                <div>
+                  <div class="user-data-part">
+                    Dane: {{order.name}} {{order.surname}}
+                  </div>
+                  <div class="user-data-part">
+                    Adres: {{order.city}} {{order.address}}
+                  </div>
+                  <div class="user-data-part">
+                    Kontakt: {{order.phoneNumber}}
+                  </div>
+                  <div class="user-data-part">
+                    Data zamówienia: {{order.orderDate | date : 'M/d/yy, H:MM'}}
+                  </div>
+                </div>
+                <div class="user-data-part">
+                  {{order.status}}
+                </div>
+              </div>
+              <div class="text-nowrap price">
+                {{cartSum(order) | number : '1.2-2'}} zł
+              </div>
             </div>
           </mat-panel-title>
         </mat-expansion-panel-header>

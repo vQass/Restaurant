@@ -8,6 +8,6 @@ export interface OrderHistoryItem {
   phoneNumber: string;
   status: string;
   statusTag: string;
-  date: Date;
+  orderDate: Date;
   orderElements: OrderHistoryElement[];
 }
