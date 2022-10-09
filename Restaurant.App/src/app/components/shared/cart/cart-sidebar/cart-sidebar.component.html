@@ -40,8 +40,14 @@
 
   <mat-sidenav-content>
 
+    <button *ngIf="(isMobileView$ | async)"
+            mat-mini-fab
+            (click)="cartSideNav.toggle()"
+            class="icon-button absolute-icon cart-icon ">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+
     <ng-content>
     </ng-content>
-
   </mat-sidenav-content>
 </mat-sidenav-container>

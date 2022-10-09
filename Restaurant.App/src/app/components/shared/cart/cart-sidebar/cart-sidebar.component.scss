@@ -15,7 +15,6 @@
 .sidenav {
   width: 300px;
   background-color: #6c757d;
-  border-left: solid 1px rgb(199, 199, 199);
 }
 
 .cart-title-container {
@@ -57,4 +56,15 @@
   margin-left: auto !important;
   margin-right: auto;
   width: 95% !important;
+}
+
+.absolute-icon {
+  position: absolute;
+  color: white;
+  background-color: #6c757d;
+}
+
+.cart-icon {
+  top: 5px;
+  right: 5px;
 }
