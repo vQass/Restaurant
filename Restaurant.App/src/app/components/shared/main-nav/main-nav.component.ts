@@ -1,4 +1,4 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -11,12 +11,10 @@ import { UserService } from 'src/app/services/ApiServices/user.service';
 })
 export class MainNavComponent {
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.XSmall])
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
-
+  shouldChangeToBurger$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 700px)').pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
   isLoggedIn: boolean = false;
   userRole: string = "";
 
@@ -27,12 +25,4 @@ export class MainNavComponent {
   logout() {
     this.userService.logout();
   }
-
-  loga() {
-    let variable;
-    this.isHandset$.subscribe((value) => variable = value);
-
-    console.log(variable);
-  }
-
 }
