@@ -42,13 +42,17 @@ export class UserLoginComponent implements OnInit {
     let user = { email: this.loginForm.value.email, password: this.loginForm.value.password } as UserLoginRequest;
     this.userService.login(user).subscribe({
       next: (resp) => {
-        console.log(resp)
+
         this.userService.setIsLoggedIn(true);
+        this.userService.setAuthToken(resp.jwtToken);
         this.userService.setRole(resp.role);
         this.userService.setId(resp.id);
-        sessionStorage.setItem('authToken', resp.token);
+
+        var user = JSON.stringify(resp);
+        sessionStorage.setItem('user', user);
         this.toastService.showSuccess("Pomyślnie zalogowano!")
         this.router.navigate(['home']);
+
       },
       error: (e) => {
         this.toastService.showDanger("Błąd logowania: " + e.message);

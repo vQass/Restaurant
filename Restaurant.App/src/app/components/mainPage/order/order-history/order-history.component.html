@@ -1,5 +1,28 @@
 <div class="main-container">
-  <div class="history-item-container">
 
+  <div class="title-container">
+    <h1>Historia zamówień</h1>
+    <hr>
+  </div>
+
+  <div *ngFor="let order of ordersHistory"
+       class="item-container">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="d-flex justify-content-between">
+            <div class="meal-name">
+              {{order.name}} {{order.surname}}
+            </div>
+            <div class="text-nowrap price">
+              {{1 | number : '1.2-2'}} zł
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p class="ingredient-header">Składniki:</p>
+        <p class="ingredient"
+           *ngFor="let ingredient of order.orderElements">{{ingredient.amount}}</p>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 </div>

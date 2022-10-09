@@ -18,13 +18,30 @@ export class UserService {
   userEndpoints = apiEndpoints.userEndpoints;
 
   private isLoggedIn: BehaviorSubject<boolean>;
+  private authToken: BehaviorSubject<string>;
   private role: BehaviorSubject<string>;
   private id: BehaviorSubject<number>;
 
   constructor(private http: HttpClient, private toastService: ToastService) {
-    this.isLoggedIn = new BehaviorSubject<boolean>(false);
-    this.role = new BehaviorSubject<string>("");
-    this.id = new BehaviorSubject<number>(0);
+    let userStringified = sessionStorage.getItem("user");
+
+    if (userStringified == null) {
+      this.isLoggedIn = new BehaviorSubject<boolean>(false);
+      this.authToken = new BehaviorSubject<string>("");
+      this.role = new BehaviorSubject<string>("");
+      this.id = new BehaviorSubject<number>(0);
+    }
+    else {
+      let user = JSON.parse(userStringified);
+
+      this.isLoggedIn = new BehaviorSubject<boolean>(true);
+      this.authToken = new BehaviorSubject<string>(user.authToken);
+      this.role = new BehaviorSubject<string>(user.role);
+      this.id = new BehaviorSubject<number>(user.id);
+    }
+
+    console.log(userStringified);
+
   }
 
   getUsers(): Observable<UserListElement[]> {
@@ -51,9 +68,10 @@ export class UserService {
   }
 
   logout() {
-    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
     this.setIsLoggedIn(false);
     this.setRole("");
+    this.setId(0);
     this.toastService.showSuccess("Wylogowano!", 2500);
   }
 
@@ -73,6 +91,14 @@ export class UserService {
 
   setIsLoggedIn(value: boolean): void {
     this.isLoggedIn.next(value);
+  }
+
+  getAuthToken(): Observable<string> {
+    return this.authToken.asObservable();
+  }
+
+  setAuthToken(authToken: string): void {
+    this.authToken.next(authToken);
   }
 
   getRole(): Observable<string> {

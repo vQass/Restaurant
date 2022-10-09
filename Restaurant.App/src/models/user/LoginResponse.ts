@@ -1,5 +1,5 @@
 export interface LoginResponse {
-  token: string;
+  jwtToken: string;
   role: string;
   id: number;
 }

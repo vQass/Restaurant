@@ -1,13 +1,26 @@
 .main-container {
   width: 96%;
   max-width: 600px;
-  background-color: red;
+  background-color: rgb(235, 233, 233);
   margin: 20px auto;
 }
 
+.title-container {
+  color: #343a40 !important;
+  text-align: center;
+}
+
+.item-container {
+  margin: 5px auto 0 auto;
+  width: 96%;
+
+}
+
+
 .history-item-container {
   height: 100px;
-  width: 100%;
+  width: 96%;
   background-color: gray;
   border-radius: 10px;
+
 }
