@@ -1,17 +1,18 @@
-<form class="container"
+<form class="form-container"
       [formGroup]="loginForm">
   <div>
     <h1 style="margin-bottom: 20px;">Logowanie</h1>
 
     <!-- Email -->
-    <mat-form-field class="example-full-width"
+    <mat-form-field class="full-width-input"
                     appearance="fill">
       <mat-label>Email</mat-label>
       <input type="email"
              matInput
              formControlName="email"
              [errorStateMatcher]="singleControlMatcher"
-             placeholder="example@email.com" />
+             placeholder="example@email.com"
+             autocomplete="off" />
       <mat-error *ngIf="email?.errors?.['email']">
         Proszę wprowadzić poprawny adres email
       </mat-error>
@@ -21,7 +22,7 @@
     </mat-form-field>
 
     <!-- Password -->
-    <mat-form-field class="example-full-width"
+    <mat-form-field class="full-width-input"
                     appearance="fill">
       <mat-label>Hasło</mat-label>
       <input type="password"
