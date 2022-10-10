@@ -10,6 +10,7 @@
 }
 
 .mat-expansion-panel-header {
+  background-color: #343a40 !important;
   height: 130px;
   padding: 12px;
 }
@@ -40,5 +41,20 @@
   width: 98%;
   background-color: gray;
   border-radius: 10px;
+}
 
+.mat-expansion-panel {
+  background: #495057 !important;
+}
+
+
+.order-elements-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.order-elements-container:first-child {
+  margin-top: 16px
 }

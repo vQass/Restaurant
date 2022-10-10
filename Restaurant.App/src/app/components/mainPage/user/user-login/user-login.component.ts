@@ -53,7 +53,7 @@ export class UserLoginComponent implements OnInit {
 
         var user = JSON.stringify(resp);
         sessionStorage.setItem('user', user);
-        this.toastService.showSuccess("Pomyślnie zalogowano!")
+        this.toastService.showSuccess("Pomyślnie zalogowano!", 2000)
         this.router.navigate(['home']);
 
       },

@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { apiEndpoints } from 'src/apiEndpointsConfig';
 import { environment } from 'src/environments/environment';
@@ -22,7 +23,7 @@ export class UserService {
   private role: BehaviorSubject<string>;
   private id: BehaviorSubject<number>;
 
-  constructor(private http: HttpClient, private toastService: ToastService) {
+  constructor(private http: HttpClient, private toastService: ToastService, private router: Router) {
     let userStringified = sessionStorage.getItem("user");
 
     if (userStringified == null) {
@@ -72,7 +73,8 @@ export class UserService {
     this.setIsLoggedIn(false);
     this.setRole("");
     this.setId(0);
-    this.toastService.showSuccess("Wylogowano!", 2500);
+    this.toastService.showSuccess("Wylogowano!", 2000);
+    this.router.navigate(['home']);
   }
 
   private handleError(error: HttpErrorResponse) {

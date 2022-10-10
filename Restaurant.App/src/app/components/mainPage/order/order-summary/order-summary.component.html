@@ -30,7 +30,8 @@
                matInput
                formControlName="name"
                [errorStateMatcher]="singleControlMatcher"
-               placeholder="Jan" />
+               placeholder="Jan"
+               autocomplete="off" />
         <mat-error *ngIf="name?.errors?.['required']">
           Imię jest wymagane
         </mat-error>
@@ -44,7 +45,8 @@
                matInput
                [errorStateMatcher]="singleControlMatcher"
                placeholder="Kowalski"
-               formControlName="surname" />
+               formControlName="surname"
+               autocomplete="off" />
         <mat-error *ngIf="surname?.errors?.['required']">
           Nazwisko jest wymagane
         </mat-error>
@@ -72,7 +74,8 @@
                matInput
                [errorStateMatcher]="singleControlMatcher"
                placeholder="Polna 12/5"
-               formControlName="address" />
+               formControlName="address"
+               autocomplete="off" />
         <mat-error *ngIf="address?.errors?.['required']">
           Adres jest wymagane
         </mat-error>
@@ -86,7 +89,8 @@
                matInput
                [errorStateMatcher]="singleControlMatcher"
                placeholder="123123123"
-               formControlName="phoneNumber" />
+               formControlName="phoneNumber"
+               autocomplete="off" />
         <mat-error *ngIf="phoneNumber?.errors?.['required']">
           Numer telefonu jest wymagane
         </mat-error>

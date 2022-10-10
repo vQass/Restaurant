@@ -37,9 +37,15 @@
             </div>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <p class="ingredient-header">Składniki:</p>
-        <p class="ingredient"
-           *ngFor="let ingredient of order.orderElements">{{ingredient.amount}}</p>
+        <div class="order-elements-container"
+             *ngFor="let order of order.orderElements">
+          <div>
+            {{order.mealName}} x {{order.amount}}
+          </div>
+          <div>
+            {{order.price * order.amount | number: '1.2-2'}} zł
+          </div>
+        </div>
       </mat-expansion-panel>
     </mat-accordion>
   </div>
