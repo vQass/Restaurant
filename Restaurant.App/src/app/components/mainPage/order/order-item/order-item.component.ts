@@ -13,35 +13,20 @@ export class OrderItemComponent implements OnInit {
   @Input() meal!: MealViewModel;
 
   maxMealCount = ValidationConsts.MAX_MEAL_COUNT_IN_ORDER;
-  amount = 0;
 
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
   }
 
-  add() {
-    this.amount++;
-    console.log(this.amount, this.meal);
-  }
-
-  remove() {
-    this.amount--;
-    console.log(this.amount, this.meal);
-  }
-
   addToCart() {
-    if (this.amount <= 0) {
-      return;
-    }
 
     const cartItem: CartItem = {
-      amount: this.amount,
+      amount: 1,
       mealId: this.meal.id,
       mealName: this.meal.name,
       singleMealPrice: this.meal.price
     };
     this.cartService.addToCart(cartItem);
-    this.amount = 0;
   }
 }
