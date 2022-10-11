@@ -40,6 +40,7 @@ import { CartSidebarComponent } from './components/shared/cart/cart-sidebar/cart
 import { MainNavComponent } from './components/shared/main-nav/main-nav.component';
 import { ToastComponent } from './components/shared/toast/toast.component';
 import { OrderHistoryComponent } from './components/mainPage/order/order-history/order-history.component';
+import { OrderMainPageComponent } from './components/adminPanel/order/order-main-page/order-main-page.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { OrderHistoryComponent } from './components/mainPage/order/order-history
     CartItemComponent,
     OrderSummaryComponent,
     OrderHistoryComponent,
+    OrderMainPageComponent,
 
   ],
   imports: [
