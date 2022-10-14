@@ -41,6 +41,7 @@ import { MainNavComponent } from './components/shared/main-nav/main-nav.componen
 import { ToastComponent } from './components/shared/toast/toast.component';
 import { OrderHistoryComponent } from './components/mainPage/order/order-history/order-history.component';
 import { OrderMainPageComponent } from './components/adminPanel/order/order-main-page/order-main-page.component';
+import { MainAdminPageComponent } from './components/adminPanel/main-admin-page/main-admin-page.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { OrderMainPageComponent } from './components/adminPanel/order/order-main
     OrderSummaryComponent,
     OrderHistoryComponent,
     OrderMainPageComponent,
+    MainAdminPageComponent,
 
   ],
   imports: [

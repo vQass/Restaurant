@@ -57,6 +57,13 @@
          mat-stroked-button
          color="primary">Historia zamówień</a>
 
+      <a class="button"
+         *ngIf="isLoggedIn && !(shouldChangeToBurger$ | async)"
+         routerLink="admin-main-page"
+         mat-stroked-button
+         color="primary">Admin panel</a>
+
+
       <span class="navbar-spacer"></span>
 
       <ng-container *ngIf="!isLoggedIn">
@@ -67,7 +74,7 @@
            color="primary">Zaloguj</a>
 
         <a class="button"
-           routerLink="/register"
+           routerLink="register"
            mat-raised-button
            color="primary">Zarejestruj</a>
 
