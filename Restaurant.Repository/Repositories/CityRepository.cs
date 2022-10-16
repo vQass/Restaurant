@@ -4,6 +4,7 @@ using Restaurant.APIComponents.Exceptions;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.IRepository;
+using System.Linq;
 
 namespace Restaurant.Repository.Repositories
 {

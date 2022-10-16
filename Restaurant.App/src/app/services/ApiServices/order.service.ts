@@ -4,6 +4,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { apiEndpoints } from 'src/apiEndpointsConfig';
 import { environment } from 'src/environments/environment';
 import { OrderAddRequest } from 'src/models/order/AddOrderRequest';
+import { OrderAdminPanelWrapper } from 'src/models/order/OrderAdminPanelWrapper';
 import { OrderHistoryItem } from 'src/models/order/OrderHistoryItem';
 
 @Injectable({
@@ -27,6 +28,17 @@ export class OrderService {
     let params = new HttpParams().set('userId', userId);
 
     return this.http.get<OrderHistoryItem[]>(this.baseApiUrl + this.orderEndpoints.getOrderHistory, { params: params })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getOrdersForAdminPanel(pageIndex: number, pageSize: number): Observable<OrderAdminPanelWrapper> {
+    let params = new HttpParams();
+    params = params.append("pageIndex", pageIndex);
+    params = params.append("pageSize", pageSize);
+
+    return this.http.get<OrderAdminPanelWrapper>(this.baseApiUrl + this.orderEndpoints.getOrdersForAdminPanel, { params: params })
       .pipe(
         catchError(this.handleError)
       );

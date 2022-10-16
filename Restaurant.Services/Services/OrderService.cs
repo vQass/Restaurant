@@ -1,18 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Restaurant.APIComponents.Exceptions;
 using Restaurant.Data.Models.OrderModels;
-using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.DB.Enums;
 using Restaurant.IRepository;
 using Restaurant.IServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Restaurant.Services.Services
 {
@@ -27,7 +19,7 @@ namespace Restaurant.Services.Services
         public OrderService(
             IMapper mapper,
             IOrderRepository orderRepository,
-            IPromotionRepository promotionRepository, 
+            IPromotionRepository promotionRepository,
             ICityRepository cityRepository,
             IMealRepository mealRepository)
         {
@@ -52,7 +44,7 @@ namespace Restaurant.Services.Services
         {
             return await _orderRepository.GetOrders(orderStatuses, userId);
         }
-        
+
         public async Task<IEnumerable<OrderHistoryViewModel>> GetOrdersHistory(long userId = 0)
         {
             var orders = await _orderRepository.GetOrders(null, userId);
@@ -81,12 +73,54 @@ namespace Restaurant.Services.Services
                     .ToList()
             }).ToList();
 
+            ordersHistory = ordersHistory
+                .OrderBy(x => x.Status)
+                .ThenByDescending(x => x.OrderDate)
+                .ToList();
+
             return ordersHistory;
+        }
+
+        public async Task<OrderAdminPanelWrapper> GetOrdersForAdminPanel(int pageIndex, int pageSize)
+        {
+            var orders = await _orderRepository.GetOrders(pageIndex: pageIndex, pageSize: pageSize);
+
+            var cities = _cityRepository.GetCities(null);
+
+            var meals = await _mealRepository.GetMeals();
+
+            var ordersVM = orders.Select(x => new OrderAdminPanelViewModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Surname = x.Surname,
+                Address = x.Address,
+                City = cities.FirstOrDefault(y => y.Id == x.CityId).Name,
+                OrderDate = x.OrderDate,
+                PhoneNumber = x.PhoneNumber,
+                Status = OrderStatusDictionary.OrderStatusesWithDescription.GetValueOrDefault((byte)x.Status),
+                OrderElements = x.OrderElements
+                    .Select(y => new OrderElementViewModel()
+                    {
+                        Amount = y.Amount,
+                        MealName = meals.FirstOrDefault(z => z.Id == y.MealId).Name,
+                        Price = y.CurrentPrice
+                    })
+                    .ToList()
+            }).ToList();
+
+            var ordersWrapper = new OrderAdminPanelWrapper();
+
+            ordersWrapper.Items = ordersVM;
+
+            ordersWrapper.ItemsCount = _orderRepository.GetOrdersCount();
+
+            return ordersWrapper;
         }
 
         public long AddOrder(OrderCreateRequest orderCreateRequest)
         {
-            if(orderCreateRequest.PromotionCode != null)
+            if (orderCreateRequest.PromotionCode != null)
             {
                 var promotion = _promotionRepository.GetPromotion(orderCreateRequest.PromotionCode);
 
@@ -98,12 +132,12 @@ namespace Restaurant.Services.Services
             }
 
             var id = _orderRepository.AddOrder(orderCreateRequest);
-            
+
             return id;
         }
 
         public void UpdateOrder(long id, OrderUpdateRequest orderUpdateRequest)
-        {   
+        {
             var order = _orderRepository.GetOrder(id);
 
             _orderRepository.EnsureOrderExists(order);

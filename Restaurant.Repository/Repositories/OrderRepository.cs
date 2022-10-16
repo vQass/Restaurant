@@ -33,7 +33,7 @@ namespace Restaurant.Repository.Repositories
                 .FirstOrDefault(x => x.Id == id);
         }
 
-        public async Task<List<Order>> GetOrders(IEnumerable<OrderStatusEnum> orderStatuses = null, long userId = 0)
+        public async Task<List<Order>> GetOrders(IEnumerable<OrderStatusEnum> orderStatuses = null, long userId = 0, int pageIndex = 0, int pageSize = 0)
         {
             var ordersQuery = _dbContext.Orders
                 .Include(x => x.OrderElements)
@@ -49,11 +49,24 @@ namespace Restaurant.Repository.Repositories
                 ordersQuery = ordersQuery.Where(x => x.UserId == userId);
             }
 
-            ordersQuery = ordersQuery
-                .OrderBy(x => x.Status)
-                .ThenByDescending(x => x.OrderDate);
+            if(pageIndex != 0)
+            {
+                ordersQuery = ordersQuery.Skip(pageIndex * pageSize);
+            }
+
+            if(pageSize != 0)
+            {
+                ordersQuery = ordersQuery.Take(pageSize);
+            }
+
+            ordersQuery.OrderBy()
 
             return await ordersQuery.ToListAsync();
+        }
+
+        public int GetOrdersCount()
+        {
+            return _dbContext.Orders.Count();
         }
 
         #endregion
