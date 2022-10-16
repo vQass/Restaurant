@@ -25,7 +25,9 @@ export class OrderService {
   }
 
   getOrderHistory(userId: number = 0): Observable<OrderHistoryItem[]> {
-    let params = new HttpParams().set('userId', userId);
+    let params = new HttpParams();
+    params = params.append('userId', userId);
+    params = params.append('orderByParams', 'Status, OrderDate desc');
 
     return this.http.get<OrderHistoryItem[]>(this.baseApiUrl + this.orderEndpoints.getOrderHistory, { params: params })
       .pipe(
@@ -37,6 +39,7 @@ export class OrderService {
     let params = new HttpParams();
     params = params.append("pageIndex", pageIndex);
     params = params.append("pageSize", pageSize);
+    params = params.append("orderByQueryString", 'id asc');
 
     return this.http.get<OrderAdminPanelWrapper>(this.baseApiUrl + this.orderEndpoints.getOrdersForAdminPanel, { params: params })
       .pipe(
