@@ -37,9 +37,9 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("GetOrdersForAdminPanel")]
-        public async Task<IActionResult> GetOrdersForAdminPanel([FromQuery] int pageIndex, int pageSize)
+        public async Task<IActionResult> GetOrdersForAdminPanel([FromQuery] int pageIndex, int pageSize, string orderByParams)
         {
-            return Ok(await _orderService.GetOrdersForAdminPanel(pageIndex, pageSize));
+            return Ok(await _orderService.GetOrdersForAdminPanel(pageIndex, pageSize, orderByParams));
         }
 
         [HttpGet("GetOrderById/{id}")]

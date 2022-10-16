@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Restaurant.Data.Models.OrderModels;
 using AutoMapper;
 using Restaurant.IRepository;
+using Restaurant.LinqHelpers.Interfaces;
 
 namespace Restaurant.Repository.Repositories
 {
@@ -14,15 +15,18 @@ namespace Restaurant.Repository.Repositories
         private readonly RestaurantDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IMealRepository _mealRepository;
+        private readonly ISortingHelper _sortingHelper;
 
         public OrderRepository(
             RestaurantDbContext dbContext,
             IMapper mapper,
-            IMealRepository mealRepository)
+            IMealRepository mealRepository,
+            ISortingHelper sortingHelper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
             _mealRepository = mealRepository;
+            _sortingHelper = sortingHelper;
         }
 
         #region GetMethods
@@ -33,7 +37,7 @@ namespace Restaurant.Repository.Repositories
                 .FirstOrDefault(x => x.Id == id);
         }
 
-        public async Task<List<Order>> GetOrders(IEnumerable<OrderStatusEnum> orderStatuses = null, long userId = 0, int pageIndex = 0, int pageSize = 0)
+        public async Task<List<Order>> GetOrders(IEnumerable<OrderStatusEnum> orderStatuses = null, long userId = 0, int pageIndex = 0, int pageSize = 0, string orderByParams = null)
         {
             var ordersQuery = _dbContext.Orders
                 .Include(x => x.OrderElements)
@@ -59,7 +63,7 @@ namespace Restaurant.Repository.Repositories
                 ordersQuery = ordersQuery.Take(pageSize);
             }
 
-            ordersQuery.OrderBy()
+            ordersQuery = _sortingHelper.ApplySorting(ordersQuery, orderByParams);
 
             return await ordersQuery.ToListAsync();
         }

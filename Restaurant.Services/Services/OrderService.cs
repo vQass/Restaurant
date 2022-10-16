@@ -81,9 +81,9 @@ namespace Restaurant.Services.Services
             return ordersHistory;
         }
 
-        public async Task<OrderAdminPanelWrapper> GetOrdersForAdminPanel(int pageIndex, int pageSize)
+        public async Task<OrderAdminPanelWrapper> GetOrdersForAdminPanel(int pageIndex, int pageSize, string orderByParams)
         {
-            var orders = await _orderRepository.GetOrders(pageIndex: pageIndex, pageSize: pageSize);
+            var orders = await _orderRepository.GetOrders(pageIndex: pageIndex, pageSize: pageSize, orderByParams: orderByParams);
 
             var cities = _cityRepository.GetCities(null);
 
