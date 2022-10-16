@@ -20,7 +20,7 @@ export class OrderHistoryComponent implements OnInit {
   ordersHistory!: OrderHistoryItem[];
 
   constructor(private orderService: OrderService, private userService: UserService, private breakpointObserver: BreakpointObserver) {
-    this.orderService.getOrderHistory(this.userService.getId()).subscribe(data => { this.ordersHistory = data; console.log(this.ordersHistory); });
+    this.orderService.getOrderHistory(this.userService.getId()).subscribe(data => { this.ordersHistory = data });
   }
 
   ngOnInit(): void {

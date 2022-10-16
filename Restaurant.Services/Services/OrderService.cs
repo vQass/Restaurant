@@ -40,16 +40,16 @@ namespace Restaurant.Services.Services
             return order;
         }
 
-        public async Task<IEnumerable<Order>> GetOrders(IEnumerable<OrderStatusEnum> orderStatuses = null, long userId = 0)
+        public async Task<IEnumerable<Order>> GetOrders(IEnumerable<OrderStatusEnum> orderStatuses = null, long userId = 0, string orderByParams = null)
         {
-            return await _orderRepository.GetOrders(orderStatuses, userId);
+            return await _orderRepository.GetOrders(orderStatuses, userId, orderByParams: orderByParams);
         }
 
-        public async Task<IEnumerable<OrderHistoryViewModel>> GetOrdersHistory(long userId = 0)
+        public async Task<IEnumerable<OrderHistoryViewModel>> GetOrdersHistory(long userId = 0, string orderByParams = null)
         {
-            var orders = await _orderRepository.GetOrders(null, userId);
+            var orders = await _orderRepository.GetOrders(userId: userId, orderByParams: orderByParams);
 
-            var cities = _cityRepository.GetCities(null);
+            var cities = _cityRepository.GetCities();
 
             var meals = await _mealRepository.GetMeals();
 
@@ -81,9 +81,9 @@ namespace Restaurant.Services.Services
             return ordersHistory;
         }
 
-        public async Task<OrderAdminPanelWrapper> GetOrdersForAdminPanel(int pageIndex, int pageSize)
+        public async Task<OrderAdminPanelWrapper> GetOrdersForAdminPanel(int pageIndex, int pageSize, string orderByParams)
         {
-            var orders = await _orderRepository.GetOrders(pageIndex: pageIndex, pageSize: pageSize);
+            var orders = await _orderRepository.GetOrders(pageIndex: pageIndex, pageSize: pageSize, orderByParams: orderByParams);
 
             var cities = _cityRepository.GetCities(null);
 

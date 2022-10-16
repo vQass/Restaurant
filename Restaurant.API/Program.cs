@@ -12,6 +12,7 @@ using Restaurant.IServices;
 using Restaurant.Services;
 using Restaurant.Repository;
 using System.Text;
+using Restaurant.LinqHelpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +52,7 @@ builder.Services.AddDbContext<RestaurantDbContext>(
 
 builder.Services.AddRestaurantServices();
 builder.Services.AddRestaurantRepositories();
+builder.Services.AddLinqHelpers();
 builder.Services.AddValidators();
 builder.Services.AddMiddlewares();
 builder.Services.AddAutoMapper(typeof(RestaurantDataMapperProfile));
