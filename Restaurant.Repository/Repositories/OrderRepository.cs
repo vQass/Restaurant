@@ -7,6 +7,7 @@ using Restaurant.Data.Models.OrderModels;
 using AutoMapper;
 using Restaurant.IRepository;
 using Restaurant.LinqHelpers.Interfaces;
+using Restaurant.LinqHelpers.Helpers;
 
 namespace Restaurant.Repository.Repositories
 {
@@ -63,7 +64,7 @@ namespace Restaurant.Repository.Repositories
                 ordersQuery = ordersQuery.Take(pageSize);
             }
 
-            ordersQuery = _sortingHelper.ApplySorting(ordersQuery, orderByParams);
+            ordersQuery = ordersQuery.ApplySorting(orderByParams);
 
             return await ordersQuery.ToListAsync();
         }

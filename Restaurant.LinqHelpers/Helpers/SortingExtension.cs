@@ -1,14 +1,13 @@
-﻿using Restaurant.LinqHelpers.Interfaces;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text;
 using System.Linq.Dynamic.Core;
 using Restaurant.LinqHelpers.Models;
 
 namespace Restaurant.LinqHelpers.Helpers
 {
-    public class SortingHelper : ISortingHelper
+    public static class SortingExtension
     {
-        public IQueryable<T> ApplySorting<T>(IQueryable<T> entities, string orderByQueryString)
+        public static IQueryable<T> ApplySorting<T>(this IQueryable<T> entities, string orderByQueryString)
         {
             if (!entities.Any())
             {
@@ -41,7 +40,7 @@ namespace Restaurant.LinqHelpers.Helpers
             return entities.OrderBy(orderQuery);
         }
 
-        private List<SortParam> GetSortParams(string orderParams)
+        private static List<SortParam> GetSortParams(string orderParams)
         {
             var splittedParams = GetValidParams(orderParams);
 
@@ -59,7 +58,7 @@ namespace Restaurant.LinqHelpers.Helpers
             return paramsWithSortDir;
         }
 
-        private List<string> GetValidParams(string queryString)
+        private static List<string> GetValidParams(string queryString)
         {
             var splittedQuery = queryString
                 .Trim()
