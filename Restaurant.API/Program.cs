@@ -52,7 +52,6 @@ builder.Services.AddDbContext<RestaurantDbContext>(
 
 builder.Services.AddRestaurantServices();
 builder.Services.AddRestaurantRepositories();
-builder.Services.AddLinqHelpers();
 builder.Services.AddValidators();
 builder.Services.AddMiddlewares();
 builder.Services.AddAutoMapper(typeof(RestaurantDataMapperProfile));

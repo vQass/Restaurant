@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Restaurant.Data.Models.OrderModels;
 using AutoMapper;
 using Restaurant.IRepository;
-using Restaurant.LinqHelpers.Interfaces;
 using Restaurant.LinqHelpers.Helpers;
 
 namespace Restaurant.Repository.Repositories
@@ -16,18 +15,15 @@ namespace Restaurant.Repository.Repositories
         private readonly RestaurantDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IMealRepository _mealRepository;
-        private readonly ISortingHelper _sortingHelper;
 
         public OrderRepository(
             RestaurantDbContext dbContext,
             IMapper mapper,
-            IMealRepository mealRepository,
-            ISortingHelper sortingHelper)
+            IMealRepository mealRepository)
         {
             _dbContext = dbContext;
             _mapper = mapper;
             _mealRepository = mealRepository;
-            _sortingHelper = sortingHelper;
         }
 
         #region GetMethods
@@ -54,17 +50,9 @@ namespace Restaurant.Repository.Repositories
                 ordersQuery = ordersQuery.Where(x => x.UserId == userId);
             }
 
-            if(pageIndex != 0)
-            {
-                ordersQuery = ordersQuery.Skip(pageIndex * pageSize);
-            }
-
-            if(pageSize != 0)
-            {
-                ordersQuery = ordersQuery.Take(pageSize);
-            }
-
-            ordersQuery = ordersQuery.ApplySorting(orderByParams);
+            ordersQuery = ordersQuery
+                .ApplyPaging(pageIndex, pageSize)
+                .ApplySorting(orderByParams);
 
             return await ordersQuery.ToListAsync();
         }
