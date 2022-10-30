@@ -11,17 +11,47 @@ namespace Restaurant.Services.Services
     public class MealService : IMealService
     {
         private readonly IMealRepository _mealRepository;
+        private readonly IMealCategoryRepository _mealCategoryRepository;
 
         public MealService(
-            IMealRepository mealRepository)
+            IMealRepository mealRepository,
+            IMealCategoryRepository mealCategoryRepository)
         {
             _mealRepository = mealRepository;
+            _mealCategoryRepository = mealCategoryRepository;
         }
 
 
         public async Task<IEnumerable<Meal>> GetMeals()
         {
             return await _mealRepository.GetMeals();
+        }
+        
+        public async Task<MealAdminPanelWrapper> GetMealsForAdminPanel()
+        {
+            var meals = await _mealRepository.GetMeals();
+
+            var mealCategories = _mealCategoryRepository.GetMealCategories();
+
+            var mealAdminPanelItems = meals.Select(x => new MealAdminPanelItem
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Available = x.Available,
+                Price = x.Price,
+                MealCategoryId = x.MealCategoryId, 
+                MealCategoryName = mealCategories.FirstOrDefault(y => y.Id == x.MealCategoryId).Name
+            });
+
+            var mealsCount = _mealRepository.GetMealsCount();
+
+            var mealWrapper = new MealAdminPanelWrapper
+            {
+                ItemCount = mealsCount,
+                Items = mealAdminPanelItems.ToList()
+            };
+
+            return mealWrapper;
         }
 
         public async Task<IEnumerable<MealGroupViewModel>> GetMealsGroupedByCategory()

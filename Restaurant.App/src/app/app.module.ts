@@ -43,6 +43,8 @@ import { OrderHistoryComponent } from './components/mainPage/order/order-history
 import { OrderMainPageComponent } from './components/adminPanel/order/order-main-page/order-main-page.component';
 import { MainAdminPageComponent } from './components/adminPanel/main-admin-page/main-admin-page.component';
 import { MealMainPageComponent } from './components/adminPanel/meal/meal-main-page/meal-main-page.component';
+import { IngredientMainPageComponent } from './components/adminPanel/ingredient/ingredient-main-page/ingredient-main-page.component';
+import { RecipeMainPageComponent } from './components/adminPanel/recipe/recipe-main-page/recipe-main-page.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { MealMainPageComponent } from './components/adminPanel/meal/meal-main-pa
     OrderMainPageComponent,
     MainAdminPageComponent,
     MealMainPageComponent,
+    IngredientMainPageComponent,
+    RecipeMainPageComponent,
 
   ],
   imports: [

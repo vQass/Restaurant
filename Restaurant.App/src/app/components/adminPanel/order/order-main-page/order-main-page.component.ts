@@ -64,7 +64,7 @@ export class OrderMainPageComponent {
           return data.items;
         }),
       )
-      .subscribe(data => (this.orders = data, console.log(data)
+      .subscribe(data => (this.orders = data
       ));
   }
 

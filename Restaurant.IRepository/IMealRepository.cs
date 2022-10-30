@@ -8,6 +8,7 @@ namespace Restaurant.IRepository
         Meal GetMeal(int id);
         Task<IEnumerable<Meal>> GetMeals();
         Task<IEnumerable<MealCategory>> GetMealsGroupedByCategory();
+        int GetMealsCount();
 
         int AddMeal(MealCreateRequest mealCreateRequest);
         void DeleteMeal(Meal meal);

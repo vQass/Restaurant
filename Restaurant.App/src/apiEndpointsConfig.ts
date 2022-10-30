@@ -14,7 +14,8 @@ export const apiEndpoints =
     "singIn": "User/SignInUser"
   },
   mealEndpoints: {
-    "getMealsGroups": "Meal/GetMealsGroupedByCategory"
+    "getMealsGroups": "Meal/GetMealsGroupedByCategory",
+    "getMealsForAdminPanel": "Meal/GetMealsForAdminPanel"
   },
   orderEndpoints: {
     "addOrder": "Order/AddOrder",
