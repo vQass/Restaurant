@@ -18,7 +18,9 @@ export const apiEndpoints =
   },
   orderEndpoints: {
     "addOrder": "Order/AddOrder",
+    "changeOrderStatus": "Order/ChangeOrderStatus",
     "getOrderHistory": "Order/GetOrdersHistory",
+    "getOrderStatuses": "Order/GetOrderStatuses",
     "getOrdersForAdminPanel": "Order/GetOrdersForAdminPanel"
   }
 };

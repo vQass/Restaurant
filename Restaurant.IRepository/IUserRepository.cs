@@ -9,6 +9,7 @@ namespace Restaurant.IRepository
         User GetUser(long id);
         User GetUser(string email);
         Task<IEnumerable<User>> GetUsers();
+        Task<IEnumerable<User>> GetUsers(List<long> ids);
 
         long AddUser(UserCreateRequest userCreateRequest);
         void UpdateUser(User user, UserUpdateRequest userUpdateRequest);

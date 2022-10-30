@@ -39,6 +39,11 @@ namespace Restaurant.Repository.Repositories
         {
             return await _dbContext.Users.ToListAsync();
         }
+        
+        public async Task<IEnumerable<User>> GetUsers(List<long> ids)
+        {
+            return await _dbContext.Users.Where(x => ids.Contains(x.Id)).ToListAsync();
+        }
 
         public User GetUser(long id)
         {

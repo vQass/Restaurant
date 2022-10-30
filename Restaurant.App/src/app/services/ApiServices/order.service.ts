@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { OrderAddRequest } from 'src/models/order/AddOrderRequest';
 import { OrderAdminPanelWrapper } from 'src/models/order/OrderAdminPanelWrapper';
 import { OrderHistoryItem } from 'src/models/order/OrderHistoryItem';
+import { OrderStatus } from 'src/models/order/OrderStatus';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,30 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
+  changeOrderStatus(orderId: number, statusId: number) {
+    let params = new HttpParams();
+    params = params.append('orderStatus', statusId);
+
+    console.log(statusId);
+
+    return this.http.patch<OrderAddRequest>(
+      this.baseApiUrl + this.orderEndpoints.changeOrderStatus + "/" + orderId, statusId)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   addOrder(order: OrderAddRequest): Observable<any> {
     return this.http.post<OrderAddRequest>(this.baseApiUrl + this.orderEndpoints.addOrder, order)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getOrderStatuses(): Observable<OrderStatus[]> {
+    let params = new HttpParams();
+
+    return this.http.get<OrderStatus[]>(this.baseApiUrl + this.orderEndpoints.getOrderStatuses)
       .pipe(
         catchError(this.handleError)
       );

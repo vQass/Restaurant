@@ -21,7 +21,7 @@ namespace Restaurant.API.Controllers
         [HttpGet("GetOrderStatuses")]
         public IActionResult GetOrderStatuses()
         {
-            return Ok(OrderStatusDictionary.OrderStatusesWithDescription);
+            return Ok(_orderService.GetOrderStatuses());
         }
 
         [HttpGet("GetOrders")]
@@ -56,7 +56,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPatch("ChangeOrderStatus/{id}")]
-        public IActionResult ChangeOrderStatus(long id,OrderStatusEnum orderStatus)
+        public IActionResult ChangeOrderStatus(long id, [FromBody] OrderStatusEnum orderStatus)
         {
             _orderService.ChangeOrderStatus(id, orderStatus);
             return Ok();
