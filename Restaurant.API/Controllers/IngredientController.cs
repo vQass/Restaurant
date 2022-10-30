@@ -21,6 +21,12 @@ namespace Restaurant.API.Controllers
         {
             return Ok(await _ingredientServices.GetIngredients());
         }
+            
+        [HttpGet("GetIngredientsForAdminPanel")]
+        public async Task<IActionResult> GetIngredientsForAdminPanel([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 0)
+        {
+            return Ok(await _ingredientServices.GetIngredientsForAdminPanel(pageIndex, pageSize));
+        }
 
         [HttpGet("GetIngredient/{id}")]
         public IActionResult GetIngredient([FromRoute] int id)

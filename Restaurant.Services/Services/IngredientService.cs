@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Restaurant.Data.Models.IngredientModels;
 using Restaurant.DB.Entities;
 using Restaurant.IRepository;
 using Restaurant.IServices;
@@ -13,7 +14,22 @@ namespace Restaurant.Services.Services
         {
             _ingredientRepository = ingredientRepository;
         }
+        public async Task<IngredientAdminPanelWrapper> GetIngredientsForAdminPanel(int pageIndex, int pageSize)
+        {
+            var items = await _ingredientRepository.GetIngredients(pageIndex, pageSize);
+            var itemsCount = _ingredientRepository.GetIngredientsCount();
 
+            return new IngredientAdminPanelWrapper
+            {
+                Items = items.Select(x => new IngredientAdminPanelItem
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                })
+                .ToList(),
+                ItemsCount = itemsCount
+            };
+        }
 
         public Ingredient GetIngredient(int id)
         {
@@ -26,7 +42,7 @@ namespace Restaurant.Services.Services
 
         public async Task<IEnumerable<Ingredient>> GetIngredients()
         {
-            return await _ingredientRepository.GetIngredients();
+            return await _ingredientRepository.GetIngredients(0, 0);
         }
 
         public int AddIngredient(string ingredientName)

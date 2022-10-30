@@ -39,8 +39,6 @@ export class OrderService {
   }
 
   getOrderStatuses(): Observable<OrderStatus[]> {
-    let params = new HttpParams();
-
     return this.http.get<OrderStatus[]>(this.baseApiUrl + this.orderEndpoints.getOrderStatuses)
       .pipe(
         catchError(this.handleError)

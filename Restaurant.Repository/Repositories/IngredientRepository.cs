@@ -4,6 +4,7 @@ using Restaurant.APIComponents.Exceptions;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.IRepository;
+using Restaurant.LinqHelpers.Helpers;
 
 namespace Restaurant.Repository.Repositories
 {
@@ -38,9 +39,14 @@ namespace Restaurant.Repository.Repositories
             return ingredient;
         }
 
-        public async Task<IEnumerable<Ingredient>> GetIngredients()
+        public async Task<IEnumerable<Ingredient>> GetIngredients(int pageIndex, int pageSize)
         {
-            return await _dbContext.Ingredients.ToListAsync();
+            return await _dbContext.Ingredients.ApplyPaging(pageIndex, pageSize).ToListAsync();
+        }
+
+        public int GetIngredientsCount()
+        {
+            return _dbContext.Ingredients.Count();
         }
 
         #endregion

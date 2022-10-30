@@ -23,6 +23,10 @@ export const apiEndpoints =
     "getOrderHistory": "Order/GetOrdersHistory",
     "getOrderStatuses": "Order/GetOrderStatuses",
     "getOrdersForAdminPanel": "Order/GetOrdersForAdminPanel"
+  },
+  ingredientsEndpoints: {
+    "getIngredientsForAdminPanel": "Ingredient/GetIngredientsForAdminPanel",
+
   }
 };
 

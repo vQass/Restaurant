@@ -6,7 +6,8 @@ namespace Restaurant.IRepository
     {
         Ingredient GetIngredient(int id);
         Ingredient GetIngredient(string ingredientName);
-        Task<IEnumerable<Ingredient>> GetIngredients();
+        Task<IEnumerable<Ingredient>> GetIngredients(int pageIngex, int pageSize);
+        int GetIngredientsCount();
 
         int AddIngredient(Ingredient ingredient);
         void DeleteIngredient(Ingredient ingredient);
