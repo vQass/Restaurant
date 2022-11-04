@@ -19,7 +19,7 @@ export class IngredientMainPageComponent {
 
   resultsLength = 0;
   isLoadingResults = true;
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['id', 'name', 'actions'];
 
   constructor(private ingredientService: IngredientService, private toastService: ToastService) {
   }

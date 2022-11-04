@@ -100,7 +100,7 @@ namespace Restaurant.Repository.Repositories
             if (ingredientNameTaken)
             {
                 _logger.LogError($"Ingredient name: {ingredientName} is taken.");
-                throw new NotFoundException("Podana nazwa składnik jest zajęta.");
+                throw new BadRequestException("Podana nazwa składnik jest zajęta.");
             }
         }
 

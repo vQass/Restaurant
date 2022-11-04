@@ -26,7 +26,7 @@ export const apiEndpoints =
   },
   ingredientsEndpoints: {
     "getIngredientsForAdminPanel": "Ingredient/GetIngredientsForAdminPanel",
-
+    "addIngredient": "Ingredient/AddIngredient",
   }
 };
 
