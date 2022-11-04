@@ -51,8 +51,8 @@ namespace Restaurant.Repository.Repositories
             }
 
             ordersQuery = ordersQuery
-                .ApplyPaging(pageIndex, pageSize)
-                .ApplySorting(orderByParams);
+                .ApplySorting(orderByParams)
+                .ApplyPaging(pageIndex, pageSize);
 
             return await ordersQuery.ToListAsync();
         }

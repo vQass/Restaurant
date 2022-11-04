@@ -13,6 +13,7 @@ namespace Restaurant.Repository.Repositories
         private readonly RestaurantDbContext _dbContext;
         private readonly ILogger<CityRepository> _logger;
 
+
         public CityRepository(RestaurantDbContext dbContext,
             ILogger<CityRepository> logger)
         {

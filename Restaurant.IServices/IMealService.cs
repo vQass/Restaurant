@@ -10,13 +10,16 @@ namespace Restaurant.IServices
 {
     public interface IMealService
     {
-        public int AddMeal(MealCreateRequest mealCreateRequest);
-        public void UpdateMeal(int id, MealUpdateRequest mealUpdateRequest);
-        public void DeleteMeal(int id);
-        public void SetMealAsUnavailable(int id);
-        public void SetMealAsAvailable(int id);
-        public void UpdateMealsPrice(int id, decimal newPrice);
-        public Task<IEnumerable<Meal>> GetMeals();
-        public Task<IEnumerable<MealGroupViewModel>> GetMealsGroupedByCategory();
+        Task<IEnumerable<Meal>> GetMeals();
+        Task<MealAdminPanelWrapper> GetMealsForAdminPanel();
+        Task<IEnumerable<MealGroupViewModel>> GetMealsGroupedByCategory();
+
+        int AddMeal(MealCreateRequest mealCreateRequest);
+        void UpdateMeal(int id, MealUpdateRequest mealUpdateRequest);
+        void DeleteMeal(int id);
+        void SetMealAsUnavailable(int id);
+        void SetMealAsAvailable(int id);
+        void UpdateMealsPrice(int id, decimal newPrice);
+
     }
 }

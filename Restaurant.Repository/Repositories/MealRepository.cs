@@ -50,6 +50,11 @@ namespace Restaurant.Repository.Repositories
                 .FirstOrDefault(x => x.Id == id);
         }
 
+        public int GetMealsCount()
+        {
+            return _dbContext.Meals.Count();
+        }
+
         #endregion
 
         #region EntityModificationMethods

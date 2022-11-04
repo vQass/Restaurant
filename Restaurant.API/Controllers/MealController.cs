@@ -20,6 +20,12 @@ namespace Restaurant.API.Controllers
         {
             return Ok(await _mealService.GetMeals());
         }
+        
+        [HttpGet("GetMealsForAdminPanel")]
+        public async Task<IActionResult> GetMealsForAdminPanel()
+        {
+            return Ok(await _mealService.GetMealsForAdminPanel());
+        }
 
         [HttpGet("GetMealsGroupedByCategory")]
         public async Task<IActionResult> GetMealsGroupedByCategory()

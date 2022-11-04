@@ -10,26 +10,40 @@ namespace Restaurant.Services.Services
 {
     public class OrderService : IOrderService
     {
-        private readonly IMapper _mapper;
         private readonly IOrderRepository _orderRepository;
         private readonly IPromotionRepository _promotionRepository;
         private readonly ICityRepository _cityRepository;
         private readonly IMealRepository _mealRepository;
+        private readonly IUserRepository _userRepository;
 
         public OrderService(
-            IMapper mapper,
             IOrderRepository orderRepository,
             IPromotionRepository promotionRepository,
             ICityRepository cityRepository,
-            IMealRepository mealRepository)
+            IMealRepository mealRepository,
+            IUserRepository userRepository)
         {
-            _mapper = mapper;
             _orderRepository = orderRepository;
             _promotionRepository = promotionRepository;
             _cityRepository = cityRepository;
             _mealRepository = mealRepository;
+            _userRepository = userRepository;
         }
 
+
+        public IEnumerable<OrderStatusViewModel> GetOrderStatuses()
+        {
+            var statuses = OrderStatusDictionary.OrderStatusesWithDescription;
+
+            var statusesVM = statuses.Select(x => new OrderStatusViewModel
+            {
+                Id =  x.Key,
+                Tag = OrderStatusDictionary.OrderStatusesTags.GetValueOrDefault((byte)x.Key),
+                Description = x.Value
+            });
+
+            return statusesVM;
+        }
 
         public Order GetOrder(long id)
         {
@@ -85,6 +99,10 @@ namespace Restaurant.Services.Services
         {
             var orders = await _orderRepository.GetOrders(pageIndex: pageIndex, pageSize: pageSize, orderByParams: orderByParams);
 
+            var userIds = orders.Select(x => x.UserId).ToList();
+
+            var users = await _userRepository.GetUsers(userIds);
+
             var cities = _cityRepository.GetCities(null);
 
             var meals = await _mealRepository.GetMeals();
@@ -92,6 +110,7 @@ namespace Restaurant.Services.Services
             var ordersVM = orders.Select(x => new OrderAdminPanelViewModel()
             {
                 Id = x.Id,
+                Email = users.FirstOrDefault(y => y.Id == x.UserId).Email,
                 Name = x.Name,
                 Surname = x.Surname,
                 Address = x.Address,

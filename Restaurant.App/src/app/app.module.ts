@@ -42,6 +42,9 @@ import { ToastComponent } from './components/shared/toast/toast.component';
 import { OrderHistoryComponent } from './components/mainPage/order/order-history/order-history.component';
 import { OrderMainPageComponent } from './components/adminPanel/order/order-main-page/order-main-page.component';
 import { MainAdminPageComponent } from './components/adminPanel/main-admin-page/main-admin-page.component';
+import { MealMainPageComponent } from './components/adminPanel/meal/meal-main-page/meal-main-page.component';
+import { IngredientMainPageComponent } from './components/adminPanel/ingredient/ingredient-main-page/ingredient-main-page.component';
+import { RecipeMainPageComponent } from './components/adminPanel/recipe/recipe-main-page/recipe-main-page.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +68,9 @@ import { MainAdminPageComponent } from './components/adminPanel/main-admin-page/
     OrderHistoryComponent,
     OrderMainPageComponent,
     MainAdminPageComponent,
+    MealMainPageComponent,
+    IngredientMainPageComponent,
+    RecipeMainPageComponent,
 
   ],
   imports: [

@@ -14,12 +14,19 @@ export const apiEndpoints =
     "singIn": "User/SignInUser"
   },
   mealEndpoints: {
-    "getMealsGroups": "Meal/GetMealsGroupedByCategory"
+    "getMealsGroups": "Meal/GetMealsGroupedByCategory",
+    "getMealsForAdminPanel": "Meal/GetMealsForAdminPanel"
   },
   orderEndpoints: {
     "addOrder": "Order/AddOrder",
+    "changeOrderStatus": "Order/ChangeOrderStatus",
     "getOrderHistory": "Order/GetOrdersHistory",
+    "getOrderStatuses": "Order/GetOrderStatuses",
     "getOrdersForAdminPanel": "Order/GetOrdersForAdminPanel"
+  },
+  ingredientsEndpoints: {
+    "getIngredientsForAdminPanel": "Ingredient/GetIngredientsForAdminPanel",
+
   }
 };
 
