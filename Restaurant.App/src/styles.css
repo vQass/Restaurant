@@ -33,12 +33,12 @@ body {
   height: calc(100% - 164px);
   width: 94%;
   max-width: 1000px;
-  margin: 0 auto;
+  margin: 50px auto 0 auto;
 }
 
 .table-container {
   position: relative;
-  margin-top: 50px;
+  /* margin-top: 50px; */
   min-height: 400px;
   max-height: calc(100% - 56px);
   overflow: auto;

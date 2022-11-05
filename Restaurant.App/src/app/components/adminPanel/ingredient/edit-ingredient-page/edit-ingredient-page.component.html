@@ -1,0 +1,30 @@
+<form class="form-container"
+      [formGroup]="editIngredientForm">
+  <div>
+    <h1 style="margin-bottom: 20px;">Edytowanie składnika</h1>
+
+    <!-- Name -->
+    <mat-form-field class="full-width-input"
+                    appearance="fill">
+      <mat-label>Nazwa</mat-label>
+      <input type="text"
+             matInput
+             formControlName="name"
+             [errorStateMatcher]="singleControlMatcher"
+             [ngModel]="ingredient?.name"
+             autocomplete="off" />
+      <mat-error *ngIf="name?.errors?.['required']">
+        Nazwa jest wymagana
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <button class="button"
+          (click)="onSubmit()"
+          mat-raised-button
+          color="primary"
+          [disabled]="!editIngredientForm.valid || disableSubmitButton">
+    Edytuj składnik
+  </button>
+</form>

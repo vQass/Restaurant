@@ -3,6 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CityComponent } from './components/adminPanel/city/city/city.component';
 import {
+  AddIngredientPageComponent
+} from './components/adminPanel/ingredient/add-ingredient-page/add-ingredient-page.component';
+import {
+  EditIngredientPageComponent
+} from './components/adminPanel/ingredient/edit-ingredient-page/edit-ingredient-page.component';
+import {
   IngredientMainPageComponent
 } from './components/adminPanel/ingredient/ingredient-main-page/ingredient-main-page.component';
 import { MainAdminPageComponent } from './components/adminPanel/main-admin-page/main-admin-page.component';
@@ -30,6 +36,8 @@ const routes: Routes = [
   { path: 'order-admin-main-page', component: OrderMainPageComponent },
   { path: 'meal-admin-main-page', component: MealMainPageComponent },
   { path: 'ingredient-admin-main-page', component: IngredientMainPageComponent },
+  { path: 'add-ingredient-admin-main-page', component: AddIngredientPageComponent },
+  { path: 'edit-ingredient-admin-main-page', component: EditIngredientPageComponent },
   { path: 'recipe-admin-main-page', component: RecipeMainPageComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];

@@ -45,6 +45,8 @@ import { MainAdminPageComponent } from './components/adminPanel/main-admin-page/
 import { MealMainPageComponent } from './components/adminPanel/meal/meal-main-page/meal-main-page.component';
 import { IngredientMainPageComponent } from './components/adminPanel/ingredient/ingredient-main-page/ingredient-main-page.component';
 import { RecipeMainPageComponent } from './components/adminPanel/recipe/recipe-main-page/recipe-main-page.component';
+import { AddIngredientPageComponent } from './components/adminPanel/ingredient/add-ingredient-page/add-ingredient-page.component';
+import { EditIngredientPageComponent } from './components/adminPanel/ingredient/edit-ingredient-page/edit-ingredient-page.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,8 @@ import { RecipeMainPageComponent } from './components/adminPanel/recipe/recipe-m
     MealMainPageComponent,
     IngredientMainPageComponent,
     RecipeMainPageComponent,
+    AddIngredientPageComponent,
+    EditIngredientPageComponent,
 
   ],
   imports: [
