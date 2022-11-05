@@ -1,1 +1,57 @@
-<p>add-meal-page works!</p>
+<form class="form-container"
+      [formGroup]="addMealForm">
+  <div>
+    <h1 style="margin-bottom: 20px;">Dodawanie dania</h1>
+
+    <!-- Name -->
+    <mat-form-field class="full-width-input"
+                    appearance="fill">
+      <mat-label>Nazwa</mat-label>
+      <input type="text"
+             matInput
+             formControlName="name"
+             [errorStateMatcher]="singleControlMatcher"
+             autocomplete="off" />
+      <mat-error *ngIf="name?.errors?.['required']">
+        Nazwa jest wymagana
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Price -->
+    <mat-form-field class="full-width-input"
+                    appearance="fill">
+      <mat-label>Cena</mat-label>
+      <input type="text"
+             matInput
+             formControlName="price"
+             [errorStateMatcher]="singleControlMatcher"
+             autocomplete="off" />
+      <mat-error *ngIf="price?.errors?.['required']">
+        Cena jest wymagana
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Category -->
+    <mat-form-field class="full-width-input"
+                    appearance="fill">
+      <mat-label>Kategoria</mat-label>
+      <input type="text"
+             matInput
+             formControlName="categoryId"
+             [errorStateMatcher]="singleControlMatcher"
+             autocomplete="off" />
+      <mat-error *ngIf="categoryId?.errors?.['required']">
+        Kategoria jest wymagana
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <button class="button"
+          (click)="onSubmit()"
+          mat-raised-button
+          color="primary"
+          [disabled]="!addMealForm.valid || disableSubmitButton">
+    Dodaj składnik
+  </button>
+</form>

@@ -54,15 +54,15 @@ namespace Restaurant.API.Controllers
             return NoContent();
         }
 
-        [HttpPatch("SetMealAsUnavailable/{id}")]
-        public IActionResult SetMealAsUnavailable([FromRoute] int id)
+        [HttpPatch("SetMealAsUnavailable")]
+        public IActionResult SetMealAsUnavailable([FromBody] int id)
         {
             _mealService.SetMealAsUnavailable(id);
             return Ok();
         }
 
-        [HttpPatch("SetMealAsAvailable/{id}")]
-        public IActionResult SetMealAsAvailable([FromRoute] int id)
+        [HttpPatch("SetMealAsAvailable")]
+        public IActionResult SetMealAsAvailable([FromBody] int id)
         {
             _mealService.SetMealAsAvailable(id);
             return Ok();
