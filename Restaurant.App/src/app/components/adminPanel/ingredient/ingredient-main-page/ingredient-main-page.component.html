@@ -32,8 +32,18 @@
         <td mat-cell
             *matCellDef="let element">
 
-          <button>
-            test
+          <button mat-mini-fab
+                  routerLink="/edit-ingredient-admin-main-page"
+                  [state]="{ data: element}"
+                  class="icon-button delete-item-icon">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button mat-mini-fab
+                  (click)="delete(element.id)"
+                  [disabled]="disableDeleteButton"
+                  class="icon-button delete-item-icon">
+            <mat-icon>delete</mat-icon>
           </button>
 
         </td>

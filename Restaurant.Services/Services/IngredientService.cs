@@ -61,6 +61,8 @@ namespace Restaurant.Services.Services
 
             _ingredientRepository.EnsureIngredientExists(ingredient);
 
+            _ingredientRepository.EnsureIngredientNotInUse(ingredient);
+
             _ingredientRepository.DeleteIngredient(ingredient);
         }
 
@@ -69,6 +71,8 @@ namespace Restaurant.Services.Services
             var ingredient = _ingredientRepository.GetIngredient(id);
 
             _ingredientRepository.EnsureIngredientExists(ingredient);
+
+            _ingredientRepository.EnsureIngredientNotInUse(ingredient);
 
             _ingredientRepository.EnsureIngredientNameNotTaken(ingredientName, id);
 

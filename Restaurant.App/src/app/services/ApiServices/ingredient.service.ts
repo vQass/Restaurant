@@ -5,6 +5,7 @@ import { apiEndpoints } from 'src/apiEndpointsConfig';
 import { environment } from 'src/environments/environment';
 import { IngredientAdminPanelWrapper } from 'src/models/ingredient/IngredientAdminPanelWrapper';
 import { IngredientCreateRequest } from 'src/models/ingredient/IngredientCreateRequest';
+import { IngredientUpdateRequest } from 'src/models/ingredient/IngredientUpdateRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +25,26 @@ export class IngredientService {
   }
 
   addIngredient(ingredient: IngredientCreateRequest): Observable<any> {
-
-    return this.http.post<IngredientAdminPanelWrapper>(
+    return this.http.post<IngredientCreateRequest>(
       this.baseApiUrl + this.ingredientsEndpoints.addIngredient, ingredient)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  editIngredient(id: number, ingredient: IngredientUpdateRequest): Observable<any> {
+    return this.http.put<IngredientUpdateRequest>(
+      this.baseApiUrl + this.ingredientsEndpoints.editIngredient + '/' + id, ingredient)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  deleteIngredient(id: number): Observable<any> {
+    console.log(id);
+
+    return this.http.delete<IngredientAdminPanelWrapper>(
+      this.baseApiUrl + this.ingredientsEndpoints.deleteIngredient + '/' + id)
       .pipe(
         catchError(this.handleError)
       );
