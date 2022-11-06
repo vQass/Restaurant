@@ -16,9 +16,11 @@ export const apiEndpoints =
   mealEndpoints: {
     "getMealsGroups": "Meal/GetMealsGroupedByCategory",
     "getMealsForAdminPanel": "Meal/GetMealsForAdminPanel",
+    "getMealForAdminPanel": "Meal/GetMealForAdminPanel",
     "setAsAvailable": "Meal/SetMealAsAvailable",
     "setAsUnavailable": "Meal/SetMealAsUnavailable",
-    "addMeal": "Meal/AddMeal"
+    "addMeal": "Meal/AddMeal",
+    "updateMeal": "Meal/UpdateMeal"
   },
   orderEndpoints: {
     "addOrder": "Order/AddOrder",

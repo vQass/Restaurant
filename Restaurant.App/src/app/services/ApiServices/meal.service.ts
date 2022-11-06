@@ -3,9 +3,11 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { apiEndpoints } from 'src/apiEndpointsConfig';
 import { environment } from 'src/environments/environment';
+import { MealAdminPanelItem } from 'src/models/meal/MealAdminPanelItem';
 import { MealAdminPanelWrapper } from 'src/models/meal/MealAdminPanelWrapper';
 import { MealCreateRequest } from 'src/models/meal/MealCreateRequest';
 import { MealGroupViewModel } from 'src/models/meal/MealGroupViewModel';
+import { MealUpdateRequest } from 'src/models/meal/MealUpdateRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +24,24 @@ export class MealService {
   }
 
   getMealsForAdminPanel(pageIndex: number, pageSize: number): Observable<MealAdminPanelWrapper> {
-    return this.http.get<MealAdminPanelWrapper>(this.baseApiUrl + this.mealEndpoints.getMealsForAdminPanel);
+    return this.http.get<MealAdminPanelWrapper>(this.baseApiUrl + this.mealEndpoints.getMealForAdminPanel);
+  }
+
+  getMealAdminPanelItem(id: number) {
+    return this.http.get<MealAdminPanelItem>(this.baseApiUrl + this.mealEndpoints.getMealForAdminPanel + '/' + id);
   }
 
   addMeal(meal: MealCreateRequest): Observable<any> {
     return this.http.post<MealCreateRequest>(
       this.baseApiUrl + this.mealEndpoints.addMeal, meal)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  updateMeal(id: number, meal: MealUpdateRequest): Observable<any> {
+    return this.http.put<MealUpdateRequest>(
+      this.baseApiUrl + this.mealEndpoints.updateMeal + '/' + id, meal)
       .pipe(
         catchError(this.handleError)
       );

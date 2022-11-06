@@ -63,9 +63,7 @@ export class MealMainPageComponent {
   }
 
   gotoItems(meal: MealAdminPanelItem) {
-    // Pass along the hero id if available
-    // so that the HeroList component can select that item.
-    this.router.navigate(['/edit-meal-admin-main-page',
+    this.router.navigate(['/edit-meal-options-admin-page',
       {
         id: meal.id,
         name: meal.name,
@@ -74,5 +72,4 @@ export class MealMainPageComponent {
         price: meal.price
       }]);
   }
-
 }

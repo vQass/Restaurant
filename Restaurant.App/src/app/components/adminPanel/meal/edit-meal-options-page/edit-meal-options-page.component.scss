@@ -1,0 +1,28 @@
+.meal-details-container {
+  width: 98%;
+  max-width: 600px;
+  margin: 50px auto 0 auto;
+  background-color: #343A40;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.main-container {
+  text-align: center;
+  background-color: #343A40;
+  width: 98%;
+  max-width: 600px;
+  margin: 50px auto 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+p {
+  margin: 0;
+}
+
+.max-width-button {
+  width: 96%;
+  margin: 5px auto !important;
+  display: block;
+}
