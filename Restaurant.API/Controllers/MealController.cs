@@ -21,7 +21,7 @@ namespace Restaurant.API.Controllers
             return Ok(await _mealService.GetMeals());
         }
 
-        [HttpGet("GetMealForAdminPanel")]
+        [HttpGet("GetMealForAdminPanel/{id}")]
         public async Task<IActionResult> GetMealForAdminPanel([FromRoute] int id)
         {
             return Ok(_mealService.GetMealForAdminPanel(id));
@@ -74,8 +74,8 @@ namespace Restaurant.API.Controllers
             return Ok();
         }
 
-        [HttpPatch("UpdateMealsPrice/{id}")]
-        public IActionResult UpdateMealsPrice([FromRoute] int id, [FromQuery] decimal newPrice)
+        [HttpPatch("UpdateMealsPrice/{id}/{newPrice}")]
+        public IActionResult UpdateMealsPrice([FromRoute] int id, [FromRoute] decimal newPrice)
         {
             _mealService.UpdateMealsPrice(id, newPrice);
             return Ok();

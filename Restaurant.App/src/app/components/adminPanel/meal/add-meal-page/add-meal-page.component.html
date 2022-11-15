@@ -37,10 +37,10 @@
       <mat-label>Kategoria</mat-label>
       <input type="text"
              matInput
-             formControlName="categoryId"
+             formControlName="mealCategoryId"
              [errorStateMatcher]="singleControlMatcher"
              autocomplete="off" />
-      <mat-error *ngIf="categoryId?.errors?.['required']">
+      <mat-error *ngIf="mealCategoryId?.errors?.['required']">
         Kategoria jest wymagana
       </mat-error>
     </mat-form-field>
@@ -52,6 +52,6 @@
           mat-raised-button
           color="primary"
           [disabled]="!addMealForm.valid || disableSubmitButton">
-    Dodaj składnik
+    Dodaj danie
   </button>
 </form>

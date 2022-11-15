@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MealService } from 'src/app/services/ApiServices/meal.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
+import { MealAdminPanelItem } from 'src/models/meal/MealAdminPanelItem';
 
 @Component({
   selector: 'app-edit-meal-options-page',
@@ -10,11 +11,9 @@ import { ToastService } from 'src/app/services/OtherServices/toast.service';
 })
 export class EditMealOptionsPageComponent implements OnInit {
   buttonActive;
-  id?: string | null; // TODO leave only id and get whole data from api
-  name?: string | null;
-  price?: string | null;
-  available?: boolean | null;
-  categoryId?: string | null;
+  id!: number; // TODO leave only id and get whole data from api
+
+  meal!: MealAdminPanelItem;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,27 +24,32 @@ export class EditMealOptionsPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.name = this.route.snapshot.paramMap.get('name');
-    this.price = this.route.snapshot.paramMap.get('price');
-    this.available = this.route.snapshot.paramMap.get('available') === "true";
-    this.categoryId = this.route.snapshot.paramMap.get('categoryId');
+    let tempId = this.route.snapshot.paramMap.get('id');
+    if (tempId != null) {
+      let parsedId = parseInt(tempId);
+      if (!isNaN(parsedId)) {
+        this.id = parsedId;
+        this.mealService
+          .getMealAdminPanelItem(this.id)
+          .subscribe((data) => this.meal = data);
+      }
+    }
   }
 
   goToMealEditPage() {
-    this.goToPage('edit-meal-admin-page');
+    this.goToPage('/edit-meal-admin-page');
   }
 
   goToMealEditPricePage() {
-    this.goToPage('edit-meal-price-admin-page');
+    this.goToPage('/edit-meal-price-admin-page');
   }
 
   goToMealEditRecipePage() {
-    this.goToPage('edit-meal-recipe-admin-page');
+    this.goToPage('/edit-meal-recipe-admin-page');
   }
 
   goToPage(link: string) {
-    this.router.navigate(['link',
+    this.router.navigate([link,
       {
         id: this.id
       }]);
@@ -60,11 +64,11 @@ export class EditMealOptionsPageComponent implements OnInit {
     this.buttonActive = false;
 
     this.mealService
-      .setAsAvailable(parseInt(this.id)
-      ).subscribe({
+      .setAsAvailable(this.id)
+      .subscribe({
         next: () => {
           this.buttonActive = true;
-          this.available = true;
+          this.meal.available = true;
           this.toastService.showSuccess("Pomyślnie zmieniono aktywność dania!", 1000)
         },
         error: (e) => {
@@ -83,11 +87,11 @@ export class EditMealOptionsPageComponent implements OnInit {
     this.buttonActive = false;
 
     this.mealService
-      .setAsUnavailable(parseInt(this.id))
+      .setAsUnavailable(this.id)
       .subscribe({
         next: () => {
           this.buttonActive = true;
-          this.available = false;
+          this.meal.available = false;
           this.toastService.showSuccess("Pomyślnie zmieniono aktywność dania!", 1000)
         },
         error: (e) => {

@@ -24,11 +24,14 @@ export class MealService {
   }
 
   getMealsForAdminPanel(pageIndex: number, pageSize: number): Observable<MealAdminPanelWrapper> {
-    return this.http.get<MealAdminPanelWrapper>(this.baseApiUrl + this.mealEndpoints.getMealForAdminPanel);
+    return this.http.get<MealAdminPanelWrapper>(this.baseApiUrl + this.mealEndpoints.getMealsForAdminPanel);
   }
 
   getMealAdminPanelItem(id: number) {
-    return this.http.get<MealAdminPanelItem>(this.baseApiUrl + this.mealEndpoints.getMealForAdminPanel + '/' + id);
+    return this.http.get<MealAdminPanelItem>(this.baseApiUrl + this.mealEndpoints.getMealForAdminPanel + '/' + id)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   addMeal(meal: MealCreateRequest): Observable<any> {
@@ -42,6 +45,14 @@ export class MealService {
   updateMeal(id: number, meal: MealUpdateRequest): Observable<any> {
     return this.http.put<MealUpdateRequest>(
       this.baseApiUrl + this.mealEndpoints.updateMeal + '/' + id, meal)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  updateMealPrice(id: number, newPrice: number): Observable<number> {
+    return this.http.patch<number>(
+      this.baseApiUrl + this.mealEndpoints.updateMealsPrice + '/' + id + '/' + newPrice.toString(), null)
       .pipe(
         catchError(this.handleError)
       );

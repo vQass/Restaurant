@@ -1,38 +1,38 @@
 <div class="meal-details-container">
-  <h1>{{name}}</h1>
-  <p>Id: {{id}}</p>
-  <p>Cena: {{price | number : '1.2-2'}} zł</p>
-  <p>Kategoria: {{categoryId}}</p>
-  <p>Dostępne: {{available ? "tak" : "nie"}}</p>
+  <h1>{{meal.name}}</h1>
+  <p>Id: {{meal.id}}</p>
+  <p>Cena: {{meal.price | currency}} zł</p>
+  <p>Kategoria: {{meal.mealCategoryName}}</p>
+  <p>Dostępne: {{meal.available ? "tak" : "nie"}}</p>
 </div>
 
 <div class="main-container">
   <h1>Opcje edycji</h1>
 
   <a class="button max-width-button"
-     routerLink="/order-admin-main-page"
+     (click)="goToMealEditPage()"
      mat-stroked-button
-     color="primary">Danie</a>
+     color="primary">Edytuj całe danie</a>
 
   <a class="button max-width-button"
-     routerLink="/meal-admin-main-page"
+     (click)="goToMealEditPricePage()"
      mat-stroked-button
-     color="primary">Cena</a>
+     color="primary">Edytuj cenę</a>
 
   <a class="button max-width-button"
-     routerLink="/ingredient-admin-main-page"
+     (click)="goToMealEditRecipePage()"
      mat-stroked-button
-     color="primary">Przepis</a>
+     color="primary">Edytuj przepis</a>
 
   <button class="button max-width-button"
-          *ngIf="!available"
+          *ngIf="!meal.available"
           [disabled]="!buttonActive"
           (click)="setAsAvailable()"
           mat-stroked-button
           color="primary">Ustaw jako aktywne</button>
 
   <button class="button max-width-button"
-          *ngIf="available"
+          *ngIf="meal.available"
           [disabled]="!buttonActive"
           (click)="setAsUnavailable()"
           mat-stroked-button

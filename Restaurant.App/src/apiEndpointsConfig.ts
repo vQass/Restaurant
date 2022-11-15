@@ -20,7 +20,8 @@ export const apiEndpoints =
     "setAsAvailable": "Meal/SetMealAsAvailable",
     "setAsUnavailable": "Meal/SetMealAsUnavailable",
     "addMeal": "Meal/AddMeal",
-    "updateMeal": "Meal/UpdateMeal"
+    "updateMeal": "Meal/UpdateMeal",
+    "updateMealsPrice": "Meal/UpdateMealsPrice",
   },
   orderEndpoints: {
     "addOrder": "Order/AddOrder",

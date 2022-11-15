@@ -66,10 +66,6 @@ export class MealMainPageComponent {
     this.router.navigate(['/edit-meal-options-admin-page',
       {
         id: meal.id,
-        name: meal.name,
-        available: meal.available,
-        mealCategoryId: meal.mealCategoryId,
-        price: meal.price
       }]);
   }
 }

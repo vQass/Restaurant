@@ -79,7 +79,7 @@ namespace Restaurant.Repository.Repositories
         {
             meal.Name = mealUpdateRequest.Name;
             meal.Price = mealUpdateRequest.Price;
-            meal.MealCategory.Id = mealUpdateRequest.CategoryId;
+            meal.MealCategory.Id = mealUpdateRequest.MealCategoryId;
 
             _dbContext.SaveChanges();
         }

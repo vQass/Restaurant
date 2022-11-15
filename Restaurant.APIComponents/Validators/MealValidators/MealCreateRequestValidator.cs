@@ -28,7 +28,7 @@ namespace Restaurant.APIComponents.Validators.MealValidators
                 }
             });
 
-            RuleFor(x => x.CategoryId).Custom((value, context) =>
+            RuleFor(x => x.MealCategoryId).Custom((value, context) =>
             {
                 var validCategoryId = dbContext.MealsCategories.Any(x =>
                     x.Id == value);

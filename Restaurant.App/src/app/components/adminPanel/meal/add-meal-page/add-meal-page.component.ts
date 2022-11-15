@@ -24,7 +24,7 @@ export class AddMealPageComponent {
     this.addMealForm = fb.group({
       name: fb.control('', [Validators.required]),
       price: fb.control('', [Validators.required]),
-      categoryId: fb.control('', [Validators.required]),
+      mealCategoryId: fb.control('', [Validators.required]),
     })
   }
 
@@ -36,8 +36,8 @@ export class AddMealPageComponent {
     return this.addMealForm.get('price');
   }
 
-  get categoryId() {
-    return this.addMealForm.get('categoryId');
+  get mealCategoryId() {
+    return this.addMealForm.get('mealCategoryId');
   }
 
   onSubmit() {
@@ -47,7 +47,7 @@ export class AddMealPageComponent {
       {
         name: this.addMealForm.value.name,
         price: this.addMealForm.value.price,
-        categoryId: this.addMealForm.value.categoryId
+        mealCategoryId: this.addMealForm.value.mealCategoryId
       } as MealCreateRequest;
 
     this.mealService.addMeal(meal).subscribe({

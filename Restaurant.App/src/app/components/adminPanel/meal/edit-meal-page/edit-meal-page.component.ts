@@ -19,18 +19,10 @@ export class EditMealPageComponent implements OnInit {
 
   mealId: number = 0;
 
-  meal?: MealAdminPanelItem;
+  meal!: MealAdminPanelItem;
 
   ngOnInit(): void {
-    let id = this.route.snapshot.paramMap.get('id');
 
-    if (id != null) {
-      let parsedId = parseInt(id);
-      if (!isNaN(parsedId)) {
-        this.mealId = parsedId;
-        this.mealService.getMealAdminPanelItem(this.mealId).subscribe((data) => this.meal = data);
-      }
-    }
   }
 
   constructor(
@@ -42,8 +34,19 @@ export class EditMealPageComponent implements OnInit {
     this.mainForm = fb.group({
       name: fb.control('', [Validators.required]),
       price: fb.control('', [Validators.required]),
-      categoryId: fb.control('', [Validators.required]),
+      mealCategoryId: fb.control('', [Validators.required]),
     })
+
+    let id = this.route.snapshot.paramMap.get('id');
+
+    if (id != null) {
+      let parsedId = parseInt(id);
+      if (!isNaN(parsedId)) {
+        this.mealId = parsedId;
+        this.mealService.getMealAdminPanelItem(this.mealId).subscribe((data) => { this.meal = data }
+        );
+      }
+    }
   }
 
   get name() {
@@ -54,8 +57,8 @@ export class EditMealPageComponent implements OnInit {
     return this.mainForm.get('price');
   }
 
-  get categoryId() {
-    return this.mainForm.get('categoryId');
+  get mealCategoryId() {
+    return this.mainForm.get('mealCategoryId');
   }
 
   onSubmit() {
@@ -65,7 +68,7 @@ export class EditMealPageComponent implements OnInit {
       {
         name: this.mainForm.value.name,
         price: this.mainForm.value.price,
-        categoryId: this.mainForm.value.categoryId
+        mealCategoryId: this.mainForm.value.mealCategoryId
       } as MealUpdateRequest;
 
     this.mealService.updateMeal(this.mealId, meal).subscribe({
@@ -74,7 +77,7 @@ export class EditMealPageComponent implements OnInit {
 
         this.toastService.showSuccess("Pomyślnie zaktualizowano danie!", 2000)
 
-        this.router.navigate(['edit-meal-options-page',
+        this.router.navigate(['/edit-meal-options-admin-page',
           {
             id: this.mealId
           }]);
