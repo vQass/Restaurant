@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Restaurant.DB.Entities;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Restaurant.DB
 {
@@ -16,7 +17,6 @@ namespace Restaurant.DB
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderElement> OrdersElements { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
-        public DbSet<RecipeElement> Recipes { get; set; }
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,53 +24,51 @@ namespace Restaurant.DB
             modelBuilder.Entity<OrderElement>()
                 .HasKey(x => new { x.OrderId, x.MealId });
 
-            modelBuilder.Entity<RecipeElement>()
-                .HasKey(x => new { x.MealId, x.IngredientId });
-
             modelBuilder.Entity<User>()
                 .HasOne(x => x.City)
                 .WithMany()
-                .HasForeignKey(x => x.CityId);
+                .HasForeignKey(x => x.CityId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Meal>()
                 .HasOne(x => x.MealCategory)
                 .WithMany(x => x.Meals)
-                .HasForeignKey(x => x.MealCategoryId);
+                .HasForeignKey(x => x.MealCategoryId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Meal>()
+                .HasMany(x => x.Ingredients)
+                .WithMany(x => x.Meals);
 
             modelBuilder.Entity<Order>()
                 .HasOne(x => x.User)
                 .WithMany(x => x.Orders)
-                .HasForeignKey(x => x.UserId);
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Order>()
                 .HasOne(x => x.City)
                 .WithMany()
-                .HasForeignKey(x => x.CityId);
+                .HasForeignKey(x => x.CityId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Order>()
                 .HasOne(x => x.Promotion)
                 .WithMany(x => x.Orders)
-                .HasForeignKey(x => x.PromotionCodeId);
+                .HasForeignKey(x => x.PromotionCodeId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<OrderElement>()
                 .HasOne(x => x.Order)
                 .WithMany(x => x.OrderElements)
-                .HasForeignKey( x => x.OrderId);
+                .HasForeignKey( x => x.OrderId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<OrderElement>()
                 .HasOne(x => x.Meal)
                 .WithMany(x => x.OrderElements)
-                .HasForeignKey(x => x.MealId);
-
-            modelBuilder.Entity<RecipeElement>()
-                .HasOne(x => x.Meal)
-                .WithMany(x => x.RecipeElements)
-                .HasForeignKey(x => x.MealId);
-
-            modelBuilder.Entity<RecipeElement>()
-                .HasOne(x => x.Ingredient)
-                .WithMany()
-                .HasForeignKey(x => x.IngredientId);
+                .HasForeignKey(x => x.MealId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<User>(entity =>
             {

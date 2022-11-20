@@ -1,7 +1,7 @@
 <div class="meal-details-container">
   <h1>{{meal.name}}</h1>
   <p>Id: {{meal.id}}</p>
-  <p>Cena: {{meal.price | currency}} zł</p>
+  <p>Cena: {{meal.price | number : '1.2-2'}} zł</p>
   <p>Kategoria: {{meal.mealCategoryName}}</p>
   <p>Dostępne: {{meal.available ? "tak" : "nie"}}</p>
 </div>

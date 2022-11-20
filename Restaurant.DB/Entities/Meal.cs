@@ -1,7 +1,14 @@
-﻿namespace Restaurant.DB.Entities
+﻿using Microsoft.EntityFrameworkCore.Query.Internal;
+
+namespace Restaurant.DB.Entities
 {
     public class Meal
     {
+        public Meal()
+        {
+            Ingredients = new List<Ingredient>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
@@ -9,6 +16,6 @@
         public short MealCategoryId { get; set; }
         public virtual MealCategory MealCategory { get; set; }
         public virtual List<OrderElement> OrderElements { get; set; }
-        public virtual List<RecipeElement> RecipeElements { get; set; }
+        public virtual List<Ingredient> Ingredients { get; set; }
     }
 }

@@ -38,8 +38,7 @@ namespace Restaurant.Repository.Repositories
         {
             return await _dbContext.MealsCategories
                 .Include(x => x.Meals)
-                .ThenInclude(x => x.RecipeElements)
-                .ThenInclude(x => x.Ingredient)
+                .ThenInclude(x => x.Ingredients)
                 .ToListAsync();
         }
 
