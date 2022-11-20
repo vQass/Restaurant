@@ -15,7 +15,13 @@ export const apiEndpoints =
   },
   mealEndpoints: {
     "getMealsGroups": "Meal/GetMealsGroupedByCategory",
-    "getMealsForAdminPanel": "Meal/GetMealsForAdminPanel"
+    "getMealsForAdminPanel": "Meal/GetMealsForAdminPanel",
+    "getMealForAdminPanel": "Meal/GetMealForAdminPanel",
+    "setAsAvailable": "Meal/SetMealAsAvailable",
+    "setAsUnavailable": "Meal/SetMealAsUnavailable",
+    "addMeal": "Meal/AddMeal",
+    "updateMeal": "Meal/UpdateMeal",
+    "updateMealsPrice": "Meal/UpdateMealsPrice",
   },
   orderEndpoints: {
     "addOrder": "Order/AddOrder",

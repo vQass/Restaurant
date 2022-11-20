@@ -10,6 +10,6 @@ namespace Restaurant.Data.Models.MealModels
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public byte CategoryId { get; set; }
+        public byte MealCategoryId { get; set; }
     }
 }

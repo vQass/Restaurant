@@ -20,7 +20,13 @@ namespace Restaurant.API.Controllers
         {
             return Ok(await _mealService.GetMeals());
         }
-        
+
+        [HttpGet("GetMealForAdminPanel/{id}")]
+        public IActionResult GetMealForAdminPanel([FromRoute] int id)
+        {
+            return Ok(_mealService.GetMealForAdminPanel(id));
+        }
+
         [HttpGet("GetMealsForAdminPanel")]
         public async Task<IActionResult> GetMealsForAdminPanel()
         {
@@ -54,22 +60,22 @@ namespace Restaurant.API.Controllers
             return NoContent();
         }
 
-        [HttpPatch("SetMealAsUnavailable/{id}")]
-        public IActionResult SetMealAsUnavailable([FromRoute] int id)
+        [HttpPatch("SetMealAsUnavailable")]
+        public IActionResult SetMealAsUnavailable([FromBody] int id)
         {
             _mealService.SetMealAsUnavailable(id);
             return Ok();
         }
 
-        [HttpPatch("SetMealAsAvailable/{id}")]
-        public IActionResult SetMealAsAvailable([FromRoute] int id)
+        [HttpPatch("SetMealAsAvailable")]
+        public IActionResult SetMealAsAvailable([FromBody] int id)
         {
             _mealService.SetMealAsAvailable(id);
             return Ok();
         }
 
-        [HttpPatch("UpdateMealsPrice/{id}")]
-        public IActionResult UpdateMealsPrice([FromRoute] int id, [FromQuery] decimal newPrice)
+        [HttpPatch("UpdateMealsPrice/{id}/{newPrice}")]
+        public IActionResult UpdateMealsPrice([FromRoute] int id, [FromRoute] decimal newPrice)
         {
             _mealService.UpdateMealsPrice(id, newPrice);
             return Ok();

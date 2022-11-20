@@ -25,10 +25,35 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CityTableComponent } from './components/adminPanel/city/city-table/city-table.component';
 import { CityComponent } from './components/adminPanel/city/city/city.component';
+import {
+  AddIngredientPageComponent
+} from './components/adminPanel/ingredient/add-ingredient-page/add-ingredient-page.component';
+import {
+  EditIngredientPageComponent
+} from './components/adminPanel/ingredient/edit-ingredient-page/edit-ingredient-page.component';
+import {
+  IngredientMainPageComponent
+} from './components/adminPanel/ingredient/ingredient-main-page/ingredient-main-page.component';
+import { MainAdminPageComponent } from './components/adminPanel/main-admin-page/main-admin-page.component';
+import { AddMealPageComponent } from './components/adminPanel/meal/add-meal-page/add-meal-page.component';
+import {
+  EditMealOptionsPageComponent
+} from './components/adminPanel/meal/edit-meal-options-page/edit-meal-options-page.component';
+import { EditMealPageComponent } from './components/adminPanel/meal/edit-meal-page/edit-meal-page.component';
+import {
+  EditMealPricePageComponent
+} from './components/adminPanel/meal/edit-meal-price-page/edit-meal-price-page.component';
+import {
+  EditMealRecipePageComponent
+} from './components/adminPanel/meal/edit-meal-recipe-page/edit-meal-recipe-page.component';
+import { MealMainPageComponent } from './components/adminPanel/meal/meal-main-page/meal-main-page.component';
+import { OrderMainPageComponent } from './components/adminPanel/order/order-main-page/order-main-page.component';
+import { RecipeMainPageComponent } from './components/adminPanel/recipe/recipe-main-page/recipe-main-page.component';
 import { HomePageComponent } from './components/mainPage/home-page/home-page.component';
 import { MenuItemComponent } from './components/mainPage/menu/menu-item/menu-item.component';
 import { MenuPageComponent } from './components/mainPage/menu/menu-page/menu-page.component';
 import { MenuSectionComponent } from './components/mainPage/menu/menu-section/menu-section.component';
+import { OrderHistoryComponent } from './components/mainPage/order/order-history/order-history.component';
 import { OrderItemComponent } from './components/mainPage/order/order-item/order-item.component';
 import { OrderPageComponent } from './components/mainPage/order/order-page/order-page.component';
 import { OrderSectionComponent } from './components/mainPage/order/order-section/order-section.component';
@@ -39,14 +64,6 @@ import { CartItemComponent } from './components/shared/cart/cart-item/cart-item.
 import { CartSidebarComponent } from './components/shared/cart/cart-sidebar/cart-sidebar.component';
 import { MainNavComponent } from './components/shared/main-nav/main-nav.component';
 import { ToastComponent } from './components/shared/toast/toast.component';
-import { OrderHistoryComponent } from './components/mainPage/order/order-history/order-history.component';
-import { OrderMainPageComponent } from './components/adminPanel/order/order-main-page/order-main-page.component';
-import { MainAdminPageComponent } from './components/adminPanel/main-admin-page/main-admin-page.component';
-import { MealMainPageComponent } from './components/adminPanel/meal/meal-main-page/meal-main-page.component';
-import { IngredientMainPageComponent } from './components/adminPanel/ingredient/ingredient-main-page/ingredient-main-page.component';
-import { RecipeMainPageComponent } from './components/adminPanel/recipe/recipe-main-page/recipe-main-page.component';
-import { AddIngredientPageComponent } from './components/adminPanel/ingredient/add-ingredient-page/add-ingredient-page.component';
-import { EditIngredientPageComponent } from './components/adminPanel/ingredient/edit-ingredient-page/edit-ingredient-page.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +92,11 @@ import { EditIngredientPageComponent } from './components/adminPanel/ingredient/
     RecipeMainPageComponent,
     AddIngredientPageComponent,
     EditIngredientPageComponent,
+    AddMealPageComponent,
+    EditMealPageComponent,
+    EditMealOptionsPageComponent,
+    EditMealPricePageComponent,
+    EditMealRecipePageComponent,
 
   ],
   imports: [

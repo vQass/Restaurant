@@ -40,7 +40,10 @@ export class UserLoginComponent implements OnInit {
   onSubmit() {
     this.disableSubmitButton = true;
 
-    let user = { email: this.loginForm.value.email, password: this.loginForm.value.password } as UserLoginRequest;
+    let user = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password
+    } as UserLoginRequest;
     this.userService.login(user).subscribe({
       next: (resp) => {
 

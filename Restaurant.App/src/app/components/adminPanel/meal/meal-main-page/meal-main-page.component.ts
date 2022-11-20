@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Router } from '@angular/router';
 import { catchError, map, merge, of as observableOf, startWith, switchMap } from 'rxjs';
 import { MealService } from 'src/app/services/ApiServices/meal.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
@@ -17,18 +18,18 @@ export class MealMainPageComponent {
 
   meals: MealAdminPanelItem[] = [];
 
+  disableDeleteButton = false;
   resultsLength = 0;
   isLoadingResults = true;
-  displayedColumns = ['id', 'name', 'price', 'mealCategoryName', 'available'];
+  displayedColumns = ['id', 'name', 'price', 'mealCategoryName', 'available', 'actions'];
 
-  constructor(private mealService: MealService, private toastService: ToastService) {
+  constructor(
+    private mealService: MealService,
+    private toastService: ToastService,
+    private router: Router) {
   }
 
   ngAfterViewInit(): void {
-
-    // this.orderService
-    //   .getOrderStatuses()
-    //   .subscribe((data) => { this.orderStatuses = data, console.log(this.orderStatuses) });
 
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
@@ -48,7 +49,8 @@ export class MealMainPageComponent {
           }
           console.log(data);
 
-          this.resultsLength = data.itemsCount;
+          this.resultsLength = data.itemCount;
+
           return data.items;
         }),
       )
@@ -56,23 +58,14 @@ export class MealMainPageComponent {
       ));
   }
 
+  delete(id: number) {
 
-  // changeOrderStatus(orderId: number, statusId: number) {
-  //   this.orderService.changeOrderStatus(orderId, statusId).subscribe({
-  //     next: (resp) => {
+  }
 
-  //       if (this.orders?.some(x => x.id == orderId)) {
-  //         var item = this.orders.filter(x => x.id == orderId)[0];
-
-  //         item.status = this.orderStatuses.filter(x => x.id == statusId)[0].description;
-  //       }
-
-  //       this.toastService.showSuccess("Pomyślnie zmieniono status!", 1000)
-  //     },
-  //     error: (e) => {
-  //       this.toastService.showDanger("Błąd zmiany statusu: " + e.message, 3000);
-  //     }
-  //   });
-  // }
-
+  gotoItems(meal: MealAdminPanelItem) {
+    this.router.navigate(['/edit-meal-options-admin-page',
+      {
+        id: meal.id,
+      }]);
+  }
 }

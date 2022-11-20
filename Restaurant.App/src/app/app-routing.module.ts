@@ -12,6 +12,17 @@ import {
   IngredientMainPageComponent
 } from './components/adminPanel/ingredient/ingredient-main-page/ingredient-main-page.component';
 import { MainAdminPageComponent } from './components/adminPanel/main-admin-page/main-admin-page.component';
+import { AddMealPageComponent } from './components/adminPanel/meal/add-meal-page/add-meal-page.component';
+import {
+  EditMealOptionsPageComponent
+} from './components/adminPanel/meal/edit-meal-options-page/edit-meal-options-page.component';
+import { EditMealPageComponent } from './components/adminPanel/meal/edit-meal-page/edit-meal-page.component';
+import {
+  EditMealPricePageComponent
+} from './components/adminPanel/meal/edit-meal-price-page/edit-meal-price-page.component';
+import {
+  EditMealRecipePageComponent
+} from './components/adminPanel/meal/edit-meal-recipe-page/edit-meal-recipe-page.component';
 import { MealMainPageComponent } from './components/adminPanel/meal/meal-main-page/meal-main-page.component';
 import { OrderMainPageComponent } from './components/adminPanel/order/order-main-page/order-main-page.component';
 import { RecipeMainPageComponent } from './components/adminPanel/recipe/recipe-main-page/recipe-main-page.component';
@@ -35,6 +46,11 @@ const routes: Routes = [
   { path: 'admin-main-page', component: MainAdminPageComponent },
   { path: 'order-admin-main-page', component: OrderMainPageComponent },
   { path: 'meal-admin-main-page', component: MealMainPageComponent },
+  { path: 'add-meal-admin-main-page', component: AddMealPageComponent },
+  { path: 'edit-meal-options-admin-page', component: EditMealOptionsPageComponent },
+  { path: 'edit-meal-admin-page', component: EditMealPageComponent },
+  { path: 'edit-meal-price-admin-page', component: EditMealPricePageComponent },
+  { path: 'edit-meal-recipe-admin-page', component: EditMealRecipePageComponent },
   { path: 'ingredient-admin-main-page', component: IngredientMainPageComponent },
   { path: 'add-ingredient-admin-main-page', component: AddIngredientPageComponent },
   { path: 'edit-ingredient-admin-main-page', component: EditIngredientPageComponent },

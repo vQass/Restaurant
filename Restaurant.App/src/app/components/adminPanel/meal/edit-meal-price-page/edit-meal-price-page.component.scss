@@ -1,0 +1,33 @@
+.form-container {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  min-height: 500px;
+  background-color: #343a40;
+  margin: 50px auto 0px auto;
+}
+
+h1 {
+  color: white;
+}
+
+.login-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.full-width-input {
+  margin-top: 8px;
+  border-radius: 10px;
+  width: 100%;
+  color: white !important;
+}
+
+.button {
+  align-self: end;
+}

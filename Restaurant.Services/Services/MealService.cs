@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Restaurant.Data.Models.IngredientModels;
 using Restaurant.Data.Models.MealModels;
+using Restaurant.Data.Models.RecipeModels;
+using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.IRepository;
 using Restaurant.IServices;
@@ -15,7 +17,9 @@ namespace Restaurant.Services.Services
 
         public MealService(
             IMealRepository mealRepository,
-            IMealCategoryRepository mealCategoryRepository)
+            IMealCategoryRepository mealCategoryRepository,
+            IRecipeRepository recipeRepository,
+            RestaurantDbContext dbContext)
         {
             _mealRepository = mealRepository;
             _mealCategoryRepository = mealCategoryRepository;
@@ -52,6 +56,25 @@ namespace Restaurant.Services.Services
             };
 
             return mealWrapper;
+        }
+
+        public MealAdminPanelItem GetMealForAdminPanel(int id)
+        {
+            var meal = _mealRepository.GetMeal(id);
+
+            var mealCategory = _mealCategoryRepository.GetMealCategory(meal.MealCategoryId);
+
+            var mealAdminPanelItem = new MealAdminPanelItem
+            {
+                Id = meal.Id,
+                Name = meal.Name,
+                Price = meal.Price,
+                Available = meal.Available,
+                MealCategoryId = meal.MealCategoryId,
+                MealCategoryName = mealCategory.Name
+            };
+
+            return mealAdminPanelItem;
         }
 
         public async Task<IEnumerable<MealGroupViewModel>> GetMealsGroupedByCategory()
