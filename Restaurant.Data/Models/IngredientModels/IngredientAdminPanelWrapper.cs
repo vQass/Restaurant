@@ -1,7 +1,4 @@
-﻿
-using System.Reflection.Metadata.Ecma335;
-
-namespace Restaurant.Data.Models.IngredientModels
+﻿namespace Restaurant.Data.Models.IngredientModels
 {
     public class IngredientAdminPanelWrapper
     {

@@ -4,11 +4,8 @@ namespace Restaurant.IServices
 {
     public interface IRecipeService
     {
-        Task<IEnumerable<Recipe>> GetRecipes();
+        Recipe GetRecipe(int mealId);
         RecipeEditViewModel GetRecipeEditViewModel(int mealId);
-        Recipe GetRecipe(int id);
-        string AddRecipeElement(RecipeCreateRequest recipeCreateRequest);
-        void DeleteRecipeElement(int mealId, int ingredientId);
         Task UpdateMealRecipe(int mealId, List<int> ingredientsIds);
     }
 }

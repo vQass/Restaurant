@@ -44,9 +44,9 @@ namespace Restaurant.Repository.Repositories
             return await _dbContext.Ingredients.ApplyPaging(pageIndex, pageSize).ToListAsync();
         }
 
-        public async Task<IEnumerable<Ingredient>> GetIngredients(List<int> ids)
+        public IEnumerable<Ingredient> GetIngredients(List<int> ids)
         {
-            return await _dbContext.Ingredients.Where(x => ids.Contains(x.Id)).ToListAsync();
+            return _dbContext.Ingredients.Where(x => ids.Contains(x.Id)).ToList();
         }
 
         public int GetIngredientsCount()
@@ -111,8 +111,8 @@ namespace Restaurant.Repository.Repositories
 
         public void EnsureIngredientNotInUse(Ingredient ingredient)
         {
-            var ingredientInUse = _dbContext.Recipes
-                .Any(x => x.IngredientId == ingredient.Id);
+            var ingredientInUse = _dbContext.Meals
+                .Any(x => x.Ingredients.Contains(ingredient));
 
             if (ingredientInUse)
             {

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurant.DB;
 
@@ -11,9 +12,10 @@ using Restaurant.DB;
 namespace Restaurant.DB.Migrations
 {
     [DbContext(typeof(RestaurantDbContext))]
-    partial class RestaurantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221120121143_DeleteBehaviorAndRecipeTableRefactored")]
+    partial class DeleteBehaviorAndRecipeTableRefactored
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +23,6 @@ namespace Restaurant.DB.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("IngredientMeal", b =>
-                {
-                    b.Property<int>("IngredientsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MealsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("IngredientsId", "MealsId");
-
-                    b.HasIndex("MealsId");
-
-                    b.ToTable("IngredientMeal");
-                });
 
             modelBuilder.Entity("Restaurant.DB.Entities.City", b =>
                 {
@@ -68,12 +55,17 @@ namespace Restaurant.DB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("MealId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MealId");
 
                     b.ToTable("Ingredients");
                 });
@@ -290,19 +282,11 @@ namespace Restaurant.DB.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("IngredientMeal", b =>
+            modelBuilder.Entity("Restaurant.DB.Entities.Ingredient", b =>
                 {
-                    b.HasOne("Restaurant.DB.Entities.Ingredient", null)
-                        .WithMany()
-                        .HasForeignKey("IngredientsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Restaurant.DB.Entities.Meal", null)
-                        .WithMany()
-                        .HasForeignKey("MealsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Ingredients")
+                        .HasForeignKey("MealId");
                 });
 
             modelBuilder.Entity("Restaurant.DB.Entities.Meal", b =>
@@ -373,6 +357,8 @@ namespace Restaurant.DB.Migrations
 
             modelBuilder.Entity("Restaurant.DB.Entities.Meal", b =>
                 {
+                    b.Navigation("Ingredients");
+
                     b.Navigation("OrderElements");
                 });
 

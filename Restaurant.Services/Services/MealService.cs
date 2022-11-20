@@ -89,9 +89,9 @@ namespace Restaurant.Services.Services
                     Id = y.Id,
                     Name = y.Name,
                     Price = y.Price,
-                    Ingredients = y.RecipeElements.Select(z => new IngredientViewModel()
+                    Ingredients = y.Ingredients.Select(z => new IngredientViewModel()
                     {
-                        Name = z.Ingredient.Name
+                        Name = z.Name
                     }).ToList()
                 }).ToList()
             });
