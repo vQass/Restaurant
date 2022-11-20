@@ -44,6 +44,11 @@ namespace Restaurant.Repository.Repositories
             return await _dbContext.Ingredients.ApplyPaging(pageIndex, pageSize).ToListAsync();
         }
 
+        public async Task<IEnumerable<Ingredient>> GetIngredients(List<int> ids)
+        {
+            return await _dbContext.Ingredients.Where(x => ids.Contains(x.Id)).ToListAsync();
+        }
+
         public int GetIngredientsCount()
         {
             return _dbContext.Ingredients.Count();

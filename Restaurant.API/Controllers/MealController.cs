@@ -22,7 +22,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("GetMealForAdminPanel/{id}")]
-        public async Task<IActionResult> GetMealForAdminPanel([FromRoute] int id)
+        public IActionResult GetMealForAdminPanel([FromRoute] int id)
         {
             return Ok(_mealService.GetMealForAdminPanel(id));
         }

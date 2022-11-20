@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Restaurant.Data.Models.IngredientModels;
 using Restaurant.Data.Models.MealModels;
+using Restaurant.Data.Models.RecipeModels;
+using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.IRepository;
 using Restaurant.IServices;
@@ -15,7 +17,9 @@ namespace Restaurant.Services.Services
 
         public MealService(
             IMealRepository mealRepository,
-            IMealCategoryRepository mealCategoryRepository)
+            IMealCategoryRepository mealCategoryRepository,
+            IRecipeRepository recipeRepository,
+            RestaurantDbContext dbContext)
         {
             _mealRepository = mealRepository;
             _mealCategoryRepository = mealCategoryRepository;
@@ -154,6 +158,5 @@ namespace Restaurant.Services.Services
 
             _mealRepository.UpdateMealsPrice(meal, newPrice);
         }
-
     }
 }
