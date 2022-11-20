@@ -1,8 +1,4 @@
-﻿using Restaurant.DB.Enums;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Restaurant.DB.Entities
+﻿namespace Restaurant.DB.Entities
 {
     public class OrderElement
     {

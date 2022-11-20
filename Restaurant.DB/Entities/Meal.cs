@@ -9,6 +9,6 @@
         public short MealCategoryId { get; set; }
         public virtual MealCategory MealCategory { get; set; }
         public virtual List<OrderElement> OrderElements { get; set; }
-        public virtual List<RecipeElement> RecipeElements { get; set; }
+        public virtual List<Ingredient> Recipe { get; set; }
     }
 }
