@@ -1,1 +1,63 @@
-<p>edit-meal-recipe-page works!</p>
+<div class="main-container">
+
+  <div class="header-container">
+    <h1>Edycja przepisu</h1>
+    <h2>{{recipeViewModel?.mealName}}</h2>
+  </div>
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col">
+
+        <span>
+
+          <div class="column-container">
+            <ul>
+              <li *ngFor="let recipeElement of firstHalfOfRecipe">
+                <mat-checkbox [(ngModel)]="recipeElement.isInRecipe">
+                  {{recipeElement.ingredientName}}
+                </mat-checkbox>
+              </li>
+            </ul>
+          </div>
+
+        </span>
+
+      </div>
+
+      <div class="col">
+
+        <span>
+
+          <div class="column-container">
+
+            <ul>
+              <li *ngFor="let recipeElement of secondHalfOfRecipe">
+                <mat-checkbox [(ngModel)]="recipeElement.isInRecipe">
+                  {{recipeElement.ingredientName}}
+                </mat-checkbox>
+              </li>
+            </ul>
+
+          </div>
+        </span>
+
+      </div>
+
+    </div>
+
+    <div class="button-container">
+
+      <button class="button"
+              (click)="onSubmit()"
+              mat-raised-button
+              color="primary"
+              [disabled]="disableSubmitButton">
+        Zapisz zmiany
+      </button>
+
+    </div>
+
+  </div>

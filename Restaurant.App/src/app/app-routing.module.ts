@@ -25,7 +25,6 @@ import {
 } from './components/adminPanel/meal/edit-meal-recipe-page/edit-meal-recipe-page.component';
 import { MealMainPageComponent } from './components/adminPanel/meal/meal-main-page/meal-main-page.component';
 import { OrderMainPageComponent } from './components/adminPanel/order/order-main-page/order-main-page.component';
-import { RecipeMainPageComponent } from './components/adminPanel/recipe/recipe-main-page/recipe-main-page.component';
 import { HomePageComponent } from './components/mainPage/home-page/home-page.component';
 import { MenuPageComponent } from './components/mainPage/menu/menu-page/menu-page.component';
 import { OrderHistoryComponent } from './components/mainPage/order/order-history/order-history.component';
@@ -54,7 +53,6 @@ const routes: Routes = [
   { path: 'ingredient-admin-main-page', component: IngredientMainPageComponent },
   { path: 'add-ingredient-admin-main-page', component: AddIngredientPageComponent },
   { path: 'edit-ingredient-admin-main-page', component: EditIngredientPageComponent },
-  { path: 'recipe-admin-main-page', component: RecipeMainPageComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 

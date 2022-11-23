@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -48,7 +49,6 @@ import {
 } from './components/adminPanel/meal/edit-meal-recipe-page/edit-meal-recipe-page.component';
 import { MealMainPageComponent } from './components/adminPanel/meal/meal-main-page/meal-main-page.component';
 import { OrderMainPageComponent } from './components/adminPanel/order/order-main-page/order-main-page.component';
-import { RecipeMainPageComponent } from './components/adminPanel/recipe/recipe-main-page/recipe-main-page.component';
 import { HomePageComponent } from './components/mainPage/home-page/home-page.component';
 import { MenuItemComponent } from './components/mainPage/menu/menu-item/menu-item.component';
 import { MenuPageComponent } from './components/mainPage/menu/menu-page/menu-page.component';
@@ -89,7 +89,6 @@ import { ToastComponent } from './components/shared/toast/toast.component';
     MainAdminPageComponent,
     MealMainPageComponent,
     IngredientMainPageComponent,
-    RecipeMainPageComponent,
     AddIngredientPageComponent,
     EditIngredientPageComponent,
     AddMealPageComponent,
@@ -123,7 +122,8 @@ import { ToastComponent } from './components/shared/toast/toast.component';
     MatSidenavModule,
     LayoutModule,
     MatListModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
