@@ -1,9 +1,9 @@
 <div class="meal-details-container">
-  <h1>{{meal.name}}</h1>
-  <p>Id: {{meal.id}}</p>
-  <p>Cena: {{meal.price | number : '1.2-2'}} zł</p>
-  <p>Kategoria: {{meal.mealCategoryName}}</p>
-  <p>Dostępne: {{meal.available ? "tak" : "nie"}}</p>
+  <h1>{{meal?.name}}</h1>
+  <p>Id: {{meal?.id}}</p>
+  <p>Cena: {{meal?.price | number : '1.2-2'}} zł</p>
+  <p>Kategoria: {{meal?.mealCategoryName}}</p>
+  <p>Dostępne: {{meal?.available ? "tak" : "nie"}}</p>
 </div>
 
 <div class="main-container">
@@ -25,14 +25,14 @@
      color="primary">Edytuj przepis</a>
 
   <button class="button max-width-button"
-          *ngIf="!meal.available"
+          *ngIf="!meal?.available"
           [disabled]="!buttonActive"
           (click)="setAsAvailable()"
           mat-stroked-button
           color="primary">Ustaw jako aktywne</button>
 
   <button class="button max-width-button"
-          *ngIf="meal.available"
+          *ngIf="meal?.available"
           [disabled]="!buttonActive"
           (click)="setAsUnavailable()"
           mat-stroked-button

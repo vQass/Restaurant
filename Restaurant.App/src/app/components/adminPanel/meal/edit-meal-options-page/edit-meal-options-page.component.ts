@@ -10,10 +10,10 @@ import { MealAdminPanelItem } from 'src/models/meal/MealAdminPanelItem';
   styleUrls: ['./edit-meal-options-page.component.scss']
 })
 export class EditMealOptionsPageComponent implements OnInit {
-  buttonActive;
-  id!: number; // TODO leave only id and get whole data from api
 
-  meal!: MealAdminPanelItem;
+  buttonActive;
+  id?: number;
+  meal?: MealAdminPanelItem;
 
   constructor(
     private route: ActivatedRoute,
@@ -68,7 +68,11 @@ export class EditMealOptionsPageComponent implements OnInit {
       .subscribe({
         next: () => {
           this.buttonActive = true;
-          this.meal.available = true;
+
+          if (this.meal != null) {
+            this.meal.available = true;
+          }
+
           this.toastService.showSuccess("Pomyślnie zmieniono aktywność dania!", 1000)
         },
         error: (e) => {
@@ -91,7 +95,11 @@ export class EditMealOptionsPageComponent implements OnInit {
       .subscribe({
         next: () => {
           this.buttonActive = true;
-          this.meal.available = false;
+
+          if (this.meal != null) {
+            this.meal.available = false;
+          }
+
           this.toastService.showSuccess("Pomyślnie zmieniono aktywność dania!", 1000)
         },
         error: (e) => {

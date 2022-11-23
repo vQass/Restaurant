@@ -35,6 +35,10 @@ export const apiEndpoints =
     "addIngredient": "Ingredient/AddIngredient",
     "editIngredient": "Ingredient/UpdateIngredient",
     "deleteIngredient": "Ingredient/DeleteIngredient",
+  },
+  recipeEndpoints: {
+    "getRecipeEditViewModel": "Recipe/GetRecipeEditViewModel",
+    "updateMealRecipe": "Recipe/UpdateMealRecipe"
   }
 };
 

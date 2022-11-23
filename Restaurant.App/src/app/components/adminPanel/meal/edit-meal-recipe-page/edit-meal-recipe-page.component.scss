@@ -1,0 +1,33 @@
+.main-container {
+  background-color: #495057;
+  border-radius: 10px;
+  width: 96%;
+  max-width: 600px;
+  margin: 20px auto 0 auto;
+  padding-bottom: 25px;
+}
+
+.header-container {
+  border-radius: 10px;
+  background-color: #343A40;
+  text-align: center;
+  padding: 15px 0 1px 0;
+  margin-bottom: 20px;
+}
+
+ul {
+  margin: 0;
+  list-style-type: none;
+}
+
+.column-container {
+  width: 200px;
+  margin: 0 auto;
+}
+
+.button-container {
+  display: flex;
+  margin: 30px auto 0 auto;
+  width: 90%;
+  justify-content: flex-end;
+}
