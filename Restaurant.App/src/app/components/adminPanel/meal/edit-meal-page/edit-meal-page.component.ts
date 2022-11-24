@@ -32,8 +32,8 @@ export class EditMealPageComponent implements OnInit {
     private toastService: ToastService,
     private router: Router) {
     this.mainForm = fb.group({
-      name: fb.control('', [Validators.required]),
-      price: fb.control('', [Validators.required]),
+      name: fb.control('', [Validators.required, Validators.maxLength(127)]),
+      price: fb.control('', [Validators.required, Validators.min(0.01), Validators.max(500), Validators.pattern('')]),
       mealCategoryId: fb.control('', [Validators.required]),
     })
 

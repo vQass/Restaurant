@@ -62,6 +62,9 @@ namespace Restaurant.Repository.Repositories
         {
             var meal = _mapper.Map<Meal>(mealCreateRequest);
 
+            int price = (int)(meal.Price * 100);
+            meal.Price = (decimal)(price / 100.0);
+
             _dbContext.Meals.Add(meal);
             _dbContext.SaveChanges();
 
@@ -77,7 +80,10 @@ namespace Restaurant.Repository.Repositories
         public void UpdateMeal(Meal meal, MealUpdateRequest mealUpdateRequest)
         {
             meal.Name = mealUpdateRequest.Name;
-            meal.Price = mealUpdateRequest.Price;
+
+            int price = (int)(mealUpdateRequest.Price * 100);
+            meal.Price = (decimal)(price / 100.0);
+
             meal.MealCategory.Id = mealUpdateRequest.MealCategoryId;
 
             _dbContext.SaveChanges();
@@ -97,7 +103,9 @@ namespace Restaurant.Repository.Repositories
 
         public void UpdateMealsPrice(Meal meal, decimal newPrice)
         {
-            meal.Price = newPrice;
+            int price = (int)(newPrice * 100);
+            meal.Price = (decimal)(price / 100.0);
+
             _dbContext.SaveChanges();
         }
 

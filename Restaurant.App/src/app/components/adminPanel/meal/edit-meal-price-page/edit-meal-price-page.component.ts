@@ -27,7 +27,7 @@ export class EditMealPricePageComponent implements OnInit {
     private toastService: ToastService,
     private router: Router) {
     this.mainForm = fb.group({
-      price: fb.control('', [Validators.required]),
+      price: fb.control('', [Validators.required, Validators.min(0.01), Validators.max(500), Validators.pattern('')]),
     })
 
     let id = this.route.snapshot.paramMap.get('id');

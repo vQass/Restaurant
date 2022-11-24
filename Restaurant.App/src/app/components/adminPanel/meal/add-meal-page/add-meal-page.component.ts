@@ -15,15 +15,15 @@ export class AddMealPageComponent {
   singleControlMatcher = new SingleControlErrorStateMatcher();
   addMealForm: FormGroup;
   disableSubmitButton = false;
-
+  selectedValue?: string;
   constructor(
     fb: FormBuilder,
     private mealService: MealService,
     private toastService: ToastService,
     private router: Router) {
     this.addMealForm = fb.group({
-      name: fb.control('', [Validators.required]),
-      price: fb.control('', [Validators.required]),
+      name: fb.control('', [Validators.required, Validators.maxLength(127)]),
+      price: fb.control('', [Validators.required, Validators.min(0.01), Validators.max(500), Validators.pattern('')]),
       mealCategoryId: fb.control('', [Validators.required]),
     })
   }
