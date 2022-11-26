@@ -6,24 +6,17 @@
   margin: 20px auto;
 }
 
+.item-container-padding {
+  padding: 10px;
+}
+
 mat-card {
   background-color: transparent !important;
 }
 
-.order-button-base {
-  min-width: 36px;
-  width: 36px;
-  padding: 0px;
-}
-
-.button-green {
-  color: rgb(11, 151, 11);
-  border: solid 1px rgb(11, 151, 11)
-}
-
-.button-red {
-  color: rgb(206, 21, 21);
-  border: solid 1px rgb(206, 21, 21);
+.item-card-title-container {
+  display: flex;
+  justify-content: space-between;
 }
 
 .ingredients-list-container {

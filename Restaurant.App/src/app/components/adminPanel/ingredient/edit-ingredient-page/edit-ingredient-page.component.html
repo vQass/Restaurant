@@ -11,7 +11,7 @@
              matInput
              formControlName="name"
              [errorStateMatcher]="singleControlMatcher"
-             [ngModel]="ingredient?.name"
+             ngModel="ingredient?.name"
              autocomplete="off" />
       <mat-error *ngIf="name?.errors?.['required']">
         Nazwa jest wymagana

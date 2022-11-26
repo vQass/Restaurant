@@ -37,7 +37,7 @@ namespace Restaurant.Services.Services
 
             var statusesVM = statuses.Select(x => new OrderStatusViewModel
             {
-                Id =  x.Key,
+                Id = x.Key,
                 Tag = OrderStatusDictionary.OrderStatusesTags.GetValueOrDefault((byte)x.Key),
                 Description = x.Value
             });
@@ -87,11 +87,6 @@ namespace Restaurant.Services.Services
                     .ToList()
             }).ToList();
 
-            ordersHistory = ordersHistory
-                .OrderBy(x => x.Status)
-                .ThenByDescending(x => x.OrderDate)
-                .ToList();
-
             return ordersHistory;
         }
 
@@ -128,11 +123,11 @@ namespace Restaurant.Services.Services
                     .ToList()
             }).ToList();
 
-            var ordersWrapper = new OrderAdminPanelWrapper();
-
-            ordersWrapper.Items = ordersVM;
-
-            ordersWrapper.ItemsCount = _orderRepository.GetOrdersCount();
+            var ordersWrapper = new OrderAdminPanelWrapper()
+            {
+                Items = ordersVM,
+                ItemsCount = _orderRepository.GetOrdersCount()
+            };
 
             return ordersWrapper;
         }

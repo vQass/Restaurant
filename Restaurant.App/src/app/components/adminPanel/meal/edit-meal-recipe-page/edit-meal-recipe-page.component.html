@@ -16,7 +16,7 @@
           <div class="column-container">
             <ul>
               <li *ngFor="let recipeElement of firstHalfOfRecipe">
-                <mat-checkbox [(ngModel)]="recipeElement.isInRecipe">
+                <mat-checkbox (ngModel)="recipeElement.isInRecipe">
                   {{recipeElement.ingredientName}}
                 </mat-checkbox>
               </li>
@@ -35,7 +35,7 @@
 
             <ul>
               <li *ngFor="let recipeElement of secondHalfOfRecipe">
-                <mat-checkbox [(ngModel)]="recipeElement.isInRecipe">
+                <mat-checkbox (ngModel)="recipeElement.isInRecipe">
                   {{recipeElement.ingredientName}}
                 </mat-checkbox>
               </li>
