@@ -1,14 +1,36 @@
-<div class="buttons">
-  <button class="btn btn-primary"
-          (click)="showInfo()"
-          ngbTooltip="Will disappear in 5s">
-    Info toast</button>&nbsp;
-  <button class="btn btn-success"
-          (click)="showSuccess()"
-          ngbTooltip="Will disappear in 10s">
-    Success toast</button>&nbsp;
-  <button class="btn btn-danger"
-          (click)="showDanger()"
-          ngbTooltip="Will disappear in 15s">
-    Danger toast</button>&nbsp;
+<div class="main-container">
+
+  <div class="blur">
+    <div class="buttons">
+      <button class="btn btn-primary"
+              (click)="showInfo()"
+              ngbTooltip="Will disappear in 5s">
+        Info toast</button>&nbsp;
+      <button class="btn btn-success"
+              (click)="showSuccess()"
+              ngbTooltip="Will disappear in 10s">
+        Success toast</button>&nbsp;
+      <button class="btn btn-danger"
+              (click)="showDanger()"
+              ngbTooltip="Will disappear in 15s">
+        Danger toast</button>&nbsp;
+    </div>
+
+    <div class="section-container">
+      <div class="logo-container">
+        <h1 class="logo">Restauracja</h1>
+      </div>
+
+      <div class="about-container">
+        <p id="address">Gliwice ul.Akademicka</p>
+        <p><span class="contact-header">Telefon:</span><span id="phone-content"> 111 111 111</span></p>
+        <p><span class="contact-header">Email:</span><span id="email-content"> Restauracja@email.pl</span></p>
+        <p><span class="contact-header">Godziny otwarcia:</span> pn-pt: <span id="hours-content">10:00-20:00</span></p>
+      </div>
+    </div>
+
+
+  </div>
+
+
 </div>

@@ -39,6 +39,9 @@ export const apiEndpoints =
   recipeEndpoints: {
     "getRecipeEditViewModel": "Recipe/GetRecipeEditViewModel",
     "updateMealRecipe": "Recipe/UpdateMealRecipe"
+  },
+  mealCategoryEndpoints: {
+    "getMealCategories": "MealCategory/GetMealCategories",
   }
 };
 

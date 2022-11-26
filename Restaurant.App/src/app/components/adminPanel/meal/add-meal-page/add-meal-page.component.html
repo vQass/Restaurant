@@ -52,9 +52,11 @@
         <mat-option *ngFor="let category of categories"
                     [value]="category.id">{{category.name}}</mat-option>
       </mat-select>
+
       <mat-error *ngIf="mealCategoryId?.errors?.['required']">
         Kategoria jest wymagana
       </mat-error>
+
     </mat-form-field>
 
   </div>

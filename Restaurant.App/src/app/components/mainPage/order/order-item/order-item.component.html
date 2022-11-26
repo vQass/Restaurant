@@ -15,10 +15,7 @@
         <div class="ingredients-list-container">
           <span class="ingredients-list"
                 *ngFor="let ingredient of meal.ingredients; let last = last">
-            {{ingredient.name}}
-            <ng-container *ngIf="!last">
-              ,
-            </ng-container>
+            {{ingredient.name}}<ng-container *ngIf="!last">, </ng-container>
           </span>
         </div>
       </mat-card-subtitle>

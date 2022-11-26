@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MealCategoryService } from 'src/app/services/ApiServices/meal-category.service';
 import { MealService } from 'src/app/services/ApiServices/meal.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
 import { MealAdminPanelItem } from 'src/models/meal/MealAdminPanelItem';
 import { MealUpdateRequest } from 'src/models/meal/MealUpdateRequest';
+import { MealCategory } from 'src/models/mealCategory/MealCategory';
 
 @Component({
   selector: 'app-edit-meal-page',
@@ -20,6 +22,8 @@ export class EditMealPageComponent implements OnInit {
   mealId: number = 0;
 
   meal!: MealAdminPanelItem;
+  categories?: MealCategory[];
+
 
   ngOnInit(): void {
 
@@ -29,6 +33,7 @@ export class EditMealPageComponent implements OnInit {
     fb: FormBuilder,
     private route: ActivatedRoute,
     private mealService: MealService,
+    private mealCategoryService: MealCategoryService,
     private toastService: ToastService,
     private router: Router) {
     this.mainForm = fb.group({
@@ -47,6 +52,8 @@ export class EditMealPageComponent implements OnInit {
         );
       }
     }
+
+    mealCategoryService.getMealCategories().subscribe((data) => this.categories = data);
   }
 
   get name() {

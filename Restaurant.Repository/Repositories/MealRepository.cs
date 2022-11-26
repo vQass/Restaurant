@@ -84,7 +84,8 @@ namespace Restaurant.Repository.Repositories
             int price = (int)(mealUpdateRequest.Price * 100);
             meal.Price = (decimal)(price / 100.0);
 
-            meal.MealCategory.Id = mealUpdateRequest.MealCategoryId;
+            meal.MealCategory = _dbContext.MealsCategories
+                .FirstOrDefault(x => x.Id == mealUpdateRequest.MealCategoryId);
 
             _dbContext.SaveChanges();
         }

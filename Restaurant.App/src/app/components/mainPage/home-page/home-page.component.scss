@@ -1,0 +1,76 @@
+.main-container {
+  background-image: url('../../../../assets/background.jpg') !important;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+
+  width: 100%;
+  height: calc(100% - 64px);
+  margin: 0 auto;
+  color: #343A40;
+}
+
+.blur {
+  position: absolute;
+  background-color: rgb(0, 0, 0, 0.4);
+  top: 64px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 64px);
+  backdrop-filter: blur(3px);
+}
+
+.section-container {
+  width: 96%;
+  max-width: 400px;
+  height: 300px;
+  margin: 50px auto 0 auto;
+  padding: 25px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.logo-container {
+  color: white;
+  text-align: center;
+}
+
+.logo {
+  font-size: 50px;
+}
+
+.about-container {
+  color: white;
+  line-height: 10px;
+  margin-top: 100px;
+}
+
+#address {
+  font-size: 25px;
+  margin-bottom: 35px;
+}
+
+.contact-header {
+  font-size: 18px;
+  letter-spacing: 0.1px;
+}
+
+#phone-content {
+  letter-spacing: 0.05px;
+}
+
+#email-content {
+  letter-spacing: 0.5px;
+
+}
+
+#hours-content {
+  letter-spacing: 0.02px;
+  font-size: 15px;
+}

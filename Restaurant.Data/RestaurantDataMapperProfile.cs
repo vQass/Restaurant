@@ -25,7 +25,7 @@ namespace Restaurant.Data
             CreateMap<UserCreateRequest, User>();
             CreateMap<User, UserListViewModel>();
             CreateMap<User, UserWithDetailsViewModel>();
-
+            
             // Meals
             CreateMap<MealCreateRequest, Meal>();
             //CreateMap<Meal, MealViewModel>().ForMember(dest => dest.Ingredients, opt => opt.MapFrom(src => src.RecipeElements.Where(x => x.MealId == src.Id).Select(x => x.Ingredient.Name).ToList()));

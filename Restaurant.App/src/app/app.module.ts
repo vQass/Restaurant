@@ -1,7 +1,7 @@
 import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -97,6 +97,7 @@ import { MainNavComponent } from './components/shared/main-nav/main-nav.componen
 
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -119,7 +120,7 @@ import { MainNavComponent } from './components/shared/main-nav/main-nav.componen
     MatSelectModule,
     MatCheckboxModule,
     MatSnackBarModule,
-    MatChipsModule
+    MatChipsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

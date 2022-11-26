@@ -13,7 +13,6 @@
     "tsconfig.app.json": true,
     "src\\favicon.ico": true,
     "src\\main.ts": true,
-    "src\\polyfills.ts": true,
-    "src\\assets": true
+    "src\\polyfills.ts": true
   }
 }
