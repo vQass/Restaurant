@@ -33,10 +33,10 @@ namespace Restaurant.API.Controllers
             return Ok(await _mealService.GetMealsForAdminPanel());
         }
 
-        [HttpGet("GetMealsGroupedByCategory")]
-        public async Task<IActionResult> GetMealsGroupedByCategory()
+        [HttpGet("GetActiveMealsGroupedByCategory")]
+        public async Task<IActionResult> GetActiveMealsGroupedByCategory()
         {
-            return Ok(await _mealService.GetMealsGroupedByCategory());
+            return Ok(await _mealService.GetActiveMealsGroupedByCategory());
         }
 
         [HttpPost("AddMeal")]

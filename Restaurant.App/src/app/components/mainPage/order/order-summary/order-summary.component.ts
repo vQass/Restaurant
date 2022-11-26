@@ -94,7 +94,6 @@ export class OrderSummaryComponent implements OnInit {
     } as OrderAddRequest;
     this.orderService.addOrder(order).subscribe({
       next: (resp) => {
-        console.log(resp)
         this.toastService.showSuccess("Pomyślnie złożono zamówienie!")
         this.disableSubmitButton = false;
         this.cartService.cartItems = [];

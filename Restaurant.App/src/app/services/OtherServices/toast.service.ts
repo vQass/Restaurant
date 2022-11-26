@@ -26,8 +26,6 @@ export class ToastService {
   }
 
   showDanger(text: string, delay: number = 15000) {
-    console.log(text, delay);
-
     this.show(text, { classname: 'bg-danger text-light', delay: delay });
   }
 

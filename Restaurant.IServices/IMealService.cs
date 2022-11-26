@@ -7,7 +7,7 @@ namespace Restaurant.IServices
     {
         Task<IEnumerable<Meal>> GetMeals();
         Task<MealAdminPanelWrapper> GetMealsForAdminPanel();
-        Task<IEnumerable<MealGroupViewModel>> GetMealsGroupedByCategory();
+        Task<IEnumerable<MealGroupViewModel>> GetActiveMealsGroupedByCategory();
         MealAdminPanelItem GetMealForAdminPanel(int id);
 
         int AddMeal(MealCreateRequest mealCreateRequest);

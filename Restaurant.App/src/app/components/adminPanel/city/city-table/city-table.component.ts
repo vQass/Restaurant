@@ -44,7 +44,6 @@ export class CityTableComponent implements AfterViewInit {
       map(data => {
         // Flip flag to show that loading has finished.
         this.isLoadingResults = false;
-        console.log(data);
         
         if (data === null) {
           return [];

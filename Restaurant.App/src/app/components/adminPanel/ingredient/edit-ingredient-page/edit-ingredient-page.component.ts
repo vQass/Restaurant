@@ -30,10 +30,8 @@ export class EditIngredientPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(history.state.data);
     this.ingredient = history.state.data;
     this.ingredientId = history.state.data.id;
-    console.log(this.ingredient);
   }
 
 

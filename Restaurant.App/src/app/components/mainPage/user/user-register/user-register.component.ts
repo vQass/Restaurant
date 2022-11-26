@@ -69,7 +69,6 @@ export class UserRegisterComponent implements OnInit {
     let user = { email: this.registerForm.value.email, ...this.registerForm.value.passwordGroup } as UserCreateRequest;
     this.userService.addUser(user).subscribe({
       next: (resp) => {
-        console.log(resp)
         this.toastService.showSuccess("Pomyślnie zarejestrowano! \n Można przystąpić do logowania!")
         this.disableSubmitButton = false;
         this.router.navigate(['home']);

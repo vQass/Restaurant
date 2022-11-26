@@ -47,7 +47,6 @@ export class MealMainPageComponent {
           if (data === null) {
             return [];
           }
-          console.log(data);
 
           this.resultsLength = data.itemCount;
 

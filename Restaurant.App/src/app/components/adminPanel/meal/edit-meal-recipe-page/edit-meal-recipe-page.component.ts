@@ -34,10 +34,6 @@ export class EditMealRecipePageComponent implements OnInit {
           let half = Math.ceil(this.recipeViewModel.ingredients.length / 2);
           this.firstHalfOfRecipe = this.recipeViewModel.ingredients.slice(0, half)
           this.secondHalfOfRecipe = this.recipeViewModel.ingredients.slice(-half)
-
-          console.log(this.firstHalfOfRecipe);
-          console.log(this.secondHalfOfRecipe);
-
         });
       }
     }

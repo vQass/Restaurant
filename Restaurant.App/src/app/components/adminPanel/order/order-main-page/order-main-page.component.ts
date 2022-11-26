@@ -41,7 +41,7 @@ export class OrderMainPageComponent {
 
     this.orderService
       .getOrderStatuses()
-      .subscribe((data) => { this.orderStatuses = data, console.log(this.orderStatuses) });
+      .subscribe((data) => { this.orderStatuses = data });
 
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(

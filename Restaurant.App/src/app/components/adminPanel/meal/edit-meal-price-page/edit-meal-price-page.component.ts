@@ -54,9 +54,6 @@ export class EditMealPricePageComponent implements OnInit {
 
     let price = this.mainForm.value.price;
 
-    console.log(price);
-
-
     this.mealService.updateMealPrice(this.mealId, price).subscribe({
       next: () => {
         this.disableSubmitButton = false;
