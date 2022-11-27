@@ -18,7 +18,7 @@ export class EditMealPricePageComponent implements OnInit {
 
   mealId: number = 0;
 
-  meal!: MealAdminPanelItem;
+  meal?: MealAdminPanelItem;
 
   constructor(
     fb: FormBuilder,

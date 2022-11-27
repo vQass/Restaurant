@@ -9,6 +9,12 @@ body {
   height: 100%;
 }
 
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
 /* #region Buttons */
 .button {
   margin-left: 5px !important;
@@ -38,17 +44,26 @@ body {
 
 .table-container {
   position: relative;
-  min-height: 400px;
+  min-height: 300px;
   max-height: calc(100% - 56px);
   overflow: auto;
-  background-color: rgb(55, 55, 55);
+  background-color: #495057;
 }
 
 .full-width-table {
+  background-color: #343A40;
   position: relative;
   overflow: auto;
   height: 100% !important;
   width: 100%;
+}
+
+.mat-mdc-row:hover {
+  background-color: #495057 !important;
+}
+
+.paginator {
+  background-color: #212529;
 }
 
 .loading-shade {
@@ -109,13 +124,3 @@ body {
 }
 
 /* #endregion Tables */
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}

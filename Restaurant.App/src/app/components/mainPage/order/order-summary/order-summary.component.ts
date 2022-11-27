@@ -21,7 +21,7 @@ export class OrderSummaryComponent implements OnInit {
 
   disableSubmitButton = false;
 
-  cities!: City[];
+  cities?: City[];
 
   cart: CartItem[];
 

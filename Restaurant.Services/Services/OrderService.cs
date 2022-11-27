@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Restaurant.APIComponents.Exceptions;
+﻿using Restaurant.APIComponents.Exceptions;
 using Restaurant.Data.Models.OrderModels;
 using Restaurant.DB.Entities;
 using Restaurant.DB.Enums;
@@ -30,7 +29,6 @@ namespace Restaurant.Services.Services
             _userRepository = userRepository;
         }
 
-
         public IEnumerable<OrderStatusViewModel> GetOrderStatuses()
         {
             var statuses = OrderStatusDictionary.OrderStatusesWithDescription;
@@ -59,9 +57,13 @@ namespace Restaurant.Services.Services
             return await _orderRepository.GetOrders(orderStatuses, userId, orderByParams: orderByParams);
         }
 
-        public async Task<IEnumerable<OrderHistoryViewModel>> GetOrdersHistory(long userId = 0, string orderByParams = null)
+        public async Task<OrderHistoryWrapper> GetOrdersHistory(int pageIndex, int pageSize, long userId = 0, string orderByParams = null)
         {
-            var orders = await _orderRepository.GetOrders(userId: userId, orderByParams: orderByParams);
+            var orders = await _orderRepository.GetOrders(
+                pageIndex: pageIndex,
+                pageSize: pageSize,
+                userId: userId,
+                orderByParams: orderByParams);
 
             var cities = _cityRepository.GetCities();
 
@@ -87,7 +89,15 @@ namespace Restaurant.Services.Services
                     .ToList()
             }).ToList();
 
-            return ordersHistory;
+            _orderRepository.GetOrdersCount(userId);
+
+            var orderWrapper = new OrderHistoryWrapper
+            {
+                Items = ordersHistory,
+                ItemCount = _orderRepository.GetOrdersCount(userId),
+            };
+
+            return orderWrapper;
         }
 
         public async Task<OrderAdminPanelWrapper> GetOrdersForAdminPanel(int pageIndex, int pageSize, string orderByParams)

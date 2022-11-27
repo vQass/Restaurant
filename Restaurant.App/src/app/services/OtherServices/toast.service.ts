@@ -3,33 +3,27 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
-  toasts: any[] = [];
-
   constructor(private _snackBar: MatSnackBar) {
   }
 
-  show(text: string, options: any = {}) {
-    this._snackBar.open(text);
+  show(text: string, duration: number = 5000) {
+    this._snackBar.open(text, 'Zamknij',
+      {
+        duration: duration,
+        horizontalPosition: 'end',
+        verticalPosition: 'top'
+      });
   }
 
-  remove(toast: any) {
-    this.toasts = this.toasts.filter(t => t !== toast);
+  showInfo(text: string, duration: number = 5000) {
+    this.show(text, duration);
   }
 
-  showInfo(text: string, delay: number = 5000) {
-
-    this.show(text, { classname: 'bg-primary text-light', delay: delay });
+  showSuccess(text: string, duration: number = 10000) {
+    this.show(text, 1000000);
   }
 
-  showSuccess(text: string, delay: number = 10000) {
-    this.show(text, { classname: 'bg-success text-light', delay: delay });
-  }
-
-  showDanger(text: string, delay: number = 15000) {
-    this.show(text, { classname: 'bg-danger text-light', delay: delay });
-  }
-
-  clear() {
-    this.toasts.splice(0, this.toasts.length);
+  showDanger(text: string, duration: number = 10000) {
+    this.show(text, duration);
   }
 }

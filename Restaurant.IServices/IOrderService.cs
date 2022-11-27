@@ -7,7 +7,7 @@ namespace Restaurant.IServices
     public interface IOrderService
     {
         Task<IEnumerable<Order>> GetOrders(IEnumerable<OrderStatusEnum> orderStatuses, long userId = 0, string orderByParams = null);
-        Task<IEnumerable<OrderHistoryViewModel>> GetOrdersHistory(long userId = 0, string orderByParams = null);
+        Task<OrderHistoryWrapper> GetOrdersHistory(int pageIndex, int pageSize, long userId = 0, string orderByParams = null);
         Task<OrderAdminPanelWrapper> GetOrdersForAdminPanel(int pageIndex, int pageSize, string orderByParams);
         IEnumerable<OrderStatusViewModel> GetOrderStatuses();
         Order GetOrder(long id);

@@ -15,11 +15,19 @@
          (click)="drawer.toggle()"
          routerLink="menu">Menu</a>
       <a mat-list-item
+         *ngIf="isLoggedIn"
          (click)="drawer.toggle()"
          routerLink="order">Złóż zamówienie</a>
       <a mat-list-item
+         *ngIf="isLoggedIn"
          (click)="drawer.toggle()"
          routerLink="order-history">Historia zamówień</a>
+      <!-- TODO ONLY FOR ADMIN -->
+      <a mat-list-item
+         *ngIf="isLoggedIn && (userRole == 'HeadAdmin' || userRole == 'Admin')"
+         (click)="drawer.toggle()"
+         routerLink="admin-main-page">Admin panel</a>
+
     </mat-nav-list>
 
   </mat-sidenav>
@@ -58,7 +66,9 @@
          color="primary">Historia zamówień</a>
 
       <a class="button"
-         *ngIf="isLoggedIn && !(shouldChangeToBurger$ | async)"
+         *ngIf="isLoggedIn
+          && !(shouldChangeToBurger$ | async)
+          && (userRole == 'HeadAdmin' || userRole == 'Admin')"
          routerLink="admin-main-page"
          mat-stroked-button
          color="primary">Admin panel</a>

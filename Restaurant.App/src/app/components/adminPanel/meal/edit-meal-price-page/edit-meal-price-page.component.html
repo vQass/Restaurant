@@ -11,7 +11,7 @@
              matInput
              formControlName="price"
              [errorStateMatcher]="singleControlMatcher"
-             ngModel="meal.price"
+             [ngModel]="meal?.price"
              autocomplete="off" />
 
       <mat-error *ngIf="price?.errors?.['required']">

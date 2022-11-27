@@ -57,9 +57,16 @@ namespace Restaurant.Repository.Repositories
             return await ordersQuery.ToListAsync();
         }
 
-        public int GetOrdersCount()
+        public int GetOrdersCount(long userId = 0)
         {
-            return _dbContext.Orders.Count();
+            var orders = _dbContext.Orders.AsQueryable();
+
+            if(userId != 0)
+            {
+                orders = orders.Where(x => x.UserId == userId);
+            }
+
+            return orders.Count();
         }
 
         #endregion

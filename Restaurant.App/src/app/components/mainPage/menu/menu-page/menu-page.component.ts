@@ -8,7 +8,7 @@ import { MealGroupViewModel } from 'src/models/meal/MealGroupViewModel';
   styleUrls: ['./menu-page.component.scss']
 })
 export class MenuPageComponent implements OnInit {
-  mealGroups!: MealGroupViewModel[];
+  mealGroups?: MealGroupViewModel[];
 
   constructor(private mealService: MealService) { }
 

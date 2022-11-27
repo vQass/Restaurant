@@ -21,7 +21,7 @@ export class EditMealPageComponent implements OnInit {
 
   mealId: number = 0;
 
-  meal!: MealAdminPanelItem;
+  meal?: MealAdminPanelItem;
   categories?: MealCategory[];
 
 

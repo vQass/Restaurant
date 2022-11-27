@@ -11,7 +11,7 @@
              matInput
              formControlName="name"
              [errorStateMatcher]="singleControlMatcher"
-             [ngModel]="meal.name"
+             [ngModel]="meal?.name"
              autocomplete="off" />
       <mat-error *ngIf="name?.errors?.['required']">
         Nazwa jest wymagana
@@ -26,7 +26,7 @@
              matInput
              formControlName="price"
              [errorStateMatcher]="singleControlMatcher"
-             [ngModel]="meal.price"
+             [ngModel]="meal?.price"
              autocomplete="off" />
       <mat-error *ngIf="price?.errors?.['required']">
         Cena jest wymagana
@@ -41,7 +41,7 @@
       <mat-label>Kategoria</mat-label>
 
       <mat-select matInput
-                  [ngModel]='meal.mealCategoryId'
+                  [ngModel]='meal?.mealCategoryId'
                   formControlName="mealCategoryId">
         <mat-option *ngFor="let category of categories"
                     [value]="category.id">{{category.name}}</mat-option>
