@@ -31,9 +31,9 @@ namespace Restaurant.Services.Services
             return await _mealRepository.GetMeals();
         }
         
-        public async Task<MealAdminPanelWrapper> GetMealsForAdminPanel()
+        public async Task<MealAdminPanelWrapper> GetMealsForAdminPanel(int pageIndex, int pageSize)
         {
-            var meals = await _mealRepository.GetMeals();
+            var meals = await _mealRepository.GetMeals(pageIndex, pageSize);
 
             var mealCategories = _mealCategoryRepository.GetMealCategories();
 

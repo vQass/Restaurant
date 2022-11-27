@@ -6,6 +6,7 @@ using Restaurant.Data.Models.MealModels;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.IRepository;
+using Restaurant.LinqHelpers.Helpers;
 
 namespace Restaurant.Repository.Repositories
 {
@@ -27,10 +28,11 @@ namespace Restaurant.Repository.Repositories
 
         #region GetMethods
 
-        public async Task<IEnumerable<Meal>> GetMeals()
+        public async Task<IEnumerable<Meal>> GetMeals(int pageIndex = 0, int pageSize = 0)
         {
             return await _dbContext.Meals
                 .Include(x => x.MealCategory)
+                .ApplyPaging(pageIndex, pageSize)
                 .ToListAsync();
         }
         
