@@ -6,16 +6,15 @@
   margin-top: 5px;
 }
 
-.ingredient-header {
-  margin-top: 15px;
-  letter-spacing: 0.15px;
-  color: #eee !important;
+.menu-item-panel {
+  display: flex;
+  justify-content: space-between;
 }
 
 .ingredient {
-  color: #ccc;
-  letter-spacing: 0.15px;
-  line-height: 4.75px;
+  letter-spacing: 0.35px;
+  margin: 15px 5px 0 0;
+  background-color: #adb5bd !important;
 }
 
 .price {

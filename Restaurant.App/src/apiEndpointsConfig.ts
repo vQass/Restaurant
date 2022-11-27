@@ -14,7 +14,7 @@ export const apiEndpoints =
     "singIn": "User/SignInUser"
   },
   mealEndpoints: {
-    "getMealsGroups": "Meal/GetMealsGroupedByCategory",
+    "getMealsGroups": "Meal/GetActiveMealsGroupedByCategory",
     "getMealsForAdminPanel": "Meal/GetMealsForAdminPanel",
     "getMealForAdminPanel": "Meal/GetMealForAdminPanel",
     "setAsAvailable": "Meal/SetMealAsAvailable",
@@ -39,6 +39,9 @@ export const apiEndpoints =
   recipeEndpoints: {
     "getRecipeEditViewModel": "Recipe/GetRecipeEditViewModel",
     "updateMealRecipe": "Recipe/UpdateMealRecipe"
+  },
+  mealCategoryEndpoints: {
+    "getMealCategories": "MealCategory/GetMealCategories",
   }
 };
 

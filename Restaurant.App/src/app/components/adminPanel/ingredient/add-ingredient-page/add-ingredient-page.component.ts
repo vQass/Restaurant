@@ -22,7 +22,7 @@ export class AddIngredientPageComponent {
     private toastService: ToastService,
     private router: Router) {
     this.addIngredientForm = fb.group({
-      name: fb.control('', [Validators.required]),
+      name: fb.control('', [Validators.required, Validators.maxLength(127)]),
     })
   }
 

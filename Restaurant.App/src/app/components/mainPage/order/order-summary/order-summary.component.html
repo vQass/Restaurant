@@ -59,7 +59,7 @@
         <mat-select matInput
                     formControlName="city">
           <mat-option *ngFor="let city of cities"
-                      value="{{city.id}}">{{city.name}}</mat-option>
+                      [value]="city.id">{{city.name}}</mat-option>
         </mat-select>
         <mat-error *ngIf="city?.errors?.['required']">
           Miasto jest wymagane

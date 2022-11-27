@@ -6,7 +6,7 @@ namespace Restaurant.IRepository
     public interface IMealRepository
     {
         Meal GetMeal(int id);
-        Task<IEnumerable<Meal>> GetMeals();
+        Task<IEnumerable<Meal>> GetMeals(int pageIndex = 0, int pageSize = 0);
         Task<IEnumerable<MealCategory>> GetMealsGroupedByCategory();
         int GetMealsCount();
 

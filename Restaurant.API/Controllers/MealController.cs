@@ -28,15 +28,15 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("GetMealsForAdminPanel")]
-        public async Task<IActionResult> GetMealsForAdminPanel()
+        public async Task<IActionResult> GetMealsForAdminPanel([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 0)
         {
-            return Ok(await _mealService.GetMealsForAdminPanel());
+            return Ok(await _mealService.GetMealsForAdminPanel(pageIndex, pageSize));
         }
 
-        [HttpGet("GetMealsGroupedByCategory")]
-        public async Task<IActionResult> GetMealsGroupedByCategory()
+        [HttpGet("GetActiveMealsGroupedByCategory")]
+        public async Task<IActionResult> GetActiveMealsGroupedByCategory()
         {
-            return Ok(await _mealService.GetMealsGroupedByCategory());
+            return Ok(await _mealService.GetActiveMealsGroupedByCategory());
         }
 
         [HttpPost("AddMeal")]

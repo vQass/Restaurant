@@ -29,8 +29,6 @@ export class CartService {
     }
 
     this.observableCartItems = of(this.cartItems)
-
-    console.log(this.cartItems);
   }
 
   public getCart(): Observable<CartItem[]> {

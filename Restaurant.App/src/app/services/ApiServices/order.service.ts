@@ -5,7 +5,7 @@ import { apiEndpoints } from 'src/apiEndpointsConfig';
 import { environment } from 'src/environments/environment';
 import { OrderAddRequest } from 'src/models/order/AddOrderRequest';
 import { OrderAdminPanelWrapper } from 'src/models/order/OrderAdminPanelWrapper';
-import { OrderHistoryItem } from 'src/models/order/OrderHistoryItem';
+import { OrderHistoryWrapper } from 'src/models/order/OrderHistoryWrapper';
 import { OrderStatus } from 'src/models/order/OrderStatus';
 
 @Injectable({
@@ -45,12 +45,14 @@ export class OrderService {
       );
   }
 
-  getOrderHistory(userId: number = 0): Observable<OrderHistoryItem[]> {
+  getOrderHistory(pageIndex: number, pageSize: number, userId: number = 0): Observable<OrderHistoryWrapper> {
     let params = new HttpParams();
     params = params.append('userId', userId);
-    params = params.append('orderByParams', 'Status, OrderDate desc');
+    params = params.append("pageIndex", pageIndex);
+    params = params.append("pageSize", pageSize);
+    params = params.append('orderByParams', 'OrderDate desc, Status');
 
-    return this.http.get<OrderHistoryItem[]>(this.baseApiUrl + this.orderEndpoints.getOrderHistory, { params: params })
+    return this.http.get<OrderHistoryWrapper>(this.baseApiUrl + this.orderEndpoints.getOrderHistory, { params: params })
       .pipe(
         catchError(this.handleError)
       );
@@ -60,7 +62,7 @@ export class OrderService {
     let params = new HttpParams();
     params = params.append("pageIndex", pageIndex);
     params = params.append("pageSize", pageSize);
-    params = params.append("orderByQueryString", 'id asc');
+    params = params.append("orderByParams", 'id asc');
 
     return this.http.get<OrderAdminPanelWrapper>(this.baseApiUrl + this.orderEndpoints.getOrdersForAdminPanel, { params: params })
       .pipe(

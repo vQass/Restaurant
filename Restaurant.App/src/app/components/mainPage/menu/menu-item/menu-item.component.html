@@ -3,7 +3,7 @@
     <mat-expansion-panel (opened)="panelOpenState = true"
                          (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
-        <mat-panel-title class="d-flex justify-content-between">
+        <mat-panel-title class="menu-item-panel">
           <div class="meal-name">
             {{meal.name}}
           </div>
@@ -12,9 +12,12 @@
           </div>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <p class="ingredient-header">Składniki:</p>
-      <p class="ingredient"
-         *ngFor="let ingredient of meal.ingredients">-{{ingredient.name}}</p>
+
+      <mat-chip class="ingredient"
+                *ngFor="let ingredient of meal.ingredients">
+        {{ingredient.name}}
+      </mat-chip>
+
     </mat-expansion-panel>
   </mat-accordion>
 </div>

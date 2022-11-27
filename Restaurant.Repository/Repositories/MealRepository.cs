@@ -6,6 +6,7 @@ using Restaurant.Data.Models.MealModels;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.IRepository;
+using Restaurant.LinqHelpers.Helpers;
 
 namespace Restaurant.Repository.Repositories
 {
@@ -27,10 +28,11 @@ namespace Restaurant.Repository.Repositories
 
         #region GetMethods
 
-        public async Task<IEnumerable<Meal>> GetMeals()
+        public async Task<IEnumerable<Meal>> GetMeals(int pageIndex = 0, int pageSize = 0)
         {
             return await _dbContext.Meals
                 .Include(x => x.MealCategory)
+                .ApplyPaging(pageIndex, pageSize)
                 .ToListAsync();
         }
         
@@ -62,6 +64,9 @@ namespace Restaurant.Repository.Repositories
         {
             var meal = _mapper.Map<Meal>(mealCreateRequest);
 
+            int price = (int)(meal.Price * 100);
+            meal.Price = (decimal)(price / 100.0);
+
             _dbContext.Meals.Add(meal);
             _dbContext.SaveChanges();
 
@@ -77,8 +82,12 @@ namespace Restaurant.Repository.Repositories
         public void UpdateMeal(Meal meal, MealUpdateRequest mealUpdateRequest)
         {
             meal.Name = mealUpdateRequest.Name;
-            meal.Price = mealUpdateRequest.Price;
-            meal.MealCategory.Id = mealUpdateRequest.MealCategoryId;
+
+            int price = (int)(mealUpdateRequest.Price * 100);
+            meal.Price = (decimal)(price / 100.0);
+
+            meal.MealCategory = _dbContext.MealsCategories
+                .FirstOrDefault(x => x.Id == mealUpdateRequest.MealCategoryId);
 
             _dbContext.SaveChanges();
         }
@@ -97,7 +106,9 @@ namespace Restaurant.Repository.Repositories
 
         public void UpdateMealsPrice(Meal meal, decimal newPrice)
         {
-            meal.Price = newPrice;
+            int price = (int)(newPrice * 100);
+            meal.Price = (decimal)(price / 100.0);
+
             _dbContext.SaveChanges();
         }
 

@@ -39,10 +39,8 @@ export class UserService {
       this.authToken = new BehaviorSubject<string>(user.authToken);
       this.role = new BehaviorSubject<string>(user.role);
       this.id = new BehaviorSubject<number>(user.id);
+      console.log(this.role);
     }
-
-    console.log(userStringified);
-
   }
 
   getUsers(): Observable<UserListElement[]> {

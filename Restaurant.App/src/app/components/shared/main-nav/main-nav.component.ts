@@ -20,6 +20,7 @@ export class MainNavComponent {
 
   constructor(private userService: UserService, private breakpointObserver: BreakpointObserver) {
     userService.getIsLoggedIn().subscribe((value) => this.isLoggedIn = value);
+    userService.getRole().subscribe((value) => this.userRole = value);
   }
 
   logout() {

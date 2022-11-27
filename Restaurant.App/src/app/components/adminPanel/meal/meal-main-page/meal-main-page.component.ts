@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { catchError, map, merge, of as observableOf, startWith, switchMap } from 'rxjs';
 import { MealService } from 'src/app/services/ApiServices/meal.service';
@@ -14,7 +13,6 @@ import { MealAdminPanelItem } from 'src/models/meal/MealAdminPanelItem';
 })
 export class MealMainPageComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
 
   meals: MealAdminPanelItem[] = [];
 
@@ -31,7 +29,7 @@ export class MealMainPageComponent {
 
   ngAfterViewInit(): void {
 
-    merge(this.sort.sortChange, this.paginator.page)
+    merge(this.paginator.page)
       .pipe(
         startWith({}),
         switchMap(() => {
@@ -47,7 +45,6 @@ export class MealMainPageComponent {
           if (data === null) {
             return [];
           }
-          console.log(data);
 
           this.resultsLength = data.itemCount;
 
@@ -59,7 +56,7 @@ export class MealMainPageComponent {
   }
 
   delete(id: number) {
-
+    // TODO
   }
 
   gotoItems(meal: MealAdminPanelItem) {

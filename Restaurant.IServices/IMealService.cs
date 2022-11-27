@@ -6,8 +6,8 @@ namespace Restaurant.IServices
     public interface IMealService
     {
         Task<IEnumerable<Meal>> GetMeals();
-        Task<MealAdminPanelWrapper> GetMealsForAdminPanel();
-        Task<IEnumerable<MealGroupViewModel>> GetMealsGroupedByCategory();
+        Task<MealAdminPanelWrapper> GetMealsForAdminPanel(int pageIndex, int pageSize);
+        Task<IEnumerable<MealGroupViewModel>> GetActiveMealsGroupedByCategory();
         MealAdminPanelItem GetMealForAdminPanel(int id);
 
         int AddMeal(MealCreateRequest mealCreateRequest);

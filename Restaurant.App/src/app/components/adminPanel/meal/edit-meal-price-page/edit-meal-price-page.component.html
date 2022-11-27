@@ -7,15 +7,25 @@
     <mat-form-field class="full-width-input"
                     appearance="fill">
       <mat-label>Cena</mat-label>
-      <input type="text"
+      <input type="number"
              matInput
              formControlName="price"
              [errorStateMatcher]="singleControlMatcher"
-             [ngModel]="meal.price"
+             [ngModel]="meal?.price"
              autocomplete="off" />
+
       <mat-error *ngIf="price?.errors?.['required']">
         Cena jest wymagana
       </mat-error>
+
+      <mat-error *ngIf="price?.errors?.['min']">
+        Cena nie może być mniejsza od 0.01 zł
+      </mat-error>
+
+      <mat-error *ngIf="price?.errors?.['max']">
+        Cena nie może być większa od 500 zł
+      </mat-error>
+
     </mat-form-field>
 
   </div>

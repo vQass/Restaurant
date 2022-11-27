@@ -85,21 +85,21 @@
                   <div class="col-12 col-sm-6">
 
                     <button class="button"
-                            mat-stroked-button
+                            mat-raised-button
                             color="primary"
                             (click)="changeOrderStatus(element.id, 1)"
                             *ngIf="
                             element.status == orderStatuses[0].description"> W trakcie realizacji </button>
 
                     <button class="button"
-                            mat-stroked-button
+                            mat-raised-button
                             color="primary"
                             (click)="changeOrderStatus(element.id, 3)"
                             *ngIf="
                             element.status==orderStatuses[0].description"> Anuluj </button>
 
                     <button class="button"
-                            mat-stroked-button
+                            mat-raised-button
                             color="primary"
                             (click)="changeOrderStatus(element.id, 2)"
                             *ngIf="
@@ -129,6 +129,7 @@
     </table>
   </div>
   <mat-paginator #paginator
+                 class="paginator"
                  [length]="resultsLength"
                  [pageIndex]="0"
                  [pageSize]="5"

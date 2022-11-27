@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { apiEndpoints } from 'src/apiEndpointsConfig';
@@ -24,7 +24,10 @@ export class MealService {
   }
 
   getMealsForAdminPanel(pageIndex: number, pageSize: number): Observable<MealAdminPanelWrapper> {
-    return this.http.get<MealAdminPanelWrapper>(this.baseApiUrl + this.mealEndpoints.getMealsForAdminPanel);
+    let params = new HttpParams();
+    params = params.append("pageIndex", pageIndex);
+    params = params.append("pageSize", pageSize);
+    return this.http.get<MealAdminPanelWrapper>(this.baseApiUrl + this.mealEndpoints.getMealsForAdminPanel, { params: params });
   }
 
   getMealAdminPanelItem(id: number) {

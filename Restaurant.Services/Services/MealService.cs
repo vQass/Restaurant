@@ -31,9 +31,9 @@ namespace Restaurant.Services.Services
             return await _mealRepository.GetMeals();
         }
         
-        public async Task<MealAdminPanelWrapper> GetMealsForAdminPanel()
+        public async Task<MealAdminPanelWrapper> GetMealsForAdminPanel(int pageIndex, int pageSize)
         {
-            var meals = await _mealRepository.GetMeals();
+            var meals = await _mealRepository.GetMeals(pageIndex, pageSize);
 
             var mealCategories = _mealCategoryRepository.GetMealCategories();
 
@@ -77,14 +77,16 @@ namespace Restaurant.Services.Services
             return mealAdminPanelItem;
         }
 
-        public async Task<IEnumerable<MealGroupViewModel>> GetMealsGroupedByCategory()
+        public async Task<IEnumerable<MealGroupViewModel>> GetActiveMealsGroupedByCategory()
         {
             var mealCategories = await _mealRepository.GetMealsGroupedByCategory();
 
             var mealGroups = mealCategories.Select(x => new MealGroupViewModel()
             {
                 GroupName = x.Name,
-                Meals = x.Meals.Select(y => new MealViewModel()
+                Meals = x.Meals
+                .Where(x => x.Available)
+                .Select(y => new MealViewModel()
                 {
                     Id = y.Id,
                     Name = y.Name,

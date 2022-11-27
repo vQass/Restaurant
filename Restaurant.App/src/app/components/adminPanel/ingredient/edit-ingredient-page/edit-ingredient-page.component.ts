@@ -25,15 +25,13 @@ export class EditIngredientPageComponent implements OnInit {
     private toastService: ToastService,
     private router: Router) {
     this.editIngredientForm = fb.group({
-      name: fb.control('', [Validators.required]),
+      name: fb.control('', [Validators.required, Validators.maxLength(127)]),
     })
   }
 
   ngOnInit(): void {
-    console.log(history.state.data);
     this.ingredient = history.state.data;
     this.ingredientId = history.state.data.id;
-    console.log(this.ingredient);
   }
 
 

@@ -45,7 +45,6 @@ export class IngredientMainPageComponent {
           if (data === null) {
             return [];
           }
-          console.log(data);
 
           this.resultsLength = data.itemsCount;
           return data.items;

@@ -10,7 +10,7 @@ import { MealGroupViewModel } from 'src/models/meal/MealGroupViewModel';
   styleUrls: ['./order-page.component.scss']
 })
 export class OrderPageComponent implements OnInit {
-  mealGroups!: MealGroupViewModel[];
+  mealGroups?: MealGroupViewModel[];
 
   isMobileView$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small])
     .pipe(

@@ -1,33 +1,35 @@
 <div class="item-container">
   <mat-card>
-    <mat-card-title class="d-flex justify-content-between">
-      <div class="meal-name">
-        {{meal.name}}
-      </div>
-      <div class="text-nowrap price">
-        {{meal.price | number : '1.2-2'}} zł
-      </div>
-    </mat-card-title>
-    <mat-card-subtitle>
-      <div class="ingredients-list-container">
-        <span class="ingredients-list"
-              *ngFor="let ingredient of meal.ingredients; let last = last">
-          {{ingredient.name}}<ng-container *ngIf="!last">,</ng-container>
-        </span>
-      </div>
-    </mat-card-subtitle>
-    <mat-card-actions>
+    <div class="item-container-padding">
 
-      <div class="buttons-container">
+      <mat-card-title class="item-card-title-container">
+        <div class="meal-name">
+          {{meal.name}}
+        </div>
+        <div class="text-nowrap price">
+          {{meal.price | number : '1.2-2'}} zł
+        </div>
+      </mat-card-title>
 
-        <button mat-stroked-button
-                (click)="addToCart()"
-                class="button"
-                color="primary">Dodaj do zamówienia
-        </button>
+      <mat-card-subtitle>
+        <div class="ingredients-list-container">
+          <span class="ingredients-list"
+                *ngFor="let ingredient of meal.ingredients; let last = last">
+            {{ingredient.name}}<ng-container *ngIf="!last">, </ng-container>
+          </span>
+        </div>
+      </mat-card-subtitle>
 
-      </div>
+      <mat-card-actions>
+        <div class="buttons-container">
+          <button mat-stroked-button
+                  (click)="addToCart()"
+                  class="button"
+                  color="primary">Dodaj do zamówienia
+          </button>
+        </div>
+      </mat-card-actions>
 
-    </mat-card-actions>
+    </div>
   </mat-card>
 </div>

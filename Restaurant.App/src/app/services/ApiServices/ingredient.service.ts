@@ -41,7 +41,6 @@ export class IngredientService {
   }
 
   deleteIngredient(id: number): Observable<any> {
-    console.log(id);
 
     return this.http.delete<IngredientAdminPanelWrapper>(
       this.baseApiUrl + this.ingredientsEndpoints.deleteIngredient + '/' + id)

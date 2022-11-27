@@ -18,7 +18,7 @@ export class EditMealPricePageComponent implements OnInit {
 
   mealId: number = 0;
 
-  meal!: MealAdminPanelItem;
+  meal?: MealAdminPanelItem;
 
   constructor(
     fb: FormBuilder,
@@ -27,7 +27,7 @@ export class EditMealPricePageComponent implements OnInit {
     private toastService: ToastService,
     private router: Router) {
     this.mainForm = fb.group({
-      price: fb.control('', [Validators.required]),
+      price: fb.control('', [Validators.required, Validators.min(0.01), Validators.max(500)]),
     })
 
     let id = this.route.snapshot.paramMap.get('id');
@@ -53,9 +53,6 @@ export class EditMealPricePageComponent implements OnInit {
     this.disableSubmitButton = true;
 
     let price = this.mainForm.value.price;
-
-    console.log(price);
-
 
     this.mealService.updateMealPrice(this.mealId, price).subscribe({
       next: () => {
