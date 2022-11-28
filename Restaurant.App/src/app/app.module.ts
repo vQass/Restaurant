@@ -94,7 +94,6 @@ import { MainNavComponent } from './components/shared/main-nav/main-nav.componen
     EditMealOptionsPageComponent,
     EditMealPricePageComponent,
     EditMealRecipePageComponent,
-
   ],
   imports: [
     FormsModule,
@@ -120,7 +119,7 @@ import { MainNavComponent } from './components/shared/main-nav/main-nav.componen
     MatSelectModule,
     MatCheckboxModule,
     MatSnackBarModule,
-    MatChipsModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
