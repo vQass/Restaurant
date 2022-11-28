@@ -20,7 +20,7 @@ export class ToastService {
   }
 
   showSuccess(text: string, duration: number = 10000) {
-    this.show(text, 1000000);
+    this.show(text, duration);
   }
 
   showDanger(text: string, duration: number = 10000) {

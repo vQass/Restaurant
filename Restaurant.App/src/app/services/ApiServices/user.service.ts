@@ -89,6 +89,10 @@ export class UserService {
     return this.isLoggedIn.asObservable();
   }
 
+  getIsLoggedInValue(): boolean {
+    return this.isLoggedIn.getValue();
+  }
+
   setIsLoggedIn(value: boolean): void {
     this.isLoggedIn.next(value);
   }
@@ -103,6 +107,10 @@ export class UserService {
 
   getRole(): Observable<string> {
     return this.role.asObservable();
+  }
+
+  getRoleValue(): string {
+    return this.role.getValue();
   }
 
   setRole(role: string): void {

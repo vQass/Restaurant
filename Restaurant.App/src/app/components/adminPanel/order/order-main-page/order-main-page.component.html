@@ -61,14 +61,19 @@
             [attr.colspan]="displayedColumnsWithExpand.length">
           <div class="example-element-detail"
                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+
             <div class="container">
-              <div class="row">
-                <div class="col-sm">
+
+              <div class="details-container"
+                   [ngClass]="{'non-mobile-view' : !(isMobileView$ | async)}">
+
+                <div>
                   <p>Dane: {{element.name}} {{element.surname}}</p>
                   <p>Kontakt: {{element.phoneNumber}}</p>
                   <p>Adres dostawy: {{element.city}} {{element.address}}</p>
                 </div>
-                <div class="col-sm">
+
+                <div>
                   <div *ngFor="let orderElement of element.orderElements">
                     <p>
                       {{orderElement.mealName}} x {{orderElement.amount}} - {{orderElement.price| number : '1.2-2'}}
@@ -76,40 +81,40 @@
                     </p>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-5 col-sm-4">
-                    Suma: {{orderSum(element.orderElements) | number : '1.2-2'}} zł
-                  </div>
-                  <div class="col-0 col-sm-2">
-                  </div>
-                  <div class="col-12 col-sm-6">
 
-                    <button class="button"
-                            mat-raised-button
-                            color="primary"
-                            (click)="changeOrderStatus(element.id, 1)"
-                            *ngIf="
+              </div>
+
+              <div class="price-container">
+                Suma: {{orderSum(element.orderElements) | number : '1.2-2'}} zł
+              </div>
+
+              <div class="buttons-container">
+
+                <button class="button"
+                        mat-raised-button
+                        color="primary"
+                        (click)="changeOrderStatus(element.id, 1)"
+                        *ngIf="
                             element.status == orderStatuses[0].description"> W trakcie realizacji </button>
 
-                    <button class="button"
-                            mat-raised-button
-                            color="primary"
-                            (click)="changeOrderStatus(element.id, 3)"
-                            *ngIf="
+                <button class="button"
+                        mat-raised-button
+                        color="primary"
+                        (click)="changeOrderStatus(element.id, 3)"
+                        *ngIf="
                             element.status==orderStatuses[0].description"> Anuluj </button>
 
-                    <button class="button"
-                            mat-raised-button
-                            color="primary"
-                            (click)="changeOrderStatus(element.id, 2)"
-                            *ngIf="
+                <button class="button"
+                        mat-raised-button
+                        color="primary"
+                        (click)="changeOrderStatus(element.id, 2)"
+                        *ngIf="
                             element.status==orderStatuses[1].description"> Zakończ </button>
 
-                  </div>
-                </div>
               </div>
 
             </div>
+
           </div>
         </td>
       </ng-container>

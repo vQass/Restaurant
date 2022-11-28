@@ -1,5 +1,7 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { map, Observable, shareReplay } from 'rxjs';
 import { RecipeService } from 'src/app/services/ApiServices/recipe.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { RecipeEditViewModel } from 'src/models/recipe/RecipeEditViewModel';
@@ -11,6 +13,11 @@ import { RecipeIngredient } from 'src/models/recipe/RecipeIngredient';
   styleUrls: ['./edit-meal-recipe-page.component.scss']
 })
 export class EditMealRecipePageComponent implements OnInit {
+  isMobileView$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 450px)')
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
 
   disableSubmitButton = false;
   recipeViewModel?: RecipeEditViewModel;
@@ -21,7 +28,8 @@ export class EditMealRecipePageComponent implements OnInit {
   constructor(private recipeService: RecipeService,
     private route: ActivatedRoute,
     private toastService: ToastService,
-    private router: Router) {
+    private router: Router,
+    private breakpointObserver: BreakpointObserver) {
 
     let id = this.route.snapshot.paramMap.get('id');
 

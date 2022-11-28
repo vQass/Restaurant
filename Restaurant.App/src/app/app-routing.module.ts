@@ -32,27 +32,29 @@ import { OrderPageComponent } from './components/mainPage/order/order-page/order
 import { OrderSummaryComponent } from './components/mainPage/order/order-summary/order-summary.component';
 import { UserLoginComponent } from './components/mainPage/user/user-login/user-login.component';
 import { UserRegisterComponent } from './components/mainPage/user/user-register/user-register.component';
+import { IsAdminGuard } from './guards/is-admin.guard';
+import { IsLoggedInGuard } from './guards/is-logged-in.guard';
 
 const routes: Routes = [
   { path: 'home', component: HomePageComponent },
-  { path: 'city', component: CityComponent },
+  { path: 'city', component: CityComponent, canActivate: [IsLoggedInGuard] },
   { path: 'register', component: UserRegisterComponent },
   { path: 'login', component: UserLoginComponent },
   { path: 'menu', component: MenuPageComponent },
-  { path: 'order', component: OrderPageComponent },
-  { path: 'order-summary', component: OrderSummaryComponent },
-  { path: 'order-history', component: OrderHistoryComponent },
-  { path: 'admin-main-page', component: MainAdminPageComponent },
-  { path: 'order-admin-main-page', component: OrderMainPageComponent },
-  { path: 'meal-admin-main-page', component: MealMainPageComponent },
-  { path: 'add-meal-admin-main-page', component: AddMealPageComponent },
-  { path: 'edit-meal-options-admin-page', component: EditMealOptionsPageComponent },
-  { path: 'edit-meal-admin-page', component: EditMealPageComponent },
-  { path: 'edit-meal-price-admin-page', component: EditMealPricePageComponent },
-  { path: 'edit-meal-recipe-admin-page', component: EditMealRecipePageComponent },
-  { path: 'ingredient-admin-main-page', component: IngredientMainPageComponent },
-  { path: 'add-ingredient-admin-main-page', component: AddIngredientPageComponent },
-  { path: 'edit-ingredient-admin-main-page', component: EditIngredientPageComponent },
+  { path: 'order', component: OrderPageComponent, canActivate: [IsLoggedInGuard] },
+  { path: 'order-summary', component: OrderSummaryComponent, canActivate: [IsLoggedInGuard] },
+  { path: 'order-history', component: OrderHistoryComponent, canActivate: [IsLoggedInGuard] },
+  { path: 'admin-main-page', component: MainAdminPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'order-admin-main-page', component: OrderMainPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'meal-admin-main-page', component: MealMainPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'add-meal-admin-main-page', component: AddMealPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'edit-meal-options-admin-page', component: EditMealOptionsPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'edit-meal-admin-page', component: EditMealPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'edit-meal-price-admin-page', component: EditMealPricePageComponent, canActivate: [IsAdminGuard] },
+  { path: 'edit-meal-recipe-admin-page', component: EditMealRecipePageComponent, canActivate: [IsAdminGuard] },
+  { path: 'ingredient-admin-main-page', component: IngredientMainPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'add-ingredient-admin-main-page', component: AddIngredientPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'edit-ingredient-admin-main-page', component: EditIngredientPageComponent, canActivate: [IsAdminGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
@@ -61,3 +63,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

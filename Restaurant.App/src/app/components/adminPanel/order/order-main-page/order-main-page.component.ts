@@ -1,8 +1,9 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { catchError, map, merge, of as observableOf, startWith, switchMap } from 'rxjs';
+import { catchError, map, merge, Observable, of as observableOf, shareReplay, startWith, switchMap } from 'rxjs';
 import { OrderService } from 'src/app/services/ApiServices/order.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { OrderAdminPanelElement } from 'src/models/order/OrderAdminPanelElement';
@@ -25,6 +26,12 @@ export class OrderMainPageComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  isMobileView$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.XSmall])
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+
   orders: OrderAdminPanelItem[] = [];
   orderStatuses: OrderStatus[] = [];
 
@@ -34,7 +41,7 @@ export class OrderMainPageComponent {
   displayedColumnsWithExpand = [...this.displayedColumns, 'expand'];
   expandedElement?: OrderAdminPanelItem | null;
 
-  constructor(private orderService: OrderService, private toastService: ToastService) {
+  constructor(private orderService: OrderService, private toastService: ToastService, private breakpointObserver: BreakpointObserver) {
   }
 
   ngAfterViewInit(): void {
