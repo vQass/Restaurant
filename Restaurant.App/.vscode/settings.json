@@ -7,6 +7,7 @@
     "karma.conf.js": true,
     "node_modules": true,
     "nuget.config": true,
+    "package-lock.json": true,
     "README.md": true,
     "Restaurant.App.esproj": true,
     "tsconfig.app.json": true,
