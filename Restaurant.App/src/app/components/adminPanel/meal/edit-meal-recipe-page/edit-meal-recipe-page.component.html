@@ -5,59 +5,42 @@
     <h2>{{recipeViewModel?.mealName}}</h2>
   </div>
 
-  <div class="container">
 
-    <div class="row">
+  <div class="details-container"
+       [ngClass]="{'non-mobile-view' : !(isMobileView$ | async)}">
 
-      <div class="col">
-
-        <span>
-
-          <div class="column-container">
-            <ul>
-              <li *ngFor="let recipeElement of firstHalfOfRecipe">
-                <mat-checkbox [(ngModel)]="recipeElement.isInRecipe">
-                  {{recipeElement.ingredientName}}
-                </mat-checkbox>
-              </li>
-            </ul>
-          </div>
-
-        </span>
-
-      </div>
-
-      <div class="col">
-
-        <span>
-
-          <div class="column-container">
-
-            <ul>
-              <li *ngFor="let recipeElement of secondHalfOfRecipe">
-                <mat-checkbox [(ngModel)]="recipeElement.isInRecipe">
-                  {{recipeElement.ingredientName}}
-                </mat-checkbox>
-              </li>
-            </ul>
-
-          </div>
-        </span>
-
-      </div>
-
+    <div class="column-container">
+      <ul>
+        <li *ngFor="let recipeElement of firstHalfOfRecipe">
+          <mat-checkbox [(ngModel)]="recipeElement.isInRecipe">
+            {{recipeElement.ingredientName}}
+          </mat-checkbox>
+        </li>
+      </ul>
     </div>
 
-    <div class="button-container">
-
-      <button class="button"
-              (click)="onSubmit()"
-              mat-raised-button
-              color="primary"
-              [disabled]="disableSubmitButton">
-        Zapisz zmiany
-      </button>
-
+    <div class="column-container">
+      <ul>
+        <li *ngFor="let recipeElement of secondHalfOfRecipe">
+          <mat-checkbox [(ngModel)]="recipeElement.isInRecipe">
+            {{recipeElement.ingredientName}}
+          </mat-checkbox>
+        </li>
+      </ul>
     </div>
 
   </div>
+
+  <div class="button-container">
+
+    <button class="button"
+            (click)="onSubmit()"
+            mat-raised-button
+            color="primary"
+            [disabled]="disableSubmitButton">
+      Zapisz zmiany
+    </button>
+
+  </div>
+
+</div>

@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/ApiServices/user.service';
 })
 export class MainNavComponent {
 
-  shouldChangeToBurger$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 700px)').pipe(
+  shouldChangeToBurger$: Observable<boolean> = this.breakpointObserver.observe('(max-width: 730px)').pipe(
     map(result => result.matches),
     shareReplay()
   );
