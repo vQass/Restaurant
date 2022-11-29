@@ -42,7 +42,7 @@ namespace Restaurant.Services.Services
             _cityRepository.EnsureCityNameNotTaken(cityName);
 
             var cityId = _cityRepository
-                .AddCity(new City() { Name = cityName.Trim() }); 
+                .AddCity(new City() { Name = cityName.Trim() });
 
             return cityId;
         }

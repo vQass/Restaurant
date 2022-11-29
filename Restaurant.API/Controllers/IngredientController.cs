@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Restaurant.Data.Models.IngredientModels;
 using Restaurant.IServices;
 
@@ -21,7 +20,7 @@ namespace Restaurant.API.Controllers
         {
             return Ok(await _ingredientServices.GetIngredients());
         }
-            
+
         [HttpGet("GetIngredientsForAdminPanel")]
         public async Task<IActionResult> GetIngredientsForAdminPanel([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 0)
         {

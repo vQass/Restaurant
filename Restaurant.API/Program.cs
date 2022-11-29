@@ -9,10 +9,9 @@ using Restaurant.Data;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.IServices;
-using Restaurant.Services;
 using Restaurant.Repository;
+using Restaurant.Services;
 using System.Text;
-using Restaurant.LinqHelpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,7 +61,8 @@ builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c => {
+builder.Services.AddSwaggerGen(c =>
+{
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "Restaurant_API",

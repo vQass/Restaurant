@@ -1,7 +1,4 @@
-﻿using System.Reflection;
-using System.Text;
-
-namespace Restaurant.LinqHelpers.Helpers
+﻿namespace Restaurant.LinqHelpers.Helpers
 {
     public static class PagingExtension
     {
@@ -12,7 +9,7 @@ namespace Restaurant.LinqHelpers.Helpers
                 return entities;
             }
 
-            if(pageSize == 0)
+            if (pageSize == 0)
             {
                 return entities;
             }

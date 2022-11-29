@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Restaurant.Data.Models.IngredientModels;
+﻿using Restaurant.Data.Models.IngredientModels;
 using Restaurant.DB.Entities;
 using Restaurant.IRepository;
 using Restaurant.IServices;
@@ -50,7 +49,7 @@ namespace Restaurant.Services.Services
             _ingredientRepository.EnsureIngredientNameNotTaken(ingredientName);
 
             var id = _ingredientRepository
-                .AddIngredient(new Ingredient { Name = ingredientName.Trim() } );
+                .AddIngredient(new Ingredient { Name = ingredientName.Trim() });
 
             return id;
         }

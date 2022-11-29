@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Restaurant.Data.Models.CityModels;
-using Restaurant.DB;
 using Restaurant.IServices;
 
 namespace Restaurant.API.Controllers

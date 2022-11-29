@@ -1,9 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
-using Restaurant.APIComponents.Exceptions;
-using Restaurant.Data.Models.MealCategoryModels;
-using Restaurant.DB;
-using Restaurant.DB.Entities;
+﻿using Restaurant.DB.Entities;
 using Restaurant.IRepository;
 using Restaurant.IServices;
 
@@ -54,7 +49,7 @@ namespace Restaurant.Services.Services
 
             _mealCategoryRepository.EnsureMealCategoryNotInUse(mealCategory);
 
-            _mealCategoryRepository.DeleteMealCategory(mealCategory);   
+            _mealCategoryRepository.DeleteMealCategory(mealCategory);
         }
     }
 }

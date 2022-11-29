@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using Restaurant.Data.Models.IngredientModels;
+﻿using Restaurant.Data.Models.IngredientModels;
 using Restaurant.Data.Models.MealModels;
-using Restaurant.Data.Models.RecipeModels;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.IRepository;
@@ -30,7 +28,7 @@ namespace Restaurant.Services.Services
         {
             return await _mealRepository.GetMeals();
         }
-        
+
         public async Task<MealAdminPanelWrapper> GetMealsForAdminPanel(int pageIndex, int pageSize)
         {
             var meals = await _mealRepository.GetMeals(pageIndex, pageSize);
@@ -43,7 +41,7 @@ namespace Restaurant.Services.Services
                 Name = x.Name,
                 Available = x.Available,
                 Price = x.Price,
-                MealCategoryId = x.MealCategoryId, 
+                MealCategoryId = x.MealCategoryId,
                 MealCategoryName = mealCategories.FirstOrDefault(y => y.Id == x.MealCategoryId).Name
             });
 

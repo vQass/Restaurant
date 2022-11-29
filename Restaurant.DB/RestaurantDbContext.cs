@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Restaurant.DB.Entities;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Restaurant.DB
 {
@@ -54,7 +53,7 @@ namespace Restaurant.DB
             modelBuilder.Entity<OrderElement>()
                 .HasOne(x => x.Order)
                 .WithMany(x => x.OrderElements)
-                .HasForeignKey( x => x.OrderId)
+                .HasForeignKey(x => x.OrderId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<OrderElement>()

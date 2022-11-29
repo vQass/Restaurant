@@ -4,7 +4,6 @@ using Restaurant.APIComponents.Exceptions;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.IRepository;
-using System.Linq;
 
 namespace Restaurant.Repository.Repositories
 {
@@ -41,7 +40,7 @@ namespace Restaurant.Repository.Repositories
             var cities = _dbContext.Cities
                 .AsNoTracking();
 
-            if(cityActivity.HasValue)
+            if (cityActivity.HasValue)
             {
                 cities = cities.Where(x => x.IsActive == cityActivity);
             }

@@ -2,7 +2,7 @@
 
 namespace Restaurant.Data.Models.OrderModels
 {
-    public  class OrderCreateRequest
+    public class OrderCreateRequest
     {
         public short UserId { get; set; }
         public long CityId { get; set; }
