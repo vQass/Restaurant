@@ -47,44 +47,6 @@ namespace Restaurant.APIComponents.Validators.OrderValidators.OrderCreate
 
                 }
             });
-
-            RuleFor(x => x.PromotionCode).Custom((code, context) =>
-            {
-                if(code is null)
-                {
-                    return;
-                }
-
-                var codeTrimmed = code.Trim();
-                var currentDateTime = DateTime.Now;
-
-                if (!string.IsNullOrEmpty(codeTrimmed))
-                {
-                    var promotionCodeExists = dbContext.Promotions
-                        .Any(x => x.Code == codeTrimmed);
-
-                    if (!promotionCodeExists)
-                    {
-                        context.AddFailure("PromotionCode", "Promocja o podanym kodzie nie istnieje.");
-                    }
-
-                    var promotion = dbContext.Promotions
-                        .FirstOrDefault(x => x.Code == codeTrimmed
-                            && x.StartDate <= currentDateTime
-                            && x.EndDate >= currentDateTime);
-
-                    if (promotion is null)
-                    {
-                        context.AddFailure("PromotionCode", "Promocja o podanym kodzie jest nieaktywna.");
-                    }
-
-                    if (promotion.IsManuallyDisabled)
-                    {
-                        context.AddFailure("PromotionCode", "Promocja o podanym kodzie została wyłączona przez administratora.");
-
-                    }
-                }
-            });
         }
     }
 }

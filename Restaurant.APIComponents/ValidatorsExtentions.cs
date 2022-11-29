@@ -6,14 +6,12 @@ using Restaurant.APIComponents.Validators.MealCategoryValidators;
 using Restaurant.APIComponents.Validators.MealValidators;
 using Restaurant.APIComponents.Validators.OrderValidators.OrderCreate;
 using Restaurant.APIComponents.Validators.OrderValidators.OrderUpdate;
-using Restaurant.APIComponents.Validators.PromotionValidators;
 using Restaurant.APIComponents.Validators.UserValidators;
 using Restaurant.Data.Models.CityModels;
 using Restaurant.Data.Models.IngredientModels;
 using Restaurant.Data.Models.MealCategoryModels;
 using Restaurant.Data.Models.MealModels;
 using Restaurant.Data.Models.OrderModels;
-using Restaurant.Data.Models.PromotionModels;
 using Restaurant.Data.Models.UserModels.Requests;
 
 namespace Restaurant.APIComponents
@@ -41,10 +39,6 @@ namespace Restaurant.APIComponents
             //Meal
             services.AddScoped<IValidator<MealCreateRequest>, MealCreateRequestValidator>();
             services.AddScoped<IValidator<MealUpdateRequest>, MealUpdateRequestValidator>();
-
-            //Promotions
-            services.AddScoped<IValidator<PromotionCreateRequest>, PromotionCreateRequestValidator>();
-            services.AddScoped<IValidator<PromotionUpdateRequest>, PromotionUpdateRequestValidator>();
 
             // Orders
             services.AddScoped<IValidator<OrderUpdateRequest>, OrderUpdateRequestValidator>();

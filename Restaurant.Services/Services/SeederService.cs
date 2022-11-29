@@ -57,12 +57,6 @@ namespace Restaurant.Services.Services
                     _dbContext.Orders.AddRange(orders);
                     _dbContext.SaveChanges();
                 }
-                if (!_dbContext.Promotions.Any())
-                {
-                    var promotions = GetPromotions();
-                    _dbContext.Promotions.AddRange(promotions);
-                    _dbContext.SaveChanges();
-                }
                 if (!_dbContext.Ingredients.Any())
                 {
                     var ingredients = GetIngredients();
@@ -297,35 +291,6 @@ namespace Restaurant.Services.Services
             };
 
             return orders;
-        }
-
-        #endregion
-
-        #region Promotions
-
-        private IEnumerable<Promotion> GetPromotions()
-        {
-            var promotions = new List<Promotion>()
-            {
-                new Promotion
-                {
-                    Code = "Promo5",
-                    DiscountPercentage = 5,
-                    StartDate = DateTime.Now.AddDays(-3),
-                    EndDate = DateTime.Now.AddDays(3),
-                    IsManuallyDisabled = false
-                },
-                new Promotion
-                {
-                    Code = "Promo10",
-                    DiscountPercentage = 10,
-                    StartDate = DateTime.Now.AddDays(-3),
-                    EndDate = DateTime.Now.AddDays(3),
-                    IsManuallyDisabled = true
-                }
-            };
-
-            return promotions;
         }
 
         #endregion
