@@ -3,7 +3,6 @@ using Restaurant.Data.Models.IngredientModels;
 using Restaurant.Data.Models.MealCategoryModels;
 using Restaurant.Data.Models.MealModels;
 using Restaurant.Data.Models.OrderModels;
-using Restaurant.Data.Models.PromotionModels;
 using Restaurant.Data.Models.RecipeModels;
 using Restaurant.Data.Models.UserModels.Requests;
 using Restaurant.Data.Models.UserModels.ViewModels;
@@ -33,9 +32,6 @@ namespace Restaurant.Data
             CreateMap<MealCategoryCreateRequest, MealCategory>();
             CreateMap<MealCategory, MealGroupViewModel>()
                 .ForMember(dest => dest.GroupName, opt => opt.MapFrom(src => src.Name));
-
-            // Promotions
-            CreateMap<PromotionCreateRequest, Promotion>();
 
             // Recipes
             CreateMap<Meal, Recipe>()

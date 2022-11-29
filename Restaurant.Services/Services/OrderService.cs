@@ -10,20 +10,17 @@ namespace Restaurant.Services.Services
     public class OrderService : IOrderService
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly IPromotionRepository _promotionRepository;
         private readonly ICityRepository _cityRepository;
         private readonly IMealRepository _mealRepository;
         private readonly IUserRepository _userRepository;
 
         public OrderService(
             IOrderRepository orderRepository,
-            IPromotionRepository promotionRepository,
             ICityRepository cityRepository,
             IMealRepository mealRepository,
             IUserRepository userRepository)
         {
             _orderRepository = orderRepository;
-            _promotionRepository = promotionRepository;
             _cityRepository = cityRepository;
             _mealRepository = mealRepository;
             _userRepository = userRepository;
@@ -144,17 +141,6 @@ namespace Restaurant.Services.Services
 
         public long AddOrder(OrderCreateRequest orderCreateRequest)
         {
-            if (orderCreateRequest.PromotionCode != null)
-            {
-                var promotion = _promotionRepository.GetPromotion(orderCreateRequest.PromotionCode);
-
-                _promotionRepository.EnsurePromotionExists(promotion);
-
-                _promotionRepository.EnsurePromotionIsActive(promotion);
-
-                orderCreateRequest.PromotionId = promotion?.Id;
-            }
-
             var id = _orderRepository.AddOrder(orderCreateRequest);
 
             return id;
@@ -167,14 +153,6 @@ namespace Restaurant.Services.Services
             _orderRepository.EnsureOrderExists(order);
 
             EnsureOrderHasPendingStatus(order);
-
-            var promotion = _promotionRepository.GetPromotion(orderUpdateRequest.PromotionCode);
-
-            _promotionRepository.EnsurePromotionExists(promotion);
-
-            _promotionRepository.EnsurePromotionIsActive(promotion);
-
-            orderUpdateRequest.PromotionId = promotion?.Id;
 
             _orderRepository.UpdateOrder(order, orderUpdateRequest);
         }

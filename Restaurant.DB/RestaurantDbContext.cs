@@ -16,7 +16,6 @@ namespace Restaurant.DB
         public DbSet<MealCategory> MealsCategories { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderElement> OrdersElements { get; set; }
-        public DbSet<Promotion> Promotions { get; set; }
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -50,12 +49,6 @@ namespace Restaurant.DB
                 .HasOne(x => x.City)
                 .WithMany()
                 .HasForeignKey(x => x.CityId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<Order>()
-                .HasOne(x => x.Promotion)
-                .WithMany(x => x.Orders)
-                .HasForeignKey(x => x.PromotionCodeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<OrderElement>()
@@ -120,15 +113,6 @@ namespace Restaurant.DB
                 entity.Property(x => x.MealId).IsRequired(true);
                 entity.Property(x => x.CurrentPrice).IsRequired(true).HasColumnType("money");
                 entity.Property(x => x.Amount).IsRequired(true);
-            });
-
-            modelBuilder.Entity<Promotion>(entity =>
-            {
-                entity.Property(x => x.Code).IsRequired(true).HasMaxLength(255);
-                entity.Property(x => x.DiscountPercentage).IsRequired(true);
-                entity.Property(x => x.StartDate).IsRequired(true).HasColumnType("smalldatetime");
-                entity.Property(x => x.EndDate).IsRequired(true).HasColumnType("smalldatetime");
-                entity.Property(x => x.IsManuallyDisabled).IsRequired(true).HasDefaultValue(false);
             });
 
             modelBuilder.Entity<Ingredient>(entity =>

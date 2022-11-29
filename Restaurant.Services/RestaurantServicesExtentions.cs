@@ -14,7 +14,6 @@ namespace Restaurant.Services
             services.TryAddScoped<IMealCategoryService, MealCategoryService>();
             services.TryAddScoped<IMealService, MealService>();
             services.TryAddScoped<IOrderService, OrderService>();
-            services.TryAddScoped<IPromotionService, PromotionService>();
             services.TryAddScoped<IRecipeService, RecipeService>();
             services.TryAddScoped<IUserService, UserService>();
 

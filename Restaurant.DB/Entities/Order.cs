@@ -18,7 +18,6 @@ namespace Restaurant.DB.Entities
         public DateTime OrderDate { get; set; }
         public virtual User User { get; set; }
         public virtual City City { get; set; }
-        public virtual Promotion Promotion { get; set; }
         public virtual List<OrderElement> OrderElements { get; set; }
     }
 }
