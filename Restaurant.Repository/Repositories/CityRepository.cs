@@ -4,7 +4,9 @@ using Restaurant.APIComponents.Exceptions;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.IRepository;
+using Restaurant.LinqHelpers.Helpers;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 
 namespace Restaurant.Repository.Repositories
 {
@@ -36,17 +38,19 @@ namespace Restaurant.Repository.Repositories
                 .FirstOrDefault(x => x.Name == cityName);
         }
 
-        public IEnumerable<City> GetCities(bool? cityActivity)
+        public IEnumerable<City> GetCities(bool? cityActivity, int pageIndex, int pageSize)
         {
             var cities = _dbContext.Cities
                 .AsNoTracking();
 
-            if(cityActivity.HasValue)
+            if (cityActivity.HasValue)
             {
                 cities = cities.Where(x => x.IsActive == cityActivity);
             }
 
-            return cities.ToList();
+            return cities
+                .ApplyPaging(pageIndex, pageSize)
+                .ToList();
         }
 
         public short GetCitiesCount()

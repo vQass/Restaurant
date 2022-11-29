@@ -16,8 +16,12 @@ export class CityService {
 
   constructor(private http: HttpClient) { }
 
-  getCities(): Observable<CityWrapper> {
-    return this.http.get<CityWrapper>(this.baseApiUrl + this.cityEndpoints.getCities);
+  getCities(pageIndex = 0, pageSize = 0): Observable<CityWrapper> {
+    let params = new HttpParams();
+    params = params.append("pageIndex", pageIndex);
+    params = params.append("pageSize", pageSize);
+
+    return this.http.get<CityWrapper>(this.baseApiUrl + this.cityEndpoints.getCities, { params: params });
   }
 
   getCitiesWithSpecifiedActivity(cityActivity: boolean): Observable<CityWrapper> {

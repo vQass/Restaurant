@@ -24,8 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CityTableComponent } from './components/adminPanel/city/city-table/city-table.component';
-import { CityComponent } from './components/adminPanel/city/city/city.component';
+import { CityMainPageComponent } from './components/adminPanel/city/city-main-page/city-main-page.component';
 import {
   AddIngredientPageComponent
 } from './components/adminPanel/ingredient/add-ingredient-page/add-ingredient-page.component';
@@ -67,8 +66,6 @@ import { MainNavComponent } from './components/shared/main-nav/main-nav.componen
 @NgModule({
   declarations: [
     AppComponent,
-    CityTableComponent,
-    CityComponent,
     UserRegisterComponent,
     HomePageComponent,
     UserLoginComponent,
@@ -94,6 +91,7 @@ import { MainNavComponent } from './components/shared/main-nav/main-nav.componen
     EditMealOptionsPageComponent,
     EditMealPricePageComponent,
     EditMealRecipePageComponent,
+    CityMainPageComponent,
   ],
   imports: [
     FormsModule,

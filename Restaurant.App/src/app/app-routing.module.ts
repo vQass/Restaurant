@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CityComponent } from './components/adminPanel/city/city/city.component';
+import { CityMainPageComponent } from './components/adminPanel/city/city-main-page/city-main-page.component';
 import {
   AddIngredientPageComponent
 } from './components/adminPanel/ingredient/add-ingredient-page/add-ingredient-page.component';
@@ -37,7 +37,7 @@ import { IsLoggedInGuard } from './guards/is-logged-in.guard';
 
 const routes: Routes = [
   { path: 'home', component: HomePageComponent },
-  { path: 'city', component: CityComponent, canActivate: [IsLoggedInGuard] },
+  { path: 'city', component: CityMainPageComponent, canActivate: [IsLoggedInGuard] },
   { path: 'register', component: UserRegisterComponent },
   { path: 'login', component: UserLoginComponent },
   { path: 'menu', component: MenuPageComponent },
