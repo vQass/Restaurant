@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Query.Internal;
-
-namespace Restaurant.DB.Entities
+﻿namespace Restaurant.DB.Entities
 {
     public class Meal
     {

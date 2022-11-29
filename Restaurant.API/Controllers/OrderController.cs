@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Restaurant.Data.Models.OrderModels;
-using Restaurant.DB.Entities;
 using Restaurant.DB.Enums;
 using Restaurant.IServices;
 
@@ -12,7 +10,7 @@ namespace Restaurant.API.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
-  
+
         public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
@@ -56,7 +54,7 @@ namespace Restaurant.API.Controllers
         public IActionResult AddOrder(OrderCreateRequest orderCreateRequest)
         {
             var id = _orderService.AddOrder(orderCreateRequest);
-            return Created($"GetOrder/{id}", null); 
+            return Created($"GetOrder/{id}", null);
         }
 
         [HttpPatch("ChangeOrderStatus/{id}")]

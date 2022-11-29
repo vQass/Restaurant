@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DiagnosticsHelpers\DiagnosticsHelpers.csproj" />
     <ProjectReference Include="..\Restaurant.APIComponents\Restaurant.APIComponents.csproj" />
     <ProjectReference Include="..\Restaurant.DB\Restaurant.DB.csproj" />
     <ProjectReference Include="..\Restaurant.LinqHelpers\Restaurant.LinqHelpers.csproj" />

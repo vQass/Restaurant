@@ -35,7 +35,7 @@ namespace Restaurant.APIComponents
             //User
             services.AddScoped<IValidator<UserCreateRequest>, UserCreateRequestValidator>();
             services.AddScoped<IValidator<UserUpdateRequest>, UserUpdateRequestValidator>();
-            
+
             //Meal
             services.AddScoped<IValidator<MealCreateRequest>, MealCreateRequestValidator>();
             services.AddScoped<IValidator<MealUpdateRequest>, MealUpdateRequestValidator>();

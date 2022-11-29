@@ -1,7 +1,7 @@
-﻿using System.Reflection;
-using System.Text;
+﻿using Restaurant.LinqHelpers.Models;
 using System.Linq.Dynamic.Core;
-using Restaurant.LinqHelpers.Models;
+using System.Reflection;
+using System.Text;
 
 namespace Restaurant.LinqHelpers.Helpers
 {
@@ -46,10 +46,10 @@ namespace Restaurant.LinqHelpers.Helpers
 
             var paramsWithSortDir = new List<SortParam>();
 
-            foreach(var param in splittedParams)
+            foreach (var param in splittedParams)
             {
                 paramsWithSortDir.Add(new SortParam
-                { 
+                {
                     PropertyName = param.Split(" ")[0],
                     SortDirection = param.EndsWith(" desc") ? "descending" : "ascending"
                 });

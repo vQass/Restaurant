@@ -1,11 +1,6 @@
 ﻿using FluentValidation;
 using Restaurant.Data.Models.UserModels.Requests;
 using Restaurant.DB;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Restaurant.APIComponents.Validators.UserValidators
 {
@@ -15,7 +10,7 @@ namespace Restaurant.APIComponents.Validators.UserValidators
         {
             RuleFor(x => x.CityId).Custom((value, context) =>
             {
-                if(value != null)
+                if (value != null)
                 {
                     var cityExists = dbContext.Cities.Any(x => x.Id == value);
 

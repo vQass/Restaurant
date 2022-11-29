@@ -1,11 +1,6 @@
 ﻿using FluentValidation;
 using Restaurant.Data.Models.UserModels.Requests;
 using Restaurant.DB;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Restaurant.APIComponents.Validators.UserValidators
 {

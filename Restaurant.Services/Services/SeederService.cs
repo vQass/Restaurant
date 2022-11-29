@@ -392,9 +392,9 @@ namespace Restaurant.Services.Services
             var ingredients = _dbContext.Ingredients.ToList();
 
             var firstMeal = meals.FirstOrDefault(x => x.Name == "Kotlet z piersi kurczaka");
-            var firstMealIngredients = ingredients.Where(x => 
-                    x.Name == "Pierś z kurczaka" 
-                    || x.Name == "Bułka tarta" 
+            var firstMealIngredients = ingredients.Where(x =>
+                    x.Name == "Pierś z kurczaka"
+                    || x.Name == "Bułka tarta"
                     || x.Name == "Jajka"
                     || x.Name == "Sól"
                     || x.Name == "Pieprz")
@@ -402,7 +402,7 @@ namespace Restaurant.Services.Services
             firstMeal.Ingredients.AddRange(firstMealIngredients);
 
             var secondMeal = meals.FirstOrDefault(x => x.Name == "Rosół");
-            var secondMealIngredients = ingredients.Where(x => 
+            var secondMealIngredients = ingredients.Where(x =>
                     x.Name == "Kura"
                     || x.Name == "Pietruszka"
                     || x.Name == "Marchewka"
@@ -413,11 +413,11 @@ namespace Restaurant.Services.Services
                     || x.Name == "Liść laurowy"
                     || x.Name == "Sól"
                     || x.Name == "Seler")
-                .ToList();  
+                .ToList();
             secondMeal.Ingredients.AddRange(secondMealIngredients);
 
             var thirdMeal = meals.FirstOrDefault(x => x.Name == "Kwaśnica");
-            var thirdMealIngredients = ingredients.Where(x => 
+            var thirdMealIngredients = ingredients.Where(x =>
                     x.Name == "Czosnek"
                     || x.Name == "Liść laurowy"
                     || x.Name == "Ziele angielskie"
