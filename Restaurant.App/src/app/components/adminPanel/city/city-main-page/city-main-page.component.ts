@@ -21,7 +21,7 @@ export class CityMainPageComponent {
   disableDeleteButton = false;
   resultsLength = 0;
   isLoadingResults = true;
-  displayedColumns = ['id', 'name', 'isActive', 'action'];
+  displayedColumns = ['id', 'name', 'isActive', 'actions'];
 
   constructor(private cityService: CityService, private router: Router, private toastService: ToastService) {
   }
