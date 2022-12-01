@@ -2,11 +2,12 @@ export const apiEndpoints =
 {
   cityEndpoints: {
     "getCities": "City/GetCities",
-    "getCity": "City/GetCity/",
-    "addCity": "City/AddCity",
-    "deleteCity": "City/DeleteCity/",
-    "enableCity": "City/EnableCity/",
-    "disableCity": "City/DisableCity/"
+    "getCity": "City/GetCity",
+    "add": "City/AddCity",
+    "delete": "City/DeleteCity",
+    "update": "City/UpdateCity",
+    "enableCity": "City/EnableCity",
+    "disableCity": "City/DisableCity"
   },
   userEndpoints: {
     "addUser": "User/AddUser",
@@ -22,6 +23,7 @@ export const apiEndpoints =
     "addMeal": "Meal/AddMeal",
     "updateMeal": "Meal/UpdateMeal",
     "updateMealsPrice": "Meal/UpdateMealsPrice",
+    "delete": "Meal/DeleteMeal",
   },
   orderEndpoints: {
     "addOrder": "Order/AddOrder",

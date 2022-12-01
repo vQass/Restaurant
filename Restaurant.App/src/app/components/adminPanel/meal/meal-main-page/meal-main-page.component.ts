@@ -56,7 +56,21 @@ export class MealMainPageComponent {
   }
 
   delete(id: number) {
-    // TODO
+    this.disableDeleteButton = true;
+
+    this.mealService.deleteMeal(id).subscribe({
+      next: () => {
+        this.disableDeleteButton = false;
+
+        this.toastService.showSuccess("Pomyślnie usunięto danie!", 2000);
+        this.refreshData();
+      },
+      error: (e) => {
+        this.disableDeleteButton = false;
+
+        this.toastService.showDanger("Błąd podczas usuwania dania: " + e.message);
+      }
+    });
   }
 
   gotoItems(meal: MealAdminPanelItem) {
@@ -64,5 +78,15 @@ export class MealMainPageComponent {
       {
         id: meal.id,
       }]);
+  }
+
+  refreshData() {
+    return this.mealService.getMealsForAdminPanel(
+      this.paginator.pageIndex,
+      this.paginator.pageSize
+    ).subscribe((data) => {
+      this.resultsLength = data.itemCount;
+      this.meals = data.items;
+    });
   }
 }

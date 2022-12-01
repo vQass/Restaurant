@@ -55,24 +55,15 @@ export class IngredientMainPageComponent {
   }
 
   delete(id: number) {
-
     this.disableDeleteButton = true;
 
     this.ingredientService.deleteIngredient(id).subscribe({
       next: () => {
         this.disableDeleteButton = false;
 
-        const item = this.ingredients.find(x => x.id == id);
-
-        if (item != null) {
-          const index = this.ingredients.indexOf(item);
-          if (index > -1) {
-            this.ingredients.splice(index, 1);
-          }
-          this.table.renderRows();
-        }
-
         this.toastService.showSuccess("Pomyślnie usunięto składnik!", 2000)
+
+
       },
       error: (e) => {
         this.disableDeleteButton = false;
@@ -82,4 +73,13 @@ export class IngredientMainPageComponent {
     });
   }
 
+  refreshData() {
+    return this.ingredientService.getIngredientsForAdminPanel(
+      this.paginator.pageIndex,
+      this.paginator.pageSize
+    ).subscribe((data) => {
+      this.resultsLength = data.itemsCount;
+      this.ingredients = data.items;
+    });
+  }
 }

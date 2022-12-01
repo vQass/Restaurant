@@ -77,6 +77,13 @@ export class MealService {
       );
   }
 
+  deleteMeal(id: number): Observable<any> {
+    return this.http.delete(
+      this.baseApiUrl + this.mealEndpoints.delete + '/' + id)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {

@@ -38,7 +38,7 @@ namespace Restaurant.Repository.Repositories
                 .FirstOrDefault(x => x.Name == cityName);
         }
 
-        public IEnumerable<City> GetCities(bool? cityActivity, int pageIndex, int pageSize)
+        public IEnumerable<City> GetCities( bool? cityActivity, int pageIndex = 0, int pageSize = 0)
         {
             var cities = _dbContext.Cities
                 .AsNoTracking();

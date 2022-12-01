@@ -24,27 +24,29 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CityAddPageComponent } from './components/adminPanel/city/city-add-page/city-add-page.component';
+import { CityEditPageComponent } from './components/adminPanel/city/city-edit-page/city-edit-page.component';
 import { CityMainPageComponent } from './components/adminPanel/city/city-main-page/city-main-page.component';
 import {
-  AddIngredientPageComponent
+    AddIngredientPageComponent
 } from './components/adminPanel/ingredient/add-ingredient-page/add-ingredient-page.component';
 import {
-  EditIngredientPageComponent
+    EditIngredientPageComponent
 } from './components/adminPanel/ingredient/edit-ingredient-page/edit-ingredient-page.component';
 import {
-  IngredientMainPageComponent
+    IngredientMainPageComponent
 } from './components/adminPanel/ingredient/ingredient-main-page/ingredient-main-page.component';
 import { MainAdminPageComponent } from './components/adminPanel/main-admin-page/main-admin-page.component';
 import { AddMealPageComponent } from './components/adminPanel/meal/add-meal-page/add-meal-page.component';
 import {
-  EditMealOptionsPageComponent
+    EditMealOptionsPageComponent
 } from './components/adminPanel/meal/edit-meal-options-page/edit-meal-options-page.component';
 import { EditMealPageComponent } from './components/adminPanel/meal/edit-meal-page/edit-meal-page.component';
 import {
-  EditMealPricePageComponent
+    EditMealPricePageComponent
 } from './components/adminPanel/meal/edit-meal-price-page/edit-meal-price-page.component';
 import {
-  EditMealRecipePageComponent
+    EditMealRecipePageComponent
 } from './components/adminPanel/meal/edit-meal-recipe-page/edit-meal-recipe-page.component';
 import { MealMainPageComponent } from './components/adminPanel/meal/meal-main-page/meal-main-page.component';
 import { OrderMainPageComponent } from './components/adminPanel/order/order-main-page/order-main-page.component';
@@ -62,6 +64,9 @@ import { UserRegisterComponent } from './components/mainPage/user/user-register/
 import { CartItemComponent } from './components/shared/cart/cart-item/cart-item.component';
 import { CartSidebarComponent } from './components/shared/cart/cart-sidebar/cart-sidebar.component';
 import { MainNavComponent } from './components/shared/main-nav/main-nav.component';
+import { MealCategoryMainPageComponent } from './components/adminPanel/mealCategory/meal-category-main-page/meal-category-main-page.component';
+import { MealCategoryAddPageComponent } from './components/adminPanel/mealCategory/meal-category-add-page/meal-category-add-page.component';
+import { MealCategoryEditPageComponent } from './components/adminPanel/mealCategory/meal-category-edit-page/meal-category-edit-page.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +97,11 @@ import { MainNavComponent } from './components/shared/main-nav/main-nav.componen
     EditMealPricePageComponent,
     EditMealRecipePageComponent,
     CityMainPageComponent,
+    CityAddPageComponent,
+    CityEditPageComponent,
+    MealCategoryMainPageComponent,
+    MealCategoryAddPageComponent,
+    MealCategoryEditPageComponent,
   ],
   imports: [
     FormsModule,

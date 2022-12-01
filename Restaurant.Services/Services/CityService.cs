@@ -27,7 +27,7 @@ namespace Restaurant.Services.Services
 
         public CityWrapper GetCities(bool? cityActivity, int pageIndex = 0, int pageSize = 0)
         {
-            var cities = _cityRepository.GetCities(cityActivity);
+            var cities = _cityRepository.GetCities(cityActivity, pageIndex, pageSize);
             var cityCount = _cityRepository.GetCitiesCount();
 
             return new CityWrapper()

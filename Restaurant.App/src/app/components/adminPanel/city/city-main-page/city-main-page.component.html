@@ -1,4 +1,4 @@
-<div class="main-table-container mat-elevation-z8">
+<div class="main-table-container">
   <div class="table-container">
     <div class="loading-shade"
          *ngIf="isLoadingResults">
@@ -8,13 +8,15 @@
            class="full-width-table"
            [dataSource]="cities"
            matSort
-           aria-label="Elements">
+           aria-label="Elements"
+           multiTemplateDataRows>
+
       <ng-container matColumnDef="id">
         <th mat-header-cell
             *matHeaderCellDef
             mat-sort-header>Id</th>
         <td mat-cell
-            *matCellDef="let row">{{ row.id }}</td>
+            *matCellDef="let element">{{ element.id }}</td>
       </ng-container>
 
       <ng-container matColumnDef="name">
@@ -22,7 +24,7 @@
             *matHeaderCellDef
             mat-sort-header>Nazwa</th>
         <td mat-cell
-            *matCellDef="let row">{{ row.name }}</td>
+            *matCellDef="let element">{{ element.name }}</td>
       </ng-container>
 
       <ng-container matColumnDef="isActive">
@@ -30,15 +32,32 @@
             *matHeaderCellDef
             mat-sort-header>Aktywny</th>
         <td mat-cell
-            *matCellDef="let row">{{ row.isActive }}</td>
+            *matCellDef="let element">{{ element.isActive }}</td>
       </ng-container>
 
       <ng-container matColumnDef="action">
         <th mat-header-cell
             *matHeaderCellDef
-            mat-sort-header>Akcja</th>
+            mat-sort-header>Akcje</th>
+
         <td mat-cell
-            *matCellDef="let row">{{ row.isActive }}</td>
+            *matCellDef="let element">
+
+          <button mat-mini-fab
+                  (click)="gotoItems(element.id)"
+                  class="icon-button delete-item-icon">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button mat-mini-fab
+                  (click)="delete(element.id)"
+                  [disabled]="disableDeleteButton"
+                  class="icon-button delete-item-icon">
+            <mat-icon>delete</mat-icon>
+          </button>
+
+        </td>
+
       </ng-container>
 
       <tr mat-header-row
@@ -48,11 +67,20 @@
     </table>
   </div>
   <mat-paginator #paginator
+                 class="paginator"
                  [length]="resultsLength"
                  [pageIndex]="0"
-                 [pageSize]="1"
-                 [pageSizeOptions]="[1, 5, 10, 20]"
+                 [pageSize]="5"
+                 [pageSizeOptions]="[5, 10, 20]"
                  aria-label="Select page">
   </mat-paginator>
-  <div class="table-spacer"></div>
+
+  <div class="add-item-button-container">
+    <button mat-mini-fab
+            routerLink="/add-city-page"
+            class="icon-button add-item-icon">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
 </div>
