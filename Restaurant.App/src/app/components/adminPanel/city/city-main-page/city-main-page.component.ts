@@ -38,14 +38,13 @@ export class CityMainPageComponent {
           ).pipe(catchError(() => observableOf(null)));
         }),
         map(data => {
-          // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
 
           if (data === null) {
             return [];
           }
 
-          this.resultsLength = data.itemsCount;
+          this.resultsLength = data.itemCount;
           return data.items;
         }),
       )
@@ -83,7 +82,7 @@ export class CityMainPageComponent {
       this.paginator.pageIndex,
       this.paginator.pageSize
     ).subscribe((data) => {
-      this.resultsLength = data.itemsCount;
+      this.resultsLength = data.itemCount;
       this.cities = data.items;
     });
   }

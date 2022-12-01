@@ -10,7 +10,6 @@ import { MealAdminPanelItem } from 'src/models/meal/MealAdminPanelItem';
   styleUrls: ['./edit-meal-options-page.component.scss']
 })
 export class EditMealOptionsPageComponent implements OnInit {
-
   buttonActive;
   id?: number;
   meal?: MealAdminPanelItem;

@@ -1,7 +1,6 @@
-import {City} from './City';
+import { City } from './City';
 
-export interface CityWrapper
-{
-    items: City[];
-    itemsCount: number;
+export interface CityWrapper {
+  items: City[];
+  itemCount: number;
 }
