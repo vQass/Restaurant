@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
+using Restaurant.Business.IServices;
 using Restaurant.Data.Models.MealCategoryModels;
 using Restaurant.DB.Entities;
 using Restaurant.IRepository;
-using Restaurant.IServices;
 
-namespace Restaurant.Services.Services
+namespace Restaurant.Business.Services
 {
     public class MealCategoryService : IMealCategoryService
     {

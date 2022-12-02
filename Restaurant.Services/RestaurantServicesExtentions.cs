@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Restaurant.IServices;
-using Restaurant.Services.Services;
+using Restaurant.Business.IServices;
+using Restaurant.Business.Services;
 
-namespace Restaurant.Services
+namespace Restaurant.Business
 {
     public static class RestaurantServicesExtentions
     {

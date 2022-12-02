@@ -4,18 +4,18 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Restaurant.APIComponents;
 using Restaurant.APIComponents.Exceptions;
+using Restaurant.Business.IServices;
 using Restaurant.Data.Models.UserModels.Requests;
 using Restaurant.Data.Models.UserModels.Responses;
 using Restaurant.Data.Models.UserModels.ViewModels;
 using Restaurant.DB.Entities;
 using Restaurant.DB.Enums;
 using Restaurant.IRepository;
-using Restaurant.IServices;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Restaurant.Services.Services
+namespace Restaurant.Business.Services
 {
     public class UserService : IUserService
     {

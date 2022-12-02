@@ -1,9 +1,9 @@
-﻿using Restaurant.Data.Models.IngredientModels;
+﻿using Restaurant.Business.IServices;
+using Restaurant.Data.Models.IngredientModels;
 using Restaurant.DB.Entities;
 using Restaurant.IRepository;
-using Restaurant.IServices;
 
-namespace Restaurant.Services.Services
+namespace Restaurant.Business.Services
 {
     public class IngredientService : IIngredientService
     {

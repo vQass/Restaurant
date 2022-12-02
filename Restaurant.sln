@@ -5,13 +5,11 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.API", "Restaurant.API\Restaurant.API.csproj", "{77E2BABA-1BF2-4C56-BAE2-5E75F22D65E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Services", "Restaurant.Services\Restaurant.Services.csproj", "{B7630D16-1902-47D6-83A5-08DC529D0D71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Business", "Restaurant.Services\Restaurant.Business.csproj", "{B7630D16-1902-47D6-83A5-08DC529D0D71}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.DB", "Restaurant.DB\Restaurant.DB.csproj", "{14724AC0-323E-4C73-8D31-4BCD7F5E7ADB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Data", "Restaurant.Data\Restaurant.Data.csproj", "{F6A539D2-0D38-4388-B54C-1450BC7833D3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.IServices", "Restaurant.IServices\Restaurant.IServices.csproj", "{6359DC99-5F96-434A-9C69-F8B30568CABE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.APIComponents", "Restaurant.APIComponents\Restaurant.APIComponents.csproj", "{B57AD325-AB29-4EC9-B199-E5D0F2D1B66D}"
 EndProject
@@ -45,10 +43,6 @@ Global
 		{F6A539D2-0D38-4388-B54C-1450BC7833D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6A539D2-0D38-4388-B54C-1450BC7833D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6A539D2-0D38-4388-B54C-1450BC7833D3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6359DC99-5F96-434A-9C69-F8B30568CABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6359DC99-5F96-434A-9C69-F8B30568CABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6359DC99-5F96-434A-9C69-F8B30568CABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6359DC99-5F96-434A-9C69-F8B30568CABE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B57AD325-AB29-4EC9-B199-E5D0F2D1B66D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B57AD325-AB29-4EC9-B199-E5D0F2D1B66D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B57AD325-AB29-4EC9-B199-E5D0F2D1B66D}.Release|Any CPU.ActiveCfg = Release|Any CPU

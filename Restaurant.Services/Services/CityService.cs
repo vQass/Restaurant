@@ -1,9 +1,9 @@
-﻿using Restaurant.Data.Models.CityModels;
+﻿using Restaurant.Business.IServices;
+using Restaurant.Data.Models.CityModels;
 using Restaurant.DB.Entities;
 using Restaurant.IRepository;
-using Restaurant.IServices;
 
-namespace Restaurant.Services.Services
+namespace Restaurant.Business.Services
 {
     public class CityService : ICityService
     {

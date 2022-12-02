@@ -1,11 +1,11 @@
 ﻿using Restaurant.APIComponents.Exceptions;
+using Restaurant.Business.IServices;
 using Restaurant.Data.Models.OrderModels;
 using Restaurant.DB.Entities;
 using Restaurant.DB.Enums;
 using Restaurant.IRepository;
-using Restaurant.IServices;
 
-namespace Restaurant.Services.Services
+namespace Restaurant.Business.Services
 {
     public class OrderService : IOrderService
     {
@@ -33,7 +33,7 @@ namespace Restaurant.Services.Services
             var statusesVM = statuses.Select(x => new OrderStatusViewModel
             {
                 Id = x.Key,
-                Tag = OrderStatusDictionary.OrderStatusesTags.GetValueOrDefault((byte)x.Key),
+                Tag = OrderStatusDictionary.OrderStatusesTags.GetValueOrDefault(x.Key),
                 Description = x.Value
             });
 

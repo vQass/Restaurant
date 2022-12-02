@@ -24,7 +24,7 @@
     <ProjectReference Include="..\Restaurant.DB\Restaurant.DB.csproj" />
     <ProjectReference Include="..\Restaurant.LinqHelpers\Restaurant.LinqHelpers.csproj" />
     <ProjectReference Include="..\Restaurant.Repository\Restaurant.Repository.csproj" />
-    <ProjectReference Include="..\Restaurant.Services\Restaurant.Services.csproj" />
+    <ProjectReference Include="..\Restaurant.Services\Restaurant.Business.csproj" />
   </ItemGroup>
 
 </Project>

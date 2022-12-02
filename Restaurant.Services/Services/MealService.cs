@@ -1,12 +1,12 @@
-﻿using Restaurant.Data.Models.IngredientModels;
+﻿using Restaurant.Business.IServices;
+using Restaurant.Data.Models.IngredientModels;
 using Restaurant.Data.Models.MealModels;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.IRepository;
-using Restaurant.IServices;
 
 
-namespace Restaurant.Services.Services
+namespace Restaurant.Business.Services
 {
     public class MealService : IMealService
     {

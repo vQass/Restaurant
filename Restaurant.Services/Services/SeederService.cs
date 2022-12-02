@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Restaurant.Business.IServices;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.DB.Enums;
-using Restaurant.IServices;
 
-namespace Restaurant.Services.Services
+namespace Restaurant.Business.Services
 {
     public class SeederService : ISeederService
     {
