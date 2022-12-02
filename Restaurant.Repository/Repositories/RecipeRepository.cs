@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Restaurant.Business.IRepositories;
 using Restaurant.Data.Models.RecipeModels;
 using Restaurant.DB;
-using Restaurant.IRepository;
 
 namespace Restaurant.Repository.Repositories
 {

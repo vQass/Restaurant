@@ -1,9 +1,9 @@
 ﻿using Restaurant.APIComponents.Exceptions;
+using Restaurant.Business.IRepositories;
 using Restaurant.Business.IServices;
 using Restaurant.Data.Models.OrderModels;
 using Restaurant.DB.Entities;
 using Restaurant.DB.Enums;
-using Restaurant.IRepository;
 
 namespace Restaurant.Business.Services
 {

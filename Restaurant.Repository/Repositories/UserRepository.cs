@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Restaurant.APIComponents.Exceptions;
+using Restaurant.Business.IRepositories;
 using Restaurant.Data.Models.UserModels.Requests;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.DB.Enums;
-using Restaurant.IRepository;
 using System.ComponentModel.DataAnnotations;
 
 namespace Restaurant.Repository.Repositories

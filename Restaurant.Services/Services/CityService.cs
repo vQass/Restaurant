@@ -1,7 +1,7 @@
-﻿using Restaurant.Business.IServices;
+﻿using Restaurant.Business.IRepositories;
+using Restaurant.Business.IServices;
 using Restaurant.Data.Models.CityModels;
 using Restaurant.DB.Entities;
-using Restaurant.IRepository;
 
 namespace Restaurant.Business.Services
 {

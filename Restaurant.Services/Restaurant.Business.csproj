@@ -15,7 +15,6 @@
     <ProjectReference Include="..\Restaurant.APIComponents\Restaurant.APIComponents.csproj" />
     <ProjectReference Include="..\Restaurant.Data\Restaurant.Data.csproj" />
     <ProjectReference Include="..\Restaurant.DB\Restaurant.DB.csproj" />
-    <ProjectReference Include="..\Restaurant.IRepository\Restaurant.IRepository.csproj" />
   </ItemGroup>
 
 </Project>

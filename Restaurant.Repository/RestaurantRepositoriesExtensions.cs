@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Restaurant.IRepository;
+using Restaurant.Business.IRepositories;
 using Restaurant.Repository.Repositories;
 
 namespace Restaurant.Repository

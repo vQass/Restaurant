@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using Restaurant.APIComponents.Exceptions;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
-using Restaurant.IRepository;
 using Restaurant.LinqHelpers.Helpers;
 using System.Linq;
 using System.Linq.Dynamic.Core;

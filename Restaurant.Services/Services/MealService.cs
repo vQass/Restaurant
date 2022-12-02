@@ -1,9 +1,9 @@
-﻿using Restaurant.Business.IServices;
+﻿using Restaurant.Business.IRepositories;
+using Restaurant.Business.IServices;
 using Restaurant.Data.Models.IngredientModels;
 using Restaurant.Data.Models.MealModels;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
-using Restaurant.IRepository;
 
 
 namespace Restaurant.Business.Services

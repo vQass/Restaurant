@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Restaurant.APIComponents.Exceptions;
+using Restaurant.Business.IRepositories;
 using Restaurant.Data.Models.OrderModels;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.DB.Enums;
-using Restaurant.IRepository;
 using Restaurant.LinqHelpers.Helpers;
 
 namespace Restaurant.Repository.Repositories
