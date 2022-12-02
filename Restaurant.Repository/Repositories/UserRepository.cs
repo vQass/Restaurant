@@ -6,8 +6,8 @@ using Restaurant.APIComponents.Exceptions;
 using Restaurant.Business.IRepositories;
 using Restaurant.Data.Models.UserModels.Requests;
 using Restaurant.DB;
-using Restaurant.DB.Entities;
-using Restaurant.DB.Enums;
+using Restaurant.Entities.Entities;
+using Restaurant.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Restaurant.Repository.Repositories

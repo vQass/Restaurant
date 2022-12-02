@@ -1,6 +1,6 @@
 ﻿using Restaurant.Data.Models.OrderModels;
-using Restaurant.DB.Entities;
-using Restaurant.DB.Enums;
+using Restaurant.Entities.Entities;
+using Restaurant.Entities.Enums;
 
 namespace Restaurant.Business.IRepositories
 {

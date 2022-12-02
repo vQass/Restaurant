@@ -1,4 +1,4 @@
-﻿namespace Restaurant.DB.Entities
+﻿namespace Restaurant.Entities.Entities
 {
     public class City
     {

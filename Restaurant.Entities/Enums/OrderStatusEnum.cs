@@ -1,4 +1,4 @@
-﻿namespace Restaurant.DB.Enums
+﻿namespace Restaurant.Entities.Enums
 {
     public enum OrderStatusEnum : byte
     {

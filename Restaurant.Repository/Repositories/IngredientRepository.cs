@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Restaurant.APIComponents.Exceptions;
+using Restaurant.Business.IRepositories;
 using Restaurant.DB;
-using Restaurant.DB.Entities;
+using Restaurant.Entities.Entities;
 using Restaurant.LinqHelpers.Helpers;
 
 namespace Restaurant.Repository.Repositories

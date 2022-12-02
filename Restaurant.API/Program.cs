@@ -9,7 +9,7 @@ using Restaurant.Business;
 using Restaurant.Business.IServices;
 using Restaurant.Data;
 using Restaurant.DB;
-using Restaurant.DB.Entities;
+using Restaurant.Entities.Entities;
 using Restaurant.Repository;
 using System.Text;
 

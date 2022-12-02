@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Restaurant.DB.Enums;
+using Restaurant.Entities.Enums;
 
 namespace Restaurant.APIComponents.Attributes
 {

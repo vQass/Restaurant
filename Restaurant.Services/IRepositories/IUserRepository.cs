@@ -1,5 +1,5 @@
 ﻿using Restaurant.Data.Models.UserModels.Requests;
-using Restaurant.DB.Entities;
+using Restaurant.Entities.Entities;
 
 namespace Restaurant.Business.IRepositories
 {

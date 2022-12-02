@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Restaurant.Business.IServices;
 using Restaurant.DB;
-using Restaurant.DB.Entities;
-using Restaurant.DB.Enums;
+using Restaurant.Entities.Entities;
+using Restaurant.Entities.Enums;
 
 namespace Restaurant.Business.Services
 {

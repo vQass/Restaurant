@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Restaurant.Business.IServices;
 using Restaurant.Data.Models.OrderModels;
-using Restaurant.DB.Enums;
+using Restaurant.Entities.Enums;
 
 namespace Restaurant.API.Controllers
 {
