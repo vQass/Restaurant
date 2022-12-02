@@ -94,6 +94,9 @@
         <mat-error *ngIf="phoneNumber?.errors?.['required']">
           Numer telefonu jest wymagane
         </mat-error>
+        <mat-error *ngIf="phoneNumber?.errors?.['maxlength']">
+          Przekroczono długość numeru telefonu
+        </mat-error>
       </mat-form-field>
 
     </div>

@@ -16,9 +16,9 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("GetCities")]
-        public IActionResult GetCities([FromQuery] bool? cityActivity = null)
+        public IActionResult GetCities([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 0, [FromQuery] bool? cityActivity = null)
         {
-            return Ok(_cityService.GetCities(cityActivity));
+            return Ok(_cityService.GetCities(cityActivity, pageIndex, pageSize));
         }
 
         [HttpGet("GetCity/{id}")]
@@ -27,35 +27,35 @@ namespace Restaurant.API.Controllers
             return Ok(_cityService.GetCity(id));
         }
 
-        [HttpPost("AddCity")]
+        [HttpPost("Add")]
         public IActionResult AddCity([FromBody] CityCreateRequest cityCreateRequest)
         {
-            short id = _cityService.AddCity(cityCreateRequest.Name);
-            return Created($"api/City/GetCityById/{id}", null);
+            _cityService.AddCity(cityCreateRequest.Name);
+            return Ok();
         }
 
-        [HttpPut("UpdateCity/{id}")]
+        [HttpPut("Update/{id}")]
         public IActionResult UpdateCity([FromRoute] short id, [FromBody] CityCreateRequest cityUpdateRequest)
         {
             _cityService.UpdateCity(id, cityUpdateRequest.Name);
             return Ok();
         }
 
-        [HttpDelete("DeleteCity/{id}")]
+        [HttpDelete("Delete/{id}")]
         public IActionResult DeleteCity([FromRoute] short id)
         {
             _cityService.DeleteCity(id);
             return NoContent();
         }
 
-        [HttpPut("EnableCity/{id}")]
+        [HttpPut("Enable/{id}")]
         public IActionResult EnableCity([FromRoute] short id)
         {
             _cityService.EnableCity(id);
             return Ok();
         }
 
-        [HttpPut("DisableCity/{id}")]
+        [HttpPut("Disable/{id}")]
         public IActionResult DisableCity([FromRoute] short id)
         {
             _cityService.DisableCity(id);

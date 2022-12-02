@@ -1,9 +1,9 @@
-﻿
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Restaurant.APIComponents.Exceptions;
 using Restaurant.DB;
 using Restaurant.DB.Entities;
 using Restaurant.IRepository;
+using Restaurant.LinqHelpers.Helpers;
 
 namespace Restaurant.Repository.Repositories
 {
@@ -22,14 +22,22 @@ namespace Restaurant.Repository.Repositories
 
         #region GetMethods
 
-        public IEnumerable<MealCategory> GetMealCategories()
+        public IEnumerable<MealCategory> GetMealCategories(int pageIndex = 0, int pageSize = 0)
         {
-            return _dbContext.MealsCategories.ToList();
+            return _dbContext.MealsCategories
+                .AsQueryable()
+                .ApplyPaging(pageIndex, pageSize)
+                .ToList();
         }
 
         public MealCategory GetMealCategory(short id)
         {
             return _dbContext.MealsCategories.FirstOrDefault(x => x.Id == id);
+        }
+
+        public int GetMealCategoriesCount()
+        {
+            return _dbContext.MealsCategories.Count();
         }
 
         #endregion

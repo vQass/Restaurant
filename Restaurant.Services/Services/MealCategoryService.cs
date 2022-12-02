@@ -1,4 +1,6 @@
-﻿using Restaurant.DB.Entities;
+﻿using AutoMapper;
+using Restaurant.Data.Models.MealCategoryModels;
+using Restaurant.DB.Entities;
 using Restaurant.IRepository;
 using Restaurant.IServices;
 
@@ -7,12 +9,20 @@ namespace Restaurant.Services.Services
     public class MealCategoryService : IMealCategoryService
     {
         private readonly IMealCategoryRepository _mealCategoryRepository;
+        private readonly IMapper _mapper;
 
-        public MealCategoryService(IMealCategoryRepository mealCategoryRepository)
+        public MealCategoryService(IMealCategoryRepository mealCategoryRepository, IMapper mapper)
         {
             _mealCategoryRepository = mealCategoryRepository;
+            _mapper = mapper;
         }
 
+        public MealCategoryViewModel GetMealCategory(short id)
+        {
+            var category = _mealCategoryRepository.GetMealCategory(id);
+
+            return _mapper.Map<MealCategoryViewModel>(category);
+        }
 
         public IEnumerable<MealCategory> GetMealCategories()
         {
@@ -51,5 +61,20 @@ namespace Restaurant.Services.Services
 
             _mealCategoryRepository.DeleteMealCategory(mealCategory);
         }
+
+        public MealCategoryWrapper GetMealCategoriesPage(int pageIndex, int pageSize)
+        {
+            var mealCategories = _mealCategoryRepository.GetMealCategories(pageIndex, pageSize);
+            var itemCount = _mealCategoryRepository.GetMealCategoriesCount();
+
+            var mealCategoriesVM = _mapper.Map<List<MealCategoryViewModel>>(mealCategories);
+
+            return new MealCategoryWrapper
+            {
+                Items = mealCategoriesVM,
+                ItemCount = itemCount
+            };
+        }
+
     }
 }

@@ -33,16 +33,16 @@
             *matCellDef="let element">
 
           <button mat-mini-fab
-                  routerLink="/edit-ingredient-admin-main-page"
+                  routerLink="/edit-ingredient-page"
                   [state]="{ data: element}"
-                  class="icon-button delete-item-icon">
+                  class="icon-button action-icon">
             <mat-icon>edit</mat-icon>
           </button>
 
           <button mat-mini-fab
                   (click)="delete(element.id)"
                   [disabled]="disableDeleteButton"
-                  class="icon-button delete-item-icon">
+                  class="icon-button action-icon">
             <mat-icon>delete</mat-icon>
           </button>
 
@@ -67,7 +67,7 @@
 
   <div class="add-item-button-container">
     <button mat-mini-fab
-            routerLink="/add-ingredient-admin-main-page"
+            routerLink="/add-ingredient-page"
             class="icon-button add-item-icon">
       <mat-icon>add</mat-icon>
     </button>

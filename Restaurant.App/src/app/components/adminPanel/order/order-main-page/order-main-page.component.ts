@@ -41,7 +41,10 @@ export class OrderMainPageComponent {
   displayedColumnsWithExpand = [...this.displayedColumns, 'expand'];
   expandedElement?: OrderAdminPanelItem | null;
 
-  constructor(private orderService: OrderService, private toastService: ToastService, private breakpointObserver: BreakpointObserver) {
+  constructor(
+    private orderService: OrderService,
+    private toastService: ToastService,
+    private breakpointObserver: BreakpointObserver) {
   }
 
   ngAfterViewInit(): void {

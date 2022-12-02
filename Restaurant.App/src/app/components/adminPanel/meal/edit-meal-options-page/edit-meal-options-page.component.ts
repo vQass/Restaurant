@@ -10,7 +10,6 @@ import { MealAdminPanelItem } from 'src/models/meal/MealAdminPanelItem';
   styleUrls: ['./edit-meal-options-page.component.scss']
 })
 export class EditMealOptionsPageComponent implements OnInit {
-
   buttonActive;
   id?: number;
   meal?: MealAdminPanelItem;
@@ -37,15 +36,15 @@ export class EditMealOptionsPageComponent implements OnInit {
   }
 
   goToMealEditPage() {
-    this.goToPage('/edit-meal-admin-page');
+    this.goToPage('/edit-meal-page');
   }
 
   goToMealEditPricePage() {
-    this.goToPage('/edit-meal-price-admin-page');
+    this.goToPage('/edit-meal-price-page');
   }
 
   goToMealEditRecipePage() {
-    this.goToPage('/edit-meal-recipe-admin-page');
+    this.goToPage('/edit-meal-recipe-page');
   }
 
   goToPage(link: string) {
@@ -107,6 +106,5 @@ export class EditMealOptionsPageComponent implements OnInit {
           this.toastService.showDanger("Błąd podczas zmieniania aktywności dania: \n" + e.message, 3000);
         }
       });
-
   }
 }

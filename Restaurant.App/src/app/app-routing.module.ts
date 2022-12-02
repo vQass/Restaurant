@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CityComponent } from './components/adminPanel/city/city/city.component';
+import { CityAddPageComponent } from './components/adminPanel/city/city-add-page/city-add-page.component';
+import { CityEditPageComponent } from './components/adminPanel/city/city-edit-page/city-edit-page.component';
+import { CityMainPageComponent } from './components/adminPanel/city/city-main-page/city-main-page.component';
 import {
   AddIngredientPageComponent
 } from './components/adminPanel/ingredient/add-ingredient-page/add-ingredient-page.component';
@@ -24,6 +26,15 @@ import {
   EditMealRecipePageComponent
 } from './components/adminPanel/meal/edit-meal-recipe-page/edit-meal-recipe-page.component';
 import { MealMainPageComponent } from './components/adminPanel/meal/meal-main-page/meal-main-page.component';
+import {
+  MealCategoryAddPageComponent
+} from './components/adminPanel/mealCategory/meal-category-add-page/meal-category-add-page.component';
+import {
+  MealCategoryEditPageComponent
+} from './components/adminPanel/mealCategory/meal-category-edit-page/meal-category-edit-page.component';
+import {
+  MealCategoryMainPageComponent
+} from './components/adminPanel/mealCategory/meal-category-main-page/meal-category-main-page.component';
 import { OrderMainPageComponent } from './components/adminPanel/order/order-main-page/order-main-page.component';
 import { HomePageComponent } from './components/mainPage/home-page/home-page.component';
 import { MenuPageComponent } from './components/mainPage/menu/menu-page/menu-page.component';
@@ -37,7 +48,6 @@ import { IsLoggedInGuard } from './guards/is-logged-in.guard';
 
 const routes: Routes = [
   { path: 'home', component: HomePageComponent },
-  { path: 'city', component: CityComponent, canActivate: [IsLoggedInGuard] },
   { path: 'register', component: UserRegisterComponent },
   { path: 'login', component: UserLoginComponent },
   { path: 'menu', component: MenuPageComponent },
@@ -47,14 +57,20 @@ const routes: Routes = [
   { path: 'admin-main-page', component: MainAdminPageComponent, canActivate: [IsAdminGuard] },
   { path: 'order-admin-main-page', component: OrderMainPageComponent, canActivate: [IsAdminGuard] },
   { path: 'meal-admin-main-page', component: MealMainPageComponent, canActivate: [IsAdminGuard] },
-  { path: 'add-meal-admin-main-page', component: AddMealPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'add-meal-page', component: AddMealPageComponent, canActivate: [IsAdminGuard] },
   { path: 'edit-meal-options-admin-page', component: EditMealOptionsPageComponent, canActivate: [IsAdminGuard] },
-  { path: 'edit-meal-admin-page', component: EditMealPageComponent, canActivate: [IsAdminGuard] },
-  { path: 'edit-meal-price-admin-page', component: EditMealPricePageComponent, canActivate: [IsAdminGuard] },
-  { path: 'edit-meal-recipe-admin-page', component: EditMealRecipePageComponent, canActivate: [IsAdminGuard] },
+  { path: 'edit-meal-page', component: EditMealPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'edit-meal-price-page', component: EditMealPricePageComponent, canActivate: [IsAdminGuard] },
+  { path: 'edit-meal-recipe-page', component: EditMealRecipePageComponent, canActivate: [IsAdminGuard] },
   { path: 'ingredient-admin-main-page', component: IngredientMainPageComponent, canActivate: [IsAdminGuard] },
-  { path: 'add-ingredient-admin-main-page', component: AddIngredientPageComponent, canActivate: [IsAdminGuard] },
-  { path: 'edit-ingredient-admin-main-page', component: EditIngredientPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'add-ingredient-page', component: AddIngredientPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'edit-ingredient-page', component: EditIngredientPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'city-admin-main-page', component: CityMainPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'add-city-page', component: CityAddPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'edit-city-page', component: CityEditPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'meal-category-main-page', component: MealCategoryMainPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'add-meal-category-page', component: MealCategoryAddPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'edit-meal-category-page', component: MealCategoryEditPageComponent, canActivate: [IsAdminGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 

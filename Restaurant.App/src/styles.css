@@ -95,13 +95,14 @@ body {
   width: 50px;
 }
 
-.mat-column-isActive {
-  width: 100px;
-}
-
 .mat-column-actions {
   width: 120px;
   justify-content: center !important;
+  text-align: center !important;
+}
+
+.mat-column-isActive {
+  width: 100px;
   text-align: center !important;
 }
 
@@ -121,6 +122,25 @@ body {
 
 .table-spacer {
   height: 50px;
+}
+
+.action-icon {
+  margin-top: 5px;
+  color: white !important;
+  background-color: #6C757D !important;
+  scale: 0.75;
+}
+
+.add-item-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.add-item-icon {
+  margin-top: 5px;
+  color: white !important;
+  background-color: #343A40 !important;
 }
 
 /* #endregion Tables */

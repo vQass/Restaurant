@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainAdminPageComponent implements OnInit {
 
+  disableDeleteButton = false;
+
   constructor() { }
 
   ngOnInit(): void {
