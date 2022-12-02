@@ -62,7 +62,7 @@ export class OrderService {
     let params = new HttpParams();
     params = params.append("pageIndex", pageIndex);
     params = params.append("pageSize", pageSize);
-    params = params.append("orderByParams", 'id asc');
+    params = params.append("orderByParams", 'id desc');
 
     return this.http.get<OrderAdminPanelWrapper>(this.baseApiUrl + this.orderEndpoints.getOrdersForAdminPanel, { params: params })
       .pipe(

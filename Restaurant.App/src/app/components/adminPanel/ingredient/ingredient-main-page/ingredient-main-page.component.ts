@@ -60,10 +60,8 @@ export class IngredientMainPageComponent {
     this.ingredientService.deleteIngredient(id).subscribe({
       next: () => {
         this.disableDeleteButton = false;
-
+        this.refreshData();
         this.toastService.showSuccess("Pomyślnie usunięto składnik!", 2000)
-
-
       },
       error: (e) => {
         this.disableDeleteButton = false;

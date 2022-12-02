@@ -3,11 +3,11 @@ export const apiEndpoints =
   cityEndpoints: {
     "getCities": "City/GetCities",
     "getCity": "City/GetCity",
-    "add": "City/AddCity",
-    "delete": "City/DeleteCity",
-    "update": "City/UpdateCity",
-    "enableCity": "City/EnableCity",
-    "disableCity": "City/DisableCity"
+    "add": "City/Add",
+    "delete": "City/Delete",
+    "update": "City/Update",
+    "enable": "City/Enable",
+    "disable": "City/Disable"
   },
   userEndpoints: {
     "addUser": "User/AddUser",
@@ -44,6 +44,11 @@ export const apiEndpoints =
   },
   mealCategoryEndpoints: {
     "getMealCategories": "MealCategory/GetMealCategories",
+    "getMealCategoriesPage": "MealCategory/GetMealCategoriesPage",
+    "getMealCategory": "MealCategory/GetMealCategory",
+    "delete": "MealCategory/Delete",
+    "add": "MealCategory",
+    "update": "MealCategory/Update",
   }
 };
 

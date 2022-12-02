@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { MealCategoryService } from 'src/app/services/ApiServices/meal-category.service';
+import { ToastService } from 'src/app/services/OtherServices/toast.service';
+import { SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
+import { MealCategoryCreateRequest } from 'src/models/mealCategory/MealCategoryCreateRequest';
 
 @Component({
   selector: 'app-meal-category-add-page',
@@ -6,5 +12,44 @@ import { Component } from '@angular/core';
   styleUrls: ['./meal-category-add-page.component.scss']
 })
 export class MealCategoryAddPageComponent {
+  singleControlMatcher = new SingleControlErrorStateMatcher();
+  mainForm: FormGroup;
+  disableSubmitButton = false;
 
+  constructor(
+    fb: FormBuilder,
+    private mealCategoryService: MealCategoryService,
+    private toastService: ToastService,
+    private router: Router) {
+    this.mainForm = fb.group({
+      name: fb.control('', [Validators.required, Validators.maxLength(127)]),
+    })
+  }
+
+  get name() {
+    return this.mainForm.get('name');
+  }
+
+  onSubmit() {
+    this.disableSubmitButton = true;
+
+    let mealCategory =
+      {
+        name: this.mainForm.value.name,
+      } as MealCategoryCreateRequest;
+
+    this.mealCategoryService.add(mealCategory).subscribe({
+      next: () => {
+        this.disableSubmitButton = false;
+
+        this.toastService.showSuccess("Pomyślnie dodano kategorię!", 2000)
+        this.router.navigate(['meal-category-main-page']);
+      },
+      error: (e) => {
+        this.disableSubmitButton = false;
+
+        this.toastService.showDanger("Błąd podczas dodawania kategorii: " + e.message);
+      }
+    });
+  }
 }

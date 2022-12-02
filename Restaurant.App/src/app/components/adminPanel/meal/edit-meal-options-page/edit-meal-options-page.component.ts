@@ -106,6 +106,5 @@ export class EditMealOptionsPageComponent implements OnInit {
           this.toastService.showDanger("Błąd podczas zmieniania aktywności dania: \n" + e.message, 3000);
         }
       });
-
   }
 }

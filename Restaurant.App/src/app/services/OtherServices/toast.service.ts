@@ -10,8 +10,8 @@ export class ToastService {
     this._snackBar.open(text, 'Zamknij',
       {
         duration: duration,
-        horizontalPosition: 'end',
-        verticalPosition: 'top'
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
       });
   }
 

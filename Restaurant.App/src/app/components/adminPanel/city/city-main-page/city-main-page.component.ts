@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { merge, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
@@ -15,15 +14,18 @@ import { City } from 'src/models/city/City';
 })
 export class CityMainPageComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
 
   cities: City[] = [];
   disableDeleteButton = false;
+  disableDisableCityButton = false;
+  disableEnableCityButton = false;
   resultsLength = 0;
   isLoadingResults = true;
   displayedColumns = ['id', 'name', 'isActive', 'actions'];
 
-  constructor(private cityService: CityService, private router: Router, private toastService: ToastService) {
+  constructor(private cityService: CityService,
+    private router: Router,
+    private toastService: ToastService) {
   }
 
   ngAfterViewInit(): void {
@@ -66,6 +68,42 @@ export class CityMainPageComponent {
         this.disableDeleteButton = false;
 
         this.toastService.showDanger("Błąd podczas usuwania miasta: " + e.message);
+      }
+    });
+  }
+
+  enableCity(id: number) {
+    this.disableEnableCityButton = true;
+
+    this.cityService.enable(id).subscribe({
+      next: () => {
+        this.disableEnableCityButton = false;
+
+        this.toastService.showSuccess("Pomyślnie aktywowano miasto!", 2000);
+        this.refreshData();
+      },
+      error: (e) => {
+        this.disableEnableCityButton = false;
+
+        this.toastService.showDanger("Błąd podczas aktywacji miasta: " + e.message);
+      }
+    });
+  }
+
+  disableCity(id: number) {
+    this.disableDisableCityButton = true;
+
+    this.cityService.disable(id).subscribe({
+      next: () => {
+        this.disableDisableCityButton = false;
+
+        this.toastService.showSuccess("Pomyślnie dezaktywacji miasto!", 2000);
+        this.refreshData();
+      },
+      error: (e) => {
+        this.disableDisableCityButton = false;
+
+        this.toastService.showDanger("Błąd podczas dezaktywacji miasta: " + e.message);
       }
     });
   }

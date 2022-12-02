@@ -127,8 +127,8 @@ namespace Restaurant.Repository.Repositories
 
         public void EnsureCityNotInUse(City city)
         {
-            EnsureCityNotUsedInUsers(city);
             EnsureCityNotUsedInOrders(city);
+            EnsureCityNotUsedInUsers(city);
         }
 
         public void EnsureCityNotUsedInUsers(City city)

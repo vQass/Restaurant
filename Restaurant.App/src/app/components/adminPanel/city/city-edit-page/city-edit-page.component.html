@@ -1,7 +1,7 @@
 <form class="form-container"
       [formGroup]="mainForm">
   <div>
-    <h1 style="margin-bottom: 20px;">Dodawanie miasta</h1>
+    <h1 style="margin-bottom: 20px;">Edycja miasta</h1>
 
     <!-- Name -->
     <mat-form-field class="full-width-input"
@@ -13,9 +13,15 @@
              formControlName="name"
              [errorStateMatcher]="singleControlMatcher"
              autocomplete="off" />
+
       <mat-error *ngIf="name?.errors?.['required']">
         Nazwa jest wymagana
       </mat-error>
+
+      <mat-error *ngIf="name?.errors?.['maxlength']">
+        Nazwa nie może przekraczać 127 znaków
+      </mat-error>
+
     </mat-form-field>
   </div>
 

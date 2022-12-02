@@ -12,9 +12,15 @@
              formControlName="name"
              [errorStateMatcher]="singleControlMatcher"
              autocomplete="off" />
+
       <mat-error *ngIf="name?.errors?.['required']">
         Nazwa jest wymagana
       </mat-error>
+
+      <mat-error *ngIf="name?.errors?.['maxlength']">
+        Nazwa nie może przekraczać 127 znaków
+      </mat-error>
+
     </mat-form-field>
   </div>
 

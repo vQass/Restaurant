@@ -48,7 +48,7 @@ export class OrderSummaryComponent implements OnInit {
       surname: fb.control('', [Validators.required]),
       city: fb.control('', [Validators.required]),
       address: fb.control('', [Validators.required]),
-      phoneNumber: fb.control('', [Validators.required])
+      phoneNumber: fb.control('', [Validators.required, Validators.maxLength(32)])
     })
   }
 

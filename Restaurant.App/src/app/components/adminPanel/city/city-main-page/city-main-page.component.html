@@ -29,7 +29,7 @@
         <th mat-header-cell
             *matHeaderCellDef>Aktywny</th>
         <td mat-cell
-            *matCellDef="let element">{{ element.isActive }}</td>
+            *matCellDef="let element">{{ element.isActive ? 'tak' : 'nie' }}</td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
@@ -39,16 +39,33 @@
         <td mat-cell
             *matCellDef="let element">
 
+
+          <button mat-mini-fab
+                  *ngIf="element.isActive"
+                  (click)="disableCity(element.id)"
+                  [disabled]="disableDisableCityButton"
+                  class="icon-button action-icon">
+            <mat-icon>visibility_off</mat-icon>
+          </button>
+
+          <button mat-mini-fab
+                  *ngIf="!element.isActive"
+                  (click)="enableCity(element.id)"
+                  [disabled]="disableEnableCityButton"
+                  class="icon-button action-icon">
+            <mat-icon>visibility</mat-icon>
+          </button>
+
           <button mat-mini-fab
                   (click)="gotoItems(element.id)"
-                  class="icon-button delete-item-icon">
+                  class="icon-button action-icon">
             <mat-icon>edit</mat-icon>
           </button>
 
           <button mat-mini-fab
                   (click)="delete(element.id)"
                   [disabled]="disableDeleteButton"
-                  class="icon-button delete-item-icon">
+                  class="icon-button action-icon">
             <mat-icon>delete</mat-icon>
           </button>
 

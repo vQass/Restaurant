@@ -1,18 +1,4 @@
-.add-item-button-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.add-item-icon {
-  margin-top: 5px;
-  color: white;
-  background-color: #343A40;
-}
-
-.delete-item-icon {
-  margin-top: 5px;
-  color: white;
-  background-color: #6C757D;
-  scale: 0.75;
+.mat-column-actions {
+  width: 200px;
+  text-align: center !important;
 }

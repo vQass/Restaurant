@@ -16,27 +16,39 @@ namespace Restaurant.API.Controllers
             _mealCategoryService = mealCategoryService;
         }
 
+        [HttpGet("GetMealCategory/{id}")]
+        public IActionResult GetMealCategory([FromRoute] short id)
+        {
+            return Ok(_mealCategoryService.GetMealCategory(id));
+        }
+
         [HttpGet("GetMealCategories")]
         public IActionResult GetMealCategories()
         {
             return Ok(_mealCategoryService.GetMealCategories());
         }
 
-        [HttpPost("AddMealCategory")]
-        public IActionResult AddMealCategory([FromBody] MealCategoryCreateRequest mealCategoryCreateRequest)
+        [HttpGet("GetMealCategoriesPage")]
+        public IActionResult GetMealCategoriesPage([FromQuery] int pageIndex, [FromQuery] int pageSize)
         {
-            var id = _mealCategoryService.AddMealCategory(mealCategoryCreateRequest.Name);
-            return Created($"api/User/{id}", null);
+            return Ok(_mealCategoryService.GetMealCategoriesPage(pageIndex, pageSize));
         }
 
-        [HttpPut("UpdateMealCategory/{id}")]
-        public IActionResult UpdateMealCategory([FromRoute] short id, [FromBody] MealCategoryUpdateRequest mealCategoryUpdateRequest)
+        [HttpPost()]
+        public IActionResult Add([FromBody] MealCategoryCreateRequest mealCategoryCreateRequest)
+        {
+            var id = _mealCategoryService.AddMealCategory(mealCategoryCreateRequest.Name);
+            return Ok();
+        }
+
+        [HttpPut("Update/{id}")]
+        public IActionResult Update([FromRoute] short id, [FromBody] MealCategoryUpdateRequest mealCategoryUpdateRequest)
         {
             _mealCategoryService.UpdateMealCategory(id, mealCategoryUpdateRequest.Name);
             return Ok();
         }
 
-        [HttpDelete("DeleteMealCategory/{id}")]
+        [HttpDelete("Delete/{id}")]
         public IActionResult DeleteMealCategory([FromRoute] short id)
         {
             _mealCategoryService.DeleteMealCategory(id);

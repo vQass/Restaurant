@@ -55,6 +55,18 @@ export class CityService {
     );
   }
 
+  enable(id: number) {
+    return this.http.put(this.baseApiUrl + this.cityEndpoints.enable + '/' + id, '').pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  disable(id: number) {
+    return this.http.put(this.baseApiUrl + this.cityEndpoints.disable + '/' + id, '').pipe(
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.log('An error occurred:', error.error);

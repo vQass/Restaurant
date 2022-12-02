@@ -33,6 +33,9 @@ namespace Restaurant.Data
             CreateMap<MealCategory, MealGroupViewModel>()
                 .ForMember(dest => dest.GroupName, opt => opt.MapFrom(src => src.Name));
 
+            // MealCategories
+            CreateMap<MealCategory, MealCategoryViewModel>();
+
             // Recipes
             CreateMap<Meal, Recipe>()
                 .ForMember(dest => dest.MealId, opt => opt.MapFrom(src => src.Id))
