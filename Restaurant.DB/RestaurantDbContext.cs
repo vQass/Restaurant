@@ -24,7 +24,7 @@ namespace Restaurant.DB
 
             modelBuilder.Entity<User>()
                 .HasOne(x => x.City)
-                .WithMany()
+                .WithMany(x => x.Users)
                 .HasForeignKey(x => x.CityId)
                 .OnDelete(DeleteBehavior.NoAction);
 
@@ -44,9 +44,15 @@ namespace Restaurant.DB
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<City>()
+                .HasMany(x => x.Orders)
+                .WithOne(x => x.City)
+                .HasForeignKey(x => x.CityId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<Order>()
                 .HasOne(x => x.City)
-                .WithMany()
+                .WithMany(x => x.Orders)
                 .HasForeignKey(x => x.CityId)
                 .OnDelete(DeleteBehavior.NoAction);
 
