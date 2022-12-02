@@ -59,7 +59,7 @@ namespace Restaurant.Services.Services
 
             _mealCategoryRepository.EnsureMealCategoryNotInUse(mealCategory);
 
-            _mealCategoryRepository.DeleteMealCategory(mealCategory);   
+            _mealCategoryRepository.DeleteMealCategory(mealCategory);
         }
 
         public MealCategoryWrapper GetMealCategoriesPage(int pageIndex, int pageSize)

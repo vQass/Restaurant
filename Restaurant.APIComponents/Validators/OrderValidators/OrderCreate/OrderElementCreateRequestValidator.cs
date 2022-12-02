@@ -12,12 +12,12 @@ namespace Restaurant.APIComponents.Validators.OrderValidators.OrderCreate
             {
                 var meal = dbContext.Meals.FirstOrDefault(x => x.Id == mealId);
 
-                if(meal is null)
+                if (meal is null)
                 {
                     context.AddFailure("MealId", "Danie o podanym id nie istnieje.");
                 }
 
-                if(!meal.Available)
+                if (!meal.Available)
                 {
                     context.AddFailure("MealId", "Danie o podanym id jest nieaktywne.");
                 }
@@ -25,7 +25,7 @@ namespace Restaurant.APIComponents.Validators.OrderValidators.OrderCreate
 
             RuleFor(x => x.Amount).Custom((amount, context) =>
             {
-                if(amount < 1)
+                if (amount < 1)
                 {
                     context.AddFailure("Amount", "Ilość danego posiłku nie może być mniejsza od 1.");
                 }

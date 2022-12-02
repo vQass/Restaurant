@@ -35,7 +35,7 @@ namespace Restaurant.Repository.Repositories
                 .ApplyPaging(pageIndex, pageSize)
                 .ToListAsync();
         }
-        
+
         public async Task<IEnumerable<MealCategory>> GetMealsGroupedByCategory()
         {
             return await _dbContext.MealsCategories

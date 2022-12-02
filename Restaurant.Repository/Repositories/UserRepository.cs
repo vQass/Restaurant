@@ -1,16 +1,14 @@
-﻿using Microsoft.Extensions.Logging;
-using Restaurant.APIComponents.Exceptions;
-using Restaurant.DB.Entities;
-using Restaurant.DB;
-using Microsoft.EntityFrameworkCore;
-using Restaurant.DB.Enums;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using System.Xml.Linq;
-using System.Security.Claims;
-using System.ComponentModel.DataAnnotations;
-using Restaurant.IRepository;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Restaurant.APIComponents.Exceptions;
 using Restaurant.Data.Models.UserModels.Requests;
+using Restaurant.DB;
+using Restaurant.DB.Entities;
+using Restaurant.DB.Enums;
+using Restaurant.IRepository;
+using System.ComponentModel.DataAnnotations;
 
 namespace Restaurant.Repository.Repositories
 {
@@ -39,7 +37,7 @@ namespace Restaurant.Repository.Repositories
         {
             return await _dbContext.Users.ToListAsync();
         }
-        
+
         public async Task<IEnumerable<User>> GetUsers(List<long> ids)
         {
             return await _dbContext.Users.Where(x => ids.Contains(x.Id)).ToListAsync();

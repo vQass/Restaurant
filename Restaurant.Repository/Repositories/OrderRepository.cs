@@ -1,10 +1,10 @@
-﻿using Restaurant.APIComponents.Exceptions;
-using Restaurant.DB.Entities;
-using Restaurant.DB;
-using Restaurant.DB.Enums;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Restaurant.APIComponents.Exceptions;
 using Restaurant.Data.Models.OrderModels;
-using AutoMapper;
+using Restaurant.DB;
+using Restaurant.DB.Entities;
+using Restaurant.DB.Enums;
 using Restaurant.IRepository;
 using Restaurant.LinqHelpers.Helpers;
 
@@ -61,7 +61,7 @@ namespace Restaurant.Repository.Repositories
         {
             var orders = _dbContext.Orders.AsQueryable();
 
-            if(userId != 0)
+            if (userId != 0)
             {
                 orders = orders.Where(x => x.UserId == userId);
             }

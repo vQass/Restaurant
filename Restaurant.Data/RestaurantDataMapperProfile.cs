@@ -24,7 +24,7 @@ namespace Restaurant.Data
             CreateMap<UserCreateRequest, User>();
             CreateMap<User, UserListViewModel>();
             CreateMap<User, UserWithDetailsViewModel>();
-            
+
             // Meals
             CreateMap<MealCreateRequest, Meal>();
             //CreateMap<Meal, MealViewModel>().ForMember(dest => dest.Ingredients, opt => opt.MapFrom(src => src.RecipeElements.Where(x => x.MealId == src.Id).Select(x => x.Ingredient.Name).ToList()));
@@ -41,7 +41,7 @@ namespace Restaurant.Data
                 .ForMember(dest => dest.MealId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.MealName, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.RecipeIngredients, opt => opt.MapFrom(src => src.Ingredients));
-           
+
             //CreateMap<RecipeElement, RecipeIngredient>()
             //    .ForMember(dest => dest.IngredientName, opt => opt.MapFrom(src => src.Ingredient.Name))
             //    .ForMember(dest => dest.IngredientId, opt => opt.MapFrom(src => src.IngredientId));

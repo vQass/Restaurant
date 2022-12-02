@@ -4,7 +4,6 @@ using Restaurant.Data.Models.RecipeModels;
 using Restaurant.DB;
 using Restaurant.IRepository;
 using Restaurant.IServices;
-using System.Runtime.CompilerServices;
 
 namespace Restaurant.Services.Services
 {
@@ -84,33 +83,33 @@ namespace Restaurant.Services.Services
         }
 
         public async Task UpdateMealRecipe(int mealId, List<int> ingredientsIds)
+        {
+            var meal = _dbContext.Meals.Include(x => x.Ingredients).FirstOrDefault(x => x.Id == mealId);
+
+            _mealRepository.EnsureMealExists(meal);
+
+            var ingredientsInRecipeIds = meal.Ingredients.Select(x => x.Id).ToList();
+
+            var toAddIds = ingredientsIds.Where(x => !ingredientsInRecipeIds.Contains(x)).ToList();
+
+            var ingredientsToAdd = _ingredientRepository.GetIngredients(toAddIds);
+
+            var toRemoveIds = ingredientsInRecipeIds
+                .Except(ingredientsIds)
+                .ToList();
+
+            var toRemove = meal.Ingredients
+                .Where(x => toRemoveIds.Contains(x.Id))
+                .ToList();
+
+            meal.Ingredients.AddRange(ingredientsToAdd);
+
+            foreach (var item in toRemove)
             {
-                var meal = _dbContext.Meals.Include(x => x.Ingredients).FirstOrDefault(x => x.Id == mealId);
-
-                _mealRepository.EnsureMealExists(meal);
-
-                var ingredientsInRecipeIds = meal.Ingredients.Select(x => x.Id).ToList();
-
-                var toAddIds = ingredientsIds.Where(x => !ingredientsInRecipeIds.Contains(x)).ToList();
-
-                var ingredientsToAdd = _ingredientRepository.GetIngredients(toAddIds);
-
-                var toRemoveIds = ingredientsInRecipeIds
-                    .Except(ingredientsIds)
-                    .ToList();
-
-                var toRemove = meal.Ingredients
-                    .Where(x => toRemoveIds.Contains(x.Id))
-                    .ToList();
-
-                meal.Ingredients.AddRange(ingredientsToAdd);
-
-                foreach (var item in toRemove)
-                {
-                    meal.Ingredients.Remove(item);
-                }
-
-                _dbContext.SaveChanges();
+                meal.Ingredients.Remove(item);
             }
+
+            _dbContext.SaveChanges();
         }
     }
+}

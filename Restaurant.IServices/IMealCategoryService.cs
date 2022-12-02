@@ -1,5 +1,4 @@
-﻿using Restaurant.Data.Models.MealCategoryModels;
-using Restaurant.DB.Entities;
+﻿using Restaurant.DB.Entities;
 
 namespace Restaurant.IServices
 {
