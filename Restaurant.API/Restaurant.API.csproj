@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Restaurant.APIComponents\Restaurant.APIComponents.csproj" />
+    <ProjectReference Include="..\Restaurant.APIComponents\Restaurant.Validators.csproj" />
     <ProjectReference Include="..\Restaurant.DB\Restaurant.DB.csproj" />
     <ProjectReference Include="..\Restaurant.LinqHelpers\Restaurant.LinqHelpers.csproj" />
     <ProjectReference Include="..\Restaurant.Repository\Restaurant.Repository.csproj" />

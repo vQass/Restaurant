@@ -3,14 +3,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Restaurant.APIComponents;
-using Restaurant.APIComponents.Middlewares;
+using Restaurant.API;
+using Restaurant.API.Middlewares;
+using Restaurant.Authentication;
 using Restaurant.Business;
 using Restaurant.Business.IServices;
 using Restaurant.Data;
 using Restaurant.DB;
 using Restaurant.Entities.Entities;
 using Restaurant.Repository;
+using Restaurant.Validators;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);

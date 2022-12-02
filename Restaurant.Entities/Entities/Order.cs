@@ -1,5 +1,4 @@
 ﻿using Restaurant.Entities.Enums;
-using System.ComponentModel.DataAnnotations;
 
 namespace Restaurant.Entities.Entities
 {

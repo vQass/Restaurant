@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Restaurant.APIComponents.Exceptions;
 using Restaurant.Business.IRepositories;
+using Restaurant.Data.Exceptions;
 using Restaurant.Data.Models.MealModels;
 using Restaurant.DB;
 using Restaurant.Entities.Entities;

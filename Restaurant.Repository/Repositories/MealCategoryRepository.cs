@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-using Restaurant.APIComponents.Exceptions;
 using Restaurant.Business.IRepositories;
+using Restaurant.Data.Exceptions;
 using Restaurant.DB;
 using Restaurant.Entities.Entities;
 using Restaurant.LinqHelpers.Helpers;

@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Restaurant.APIComponents;
-using Restaurant.APIComponents.Exceptions;
+using Restaurant.Authentication;
 using Restaurant.Business.IRepositories;
 using Restaurant.Business.IServices;
+using Restaurant.Data.Exceptions;
 using Restaurant.Data.Models.UserModels.Requests;
 using Restaurant.Data.Models.UserModels.Responses;
 using Restaurant.Data.Models.UserModels.ViewModels;
