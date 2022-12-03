@@ -2,7 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, map, merge, of as observableOf, startWith, switchMap } from 'rxjs';
+import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { IngredientService } from 'src/app/services/ApiServices/ingredient.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { Ingredient } from 'src/models/ingredient/Ingredient';
@@ -12,7 +14,7 @@ import { Ingredient } from 'src/models/ingredient/Ingredient';
   templateUrl: './ingredient-main-page.component.html',
   styleUrls: ['./ingredient-main-page.component.scss']
 })
-export class IngredientMainPageComponent {
+export class IngredientMainPageComponent extends PagingHelper {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Ingredient>;
@@ -26,7 +28,10 @@ export class IngredientMainPageComponent {
 
   constructor(
     private ingredientService: IngredientService,
-    private toastService: ToastService) {
+    private toastService: ToastService,
+    router: Router,
+    route: ActivatedRoute) {
+    super(route, router)
   }
 
   ngAfterViewInit(): void {
@@ -80,5 +85,21 @@ export class IngredientMainPageComponent {
       this.resultsLength = data.itemsCount;
       this.ingredients = data.items;
     });
+  }
+
+  goToEditPage(id: number) {
+    this.goToPage(
+      this.paginator.pageIndex,
+      this.paginator.pageSize,
+      'edit-ingredient-page/' + id
+    );
+  }
+
+  goToAddPage() {
+    this.goToPage(
+      this.paginator.pageIndex,
+      this.paginator.pageSize,
+      'add-ingredient-page'
+    );
   }
 }

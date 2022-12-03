@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { CityService } from 'src/app/services/ApiServices/city.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
@@ -11,30 +12,21 @@ import { CityCreateRequest } from 'src/models/city/CityCreateRequest';
   templateUrl: './city-add-page.component.html',
   styleUrls: ['./city-add-page.component.scss']
 })
-export class CityAddPageComponent implements OnInit {
+export class CityAddPageComponent extends PagingHelper {
   singleControlMatcher = new SingleControlErrorStateMatcher();
   mainForm: FormGroup;
   disableSubmitButton = false;
-  pageIndex!: number;
-  pageSize!: number;
 
   constructor(
     fb: FormBuilder,
     private cityService: CityService,
     private toastService: ToastService,
-    private route: ActivatedRoute,
-    private router: Router) {
+    route: ActivatedRoute,
+    router: Router) {
+    super(route, router)
     this.mainForm = fb.group({
       name: fb.control('', [Validators.required, Validators.maxLength(127)]),
     })
-  }
-  ngOnInit(): void {
-    this.route.queryParams
-      .subscribe(params => {
-        this.pageIndex = params['pageIndex'] ?? 0;
-        this.pageSize = params['pageSize'] ?? 5;
-      });
-
   }
 
   get name() {
@@ -54,7 +46,7 @@ export class CityAddPageComponent implements OnInit {
         this.disableSubmitButton = false;
 
         this.toastService.showSuccess("Pomyślnie dodano miasto!", 2000)
-        this.router.navigate(['city-admin-main-page']);
+        this.goToMainPage();
       },
       error: (e) => {
         this.disableSubmitButton = false;
@@ -65,12 +57,9 @@ export class CityAddPageComponent implements OnInit {
   }
 
   goToMainPage() {
-    this.router.navigate(['city-admin-main-page'],
-      {
-        queryParams: {
-          pageIndex: this.pageIndex,
-          pageSize: this.pageSize
-        }
-      });
+    this.goToPage(
+      this.getPageIndex(),
+      this.getPageSize(),
+      'city-admin-main-page');
   }
 }

@@ -11,7 +11,7 @@
              matInput
              formControlName="name"
              [errorStateMatcher]="singleControlMatcher"
-             [ngModel]="ingredient?.name"
+             [value]="ingredient?.name"
              autocomplete="off" />
       <mat-error *ngIf="name?.errors?.['required']">
         Nazwa jest wymagana
@@ -20,11 +20,19 @@
 
   </div>
 
-  <button class="button"
-          (click)="onSubmit()"
-          mat-raised-button
-          color="primary"
-          [disabled]="!editIngredientForm.valid || disableSubmitButton">
-    Edytuj składnik
-  </button>
+  <div class="form-button-container">
+    <button (click)="goToMainPage()"
+            mat-raised-button
+            color="primary">
+      Powrót
+    </button>
+
+    <button class="button"
+            (click)="onSubmit()"
+            mat-raised-button
+            color="primary"
+            [disabled]="!editIngredientForm.valid || disableSubmitButton">
+      Edytuj składnik
+    </button>
+  </div>
 </form>

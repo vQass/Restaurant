@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { IngredientService } from 'src/app/services/ApiServices/ingredient.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
@@ -12,7 +13,7 @@ import { IngredientUpdateRequest } from 'src/models/ingredient/IngredientUpdateR
   templateUrl: './edit-ingredient-page.component.html',
   styleUrls: ['./edit-ingredient-page.component.scss']
 })
-export class EditIngredientPageComponent implements OnInit {
+export class EditIngredientPageComponent extends PagingHelper implements OnInit {
   singleControlMatcher = new SingleControlErrorStateMatcher();
   editIngredientForm: FormGroup;
   disableSubmitButton = false;
@@ -23,26 +24,26 @@ export class EditIngredientPageComponent implements OnInit {
     fb: FormBuilder,
     private ingredientService: IngredientService,
     private toastService: ToastService,
-    private router: Router,
-    private route: ActivatedRoute) {
+    router: Router,
+    route: ActivatedRoute) {
+    super(route, router)
     this.editIngredientForm = fb.group({
       name: fb.control('', [Validators.required, Validators.maxLength(127)]),
     })
   }
 
   ngOnInit(): void {
-
     let tempId = this.route.snapshot.paramMap.get('id');
     if (tempId == null) {
       this.toastService.showDanger('Błąd podczas pobierania danych o składniku!');
-      this.router.navigate(['ingredient-admin-main-page']);
+      this.goToMainPage();
       return;
     }
 
     let parsedId = parseInt(tempId);
     if (isNaN(parsedId)) {
       this.toastService.showDanger('Błąd podczas przetwarzania identyfikatora składnika!');
-      this.router.navigate(['ingredient-admin-main-page']);
+      this.goToMainPage();
       return;
     }
 
@@ -66,10 +67,8 @@ export class EditIngredientPageComponent implements OnInit {
 
     this.ingredientService.edit(this.id, ingredient).subscribe({
       next: () => {
-        this.disableSubmitButton = false;
-
         this.toastService.showSuccess("Pomyślnie dodano składnik!", 2000)
-        this.router.navigate(['ingredient-admin-main-page']);
+        this.goToMainPage();
       },
       error: (e) => {
         this.disableSubmitButton = false;
@@ -79,4 +78,10 @@ export class EditIngredientPageComponent implements OnInit {
     });
   }
 
+  goToMainPage() {
+    this.goToPage(
+      this.getPageIndex(),
+      this.getPageSize(),
+      'ingredient-admin-main-page');
+  }
 }

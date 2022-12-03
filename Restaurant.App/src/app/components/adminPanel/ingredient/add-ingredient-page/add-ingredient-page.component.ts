@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { IngredientService } from 'src/app/services/ApiServices/ingredient.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
@@ -11,7 +12,7 @@ import { IngredientCreateRequest } from 'src/models/ingredient/IngredientCreateR
   templateUrl: './add-ingredient-page.component.html',
   styleUrls: ['./add-ingredient-page.component.scss']
 })
-export class AddIngredientPageComponent {
+export class AddIngredientPageComponent extends PagingHelper {
   singleControlMatcher = new SingleControlErrorStateMatcher();
   addIngredientForm: FormGroup;
   disableSubmitButton = false;
@@ -20,7 +21,9 @@ export class AddIngredientPageComponent {
     fb: FormBuilder,
     private ingredientService: IngredientService,
     private toastService: ToastService,
-    private router: Router) {
+    router: Router,
+    route: ActivatedRoute) {
+    super(route, router)
     this.addIngredientForm = fb.group({
       name: fb.control('', [Validators.required, Validators.maxLength(127)]),
     })
@@ -43,7 +46,7 @@ export class AddIngredientPageComponent {
         this.disableSubmitButton = false;
 
         this.toastService.showSuccess("Pomyślnie dodano składnik!", 2000)
-        this.router.navigate(['ingredient-admin-main-page']);
+        this.goToMainPage();
       },
       error: (e) => {
         this.disableSubmitButton = false;
@@ -51,5 +54,12 @@ export class AddIngredientPageComponent {
         this.toastService.showDanger("Błąd podczas dodawania składnika: " + e.message);
       }
     });
+  }
+
+  goToMainPage() {
+    this.goToPage(
+      this.getPageIndex(),
+      this.getPageSize(),
+      'ingredient-admin-main-page');
   }
 }

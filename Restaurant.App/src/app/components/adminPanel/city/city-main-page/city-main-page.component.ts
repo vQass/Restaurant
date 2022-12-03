@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { merge, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { CityService } from 'src/app/services/ApiServices/city.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { City } from 'src/models/city/City';
@@ -12,7 +13,7 @@ import { City } from 'src/models/city/City';
   templateUrl: './city-main-page.component.html',
   styleUrls: ['./city-main-page.component.scss']
 })
-export class CityMainPageComponent {
+export class CityMainPageComponent extends PagingHelper {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   resultsLength = 0;
   isLoadingResults = true;
@@ -25,8 +26,10 @@ export class CityMainPageComponent {
   cities: City[] = [];
 
   constructor(private cityService: CityService,
-    private router: Router,
+    router: Router,
+    route: ActivatedRoute,
     private toastService: ToastService) {
+    super(route, router);
   }
 
   ngAfterViewInit(): void {
@@ -108,16 +111,6 @@ export class CityMainPageComponent {
     });
   }
 
-  gotoItems(cityId: number) {
-    this.router.navigate(['/edit-city-page/' + cityId],
-      {
-        queryParams: {
-          pageIndex: this.paginator.pageIndex,
-          pageSize: this.paginator.pageSize
-        }
-      });
-  }
-
   refreshData() {
     return this.cityService.getCityPage(
       this.paginator.pageIndex,
@@ -127,4 +120,21 @@ export class CityMainPageComponent {
       this.cities = data.items;
     });
   }
+
+  goToEditPage(cityId: number) {
+    this.goToPage(
+      this.paginator.pageIndex,
+      this.paginator.pageSize,
+      '/edit-city-page/' + cityId);
+  }
+
+  goToAddPage() {
+    console.log(this.paginator.pageIndex, this.paginator.pageSize);
+
+    this.goToPage(
+      this.paginator.pageIndex,
+      this.paginator.pageSize,
+      '/add-city-page/');
+  }
+
 }

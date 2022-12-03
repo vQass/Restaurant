@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { CityService } from 'src/app/services/ApiServices/city.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
@@ -12,34 +13,26 @@ import { CityUpdateRequest } from 'src/models/city/CityUpdateRequest';
   templateUrl: './city-edit-page.component.html',
   styleUrls: ['./city-edit-page.component.scss']
 })
-export class CityEditPageComponent implements OnInit {
+export class CityEditPageComponent extends PagingHelper implements OnInit {
   singleControlMatcher = new SingleControlErrorStateMatcher();
   mainForm: FormGroup;
   disableSubmitButton = false;
   id?: number;
   city?: City;
-  pageIndex!: number;
-  pageSize!: number;
 
   constructor(
     fb: FormBuilder,
     private cityService: CityService,
     private toastService: ToastService,
-    private route: ActivatedRoute,
-    private router: Router) {
+    router: Router,
+    route: ActivatedRoute) {
+    super(route, router);
     this.mainForm = fb.group({
       name: fb.control('', [Validators.required, Validators.maxLength(127)]),
     })
   }
 
   ngOnInit(): void {
-
-    this.route.queryParams
-      .subscribe(params => {
-        this.pageIndex = params['pageIndex'] ?? 0;
-        this.pageSize = params['pageSize'] ?? 5;
-      });
-
     let tempId = this.route.snapshot.paramMap.get('id');
     if (tempId == null) {
       this.toastService.showDanger('Błąd podczas pobierania identyfikatora składnika!');
@@ -79,8 +72,6 @@ export class CityEditPageComponent implements OnInit {
 
     this.cityService.update(city, this.city.id).subscribe({
       next: () => {
-        this.disableSubmitButton = false;
-
         this.toastService.showSuccess("Pomyślnie zaktualizowano miasto!", 2000);
         this.goToMainPage();
       },
@@ -93,12 +84,9 @@ export class CityEditPageComponent implements OnInit {
   }
 
   goToMainPage() {
-    this.router.navigate(['city-admin-main-page'],
-      {
-        queryParams: {
-          pageIndex: this.pageIndex,
-          pageSize: this.pageSize
-        }
-      });
+    this.goToPage(
+      this.getPageIndex(),
+      this.getPageSize(),
+      'city-admin-main-page');
   }
 }

@@ -57,7 +57,7 @@
           </button>
 
           <button mat-mini-fab
-                  (click)="gotoItems(element.id)"
+                  (click)="goToEditPage(element.id)"
                   class="icon-button action-icon">
             <mat-icon>edit</mat-icon>
           </button>
@@ -82,15 +82,15 @@
   <mat-paginator #paginator
                  class="paginator"
                  [length]="resultsLength"
-                 [pageIndex]="0"
-                 [pageSize]="5"
+                 [pageIndex]="getPageIndex()"
+                 [pageSize]="getPageSize()"
                  [pageSizeOptions]="[5, 10, 20]"
                  aria-label="Select page">
   </mat-paginator>
 
   <div class="add-item-button-container">
     <button mat-mini-fab
-            routerLink="/add-city-page"
+            (click)="goToAddPage()"
             class="icon-button add-item-icon">
       <mat-icon>add</mat-icon>
     </button>

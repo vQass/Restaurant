@@ -18,7 +18,7 @@ export class IngredientService {
 
   get(id: number): Observable<Ingredient> {
     return this.http.get<Ingredient>(
-      this.baseApiUrl + this.ingredientsEndpoints.getPage + id);
+      this.baseApiUrl + this.ingredientsEndpoints.get + id);
   }
 
   getPage(pageIndex: number, pageSize: number): Observable<IngredientWrapper> {
