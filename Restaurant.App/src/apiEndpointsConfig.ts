@@ -1,13 +1,14 @@
 export const apiEndpoints =
 {
   cityEndpoints: {
-    "getCities": "City/GetCities",
-    "getCity": "City/GetCity",
-    "add": "City/Add",
-    "delete": "City/Delete",
-    "update": "City/Update",
-    "enable": "City/Enable",
-    "disable": "City/Disable"
+    "getCity": "cities/",
+    "getCities": "cities",
+    "getCityPage": "cities/page",
+    "add": "cities",
+    "delete": "cities/",
+    "update": "cities/",
+    "enable": "cities/enable/",
+    "disable": "cities/disable/"
   },
   userEndpoints: {
     "addUser": "User/AddUser",

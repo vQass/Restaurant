@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Restaurant.Data.Models.CityModels;
 using Restaurant.Data.Models.IngredientModels;
 using Restaurant.Data.Models.MealCategoryModels;
 using Restaurant.Data.Models.MealModels;
@@ -14,6 +15,9 @@ namespace Restaurant.Data
     {
         public RestaurantDataMapperProfile()
         {
+            // Cities
+            CreateMap<City, CityViewModel>();
+
             // Ingredients
             CreateMap<Ingredient, IngredientViewModel>();
             CreateMap<Ingredient, RecipeIngredient>()

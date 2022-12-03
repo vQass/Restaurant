@@ -1,4 +1,5 @@
-﻿using Restaurant.Entities.Entities;
+﻿using Restaurant.Data.Models.CityModels;
+using Restaurant.Entities.Entities;
 
 namespace Restaurant.Business.IRepositories
 {
@@ -9,8 +10,8 @@ namespace Restaurant.Business.IRepositories
         IEnumerable<City> GetCities(bool? cityActivity = null, int pageIndex = 0, int pageSize = 0);
         short GetCitiesCount();
 
-        short AddCity(City city);
-        void UpdateCity(City city, string newCityName);
+        void AddCity(CityCreateRequest cityRequest);
+        void UpdateCity(City city, CityUpdateRequest cityRequest);
         void DeleteCity(City city);
         void DisableCity(City city);
         void EnableCity(City city);

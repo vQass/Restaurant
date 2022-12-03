@@ -14,14 +14,15 @@ import { City } from 'src/models/city/City';
 })
 export class CityMainPageComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  cities: City[] = [];
-  disableDeleteButton = false;
-  disableDisableCityButton = false;
-  disableEnableCityButton = false;
   resultsLength = 0;
   isLoadingResults = true;
   displayedColumns = ['id', 'name', 'isActive', 'actions'];
+
+  disableDeleteButton = false;
+  disableDisableCityButton = false;
+  disableEnableCityButton = false;
+
+  cities: City[] = [];
 
   constructor(private cityService: CityService,
     private router: Router,
@@ -34,7 +35,7 @@ export class CityMainPageComponent {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.cityService!.getCities(
+          return this.cityService!.getCityPage(
             this.paginator.pageIndex,
             this.paginator.pageSize,
           ).pipe(catchError(() => observableOf(null)));
@@ -116,7 +117,7 @@ export class CityMainPageComponent {
   }
 
   refreshData() {
-    return this.cityService.getCities(
+    return this.cityService.getCityPage(
       this.paginator.pageIndex,
       this.paginator.pageSize
     ).subscribe((data) => {

@@ -1,16 +1,18 @@
 ﻿using Restaurant.Data.Models.CityModels;
-using Restaurant.Entities.Entities;
 
 namespace Restaurant.Business.IServices
 {
     public interface ICityService
     {
-        public CityWrapper GetCities(bool? cityActivity, int pageIndex = 0, int pageSize = 0);
-        public City GetCity(short id);
-        public short AddCity(string cityName);
-        public void UpdateCity(short id, string cityName);
-        public void DeleteCity(short id);
-        public void EnableCity(short id);
-        public void DisableCity(short id);
+        CityViewModel GetCity(short id);
+        List<CityViewModel> GetCities(bool? cityActivity);
+        CityWrapper GetCityPage(int pageIndex = 0, int pageSize = 0);
+
+        void AddCity(CityCreateRequest city);
+        void UpdateCity(short id, CityUpdateRequest city);
+        void DeleteCity(short id);
+        
+        void EnableCity(short id);
+        void DisableCity(short id);
     }
 }

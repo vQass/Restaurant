@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Restaurant.Business.IRepositories;
 using Restaurant.Data.Exceptions;
+using Restaurant.Data.Models.CityModels;
 using Restaurant.DB;
 using Restaurant.Entities.Entities;
 using Restaurant.LinqHelpers.Helpers;
@@ -21,7 +22,6 @@ namespace Restaurant.Repository.Repositories
             _dbContext = dbContext;
             _logger = logger;
         }
-
 
         #region GetMethods
 
@@ -61,17 +61,20 @@ namespace Restaurant.Repository.Repositories
 
         #region EntityModificationMethods
 
-        public short AddCity(City city)
+        public void AddCity(CityCreateRequest cityRequest)
         {
+            var city = new City
+            {
+                Name = cityRequest.Name.Trim()
+            };
+
             _dbContext.Cities.Add(city);
             _dbContext.SaveChanges();
-
-            return city.Id;
         }
 
-        public void UpdateCity(City city, string newCityName)
+        public void UpdateCity(City city, CityUpdateRequest cityRequest)
         {
-            city.Name = newCityName;
+            city.Name = cityRequest.Name.Trim();
             _dbContext.SaveChanges();
         }
 

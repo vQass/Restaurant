@@ -18,16 +18,12 @@ import { OrderElement } from 'src/models/order/OrderElement';
   styleUrls: ['./order-summary.component.scss']
 })
 export class OrderSummaryComponent implements OnInit {
-
+  singleControlMatcher = new SingleControlErrorStateMatcher();
+  orderForm: FormGroup;
   disableSubmitButton = false;
 
   cities?: City[];
-
   cart: CartItem[];
-
-  singleControlMatcher = new SingleControlErrorStateMatcher();
-
-  orderForm: FormGroup;
 
   constructor(
     private cartService: CartService,
@@ -37,8 +33,8 @@ export class OrderSummaryComponent implements OnInit {
     private orderService: OrderService,
     private toastService: ToastService,
     private router: Router) {
-    this.cart = this.cartService.cartItems;
 
+    this.cart = this.cartService.cartItems;
     if (this.cart.length == 0) {
       this.router.navigate(['order']);
     }
@@ -53,7 +49,7 @@ export class OrderSummaryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cityService.getCitiesWithSpecifiedActivity(true).subscribe((val) => this.cities = val.items);
+    this.cityService.getCities(true).subscribe((data) => this.cities = data);
   };
 
   get name() {
