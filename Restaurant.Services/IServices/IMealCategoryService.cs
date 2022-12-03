@@ -1,15 +1,14 @@
 ﻿using Restaurant.Data.Models.MealCategoryModels;
-using Restaurant.Entities.Entities;
 
 namespace Restaurant.Business.IServices
 {
     public interface IMealCategoryService
     {
         MealCategoryViewModel GetMealCategory(short id);
-        IEnumerable<MealCategory> GetMealCategories();
+        List<MealCategoryViewModel> GetMealCategories();
         MealCategoryWrapper GetMealCategoriesPage(int pageIndex, int pageSize);
-        short AddMealCategory(string mealCategoryName);
-        void UpdateMealCategory(short id, string mealCategoryName);
+        void AddMealCategory(MealCategoryCreateRequest mealCategoryRequest);
+        void UpdateMealCategory(short id, MealCategoryUpdateRequest mealCategoryRequest);
         void DeleteMealCategory(short id);
     }
 }

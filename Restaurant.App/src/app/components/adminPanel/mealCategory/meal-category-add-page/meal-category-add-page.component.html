@@ -24,11 +24,18 @@
     </mat-form-field>
   </div>
 
-  <button class="button"
-          (click)="onSubmit()"
-          mat-raised-button
-          color="primary"
-          [disabled]="!mainForm.valid || disableSubmitButton">
-    Dodaj kategorię
-  </button>
+  <div class="form-button-container">
+    <button (click)="goToMainPage()"
+            mat-raised-button
+            color="primary">
+      Powrót
+    </button>
+
+    <button (click)="onSubmit()"
+            mat-raised-button
+            color="primary"
+            [disabled]="!mainForm.valid || disableSubmitButton">
+      Dodaj kategorię
+    </button>
+  </div>
 </form>

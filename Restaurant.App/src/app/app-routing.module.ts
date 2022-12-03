@@ -70,7 +70,7 @@ const routes: Routes = [
   { path: 'edit-city-page/:id', component: CityEditPageComponent, canActivate: [IsAdminGuard] },
   { path: 'meal-category-main-page', component: MealCategoryMainPageComponent, canActivate: [IsAdminGuard] },
   { path: 'add-meal-category-page', component: MealCategoryAddPageComponent, canActivate: [IsAdminGuard] },
-  { path: 'edit-meal-category-page', component: MealCategoryEditPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'edit-meal-category-page/:id', component: MealCategoryEditPageComponent, canActivate: [IsAdminGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home' }
 ];

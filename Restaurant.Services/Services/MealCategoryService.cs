@@ -2,7 +2,6 @@
 using Restaurant.Business.IRepositories;
 using Restaurant.Business.IServices;
 using Restaurant.Data.Models.MealCategoryModels;
-using Restaurant.Entities.Entities;
 
 namespace Restaurant.Business.Services
 {
@@ -24,31 +23,47 @@ namespace Restaurant.Business.Services
             return _mapper.Map<MealCategoryViewModel>(category);
         }
 
-        public IEnumerable<MealCategory> GetMealCategories()
+        public List<MealCategoryViewModel> GetMealCategories()
         {
-            return _mealCategoryRepository.GetMealCategories();
+            var mealCategories = _mealCategoryRepository.GetMealCategories();
+            var mealCategoriesVM = _mapper.Map<List<MealCategoryViewModel>>(mealCategories);
+
+            return mealCategoriesVM;
         }
 
-        public short AddMealCategory(string mealCategoryName)
+        public MealCategoryWrapper GetMealCategoriesPage(int pageIndex, int pageSize)
         {
-            _mealCategoryRepository.EnsureMealCategoryNameNotTaken(mealCategoryName);
+            var mealCategories = _mealCategoryRepository.GetMealCategories(pageIndex, pageSize);
+            var mealCategoriesVM = _mapper.Map<List<MealCategoryViewModel>>(mealCategories);
+            var mealCateogiesCount = _mealCategoryRepository.GetMealCategoriesCount();
 
-            var id = _mealCategoryRepository.AddMealCategory(new MealCategory() { Name = mealCategoryName });
+            var wrapper = new MealCategoryWrapper
+            {
+                Items = mealCategoriesVM,
+                ItemCount = mealCateogiesCount
+            };
 
-            return id;
+            return wrapper;
         }
 
-        public void UpdateMealCategory(short id, string mealCategoryName)
+        public void AddMealCategory(MealCategoryCreateRequest mealCategoryRequest)
+        {
+            _mealCategoryRepository.EnsureMealCategoryNameNotTaken(mealCategoryRequest.Name);
+
+            _mealCategoryRepository.AddMealCategory(mealCategoryRequest);
+        }
+
+        public void UpdateMealCategory(short id, MealCategoryUpdateRequest mealCategoryRequest)
         {
             var mealCategory = _mealCategoryRepository.GetMealCategory(id);
 
             _mealCategoryRepository.EnsureMealCategoryExists(mealCategory);
 
-            _mealCategoryRepository.EnsureMealCategoryNameNotTaken(mealCategoryName, id);
+            _mealCategoryRepository.EnsureMealCategoryNameNotTaken(mealCategoryRequest.Name, id);
 
             _mealCategoryRepository.EnsureMealCategoryNotInUse(mealCategory);
 
-            _mealCategoryRepository.UpdateMealCategory(mealCategory, mealCategoryName);
+            _mealCategoryRepository.UpdateMealCategory(mealCategory, mealCategoryRequest);
         }
 
         public void DeleteMealCategory(short id)
@@ -61,20 +76,5 @@ namespace Restaurant.Business.Services
 
             _mealCategoryRepository.DeleteMealCategory(mealCategory);
         }
-
-        public MealCategoryWrapper GetMealCategoriesPage(int pageIndex, int pageSize)
-        {
-            var mealCategories = _mealCategoryRepository.GetMealCategories(pageIndex, pageSize);
-            var itemCount = _mealCategoryRepository.GetMealCategoriesCount();
-
-            var mealCategoriesVM = _mapper.Map<List<MealCategoryViewModel>>(mealCategories);
-
-            return new MealCategoryWrapper
-            {
-                Items = mealCategoriesVM,
-                ItemCount = itemCount
-            };
-        }
-
     }
 }

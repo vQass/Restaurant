@@ -16,11 +16,11 @@ export class MealCategoryService {
   constructor(private http: HttpClient) { }
 
   getMealCategory(id: number): Observable<MealCategory> {
-    return this.http.get<MealCategory>(this.baseApiUrl + this.mealCategoryEndpoints.getMealCategory + '/' + id);
+    return this.http.get<MealCategory>(this.baseApiUrl + this.mealCategoryEndpoints.get + id);
   }
 
   getMealCategories(): Observable<MealCategory[]> {
-    return this.http.get<MealCategory[]>(this.baseApiUrl + this.mealCategoryEndpoints.getMealCategories);
+    return this.http.get<MealCategory[]>(this.baseApiUrl + this.mealCategoryEndpoints.getList);
   }
 
   getMealCategoriesPage(pageIndex = 0, pageSize = 0): Observable<MealCategoryWrapper> {
@@ -28,11 +28,11 @@ export class MealCategoryService {
     params = params.append("pageIndex", pageIndex);
     params = params.append("pageSize", pageSize);
 
-    return this.http.get<MealCategoryWrapper>(this.baseApiUrl + this.mealCategoryEndpoints.getMealCategoriesPage, { params: params });
+    return this.http.get<MealCategoryWrapper>(this.baseApiUrl + this.mealCategoryEndpoints.getPage, { params: params });
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(this.baseApiUrl + this.mealCategoryEndpoints.delete + '/' + id).pipe(
+    return this.http.delete(this.baseApiUrl + this.mealCategoryEndpoints.delete + id).pipe(
       catchError(this.handleError)
     );
   }
@@ -44,7 +44,7 @@ export class MealCategoryService {
   }
 
   update(mealCategory: MealCategoryCreateRequest, id: number) {
-    return this.http.put(this.baseApiUrl + this.mealCategoryEndpoints.update + '/' + id, mealCategory).pipe(
+    return this.http.put(this.baseApiUrl + this.mealCategoryEndpoints.update + id, mealCategory).pipe(
       catchError(this.handleError)
     );
   }

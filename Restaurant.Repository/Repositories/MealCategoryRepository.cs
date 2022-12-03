@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Restaurant.Business.IRepositories;
 using Restaurant.Data.Exceptions;
+using Restaurant.Data.Models.MealCategoryModels;
 using Restaurant.DB;
 using Restaurant.Entities.Entities;
 using Restaurant.LinqHelpers.Helpers;
@@ -44,18 +45,20 @@ namespace Restaurant.Repository.Repositories
 
         #region EntityModificationMethods
 
-        public short AddMealCategory(MealCategory mealCategory)
+        public void AddMealCategory(MealCategoryCreateRequest mealCategoryRequest)
         {
-            mealCategory.Name = mealCategory.Name;
+            var mealCategory = new MealCategory
+            { 
+                Name = mealCategoryRequest.Name
+            };
 
             _dbContext.MealsCategories.Add(mealCategory);
             _dbContext.SaveChanges();
-            return mealCategory.Id;
         }
 
-        public void UpdateMealCategory(MealCategory mealCategory, string newMealCategoryName)
+        public void UpdateMealCategory(MealCategory mealCategory, MealCategoryUpdateRequest mealCategoryRequest)
         {
-            mealCategory.Name = newMealCategoryName;
+            mealCategory.Name = mealCategoryRequest.Name;
             _dbContext.SaveChanges();
         }
 

@@ -1,4 +1,5 @@
-﻿using Restaurant.Entities.Entities;
+﻿using Restaurant.Data.Models.MealCategoryModels;
+using Restaurant.Entities.Entities;
 
 namespace Restaurant.Business.IRepositories
 {
@@ -8,8 +9,8 @@ namespace Restaurant.Business.IRepositories
         MealCategory GetMealCategory(short id);
         int GetMealCategoriesCount();
 
-        short AddMealCategory(MealCategory mealCategory);
-        void UpdateMealCategory(MealCategory mealCategory, string newMealCategoryName);
+        void AddMealCategory(MealCategoryCreateRequest mealCategoryRequest);
+        void UpdateMealCategory(MealCategory mealCategory, MealCategoryUpdateRequest mealCategoryRequest);
         void DeleteMealCategory(MealCategory mealCategory);
 
         void EnsureMealCategoryExists(MealCategory mealCategory);

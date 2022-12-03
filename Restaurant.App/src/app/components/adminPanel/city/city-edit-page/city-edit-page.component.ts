@@ -35,14 +35,14 @@ export class CityEditPageComponent extends PagingHelper implements OnInit {
   ngOnInit(): void {
     let tempId = this.route.snapshot.paramMap.get('id');
     if (tempId == null) {
-      this.toastService.showDanger('Błąd podczas pobierania identyfikatora składnika!');
+      this.toastService.showDanger('Błąd podczas pobierania identyfikatora miasta!');
       this.goToMainPage();
       return;
     }
 
     let parsedId = parseInt(tempId);
     if (isNaN(parsedId)) {
-      this.toastService.showDanger('Błąd podczas przetwarzania identyfikatora składnika!');
+      this.toastService.showDanger('Błąd podczas przetwarzania identyfikatora miasta!');
       this.goToMainPage();
       return;
     }

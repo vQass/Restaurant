@@ -46,12 +46,12 @@ export const apiEndpoints =
     "updateMealRecipe": "Recipe/UpdateMealRecipe"
   },
   mealCategoryEndpoints: {
-    "getMealCategories": "MealCategory/GetMealCategories",
-    "getMealCategoriesPage": "MealCategory/GetMealCategoriesPage",
-    "getMealCategory": "MealCategory/GetMealCategory",
-    "delete": "MealCategory/Delete",
-    "add": "MealCategory",
-    "update": "MealCategory/Update",
+    "get": "mealCategories/",
+    "getList": "mealCategories",
+    "getPage": "mealCategories/page",
+    "add": "mealCategories",
+    "delete": "mealCategories/",
+    "update": "mealCategories/",
   }
 };
 

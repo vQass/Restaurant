@@ -35,7 +35,7 @@ export class EditIngredientPageComponent extends PagingHelper implements OnInit 
   ngOnInit(): void {
     let tempId = this.route.snapshot.paramMap.get('id');
     if (tempId == null) {
-      this.toastService.showDanger('Błąd podczas pobierania danych o składniku!');
+      this.toastService.showDanger('Błąd podczas pobierania identyfikatora składnika!');
       this.goToMainPage();
       return;
     }
