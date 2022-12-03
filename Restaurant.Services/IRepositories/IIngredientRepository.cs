@@ -1,4 +1,5 @@
-﻿using Restaurant.Entities.Entities;
+﻿using Restaurant.Data.Models.IngredientModels;
+using Restaurant.Entities.Entities;
 
 namespace Restaurant.Business.IRepositories
 {
@@ -6,16 +7,16 @@ namespace Restaurant.Business.IRepositories
     {
         Ingredient GetIngredient(int id);
         Ingredient GetIngredient(string ingredientName);
-        Task<IEnumerable<Ingredient>> GetIngredients(int pageIngex, int pageSize);
+        Task<IEnumerable<Ingredient>> GetIngredients(int pageIngex = 0, int pageSize = 0);
         IEnumerable<Ingredient> GetIngredients(List<int> ids);
         int GetIngredientsCount();
 
-        int AddIngredient(Ingredient ingredient);
+        void AddIngredient(IngredientCreateRequest ingredientRequest);
+        void UpdateIngredient(Ingredient ingredient, IngredientUpdateRequest ingredientRequest);
         void DeleteIngredient(Ingredient ingredient);
 
         void EnsureIngredientExists(Ingredient ingredient);
         void EnsureIngredientNameNotTaken(string ingredientName, int id = 0);
         void EnsureIngredientNotInUse(Ingredient ingredient);
-        void UpdateIngredient(Ingredient ingredient, string newIngredientName);
     }
 }

@@ -67,11 +67,12 @@ const routes: Routes = [
   { path: 'edit-ingredient-page', component: EditIngredientPageComponent, canActivate: [IsAdminGuard] },
   { path: 'city-admin-main-page', component: CityMainPageComponent, canActivate: [IsAdminGuard] },
   { path: 'add-city-page', component: CityAddPageComponent, canActivate: [IsAdminGuard] },
-  { path: 'edit-city-page', component: CityEditPageComponent, canActivate: [IsAdminGuard] },
+  { path: 'edit-city-page/:id', component: CityEditPageComponent, canActivate: [IsAdminGuard] },
   { path: 'meal-category-main-page', component: MealCategoryMainPageComponent, canActivate: [IsAdminGuard] },
   { path: 'add-meal-category-page', component: MealCategoryAddPageComponent, canActivate: [IsAdminGuard] },
   { path: 'edit-meal-category-page', component: MealCategoryEditPageComponent, canActivate: [IsAdminGuard] },
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({

@@ -18,6 +18,8 @@ export class CityEditPageComponent implements OnInit {
   disableSubmitButton = false;
   id?: number;
   city?: City;
+  pageIndex!: number;
+  pageSize!: number;
 
   constructor(
     fb: FormBuilder,
@@ -31,16 +33,31 @@ export class CityEditPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.route.queryParams
+      .subscribe(params => {
+        this.pageIndex = params['pageIndex'] ?? 0;
+        this.pageSize = params['pageSize'] ?? 5;
+      });
+
     let tempId = this.route.snapshot.paramMap.get('id');
-    if (tempId != null) {
-      let parsedId = parseInt(tempId);
-      if (!isNaN(parsedId)) {
-        this.id = parsedId;
-        this.cityService
-          .getCity(this.id)
-          .subscribe((data) => this.city = data);
-      }
+    if (tempId == null) {
+      this.toastService.showDanger('Błąd podczas pobierania identyfikatora składnika!');
+      this.goToMainPage();
+      return;
     }
+
+    let parsedId = parseInt(tempId);
+    if (isNaN(parsedId)) {
+      this.toastService.showDanger('Błąd podczas przetwarzania identyfikatora składnika!');
+      this.goToMainPage();
+      return;
+    }
+
+    this.id = parsedId;
+    this.cityService
+      .getCity(this.id)
+      .subscribe((data) => this.city = data);
   }
 
   get name() {
@@ -64,8 +81,8 @@ export class CityEditPageComponent implements OnInit {
       next: () => {
         this.disableSubmitButton = false;
 
-        this.toastService.showSuccess("Pomyślnie zaktualizowano miasto!", 2000)
-        this.router.navigate(['city-admin-main-page']);
+        this.toastService.showSuccess("Pomyślnie zaktualizowano miasto!", 2000);
+        this.goToMainPage();
       },
       error: (e) => {
         this.disableSubmitButton = false;
@@ -73,5 +90,15 @@ export class CityEditPageComponent implements OnInit {
         this.toastService.showDanger("Błąd podczas aktualizacji miasta: " + e.message);
       }
     });
+  }
+
+  goToMainPage() {
+    this.router.navigate(['city-admin-main-page'],
+      {
+        queryParams: {
+          pageIndex: this.pageIndex,
+          pageSize: this.pageSize
+        }
+      });
   }
 }

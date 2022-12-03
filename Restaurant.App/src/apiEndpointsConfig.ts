@@ -1,14 +1,21 @@
 export const apiEndpoints =
 {
   cityEndpoints: {
-    "getCity": "cities/",
-    "getCities": "cities",
-    "getCityPage": "cities/page",
+    "get": "cities/",
+    "getList": "cities",
+    "getPage": "cities/page",
     "add": "cities",
     "delete": "cities/",
     "update": "cities/",
     "enable": "cities/enable/",
     "disable": "cities/disable/"
+  },
+  ingredientsEndpoints: {
+    "get": "ingredients/",
+    "getPage": "ingredients/page",
+    "add": "ingredients",
+    "udpate": "ingredients/",
+    "delete": "ingredients/",
   },
   userEndpoints: {
     "addUser": "User/AddUser",
@@ -33,12 +40,7 @@ export const apiEndpoints =
     "getOrderStatuses": "Order/GetOrderStatuses",
     "getOrdersForAdminPanel": "Order/GetOrdersForAdminPanel"
   },
-  ingredientsEndpoints: {
-    "getIngredientsForAdminPanel": "Ingredient/GetIngredientsForAdminPanel",
-    "addIngredient": "Ingredient/AddIngredient",
-    "editIngredient": "Ingredient/UpdateIngredient",
-    "deleteIngredient": "Ingredient/DeleteIngredient",
-  },
+
   recipeEndpoints: {
     "getRecipeEditViewModel": "Recipe/GetRecipeEditViewModel",
     "updateMealRecipe": "Recipe/UpdateMealRecipe"

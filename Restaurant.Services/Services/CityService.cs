@@ -35,7 +35,7 @@ namespace Restaurant.Business.Services
             return citiesVM;
         }
 
-        public CityWrapper GetCityPage(int pageIndex = 0, int pageSize = 0)
+        public CityWrapper GetCityPage(int pageIndex, int pageSize)
         {
             var cities = _cityRepository.GetCities(pageIndex: pageIndex, pageSize: pageSize);
             
@@ -54,7 +54,7 @@ namespace Restaurant.Business.Services
         public void AddCity(CityCreateRequest city)
         {
             _cityRepository.EnsureCityNameNotTaken(city.Name);
-            _cityRepository.AddCity(city);  // TODO trim name
+            _cityRepository.AddCity(city);
         }
         public void UpdateCity(short id, CityUpdateRequest cityRequest)
         {
@@ -66,7 +66,7 @@ namespace Restaurant.Business.Services
 
             _cityRepository.EnsureCityNotInUse(city);
 
-            _cityRepository.UpdateCity(city, cityRequest); // TODO trim name
+            _cityRepository.UpdateCity(city, cityRequest);
         }
 
         public void DeleteCity(short id)

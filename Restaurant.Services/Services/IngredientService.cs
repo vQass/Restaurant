@@ -1,4 +1,5 @@
-﻿using Restaurant.Business.IRepositories;
+﻿using AutoMapper;
+using Restaurant.Business.IRepositories;
 using Restaurant.Business.IServices;
 using Restaurant.Data.Models.IngredientModels;
 using Restaurant.Entities.Entities;
@@ -8,50 +9,64 @@ namespace Restaurant.Business.Services
     public class IngredientService : IIngredientService
     {
         private readonly IIngredientRepository _ingredientRepository;
+        private readonly IMapper _mapper;
 
-        public IngredientService(IIngredientRepository ingredientRepository)
+        public IngredientService(IIngredientRepository ingredientRepository, IMapper mapper)
         {
             _ingredientRepository = ingredientRepository;
+            _mapper = mapper;
         }
-        public async Task<IngredientAdminPanelWrapper> GetIngredientsForAdminPanel(int pageIndex, int pageSize)
+
+        public IngredientViewModel GetIngredient(int id)
         {
-            var items = await _ingredientRepository.GetIngredients(pageIndex, pageSize);
+            var ingredient = _ingredientRepository.GetIngredient(id);
+            _ingredientRepository.EnsureIngredientExists(ingredient);
+
+            var ingredientVM = _mapper.Map<IngredientViewModel>(ingredient);
+
+            return ingredientVM;
+        }
+
+        public async Task<IngredientWrapper> GetIngredientPage(int pageIndex, int pageSize)
+        {
+            var ingredients = await _ingredientRepository.GetIngredients(pageIndex, pageSize);
             var itemsCount = _ingredientRepository.GetIngredientsCount();
 
-            return new IngredientAdminPanelWrapper
+            var ingredientsVM = _mapper.Map<List<IngredientViewModel>>(ingredients);
+
+            return new IngredientWrapper
             {
-                Items = items.Select(x => new IngredientAdminPanelItem
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                })
-                .ToList(),
+                Items = ingredientsVM,
                 ItemsCount = itemsCount
             };
         }
 
-        public Ingredient GetIngredient(int id)
+        public async Task<IEnumerable<IngredientViewModel>> GetIngredients()
+        {
+            var ingredients = await _ingredientRepository.GetIngredients();
+            var ingredientsVM = _mapper.Map<List<IngredientViewModel>>(ingredients);
+
+            return ingredientsVM;
+        }
+
+        public void AddIngredient(IngredientCreateRequest ingredientRequest)
+        {
+            _ingredientRepository.EnsureIngredientNameNotTaken(ingredientRequest.Name);
+
+            _ingredientRepository.AddIngredient(ingredientRequest);
+        }
+
+        public void UpdateIngredient(int id, IngredientUpdateRequest ingredientRequest)
         {
             var ingredient = _ingredientRepository.GetIngredient(id);
 
             _ingredientRepository.EnsureIngredientExists(ingredient);
 
-            return ingredient;
-        }
+            _ingredientRepository.EnsureIngredientNotInUse(ingredient);
 
-        public async Task<IEnumerable<Ingredient>> GetIngredients()
-        {
-            return await _ingredientRepository.GetIngredients(0, 0);
-        }
+            _ingredientRepository.EnsureIngredientNameNotTaken(ingredientRequest.Name, id);
 
-        public int AddIngredient(string ingredientName)
-        {
-            _ingredientRepository.EnsureIngredientNameNotTaken(ingredientName);
-
-            var id = _ingredientRepository
-                .AddIngredient(new Ingredient { Name = ingredientName.Trim() });
-
-            return id;
+            _ingredientRepository.UpdateIngredient(ingredient, ingredientRequest);
         }
 
         public void DeleteIngredient(int id)
@@ -63,19 +78,6 @@ namespace Restaurant.Business.Services
             _ingredientRepository.EnsureIngredientNotInUse(ingredient);
 
             _ingredientRepository.DeleteIngredient(ingredient);
-        }
-
-        public void UpdateIngredient(int id, string ingredientName)
-        {
-            var ingredient = _ingredientRepository.GetIngredient(id);
-
-            _ingredientRepository.EnsureIngredientExists(ingredient);
-
-            _ingredientRepository.EnsureIngredientNotInUse(ingredient);
-
-            _ingredientRepository.EnsureIngredientNameNotTaken(ingredientName, id);
-
-            _ingredientRepository.UpdateIngredient(ingredient, ingredientName.Trim());
         }
     }
 }

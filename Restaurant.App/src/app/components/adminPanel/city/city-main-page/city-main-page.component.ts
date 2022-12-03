@@ -54,7 +54,6 @@ export class CityMainPageComponent {
       .subscribe(data => (this.cities = data));
   }
 
-
   delete(id: number) {
     this.disableDeleteButton = true;
 
@@ -110,10 +109,13 @@ export class CityMainPageComponent {
   }
 
   gotoItems(cityId: number) {
-    this.router.navigate(['/edit-city-page',
+    this.router.navigate(['/edit-city-page/' + cityId],
       {
-        id: cityId,
-      }]);
+        queryParams: {
+          pageIndex: this.paginator.pageIndex,
+          pageSize: this.paginator.pageSize
+        }
+      });
   }
 
   refreshData() {

@@ -20,7 +20,7 @@ export class CityService {
   constructor(private http: HttpClient) { }
 
   getCity(id: number): Observable<City> {
-    return this.http.get<City>(this.baseApiUrl + this.cityEndpoints.getCity + id);
+    return this.http.get<City>(this.baseApiUrl + this.cityEndpoints.get + id);
   }
 
   getCities(cityActivity: boolean | null): Observable<City[]> {
@@ -30,7 +30,7 @@ export class CityService {
       params = params.append("cityActivity", cityActivity);
     }
 
-    return this.http.get<City[]>(this.baseApiUrl + this.cityEndpoints.getCities, { params: params });
+    return this.http.get<City[]>(this.baseApiUrl + this.cityEndpoints.getList, { params: params });
   }
 
   getCityPage(pageIndex = 0, pageSize = 0): Observable<CityWrapper> {
@@ -38,7 +38,7 @@ export class CityService {
     params = params.append("pageIndex", pageIndex);
     params = params.append("pageSize", pageSize);
 
-    return this.http.get<CityWrapper>(this.baseApiUrl + this.cityEndpoints.getCityPage, { params: params });
+    return this.http.get<CityWrapper>(this.baseApiUrl + this.cityEndpoints.getPage, { params: params });
   }
 
   add(city: CityCreateRequest) {

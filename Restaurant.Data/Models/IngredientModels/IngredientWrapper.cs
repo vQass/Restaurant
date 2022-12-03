@@ -1,8 +1,8 @@
 ﻿namespace Restaurant.Data.Models.IngredientModels
 {
-    public class IngredientAdminPanelWrapper
+    public class IngredientWrapper
     {
-        public List<IngredientAdminPanelItem> Items { get; set; }
+        public List<IngredientViewModel> Items { get; set; }
         public int ItemsCount { get; set; }
     }
 }

@@ -6,7 +6,7 @@ namespace Restaurant.Business.IServices
     {
         CityViewModel GetCity(short id);
         List<CityViewModel> GetCities(bool? cityActivity);
-        CityWrapper GetCityPage(int pageIndex = 0, int pageSize = 0);
+        CityWrapper GetCityPage(int pageIndex, int pageSize);
 
         void AddCity(CityCreateRequest city);
         void UpdateCity(short id, CityUpdateRequest city);

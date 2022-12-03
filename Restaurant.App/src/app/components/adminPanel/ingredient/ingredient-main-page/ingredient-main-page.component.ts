@@ -5,7 +5,7 @@ import { MatTable } from '@angular/material/table';
 import { catchError, map, merge, of as observableOf, startWith, switchMap } from 'rxjs';
 import { IngredientService } from 'src/app/services/ApiServices/ingredient.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
-import { IngredientAdminPanelItem } from 'src/models/ingredient/IngredientAdminPanelItem';
+import { Ingredient } from 'src/models/ingredient/Ingredient';
 
 @Component({
   selector: 'app-ingredient-main-page',
@@ -15,26 +15,27 @@ import { IngredientAdminPanelItem } from 'src/models/ingredient/IngredientAdminP
 export class IngredientMainPageComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<IngredientAdminPanelItem>;
+  @ViewChild(MatTable) table!: MatTable<Ingredient>;
 
-  ingredients: IngredientAdminPanelItem[] = [];
+  ingredients: Ingredient[] = [];
 
   disableDeleteButton = false;
   resultsLength = 0;
   isLoadingResults = true;
   displayedColumns = ['id', 'name', 'actions'];
 
-  constructor(private ingredientService: IngredientService, private toastService: ToastService) {
+  constructor(
+    private ingredientService: IngredientService,
+    private toastService: ToastService) {
   }
 
   ngAfterViewInit(): void {
-
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.ingredientService.getIngredientsForAdminPanel(
+          return this.ingredientService.getPage(
             this.paginator.pageIndex,
             this.paginator.pageSize
           ).pipe(catchError(() => observableOf(null)));
@@ -57,7 +58,7 @@ export class IngredientMainPageComponent {
   delete(id: number) {
     this.disableDeleteButton = true;
 
-    this.ingredientService.deleteIngredient(id).subscribe({
+    this.ingredientService.delete(id).subscribe({
       next: () => {
         this.disableDeleteButton = false;
         this.refreshData();
@@ -72,7 +73,7 @@ export class IngredientMainPageComponent {
   }
 
   refreshData() {
-    return this.ingredientService.getIngredientsForAdminPanel(
+    return this.ingredientService.getPage(
       this.paginator.pageIndex,
       this.paginator.pageSize
     ).subscribe((data) => {

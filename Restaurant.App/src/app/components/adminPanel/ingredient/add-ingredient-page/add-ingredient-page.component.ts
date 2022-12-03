@@ -38,7 +38,7 @@ export class AddIngredientPageComponent {
         name: this.addIngredientForm.value.name
       } as IngredientCreateRequest;
 
-    this.ingredientService.addIngredient(ingredient).subscribe({
+    this.ingredientService.add(ingredient).subscribe({
       next: () => {
         this.disableSubmitButton = false;
 
