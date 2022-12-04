@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Restaurant.Authentication.Attributes;
 using Restaurant.Business.IServices;
 using Restaurant.Data.Models.UserModels.Requests;
-using Restaurant.Entities.Enums;
 
 namespace Restaurant.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -25,7 +23,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPost("users/signIn")]
-        public IActionResult SignInUser([FromBody] LoginRequest loginRequest)
+        public IActionResult SignIn([FromBody] LoginRequest loginRequest)
         {
             var user = _userService.SignInUser(loginRequest);
             return Ok(user);

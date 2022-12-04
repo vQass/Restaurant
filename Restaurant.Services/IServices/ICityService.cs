@@ -11,7 +11,7 @@ namespace Restaurant.Business.IServices
         void AddCity(CityCreateRequest city);
         void UpdateCity(short id, CityUpdateRequest city);
         void DeleteCity(short id);
-        
+
         void EnableCity(short id);
         void DisableCity(short id);
     }

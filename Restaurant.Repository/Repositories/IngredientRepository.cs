@@ -67,7 +67,7 @@ namespace Restaurant.Repository.Repositories
         {
             var ingredient = new Ingredient
             {
-                Name= ingredientRequest.Name.Trim()
+                Name = ingredientRequest.Name.Trim()
             };
 
             _dbContext.Ingredients.Add(ingredient);

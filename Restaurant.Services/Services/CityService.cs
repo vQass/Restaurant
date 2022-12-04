@@ -38,7 +38,7 @@ namespace Restaurant.Business.Services
         public CityWrapper GetCityPage(int pageIndex, int pageSize)
         {
             var cities = _cityRepository.GetCities(pageIndex: pageIndex, pageSize: pageSize);
-            
+
             var citiesVM = _mapper.Map<List<CityViewModel>>(cities);
             var cityCount = _cityRepository.GetCitiesCount();
 

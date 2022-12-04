@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Restaurant.Business.IRepositories;
+﻿using Restaurant.Business.IRepositories;
 using Restaurant.Business.IServices;
 using Restaurant.Data.Models.RecipeModels;
-using Restaurant.DB;
 
 namespace Restaurant.Business.Services
 {

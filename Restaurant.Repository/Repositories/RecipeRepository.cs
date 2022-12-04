@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
 using Restaurant.Business.IRepositories;
 using Restaurant.Data.Models.RecipeModels;
 using Restaurant.DB;
@@ -16,7 +14,7 @@ namespace Restaurant.Repository.Repositories
             RestaurantDbContext dbContext)
         {
             _dbContext = dbContext;
- 
+
         }
 
         public List<RecipeEditIngredient> GetIngredientsForMeal(int mealId)

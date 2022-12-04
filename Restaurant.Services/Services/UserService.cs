@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Restaurant.Authentication;
 using Restaurant.Business.IRepositories;
@@ -8,9 +6,7 @@ using Restaurant.Business.IServices;
 using Restaurant.Data.Exceptions;
 using Restaurant.Data.Models.UserModels.Requests;
 using Restaurant.Data.Models.UserModels.Responses;
-using Restaurant.Data.Models.UserModels.ViewModels;
 using Restaurant.Entities.Entities;
-using Restaurant.Entities.Enums;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;

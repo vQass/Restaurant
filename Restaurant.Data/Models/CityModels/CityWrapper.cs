@@ -1,6 +1,4 @@
-﻿using Restaurant.Entities.Entities;
-
-namespace Restaurant.Data.Models.CityModels
+﻿namespace Restaurant.Data.Models.CityModels
 {
     public class CityWrapper
     {

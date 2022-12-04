@@ -48,7 +48,7 @@ namespace Restaurant.Repository.Repositories
         public void AddMealCategory(MealCategoryCreateRequest mealCategoryRequest)
         {
             var mealCategory = new MealCategory
-            { 
+            {
                 Name = mealCategoryRequest.Name
             };
 
