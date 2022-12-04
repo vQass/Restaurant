@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Restaurant.APIComponents\Restaurant.Validators.csproj" />
+    <ProjectReference Include="..\Restaurant.Validators\Restaurant.Validators.csproj" />
     <ProjectReference Include="..\Restaurant.Authentication\Restaurant.Authentication.csproj" />
     <ProjectReference Include="..\Restaurant.Data\Restaurant.Data.csproj" />
     <ProjectReference Include="..\Restaurant.DB\Restaurant.DB.csproj" />

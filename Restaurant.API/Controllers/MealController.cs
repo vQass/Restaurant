@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Restaurant.Authentication.Attributes;
 using Restaurant.Business.IServices;
 using Restaurant.Data.Models.MealModels;
+using Restaurant.Entities.Enums;
 
 namespace Restaurant.API.Controllers
 {
@@ -28,6 +30,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("meals/groups")]
+        [AuthorizeWithRoles(RoleEnum.HeadAdmin)]
         public async Task<IActionResult> GetActiveMealsGroupedByCategory()
         {
             return Ok(await _mealService.GetActiveMealsGroupedByCategory());

@@ -18,7 +18,7 @@ export class UserService {
   userEndpoints = apiEndpoints.userEndpoints;
 
   private isLoggedIn: BehaviorSubject<boolean>;
-  private authToken: string;
+  private authToken: string | null;
   private role: string;
   private id: number;
 
@@ -63,6 +63,7 @@ export class UserService {
     this.setIsLoggedIn(false);
     this.setRole("");
     this.setId(0);
+    this.setAuthToken(null);
     this.toastService.showSuccess("Wylogowano!", 2000);
     this.router.navigate(['home']);
   }
@@ -89,11 +90,11 @@ export class UserService {
     return this.isLoggedIn.getValue();
   }
 
-  getAuthToken(): string {
+  getAuthToken(): string | null {
     return this.authToken;
   }
 
-  setAuthToken(authToken: string): void {
+  setAuthToken(authToken: string | null): void {
     this.authToken = authToken;
   }
 
