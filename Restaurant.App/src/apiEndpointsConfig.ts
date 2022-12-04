@@ -1,54 +1,55 @@
 export const apiEndpoints =
 {
   cityEndpoints: {
-    "getCities": "City/GetCities",
-    "getCity": "City/GetCity",
-    "add": "City/Add",
-    "delete": "City/Delete",
-    "update": "City/Update",
-    "enable": "City/Enable",
-    "disable": "City/Disable"
-  },
-  userEndpoints: {
-    "addUser": "User/AddUser",
-    "getUsers": "User/GetUsersList",
-    "singIn": "User/SignInUser"
-  },
-  mealEndpoints: {
-    "getMealsGroups": "Meal/GetActiveMealsGroupedByCategory",
-    "getMealsForAdminPanel": "Meal/GetMealsForAdminPanel",
-    "getMealForAdminPanel": "Meal/GetMealForAdminPanel",
-    "setAsAvailable": "Meal/SetMealAsAvailable",
-    "setAsUnavailable": "Meal/SetMealAsUnavailable",
-    "addMeal": "Meal/AddMeal",
-    "updateMeal": "Meal/UpdateMeal",
-    "updateMealsPrice": "Meal/UpdateMealsPrice",
-    "delete": "Meal/DeleteMeal",
-  },
-  orderEndpoints: {
-    "addOrder": "Order/AddOrder",
-    "changeOrderStatus": "Order/ChangeOrderStatus",
-    "getOrderHistory": "Order/GetOrdersHistory",
-    "getOrderStatuses": "Order/GetOrderStatuses",
-    "getOrdersForAdminPanel": "Order/GetOrdersForAdminPanel"
+    "get": "cities/",
+    "getList": "cities",
+    "getPage": "cities/page",
+    "add": "cities",
+    "delete": "cities/",
+    "update": "cities/",
+    "enable": "cities/enable/",
+    "disable": "cities/disable/"
   },
   ingredientsEndpoints: {
-    "getIngredientsForAdminPanel": "Ingredient/GetIngredientsForAdminPanel",
-    "addIngredient": "Ingredient/AddIngredient",
-    "editIngredient": "Ingredient/UpdateIngredient",
-    "deleteIngredient": "Ingredient/DeleteIngredient",
+    "get": "ingredients/",
+    "getPage": "ingredients/page",
+    "add": "ingredients",
+    "udpate": "ingredients/",
+    "delete": "ingredients/",
+  },
+  userEndpoints: {
+    "addUser": "users/add",
+    "singIn": "users/signIn"
+  },
+  mealEndpoints: {
+    "get": "meals/",
+    "getGroups": "meals/groups",
+    "getPage": "meals/page",
+    "add": "meals",
+    "update": "meals/",
+    "updatePrice": "meals/updatePrice/",
+    "delete": "meals/",
+    "setAsAvailable": "meals/activate",
+    "setAsUnavailable": "meals/deactivate",
+  },
+  orderEndpoints: {
+    "getStatuses": "orders/statuses",
+    "getHistoryPage": "orders/historyPage",
+    "getPage": "orders/page",
+    "changeStatus": "orders/changeStatus/",
+    "add": "orders",
   },
   recipeEndpoints: {
-    "getRecipeEditViewModel": "Recipe/GetRecipeEditViewModel",
-    "updateMealRecipe": "Recipe/UpdateMealRecipe"
+    "getEditModel": "recipies/",
+    "update": "recipies/"
   },
   mealCategoryEndpoints: {
-    "getMealCategories": "MealCategory/GetMealCategories",
-    "getMealCategoriesPage": "MealCategory/GetMealCategoriesPage",
-    "getMealCategory": "MealCategory/GetMealCategory",
-    "delete": "MealCategory/Delete",
-    "add": "MealCategory",
-    "update": "MealCategory/Update",
+    "get": "mealCategories/",
+    "getList": "mealCategories",
+    "getPage": "mealCategories/page",
+    "add": "mealCategories",
+    "delete": "mealCategories/",
+    "update": "mealCategories/",
   }
 };
 

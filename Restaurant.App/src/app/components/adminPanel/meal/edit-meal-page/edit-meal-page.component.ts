@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { MealCategoryService } from 'src/app/services/ApiServices/meal-category.service';
 import { MealService } from 'src/app/services/ApiServices/meal.service';
+import { IdentifierParserService } from 'src/app/services/OtherServices/identifier-parser.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
 import { MealAdminPanelItem } from 'src/models/meal/MealAdminPanelItem';
@@ -14,7 +16,7 @@ import { MealCategory } from 'src/models/mealCategory/MealCategory';
   templateUrl: './edit-meal-page.component.html',
   styleUrls: ['./edit-meal-page.component.scss']
 })
-export class EditMealPageComponent implements OnInit {
+export class EditMealPageComponent extends PagingHelper implements OnInit {
   singleControlMatcher = new SingleControlErrorStateMatcher();
   mainForm: FormGroup;
   disableSubmitButton = false;
@@ -24,36 +26,35 @@ export class EditMealPageComponent implements OnInit {
   meal?: MealAdminPanelItem;
   categories?: MealCategory[];
 
-
-  ngOnInit(): void {
-
-  }
-
   constructor(
     fb: FormBuilder,
-    private route: ActivatedRoute,
     private mealService: MealService,
     private mealCategoryService: MealCategoryService,
+    private idParser: IdentifierParserService,
     private toastService: ToastService,
-    private router: Router) {
+    route: ActivatedRoute,
+    router: Router) {
+    super(route, router, '/edit-meal-options-admin-page')
     this.mainForm = fb.group({
       name: fb.control('', [Validators.required, Validators.maxLength(127)]),
       price: fb.control('', [Validators.required, Validators.min(0.01), Validators.max(500), Validators.pattern('')]),
       mealCategoryId: fb.control('', [Validators.required]),
     })
+  }
 
-    let id = this.route.snapshot.paramMap.get('id');
+  ngOnInit(): void {
+    let id = this.idParser.parseId(this.route);
 
-    if (id != null) {
-      let parsedId = parseInt(id);
-      if (!isNaN(parsedId)) {
-        this.mealId = parsedId;
-        this.mealService.getMealAdminPanelItem(this.mealId).subscribe((data) => { this.meal = data }
-        );
-      }
+    if (id == null) {
+      this.goToMainPage();
+      return;
     }
 
-    mealCategoryService.getMealCategories().subscribe((data) => this.categories = data);
+    this.mealService.get(id).subscribe((data) => {
+      this.meal = data;
+    });
+    this.mealCategoryService.getMealCategories().subscribe((data) => { this.categories = data });
+    ;
   }
 
   get name() {
@@ -69,6 +70,11 @@ export class EditMealPageComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.meal == null) {
+      return;
+    }
+    const id = this.meal.id;
+
     this.disableSubmitButton = true;
 
     let meal =
@@ -78,24 +84,23 @@ export class EditMealPageComponent implements OnInit {
         mealCategoryId: this.mainForm.value.mealCategoryId
       } as MealUpdateRequest;
 
-    this.mealService.updateMeal(this.mealId, meal).subscribe({
+    this.mealService.update(meal, id).subscribe({
       next: () => {
         this.disableSubmitButton = false;
-
         this.toastService.showSuccess("Pomyślnie zaktualizowano danie!", 2000)
-
-        this.router.navigate(['/edit-meal-options-admin-page',
-          {
-            id: this.mealId
-          }]);
-
+        this.goToOptionsPage(id);
       },
       error: (e) => {
         this.disableSubmitButton = false;
-
         this.toastService.showDanger("Błąd podczas aktualizacji dania: " + e.message);
       }
     });
   }
 
+  goBack() {
+    if (this.meal == null) {
+      return;
+    }
+    this.goToOptionsPage(this.meal.id);
+  }
 }

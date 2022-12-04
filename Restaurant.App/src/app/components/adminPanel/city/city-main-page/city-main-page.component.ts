@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { merge, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { CityService } from 'src/app/services/ApiServices/city.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { City } from 'src/models/city/City';
@@ -12,20 +13,23 @@ import { City } from 'src/models/city/City';
   templateUrl: './city-main-page.component.html',
   styleUrls: ['./city-main-page.component.scss']
 })
-export class CityMainPageComponent {
+export class CityMainPageComponent extends PagingHelper {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  cities: City[] = [];
-  disableDeleteButton = false;
-  disableDisableCityButton = false;
-  disableEnableCityButton = false;
   resultsLength = 0;
   isLoadingResults = true;
   displayedColumns = ['id', 'name', 'isActive', 'actions'];
 
+  disableDeleteButton = false;
+  disableDisableCityButton = false;
+  disableEnableCityButton = false;
+
+  cities: City[] = [];
+
   constructor(private cityService: CityService,
-    private router: Router,
+    router: Router,
+    route: ActivatedRoute,
     private toastService: ToastService) {
+    super(route, router, 'city-admin-main-page');
   }
 
   ngAfterViewInit(): void {
@@ -34,7 +38,7 @@ export class CityMainPageComponent {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.cityService!.getCities(
+          return this.cityService!.getCityPage(
             this.paginator.pageIndex,
             this.paginator.pageSize,
           ).pipe(catchError(() => observableOf(null)));
@@ -52,7 +56,6 @@ export class CityMainPageComponent {
       )
       .subscribe(data => (this.cities = data));
   }
-
 
   delete(id: number) {
     this.disableDeleteButton = true;
@@ -108,20 +111,38 @@ export class CityMainPageComponent {
     });
   }
 
-  gotoItems(cityId: number) {
-    this.router.navigate(['/edit-city-page',
-      {
-        id: cityId,
-      }]);
-  }
-
   refreshData() {
-    return this.cityService.getCities(
+    return this.cityService.getCityPage(
       this.paginator.pageIndex,
       this.paginator.pageSize
     ).subscribe((data) => {
+      if (data.items.length == 0) {
+        const pageIndex = this.paginator.pageIndex;
+        if (pageIndex == 0) {
+          return;
+        }
+        this.paginator.pageIndex = pageIndex - 1;
+        this.refreshData();
+      }
       this.resultsLength = data.itemCount;
       this.cities = data.items;
     });
   }
+
+  goToEditPage(cityId: number) {
+    this.goToPage(
+      this.paginator.pageIndex,
+      this.paginator.pageSize,
+      '/edit-city-page/' + cityId);
+  }
+
+  goToAddPage() {
+    console.log(this.paginator.pageIndex, this.paginator.pageSize);
+
+    this.goToPage(
+      this.paginator.pageIndex,
+      this.paginator.pageSize,
+      '/add-city-page/');
+  }
+
 }

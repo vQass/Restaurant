@@ -3,14 +3,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Restaurant.APIComponents;
-using Restaurant.APIComponents.Middlewares;
+using Restaurant.API;
+using Restaurant.API.Middlewares;
+using Restaurant.Authentication;
+using Restaurant.Business;
+using Restaurant.Business.IServices;
 using Restaurant.Data;
 using Restaurant.DB;
-using Restaurant.DB.Entities;
-using Restaurant.IServices;
+using Restaurant.Entities.Entities;
 using Restaurant.Repository;
-using Restaurant.Services;
+using Restaurant.Validators;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -55,9 +57,6 @@ builder.Services.AddValidators();
 builder.Services.AddMiddlewares();
 builder.Services.AddAutoMapper(typeof(RestaurantDataMapperProfile));
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-
-
-// skonczylem linia 59
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

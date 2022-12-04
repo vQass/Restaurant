@@ -1,20 +1,20 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using Restaurant.APIComponents.Validators.CityValidators;
-using Restaurant.APIComponents.Validators.IngredientValidators;
-using Restaurant.APIComponents.Validators.MealCategoryValidators;
-using Restaurant.APIComponents.Validators.MealValidators;
-using Restaurant.APIComponents.Validators.OrderValidators.OrderCreate;
-using Restaurant.APIComponents.Validators.OrderValidators.OrderUpdate;
-using Restaurant.APIComponents.Validators.UserValidators;
 using Restaurant.Data.Models.CityModels;
 using Restaurant.Data.Models.IngredientModels;
 using Restaurant.Data.Models.MealCategoryModels;
 using Restaurant.Data.Models.MealModels;
 using Restaurant.Data.Models.OrderModels;
 using Restaurant.Data.Models.UserModels.Requests;
+using Restaurant.Validators.FluentValidators.CityValidators;
+using Restaurant.Validators.FluentValidators.IngredientValidators;
+using Restaurant.Validators.FluentValidators.MealCategoryValidators;
+using Restaurant.Validators.FluentValidators.MealValidators;
+using Restaurant.Validators.FluentValidators.OrderValidators.OrderCreate;
+using Restaurant.Validators.FluentValidators.OrderValidators.OrderUpdate;
+using Restaurant.Validators.FluentValidators.UserValidators;
 
-namespace Restaurant.APIComponents
+namespace Restaurant.Validators
 {
     public static class ValidatorsExtentions
     {

@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Restaurant.APIComponents.Exceptions;
+using Restaurant.Business.IRepositories;
+using Restaurant.Data.Exceptions;
 using Restaurant.Data.Models.UserModels.Requests;
 using Restaurant.DB;
-using Restaurant.DB.Entities;
-using Restaurant.DB.Enums;
-using Restaurant.IRepository;
+using Restaurant.Entities.Entities;
+using Restaurant.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Restaurant.Repository.Repositories
@@ -33,19 +33,9 @@ namespace Restaurant.Repository.Repositories
 
         #region GetMethods
 
-        public async Task<IEnumerable<User>> GetUsers()
-        {
-            return await _dbContext.Users.ToListAsync();
-        }
-
         public async Task<IEnumerable<User>> GetUsers(List<long> ids)
         {
             return await _dbContext.Users.Where(x => ids.Contains(x.Id)).ToListAsync();
-        }
-
-        public User GetUser(long id)
-        {
-            return _dbContext.Users.FirstOrDefault(x => x.Id == id);
         }
 
         public User GetUser(string email)
@@ -61,7 +51,7 @@ namespace Restaurant.Repository.Repositories
 
         #region EntityModificationMethods
 
-        public long AddUser(UserCreateRequest userCreateRequest)
+        public void AddUser(UserCreateRequest userCreateRequest)
         {
             var date = DateTime.Now;
             var user = _mapper.Map<User>(userCreateRequest);
@@ -72,33 +62,6 @@ namespace Restaurant.Repository.Repositories
             user.Role = (byte)RoleEnum.User;
 
             _dbContext.Users.Add(user);
-            _dbContext.SaveChanges();
-
-            return user.Id;
-        }
-
-        public void UpdateUser(User user, UserUpdateRequest userUpdateRequest)
-        {
-            user.Name = userUpdateRequest.Name;
-            user.Surname = userUpdateRequest.Surname;
-            user.Address = userUpdateRequest.Address;
-            user.CityId = userUpdateRequest.CityId;
-            user.PhoneNumber = userUpdateRequest.PhoneNumber;
-            user.Updated = DateTime.Now;
-
-            _dbContext.SaveChanges();
-        }
-
-        public void UpdateUserEmail(User user, string newEmail)
-        {
-            user.Email = newEmail;
-            user.Updated = DateTime.Now;
-            _dbContext.SaveChanges();
-        }
-
-        public void DisableUser(User user)
-        {
-            user.IsActive = false;
             _dbContext.SaveChanges();
         }
 

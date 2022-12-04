@@ -1,4 +1,4 @@
-﻿using Restaurant.DB.Entities;
+﻿using Restaurant.Entities.Entities;
 
 namespace Restaurant.Data.Models.UserModels.ViewModels
 {

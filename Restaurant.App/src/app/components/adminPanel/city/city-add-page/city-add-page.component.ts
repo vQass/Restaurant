@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { CityService } from 'src/app/services/ApiServices/city.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
@@ -11,7 +12,7 @@ import { CityCreateRequest } from 'src/models/city/CityCreateRequest';
   templateUrl: './city-add-page.component.html',
   styleUrls: ['./city-add-page.component.scss']
 })
-export class CityAddPageComponent {
+export class CityAddPageComponent extends PagingHelper {
   singleControlMatcher = new SingleControlErrorStateMatcher();
   mainForm: FormGroup;
   disableSubmitButton = false;
@@ -20,7 +21,9 @@ export class CityAddPageComponent {
     fb: FormBuilder,
     private cityService: CityService,
     private toastService: ToastService,
-    private router: Router) {
+    route: ActivatedRoute,
+    router: Router) {
+    super(route, router, 'city-admin-main-page')
     this.mainForm = fb.group({
       name: fb.control('', [Validators.required, Validators.maxLength(127)]),
     })
@@ -43,7 +46,7 @@ export class CityAddPageComponent {
         this.disableSubmitButton = false;
 
         this.toastService.showSuccess("Pomyślnie dodano miasto!", 2000)
-        this.router.navigate(['city-admin-main-page']);
+        this.goToMainPage();
       },
       error: (e) => {
         this.disableSubmitButton = false;

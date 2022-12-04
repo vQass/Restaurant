@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Restaurant.Business.IServices;
 using Restaurant.Data.Models.MealCategoryModels;
-using Restaurant.IServices;
 
 namespace Restaurant.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class MealCategoryController : ControllerBase
     {
@@ -15,39 +15,39 @@ namespace Restaurant.API.Controllers
             _mealCategoryService = mealCategoryService;
         }
 
-        [HttpGet("GetMealCategory/{id}")]
+        [HttpGet("mealCategories/{id}")]
         public IActionResult GetMealCategory([FromRoute] short id)
         {
             return Ok(_mealCategoryService.GetMealCategory(id));
         }
 
-        [HttpGet("GetMealCategories")]
+        [HttpGet("mealCategories")]
         public IActionResult GetMealCategories()
         {
             return Ok(_mealCategoryService.GetMealCategories());
         }
 
-        [HttpGet("GetMealCategoriesPage")]
-        public IActionResult GetMealCategoriesPage([FromQuery] int pageIndex, [FromQuery] int pageSize)
+        [HttpGet("mealCategories/page")]
+        public IActionResult GetMealCategoriesPage([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 0)
         {
             return Ok(_mealCategoryService.GetMealCategoriesPage(pageIndex, pageSize));
         }
 
-        [HttpPost()]
-        public IActionResult Add([FromBody] MealCategoryCreateRequest mealCategoryCreateRequest)
+        [HttpPost("mealCategories")]
+        public IActionResult Add([FromBody] MealCategoryCreateRequest mealCategoryRequest)
         {
-            var id = _mealCategoryService.AddMealCategory(mealCategoryCreateRequest.Name);
+            _mealCategoryService.AddMealCategory(mealCategoryRequest);
             return Ok();
         }
 
-        [HttpPut("Update/{id}")]
-        public IActionResult Update([FromRoute] short id, [FromBody] MealCategoryUpdateRequest mealCategoryUpdateRequest)
+        [HttpPut("mealCategories/{id}")]
+        public IActionResult Update([FromRoute] short id, [FromBody] MealCategoryUpdateRequest mealCategoryRequest)
         {
-            _mealCategoryService.UpdateMealCategory(id, mealCategoryUpdateRequest.Name);
+            _mealCategoryService.UpdateMealCategory(id, mealCategoryRequest);
             return Ok();
         }
 
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("mealCategories/{id}")]
         public IActionResult DeleteMealCategory([FromRoute] short id)
         {
             _mealCategoryService.DeleteMealCategory(id);

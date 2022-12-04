@@ -3,6 +3,6 @@
     public class MealGroupViewModel
     {
         public string GroupName { get; set; }
-        public List<MealViewModel> Meals { get; set; }
+        public List<MealGroupItemViewModel> Meals { get; set; }
     }
 }

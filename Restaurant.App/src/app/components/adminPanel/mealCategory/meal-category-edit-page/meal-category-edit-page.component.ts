@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { MealCategoryService } from 'src/app/services/ApiServices/meal-category.service';
+import { IdentifierParserService } from 'src/app/services/OtherServices/identifier-parser.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
 import { MealCategory } from 'src/models/mealCategory/MealCategory';
@@ -11,7 +13,7 @@ import { MealCategory } from 'src/models/mealCategory/MealCategory';
   templateUrl: './meal-category-edit-page.component.html',
   styleUrls: ['./meal-category-edit-page.component.scss']
 })
-export class MealCategoryEditPageComponent {
+export class MealCategoryEditPageComponent extends PagingHelper {
   singleControlMatcher = new SingleControlErrorStateMatcher();
   mainForm: FormGroup;
   disableSubmitButton = false;
@@ -22,24 +24,26 @@ export class MealCategoryEditPageComponent {
     fb: FormBuilder,
     private mealCategoryService: MealCategoryService,
     private toastService: ToastService,
-    private route: ActivatedRoute,
-    private router: Router) {
+    private idParser: IdentifierParserService,
+    route: ActivatedRoute,
+    router: Router) {
+    super(route, router, 'meal-category-main-page')
     this.mainForm = fb.group({
       name: fb.control('', [Validators.required, Validators.maxLength(127)]),
     })
   }
 
   ngOnInit(): void {
-    let tempId = this.route.snapshot.paramMap.get('id');
-    if (tempId != null) {
-      let parsedId = parseInt(tempId);
-      if (!isNaN(parsedId)) {
-        this.id = parsedId;
-        this.mealCategoryService
-          .getMealCategory(this.id)
-          .subscribe((data) => this.mealCategory = data);
-      }
+    const id = this.idParser.parseId(this.route);
+
+    if (id == null) {
+      this.goToMainPage();
+      return;
     }
+
+    this.mealCategoryService
+      .getMealCategory(id)
+      .subscribe((data) => this.mealCategory = data);
   }
 
   get name() {
@@ -62,9 +66,8 @@ export class MealCategoryEditPageComponent {
     this.mealCategoryService.update(mealCategory, this.mealCategory.id).subscribe({
       next: () => {
         this.disableSubmitButton = false;
-
         this.toastService.showSuccess("Pomyślnie zaktualizowano kategorię!", 2000)
-        this.router.navigate(['meal-category-main-page']);
+        this.goToMainPage();
       },
       error: (e) => {
         this.disableSubmitButton = false;

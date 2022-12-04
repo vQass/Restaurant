@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { MealCategoryService } from 'src/app/services/ApiServices/meal-category.service';
 import { MealService } from 'src/app/services/ApiServices/meal.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
@@ -13,25 +14,32 @@ import { MealCategory } from 'src/models/mealCategory/MealCategory';
   templateUrl: './add-meal-page.component.html',
   styleUrls: ['./add-meal-page.component.scss']
 })
-export class AddMealPageComponent {
+export class AddMealPageComponent extends PagingHelper implements OnInit {
   singleControlMatcher = new SingleControlErrorStateMatcher();
   addMealForm: FormGroup;
   disableSubmitButton = false;
   selectedValue?: string;
   categories?: MealCategory[];
+
   constructor(
     fb: FormBuilder,
     private mealService: MealService,
     private toastService: ToastService,
     private mealCategoryService: MealCategoryService,
-    private router: Router) {
+    route: ActivatedRoute,
+    router: Router) {
+    super(route, router, 'meal-admin-main-page')
     this.addMealForm = fb.group({
       name: fb.control('', [Validators.required, Validators.maxLength(127)]),
       price: fb.control('', [Validators.required, Validators.min(0.01), Validators.max(500), Validators.pattern('')]),
       mealCategoryId: fb.control('', [Validators.required]),
     })
+  }
 
-    mealCategoryService.getMealCategories().subscribe((data) => this.categories = data);
+  ngOnInit(): void {
+    this.mealCategoryService
+      .getMealCategories()
+      .subscribe((data) => this.categories = data);
   }
 
   get name() {
@@ -56,16 +64,14 @@ export class AddMealPageComponent {
         mealCategoryId: this.addMealForm.value.mealCategoryId
       } as MealCreateRequest;
 
-    this.mealService.addMeal(meal).subscribe({
+    this.mealService.add(meal).subscribe({
       next: () => {
         this.disableSubmitButton = false;
-
         this.toastService.showSuccess("Pomyślnie dodano danie!", 2000)
-        this.router.navigate(['meal-admin-main-page']);
+        this.goToMainPage();
       },
       error: (e) => {
         this.disableSubmitButton = false;
-
         this.toastService.showDanger("Błąd podczas dodawania dania: " + e.message);
       }
     });

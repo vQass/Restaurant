@@ -13,7 +13,7 @@ export class MenuPageComponent implements OnInit {
   constructor(private mealService: MealService) { }
 
   ngOnInit(): void {
-    this.mealService.getGroupedMeals().subscribe(data => this.mealGroups = data);
+    this.mealService.getGroups().subscribe(data => this.mealGroups = data);
   }
 }
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { MealService } from 'src/app/services/ApiServices/meal.service';
+import { IdentifierParserService } from 'src/app/services/OtherServices/identifier-parser.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { MealAdminPanelItem } from 'src/models/meal/MealAdminPanelItem';
 
@@ -9,61 +11,63 @@ import { MealAdminPanelItem } from 'src/models/meal/MealAdminPanelItem';
   templateUrl: './edit-meal-options-page.component.html',
   styleUrls: ['./edit-meal-options-page.component.scss']
 })
-export class EditMealOptionsPageComponent implements OnInit {
-  buttonActive;
-  id?: number;
+export class EditMealOptionsPageComponent extends PagingHelper implements OnInit {
+  buttonActive = true;
   meal?: MealAdminPanelItem;
 
   constructor(
-    private route: ActivatedRoute,
     private mealService: MealService,
     private toastService: ToastService,
-    private router: Router) {
-    this.buttonActive = true;
+    private idParser: IdentifierParserService,
+    route: ActivatedRoute,
+    router: Router) {
+    super(route, router, '/meal-admin-main-page')
   }
 
   ngOnInit() {
-    let tempId = this.route.snapshot.paramMap.get('id');
-    if (tempId != null) {
-      let parsedId = parseInt(tempId);
-      if (!isNaN(parsedId)) {
-        this.id = parsedId;
-        this.mealService
-          .getMealAdminPanelItem(this.id)
-          .subscribe((data) => this.meal = data);
-      }
+    const id = this.idParser.parseId(this.route);
+
+    if (id == null) {
+      this.goToMainPage();
+      return;
     }
+
+    this.mealService
+      .get(id)
+      .subscribe((data) => this.meal = data);
   }
 
   goToMealEditPage() {
-    this.goToPage('/edit-meal-page');
+    this.goToPage(
+      this.getPageIndex(),
+      this.getPageSize(),
+      '/edit-meal-page/' + this.meal?.id);
   }
 
   goToMealEditPricePage() {
-    this.goToPage('/edit-meal-price-page');
+    this.goToPage(
+      this.getPageIndex(),
+      this.getPageSize(),
+      '/edit-meal-price-page/' + this.meal?.id);
   }
 
   goToMealEditRecipePage() {
-    this.goToPage('/edit-meal-recipe-page');
-  }
-
-  goToPage(link: string) {
-    this.router.navigate([link,
-      {
-        id: this.id
-      }]);
+    this.goToPage(
+      this.getPageIndex(),
+      this.getPageSize(),
+      '/edit-meal-recipe-page/' + this.meal?.id);
   }
 
   setAsAvailable() {
-
-    if (this.id == null) {
+    if (this.meal?.id == null) {
+      this.toastService.showDanger("Błąd podczas odczytu identyfikatora dania");
       return;
     }
 
     this.buttonActive = false;
 
     this.mealService
-      .setAsAvailable(this.id)
+      .setAsAvailable(this.meal.id)
       .subscribe({
         next: () => {
           this.buttonActive = true;
@@ -82,15 +86,15 @@ export class EditMealOptionsPageComponent implements OnInit {
   }
 
   setAsUnavailable() {
-
-    if (this.id == null) {
+    if (this.meal?.id == null) {
+      this.toastService.showDanger("Błąd podczas odczytu identyfikatora dania");
       return;
     }
 
     this.buttonActive = false;
 
     this.mealService
-      .setAsUnavailable(this.id)
+      .setAsUnavailable(this.meal?.id)
       .subscribe({
         next: () => {
           this.buttonActive = true;
@@ -106,5 +110,9 @@ export class EditMealOptionsPageComponent implements OnInit {
           this.toastService.showDanger("Błąd podczas zmieniania aktywności dania: \n" + e.message, 3000);
         }
       });
+  }
+
+  goBack() {
+    this.goToMainPage();
   }
 }

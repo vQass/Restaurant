@@ -13,6 +13,21 @@
     "tsconfig.app.json": true,
     "src\\favicon.ico": true,
     "src\\main.ts": true,
-    "src\\polyfills.ts": true
+    "src\\polyfills.ts": true,
+    "obj\\Debug": true,
+    "obj": true,
+    ".angular\\cache\\15.0.1": true,
+    ".angular": true,
+    "src\\assets": true,
+    "src\\environments": true,
+    "src\\app\\Validation": true,
+    "src\\app\\guards": true,
+    "src\\app\\app.component.css": true,
+    "src\\app\\app.component.html": true,
+    "src\\app\\app.component.ts": true,
+    "angular.json": true,
+    "package.json": true,
+    "tsconfig.spec.json": true,
+    "tsconfig.json": true
   }
 }

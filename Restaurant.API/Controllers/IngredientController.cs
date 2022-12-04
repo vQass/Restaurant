@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Restaurant.Business.IServices;
 using Restaurant.Data.Models.IngredientModels;
-using Restaurant.IServices;
 
 namespace Restaurant.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class IngredientController : ControllerBase
     {
@@ -15,39 +15,39 @@ namespace Restaurant.API.Controllers
             _ingredientServices = ingredientServices;
         }
 
-        [HttpGet("GetIngredients")]
-        public async Task<IActionResult> GetIngredients()
-        {
-            return Ok(await _ingredientServices.GetIngredients());
-        }
-
-        [HttpGet("GetIngredientsForAdminPanel")]
-        public async Task<IActionResult> GetIngredientsForAdminPanel([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 0)
-        {
-            return Ok(await _ingredientServices.GetIngredientsForAdminPanel(pageIndex, pageSize));
-        }
-
-        [HttpGet("GetIngredient/{id}")]
+        [HttpGet("ingredients/{id}")]
         public IActionResult GetIngredient([FromRoute] int id)
         {
             return Ok(_ingredientServices.GetIngredient(id));
         }
 
-        [HttpPost("AddIngredient")]
-        public IActionResult AddIngredient([FromBody] IngredientCreateRequest ingredientCreateRequest)
+        [HttpGet("ingredients")]
+        public async Task<IActionResult> GetIngredients()
         {
-            var id = _ingredientServices.AddIngredient(ingredientCreateRequest.Name);
-            return Created($"api/Ingredient/GetIngredientById/{id}", null);
+            return Ok(await _ingredientServices.GetIngredients());
         }
 
-        [HttpPut("UpdateIngredient/{id}")]
-        public IActionResult UpdateIngredient([FromRoute] int id, [FromBody] IngredientUpdateRequest ingredientUpdateRequest)
+        [HttpGet("ingredients/page")]
+        public async Task<IActionResult> GetIngredientsForAdminPanel([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 0)
         {
-            _ingredientServices.UpdateIngredient(id, ingredientUpdateRequest.Name);
+            return Ok(await _ingredientServices.GetIngredientPage(pageIndex, pageSize));
+        }
+
+        [HttpPost("ingredients")]
+        public IActionResult AddIngredient([FromBody] IngredientCreateRequest ingredientRequest)
+        {
+            _ingredientServices.AddIngredient(ingredientRequest);
             return Ok();
         }
 
-        [HttpDelete("DeleteIngredient/{id}")]
+        [HttpPut("ingredients/{id}")]
+        public IActionResult UpdateIngredient([FromRoute] int id, [FromBody] IngredientUpdateRequest ingredientRequest)
+        {
+            _ingredientServices.UpdateIngredient(id, ingredientRequest);
+            return Ok();
+        }
+
+        [HttpDelete("ingredients/{id}")]
         public IActionResult DeleteIngredient([FromRoute] int id)
         {
             _ingredientServices.DeleteIngredient(id);

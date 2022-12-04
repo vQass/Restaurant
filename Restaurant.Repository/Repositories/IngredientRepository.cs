@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Restaurant.APIComponents.Exceptions;
+using Restaurant.Business.IRepositories;
+using Restaurant.Data.Exceptions;
+using Restaurant.Data.Models.IngredientModels;
 using Restaurant.DB;
-using Restaurant.DB.Entities;
-using Restaurant.IRepository;
+using Restaurant.Entities.Entities;
 using Restaurant.LinqHelpers.Helpers;
 
 namespace Restaurant.Repository.Repositories
@@ -39,14 +40,18 @@ namespace Restaurant.Repository.Repositories
             return ingredient;
         }
 
-        public async Task<IEnumerable<Ingredient>> GetIngredients(int pageIndex, int pageSize)
+        public async Task<IEnumerable<Ingredient>> GetIngredients(int pageIndex = 0, int pageSize = 0)
         {
-            return await _dbContext.Ingredients.ApplyPaging(pageIndex, pageSize).ToListAsync();
+            return await _dbContext.Ingredients
+                .ApplyPaging(pageIndex, pageSize)
+                .ToListAsync();
         }
 
         public IEnumerable<Ingredient> GetIngredients(List<int> ids)
         {
-            return _dbContext.Ingredients.Where(x => ids.Contains(x.Id)).ToList();
+            return _dbContext.Ingredients
+                .Where(x => ids.Contains(x.Id))
+                .ToList();
         }
 
         public int GetIngredientsCount()
@@ -58,23 +63,26 @@ namespace Restaurant.Repository.Repositories
 
         #region EntityModificationMethods
 
-        public int AddIngredient(Ingredient ingredient)
+        public void AddIngredient(IngredientCreateRequest ingredientRequest)
         {
+            var ingredient = new Ingredient
+            {
+                Name = ingredientRequest.Name.Trim()
+            };
+
             _dbContext.Ingredients.Add(ingredient);
             _dbContext.SaveChanges();
+        }
 
-            return ingredient.Id;
+        public void UpdateIngredient(Ingredient ingredient, IngredientUpdateRequest ingredientRequest)
+        {
+            ingredient.Name = ingredientRequest.Name.Trim();
+            _dbContext.SaveChanges();
         }
 
         public void DeleteIngredient(Ingredient ingredient)
         {
             _dbContext.Ingredients.Remove(ingredient);
-            _dbContext.SaveChanges();
-        }
-
-        public void UpdateIngredient(Ingredient ingredient, string newIngredientName)
-        {
-            ingredient.Name = newIngredientName;
             _dbContext.SaveChanges();
         }
 

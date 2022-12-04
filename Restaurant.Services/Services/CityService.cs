@@ -1,50 +1,72 @@
-﻿using Restaurant.Data.Models.CityModels;
-using Restaurant.DB.Entities;
-using Restaurant.IRepository;
-using Restaurant.IServices;
+﻿using AutoMapper;
+using Restaurant.Business.IRepositories;
+using Restaurant.Business.IServices;
+using Restaurant.Data.Models.CityModels;
 
-namespace Restaurant.Services.Services
+namespace Restaurant.Business.Services
 {
     public class CityService : ICityService
     {
         private readonly ICityRepository _cityRepository;
+        private readonly IMapper _mapper;
 
         public CityService(
-            ICityRepository cityRepository)
+            ICityRepository cityRepository, IMapper mapper)
         {
             _cityRepository = cityRepository;
+            _mapper = mapper;
         }
 
-
-        public City GetCity(short id)
+        public CityViewModel GetCity(short id)
         {
             var city = _cityRepository.GetCity(id);
 
             _cityRepository.EnsureCityExists(city);
 
-            return city;
+            var cityVM = _mapper.Map<CityViewModel>(city);
+
+            return cityVM;
         }
 
-        public CityWrapper GetCities(bool? cityActivity, int pageIndex = 0, int pageSize = 0)
+        public List<CityViewModel> GetCities(bool? cityActivity)
         {
-            var cities = _cityRepository.GetCities(cityActivity, pageIndex, pageSize);
+            var cities = _cityRepository.GetCities(cityActivity);
+            var citiesVM = _mapper.Map<List<CityViewModel>>(cities);
+            return citiesVM;
+        }
+
+        public CityWrapper GetCityPage(int pageIndex, int pageSize)
+        {
+            var cities = _cityRepository.GetCities(pageIndex: pageIndex, pageSize: pageSize);
+
+            var citiesVM = _mapper.Map<List<CityViewModel>>(cities);
             var cityCount = _cityRepository.GetCitiesCount();
 
-            return new CityWrapper()
+            var wrapper = new CityWrapper
             {
-                Items = cities,
+                Items = citiesVM,
                 ItemCount = cityCount
             };
+
+            return wrapper;
         }
 
-        public short AddCity(string cityName)
+        public void AddCity(CityCreateRequest city)
         {
-            _cityRepository.EnsureCityNameNotTaken(cityName);
+            _cityRepository.EnsureCityNameNotTaken(city.Name);
+            _cityRepository.AddCity(city);
+        }
+        public void UpdateCity(short id, CityUpdateRequest cityRequest)
+        {
+            var city = _cityRepository.GetCity(id);
 
-            var cityId = _cityRepository
-                .AddCity(new City() { Name = cityName.Trim() });
+            _cityRepository.EnsureCityExists(city);
 
-            return cityId;
+            _cityRepository.EnsureCityNameNotTaken(cityRequest.Name, id);
+
+            _cityRepository.EnsureCityNotInUse(city);
+
+            _cityRepository.UpdateCity(city, cityRequest);
         }
 
         public void DeleteCity(short id)
@@ -74,19 +96,6 @@ namespace Restaurant.Services.Services
             _cityRepository.EnsureCityExists(city);
 
             _cityRepository.EnableCity(city);
-        }
-
-        public void UpdateCity(short id, string cityName)
-        {
-            var city = _cityRepository.GetCity(id);
-
-            _cityRepository.EnsureCityExists(city);
-
-            _cityRepository.EnsureCityNameNotTaken(cityName, id);
-
-            _cityRepository.EnsureCityNotInUse(city);
-
-            _cityRepository.UpdateCity(city, cityName.Trim());
         }
     }
 }

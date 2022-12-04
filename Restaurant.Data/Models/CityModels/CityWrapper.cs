@@ -1,10 +1,8 @@
-﻿using Restaurant.DB.Entities;
-
-namespace Restaurant.Data.Models.CityModels
+﻿namespace Restaurant.Data.Models.CityModels
 {
     public class CityWrapper
     {
-        public IEnumerable<City> Items { get; set; }
+        public IEnumerable<CityViewModel> Items { get; set; }
         public short ItemCount { get; set; }
     }
 }

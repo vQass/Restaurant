@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { apiEndpoints } from 'src/apiEndpointsConfig';
 import { environment } from 'src/environments/environment';
-import { IngredientAdminPanelWrapper } from 'src/models/ingredient/IngredientAdminPanelWrapper';
+import { Ingredient } from 'src/models/ingredient/Ingredient';
 import { IngredientCreateRequest } from 'src/models/ingredient/IngredientCreateRequest';
 import { IngredientUpdateRequest } from 'src/models/ingredient/IngredientUpdateRequest';
+import { IngredientWrapper } from 'src/models/ingredient/IngredientWrapper';
 
 @Injectable({
   providedIn: 'root'
@@ -15,35 +16,39 @@ export class IngredientService {
   ingredientsEndpoints = apiEndpoints.ingredientsEndpoints;
   constructor(private http: HttpClient) { }
 
-  getIngredientsForAdminPanel(pageIndex: number, pageSize: number): Observable<IngredientAdminPanelWrapper> {
+  get(id: number): Observable<Ingredient> {
+    return this.http.get<Ingredient>(
+      this.baseApiUrl + this.ingredientsEndpoints.get + id);
+  }
+
+  getPage(pageIndex: number, pageSize: number): Observable<IngredientWrapper> {
     let params = new HttpParams();
     params = params.append('pageIndex', pageIndex);
     params = params.append('pageSize', pageSize);
 
-    return this.http.get<IngredientAdminPanelWrapper>(
-      this.baseApiUrl + this.ingredientsEndpoints.getIngredientsForAdminPanel, { params: params });
+    return this.http.get<IngredientWrapper>(
+      this.baseApiUrl + this.ingredientsEndpoints.getPage, { params: params });
   }
 
-  addIngredient(ingredient: IngredientCreateRequest): Observable<any> {
+  add(ingredient: IngredientCreateRequest): Observable<any> {
     return this.http.post<IngredientCreateRequest>(
-      this.baseApiUrl + this.ingredientsEndpoints.addIngredient, ingredient)
+      this.baseApiUrl + this.ingredientsEndpoints.add, ingredient)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  editIngredient(id: number, ingredient: IngredientUpdateRequest): Observable<any> {
+  update(ingredient: IngredientUpdateRequest, id: number): Observable<any> {
     return this.http.put<IngredientUpdateRequest>(
-      this.baseApiUrl + this.ingredientsEndpoints.editIngredient + '/' + id, ingredient)
+      this.baseApiUrl + this.ingredientsEndpoints.udpate + id, ingredient)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  deleteIngredient(id: number): Observable<any> {
-
-    return this.http.delete<IngredientAdminPanelWrapper>(
-      this.baseApiUrl + this.ingredientsEndpoints.deleteIngredient + '/' + id)
+  delete(id: number): Observable<any> {
+    return this.http.delete(
+      this.baseApiUrl + this.ingredientsEndpoints.delete + id)
       .pipe(
         catchError(this.handleError)
       );

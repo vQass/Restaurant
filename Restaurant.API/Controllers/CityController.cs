@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Restaurant.Business.IServices;
 using Restaurant.Data.Models.CityModels;
-using Restaurant.IServices;
 
 namespace Restaurant.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class CityController : ControllerBase
     {
@@ -15,47 +15,53 @@ namespace Restaurant.API.Controllers
             _cityService = cityService;
         }
 
-        [HttpGet("GetCities")]
-        public IActionResult GetCities([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 0, [FromQuery] bool? cityActivity = null)
-        {
-            return Ok(_cityService.GetCities(cityActivity, pageIndex, pageSize));
-        }
-
-        [HttpGet("GetCity/{id}")]
+        [HttpGet("cities/{id}")]
         public IActionResult GetCity([FromRoute] short id)
         {
             return Ok(_cityService.GetCity(id));
         }
 
-        [HttpPost("Add")]
+        [HttpGet("cities")]
+        public IActionResult GetCities([FromQuery] bool? cityActivity = null)
+        {
+            return Ok(_cityService.GetCities(cityActivity));
+        }
+
+        [HttpGet("cities/page")]
+        public IActionResult GetCityPage([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 0)
+        {
+            return Ok(_cityService.GetCityPage(pageIndex, pageSize));
+        }
+
+        [HttpPost("cities")]
         public IActionResult AddCity([FromBody] CityCreateRequest cityCreateRequest)
         {
-            _cityService.AddCity(cityCreateRequest.Name);
+            _cityService.AddCity(cityCreateRequest);
             return Ok();
         }
 
-        [HttpPut("Update/{id}")]
-        public IActionResult UpdateCity([FromRoute] short id, [FromBody] CityCreateRequest cityUpdateRequest)
+        [HttpPut("cities/{id}")]
+        public IActionResult UpdateCity([FromRoute] short id, [FromBody] CityUpdateRequest cityUpdateRequest)
         {
-            _cityService.UpdateCity(id, cityUpdateRequest.Name);
+            _cityService.UpdateCity(id, cityUpdateRequest);
             return Ok();
         }
 
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("cities/{id}")]
         public IActionResult DeleteCity([FromRoute] short id)
         {
             _cityService.DeleteCity(id);
             return NoContent();
         }
 
-        [HttpPut("Enable/{id}")]
+        [HttpPut("cities/enable/{id}")]
         public IActionResult EnableCity([FromRoute] short id)
         {
             _cityService.EnableCity(id);
             return Ok();
         }
 
-        [HttpPut("Disable/{id}")]
+        [HttpPut("cities/disable/{id}")]
         public IActionResult DisableCity([FromRoute] short id)
         {
             _cityService.DisableCity(id);

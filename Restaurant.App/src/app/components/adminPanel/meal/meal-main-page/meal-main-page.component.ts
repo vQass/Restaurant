@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, map, merge, of as observableOf, startWith, switchMap } from 'rxjs';
+import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { MealService } from 'src/app/services/ApiServices/meal.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { MealAdminPanelItem } from 'src/models/meal/MealAdminPanelItem';
@@ -11,7 +12,7 @@ import { MealAdminPanelItem } from 'src/models/meal/MealAdminPanelItem';
   templateUrl: './meal-main-page.component.html',
   styleUrls: ['./meal-main-page.component.scss']
 })
-export class MealMainPageComponent {
+export class MealMainPageComponent extends PagingHelper {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   meals: MealAdminPanelItem[] = [];
@@ -24,17 +25,18 @@ export class MealMainPageComponent {
   constructor(
     private mealService: MealService,
     private toastService: ToastService,
-    private router: Router) {
+    router: Router,
+    route: ActivatedRoute) {
+    super(route, router, 'meal-admin-main-page')
   }
 
   ngAfterViewInit(): void {
-
     merge(this.paginator.page)
       .pipe(
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.mealService.getMealsForAdminPanel(
+          return this.mealService.getPage(
             this.paginator.pageIndex,
             this.paginator.pageSize
           ).pipe(catchError(() => observableOf(null)));
@@ -58,7 +60,7 @@ export class MealMainPageComponent {
   delete(id: number) {
     this.disableDeleteButton = true;
 
-    this.mealService.deleteMeal(id).subscribe({
+    this.mealService.delete(id).subscribe({
       next: () => {
         this.disableDeleteButton = false;
 
@@ -73,20 +75,39 @@ export class MealMainPageComponent {
     });
   }
 
-  gotoItems(meal: MealAdminPanelItem) {
-    this.router.navigate(['/edit-meal-options-admin-page',
-      {
-        id: meal.id,
-      }]);
+  goToAddPage() {
+    this.goToPage(
+      this.paginator.pageIndex,
+      this.paginator.pageSize,
+      'add-meal-page');
+  }
+
+  goToMealOptionsPage(id: number) {
+    console.log(id);
+
+    this.goToPage(
+      this.paginator.pageIndex,
+      this.paginator.pageSize,
+      '/edit-meal-options-admin-page/' + id);
   }
 
   refreshData() {
-    return this.mealService.getMealsForAdminPanel(
+    return this.mealService.getPage(
       this.paginator.pageIndex,
       this.paginator.pageSize
     ).subscribe((data) => {
+      if (data.items.length == 0) {
+        const pageIndex = this.paginator.pageIndex;
+        if (pageIndex == 0) {
+          return;
+        }
+        this.paginator.pageIndex = pageIndex - 1;
+        this.refreshData();
+      }
       this.resultsLength = data.itemCount;
       this.meals = data.items;
     });
   }
+
+
 }

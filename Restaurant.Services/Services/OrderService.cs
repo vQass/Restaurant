@@ -1,11 +1,11 @@
-﻿using Restaurant.APIComponents.Exceptions;
+﻿using Restaurant.Business.IRepositories;
+using Restaurant.Business.IServices;
+using Restaurant.Data.Exceptions;
 using Restaurant.Data.Models.OrderModels;
-using Restaurant.DB.Entities;
-using Restaurant.DB.Enums;
-using Restaurant.IRepository;
-using Restaurant.IServices;
+using Restaurant.Entities.Entities;
+using Restaurant.Entities.Enums;
 
-namespace Restaurant.Services.Services
+namespace Restaurant.Business.Services
 {
     public class OrderService : IOrderService
     {
@@ -33,25 +33,11 @@ namespace Restaurant.Services.Services
             var statusesVM = statuses.Select(x => new OrderStatusViewModel
             {
                 Id = x.Key,
-                Tag = OrderStatusDictionary.OrderStatusesTags.GetValueOrDefault((byte)x.Key),
+                Tag = OrderStatusDictionary.OrderStatusesTags.GetValueOrDefault(x.Key),
                 Description = x.Value
             });
 
             return statusesVM;
-        }
-
-        public Order GetOrder(long id)
-        {
-            var order = _orderRepository.GetOrder(id);
-
-            _orderRepository.EnsureOrderExists(order);
-
-            return order;
-        }
-
-        public async Task<IEnumerable<Order>> GetOrders(IEnumerable<OrderStatusEnum> orderStatuses = null, long userId = 0, string orderByParams = null)
-        {
-            return await _orderRepository.GetOrders(orderStatuses, userId, orderByParams: orderByParams);
         }
 
         public async Task<OrderHistoryWrapper> GetOrdersHistory(int pageIndex, int pageSize, long userId = 0, string orderByParams = null)
@@ -146,6 +132,7 @@ namespace Restaurant.Services.Services
             return id;
         }
 
+        // TODO consider removing
         public void UpdateOrder(long id, OrderUpdateRequest orderUpdateRequest)
         {
             var order = _orderRepository.GetOrder(id);

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { MealService } from 'src/app/services/ApiServices/meal.service';
+import { IdentifierParserService } from 'src/app/services/OtherServices/identifier-parser.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
 import { MealAdminPanelItem } from 'src/models/meal/MealAdminPanelItem';
@@ -11,38 +13,36 @@ import { MealAdminPanelItem } from 'src/models/meal/MealAdminPanelItem';
   templateUrl: './edit-meal-price-page.component.html',
   styleUrls: ['./edit-meal-price-page.component.scss']
 })
-export class EditMealPricePageComponent implements OnInit {
+export class EditMealPricePageComponent extends PagingHelper implements OnInit {
   singleControlMatcher = new SingleControlErrorStateMatcher();
   mainForm: FormGroup;
   disableSubmitButton = false;
-
-  mealId: number = 0;
 
   meal?: MealAdminPanelItem;
 
   constructor(
     fb: FormBuilder,
-    private route: ActivatedRoute,
     private mealService: MealService,
     private toastService: ToastService,
-    private router: Router) {
+    private idParser: IdentifierParserService,
+    route: ActivatedRoute,
+    router: Router) {
+    super(route, router, '/edit-meal-options-admin-page')
     this.mainForm = fb.group({
       price: fb.control('', [Validators.required, Validators.min(0.01), Validators.max(500)]),
     })
 
-    let id = this.route.snapshot.paramMap.get('id');
-
-    if (id != null) {
-      let parsedId = parseInt(id);
-      if (!isNaN(parsedId)) {
-        this.mealId = parsedId;
-        this.mealService.getMealAdminPanelItem(this.mealId).subscribe((data) => { this.meal = data }
-        );
-      }
-    }
   }
 
   ngOnInit(): void {
+    const id = this.idParser.parseId(this.route);
+
+    if (id == null) {
+      this.goToMainPage();
+      return;
+    }
+
+    this.mealService.get(id).subscribe((data) => { this.meal = data });
   }
 
   get price() {
@@ -50,21 +50,20 @@ export class EditMealPricePageComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.meal == null) {
+      return;
+    }
+    const id = this.meal.id;
+
     this.disableSubmitButton = true;
 
     let price = this.mainForm.value.price;
 
-    this.mealService.updateMealPrice(this.mealId, price).subscribe({
+    this.mealService.updatePrice(id, price).subscribe({
       next: () => {
         this.disableSubmitButton = false;
-
         this.toastService.showSuccess("Pomyślnie zaktualizowano cenę!", 2000)
-
-        this.router.navigate(['/edit-meal-options-admin-page',
-          {
-            id: this.mealId
-          }]);
-
+        this.goToOptionsPage(id)
       },
       error: (e) => {
         this.disableSubmitButton = false;
@@ -74,5 +73,10 @@ export class EditMealPricePageComponent implements OnInit {
     });
   }
 
-
+  goBack() {
+    if (this.meal == null) {
+      return;
+    }
+    this.goToOptionsPage(this.meal.id);
+  }
 }

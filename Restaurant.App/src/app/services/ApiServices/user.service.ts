@@ -6,7 +6,6 @@ import { apiEndpoints } from 'src/apiEndpointsConfig';
 import { environment } from 'src/environments/environment';
 import { LoginResponse } from 'src/models/user/LoginResponse';
 import { UserCreateRequest } from 'src/models/user/UserCreateRequest';
-import { UserListElement } from 'src/models/user/UserListElement';
 import { UserLoginRequest } from 'src/models/user/UserLoginRequest';
 
 import { ToastService } from '../OtherServices/toast.service';
@@ -19,33 +18,26 @@ export class UserService {
   userEndpoints = apiEndpoints.userEndpoints;
 
   private isLoggedIn: BehaviorSubject<boolean>;
-  private authToken: BehaviorSubject<string>;
-  private role: BehaviorSubject<string>;
-  private id: BehaviorSubject<number>;
+  private authToken: string;
+  private role: string;
+  private id: number;
 
   constructor(private http: HttpClient, private toastService: ToastService, private router: Router) {
     let userStringified = sessionStorage.getItem("user");
 
     if (userStringified == null) {
       this.isLoggedIn = new BehaviorSubject<boolean>(false);
-      this.authToken = new BehaviorSubject<string>("");
-      this.role = new BehaviorSubject<string>("");
-      this.id = new BehaviorSubject<number>(0);
+      this.role = "";
+      this.id = 0;
+      this.authToken = "";
     }
     else {
       let user = JSON.parse(userStringified);
-
       this.isLoggedIn = new BehaviorSubject<boolean>(true);
-      this.authToken = new BehaviorSubject<string>(user.authToken);
-      this.role = new BehaviorSubject<string>(user.role);
-      this.id = new BehaviorSubject<number>(user.id);
-      console.log(this.role);
+      this.authToken = user.authToken;
+      this.role = user.role;
+      this.id = user.id;
     }
-  }
-
-  getUsers(): Observable<UserListElement[]> {
-    let url = this.baseApiUrl + this.userEndpoints.getUsers;
-    return this.http.get<UserListElement[]>(url);
   }
 
   addUser(user: UserCreateRequest): Observable<any> {
@@ -89,39 +81,35 @@ export class UserService {
     return this.isLoggedIn.asObservable();
   }
 
-  getIsLoggedInValue(): boolean {
-    return this.isLoggedIn.getValue();
-  }
-
   setIsLoggedIn(value: boolean): void {
     this.isLoggedIn.next(value);
   }
 
-  getAuthToken(): Observable<string> {
-    return this.authToken.asObservable();
+  getIsLoggedInValue(): boolean {
+    return this.isLoggedIn.getValue();
+  }
+
+  getAuthToken(): string {
+    return this.authToken;
   }
 
   setAuthToken(authToken: string): void {
-    this.authToken.next(authToken);
+    this.authToken = authToken;
   }
 
-  getRole(): Observable<string> {
-    return this.role.asObservable();
-  }
-
-  getRoleValue(): string {
-    return this.role.getValue();
+  getRole(): string {
+    return this.role;
   }
 
   setRole(role: string): void {
-    this.role.next(role);
+    this.role = role;
   }
 
   setId(id: number): void {
-    this.id.next(id);
+    this.id = id;
   }
 
   getId(): number {
-    return this.id.value;
+    return this.id;
   }
 }
