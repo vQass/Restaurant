@@ -3,7 +3,7 @@ using Restaurant.Business.IServices;
 
 namespace Restaurant.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class RecipeController : ControllerBase
     {
@@ -14,19 +14,13 @@ namespace Restaurant.API.Controllers
             _recipeService = recipeService;
         }
 
-        [HttpGet("GetRecipe/{mealId}")]
-        public IActionResult GetRecipe([FromRoute] int mealId)
-        {
-            return Ok(_recipeService.GetRecipe(mealId));
-        }
-
-        [HttpGet("GetRecipeEditViewModel/{mealId}")]
+        [HttpGet("recipies/{mealId}")]
         public IActionResult GetRecipeEditViewModel([FromRoute] int mealId)
         {
             return Ok(_recipeService.GetRecipeEditViewModel(mealId));
         }
 
-        [HttpPut("UpdateMealRecipe/{mealId}")]
+        [HttpPut("recipies/{mealId}")]
         public IActionResult UpdateMealRecipe([FromRoute] int mealId, [FromBody] List<int> ingredientsIds)
         {
             _recipeService.UpdateMealRecipe(mealId, ingredientsIds);

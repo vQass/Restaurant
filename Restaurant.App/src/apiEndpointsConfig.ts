@@ -40,10 +40,9 @@ export const apiEndpoints =
     "getOrderStatuses": "Order/GetOrderStatuses",
     "getOrdersForAdminPanel": "Order/GetOrdersForAdminPanel"
   },
-
   recipeEndpoints: {
-    "getRecipeEditViewModel": "Recipe/GetRecipeEditViewModel",
-    "updateMealRecipe": "Recipe/UpdateMealRecipe"
+    "getEditModel": "recipies/",
+    "update": "recipies/"
   },
   mealCategoryEndpoints: {
     "get": "mealCategories/",

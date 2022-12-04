@@ -16,14 +16,14 @@ export class RecipeService {
   constructor(private http: HttpClient) { }
 
   getRecipeEditViewModel(id: number): Observable<RecipeEditViewModel> {
-    return this.http.get<RecipeEditViewModel>(this.baseApiUrl + this.recipeEndpoints.getRecipeEditViewModel + '/' + id)
+    return this.http.get<RecipeEditViewModel>(this.baseApiUrl + this.recipeEndpoints.getEditModel + id)
       .pipe(
         catchError(this.handleError)
       );
   }
 
   updateMealRecipe(mealId: number, ingredientsIds: number[]): Observable<any> {
-    return this.http.put<any>(this.baseApiUrl + this.recipeEndpoints.updateMealRecipe + '/' + mealId, ingredientsIds)
+    return this.http.put<any>(this.baseApiUrl + this.recipeEndpoints.update + mealId, ingredientsIds)
       .pipe(
         catchError(this.handleError)
       );
