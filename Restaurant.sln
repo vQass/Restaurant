@@ -5,13 +5,13 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.API", "Restaurant.API\Restaurant.API.csproj", "{77E2BABA-1BF2-4C56-BAE2-5E75F22D65E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Business", "Restaurant.Services\Restaurant.Business.csproj", "{B7630D16-1902-47D6-83A5-08DC529D0D71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Business", "Restaurant.Business\Restaurant.Business.csproj", "{B7630D16-1902-47D6-83A5-08DC529D0D71}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.DB", "Restaurant.DB\Restaurant.DB.csproj", "{14724AC0-323E-4C73-8D31-4BCD7F5E7ADB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Data", "Restaurant.Data\Restaurant.Data.csproj", "{F6A539D2-0D38-4388-B54C-1450BC7833D3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Validators", "Restaurant.APIComponents\Restaurant.Validators.csproj", "{B57AD325-AB29-4EC9-B199-E5D0F2D1B66D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Validators", "Restaurant.Validators\Restaurant.Validators.csproj", "{B57AD325-AB29-4EC9-B199-E5D0F2D1B66D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Repository", "Restaurant.Repository\Restaurant.Repository.csproj", "{303D5003-D047-49FC-A5A1-59E770BA3F9B}"
 EndProject

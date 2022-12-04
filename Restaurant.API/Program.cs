@@ -58,7 +58,6 @@ builder.Services.AddMiddlewares();
 builder.Services.AddAutoMapper(typeof(RestaurantDataMapperProfile));
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
