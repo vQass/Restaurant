@@ -40,20 +40,6 @@ namespace Restaurant.Business.Services
             return statusesVM;
         }
 
-        public Order GetOrder(long id)
-        {
-            var order = _orderRepository.GetOrder(id);
-
-            _orderRepository.EnsureOrderExists(order);
-
-            return order;
-        }
-
-        public async Task<IEnumerable<Order>> GetOrders(IEnumerable<OrderStatusEnum> orderStatuses = null, long userId = 0, string orderByParams = null)
-        {
-            return await _orderRepository.GetOrders(orderStatuses, userId, orderByParams: orderByParams);
-        }
-
         public async Task<OrderHistoryWrapper> GetOrdersHistory(int pageIndex, int pageSize, long userId = 0, string orderByParams = null)
         {
             var orders = await _orderRepository.GetOrders(
@@ -146,6 +132,7 @@ namespace Restaurant.Business.Services
             return id;
         }
 
+        // TODO consider removing
         public void UpdateOrder(long id, OrderUpdateRequest orderUpdateRequest)
         {
             var order = _orderRepository.GetOrder(id);

@@ -25,21 +25,21 @@ export class OrderService {
     console.log(statusId);
 
     return this.http.patch<OrderAddRequest>(
-      this.baseApiUrl + this.orderEndpoints.changeOrderStatus + "/" + orderId, statusId)
+      this.baseApiUrl + this.orderEndpoints.changeStatus + orderId, statusId)
       .pipe(
         catchError(this.handleError)
       );
   }
 
   addOrder(order: OrderAddRequest): Observable<any> {
-    return this.http.post<OrderAddRequest>(this.baseApiUrl + this.orderEndpoints.addOrder, order)
+    return this.http.post<OrderAddRequest>(this.baseApiUrl + this.orderEndpoints.add, order)
       .pipe(
         catchError(this.handleError)
       );
   }
 
   getOrderStatuses(): Observable<OrderStatus[]> {
-    return this.http.get<OrderStatus[]>(this.baseApiUrl + this.orderEndpoints.getOrderStatuses)
+    return this.http.get<OrderStatus[]>(this.baseApiUrl + this.orderEndpoints.getStatuses)
       .pipe(
         catchError(this.handleError)
       );
@@ -52,7 +52,7 @@ export class OrderService {
     params = params.append("pageSize", pageSize);
     params = params.append('orderByParams', 'OrderDate desc, Status');
 
-    return this.http.get<OrderHistoryWrapper>(this.baseApiUrl + this.orderEndpoints.getOrderHistory, { params: params })
+    return this.http.get<OrderHistoryWrapper>(this.baseApiUrl + this.orderEndpoints.getHistoryPage, { params: params })
       .pipe(
         catchError(this.handleError)
       );
@@ -64,7 +64,7 @@ export class OrderService {
     params = params.append("pageSize", pageSize);
     params = params.append("orderByParams", 'id desc');
 
-    return this.http.get<OrderAdminPanelWrapper>(this.baseApiUrl + this.orderEndpoints.getOrdersForAdminPanel, { params: params })
+    return this.http.get<OrderAdminPanelWrapper>(this.baseApiUrl + this.orderEndpoints.getPage, { params: params })
       .pipe(
         catchError(this.handleError)
       );

@@ -34,11 +34,11 @@ export const apiEndpoints =
     "setAsUnavailable": "meals/deactivate",
   },
   orderEndpoints: {
-    "addOrder": "Order/AddOrder",
-    "changeOrderStatus": "Order/ChangeOrderStatus",
-    "getOrderHistory": "Order/GetOrdersHistory",
-    "getOrderStatuses": "Order/GetOrderStatuses",
-    "getOrdersForAdminPanel": "Order/GetOrdersForAdminPanel"
+    "getStatuses": "orders/statuses",
+    "getHistoryPage": "orders/historyPage",
+    "getPage": "orders/page",
+    "changeStatus": "orders/changeStatus/",
+    "add": "orders",
   },
   recipeEndpoints: {
     "getEditModel": "recipies/",
