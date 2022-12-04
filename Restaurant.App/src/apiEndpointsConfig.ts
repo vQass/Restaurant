@@ -19,7 +19,6 @@ export const apiEndpoints =
   },
   userEndpoints: {
     "addUser": "User/AddUser",
-    "getUsers": "User/GetUsersList",
     "singIn": "User/SignInUser"
   },
   mealEndpoints: {

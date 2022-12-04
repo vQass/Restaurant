@@ -6,7 +6,6 @@ import { apiEndpoints } from 'src/apiEndpointsConfig';
 import { environment } from 'src/environments/environment';
 import { LoginResponse } from 'src/models/user/LoginResponse';
 import { UserCreateRequest } from 'src/models/user/UserCreateRequest';
-import { UserListElement } from 'src/models/user/UserListElement';
 import { UserLoginRequest } from 'src/models/user/UserLoginRequest';
 
 import { ToastService } from '../OtherServices/toast.service';
@@ -41,11 +40,6 @@ export class UserService {
       this.id = new BehaviorSubject<number>(user.id);
       console.log(this.role);
     }
-  }
-
-  getUsers(): Observable<UserListElement[]> {
-    let url = this.baseApiUrl + this.userEndpoints.getUsers;
-    return this.http.get<UserListElement[]>(url);
   }
 
   addUser(user: UserCreateRequest): Observable<any> {

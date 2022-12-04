@@ -33,19 +33,9 @@ namespace Restaurant.Repository.Repositories
 
         #region GetMethods
 
-        public async Task<IEnumerable<User>> GetUsers()
-        {
-            return await _dbContext.Users.ToListAsync();
-        }
-
         public async Task<IEnumerable<User>> GetUsers(List<long> ids)
         {
             return await _dbContext.Users.Where(x => ids.Contains(x.Id)).ToListAsync();
-        }
-
-        public User GetUser(long id)
-        {
-            return _dbContext.Users.FirstOrDefault(x => x.Id == id);
         }
 
         public User GetUser(string email)
@@ -75,31 +65,6 @@ namespace Restaurant.Repository.Repositories
             _dbContext.SaveChanges();
 
             return user.Id;
-        }
-
-        public void UpdateUser(User user, UserUpdateRequest userUpdateRequest)
-        {
-            user.Name = userUpdateRequest.Name;
-            user.Surname = userUpdateRequest.Surname;
-            user.Address = userUpdateRequest.Address;
-            user.CityId = userUpdateRequest.CityId;
-            user.PhoneNumber = userUpdateRequest.PhoneNumber;
-            user.Updated = DateTime.Now;
-
-            _dbContext.SaveChanges();
-        }
-
-        public void UpdateUserEmail(User user, string newEmail)
-        {
-            user.Email = newEmail;
-            user.Updated = DateTime.Now;
-            _dbContext.SaveChanges();
-        }
-
-        public void DisableUser(User user)
-        {
-            user.IsActive = false;
-            _dbContext.SaveChanges();
         }
 
         #endregion
