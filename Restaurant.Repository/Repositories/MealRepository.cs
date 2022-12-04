@@ -28,6 +28,13 @@ namespace Restaurant.Repository.Repositories
 
         #region GetMethods
 
+        public Meal GetMeal(int id)
+        {
+            return _dbContext.Meals
+                .Include(x => x.MealCategory)
+                .FirstOrDefault(x => x.Id == id);
+        }
+
         public async Task<IEnumerable<Meal>> GetMeals(int pageIndex = 0, int pageSize = 0)
         {
             return await _dbContext.Meals
@@ -44,13 +51,6 @@ namespace Restaurant.Repository.Repositories
                 .ToListAsync();
         }
 
-        public Meal GetMeal(int id)
-        {
-            return _dbContext.Meals
-                .Include(x => x.MealCategory)
-                .FirstOrDefault(x => x.Id == id);
-        }
-
         public int GetMealsCount()
         {
             return _dbContext.Meals.Count();
@@ -60,7 +60,7 @@ namespace Restaurant.Repository.Repositories
 
         #region EntityModificationMethods
 
-        public int AddMeal(MealCreateRequest mealCreateRequest)
+        public void AddMeal(MealCreateRequest mealCreateRequest)
         {
             var meal = _mapper.Map<Meal>(mealCreateRequest);
 
@@ -68,14 +68,6 @@ namespace Restaurant.Repository.Repositories
             meal.Price = (decimal)(price / 100.0);
 
             _dbContext.Meals.Add(meal);
-            _dbContext.SaveChanges();
-
-            return meal.Id;
-        }
-
-        public void DeleteMeal(Meal meal)
-        {
-            _dbContext.Meals.Remove(meal);
             _dbContext.SaveChanges();
         }
 
@@ -92,6 +84,20 @@ namespace Restaurant.Repository.Repositories
             _dbContext.SaveChanges();
         }
 
+        public void UpdateMealsPrice(Meal meal, decimal newPrice)
+        {
+            int price = (int)(newPrice * 100);
+            meal.Price = (decimal)(price / 100.0);
+
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteMeal(Meal meal)
+        {
+            _dbContext.Meals.Remove(meal);
+            _dbContext.SaveChanges();
+        }
+
         public void SetMealAsUnavailable(Meal meal)
         {
             meal.Available = false;
@@ -101,14 +107,6 @@ namespace Restaurant.Repository.Repositories
         public void SetMealAsAvailable(Meal meal)
         {
             meal.Available = true;
-            _dbContext.SaveChanges();
-        }
-
-        public void UpdateMealsPrice(Meal meal, decimal newPrice)
-        {
-            int price = (int)(newPrice * 100);
-            meal.Price = (decimal)(price / 100.0);
-
             _dbContext.SaveChanges();
         }
 

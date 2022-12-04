@@ -31,7 +31,7 @@ export class IngredientMainPageComponent extends PagingHelper {
     private toastService: ToastService,
     router: Router,
     route: ActivatedRoute) {
-    super(route, router)
+    super(route, router, 'ingredient-admin-main-page')
   }
 
   ngAfterViewInit(): void {
@@ -82,6 +82,14 @@ export class IngredientMainPageComponent extends PagingHelper {
       this.paginator.pageIndex,
       this.paginator.pageSize
     ).subscribe((data) => {
+      if (data.items.length == 0) {
+        const pageIndex = this.paginator.pageIndex;
+        if (pageIndex == 0) {
+          return;
+        }
+        this.paginator.pageIndex = pageIndex - 1;
+        this.refreshData();
+      }
       this.resultsLength = data.itemsCount;
       this.ingredients = data.items;
     });

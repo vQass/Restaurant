@@ -1,9 +1,9 @@
 ﻿
 namespace Restaurant.Data.Models.MealModels
 {
-    public class MealAdminPanelWrapper
+    public class MealWrapper
     {
-        public List<MealAdminPanelItem> Items { get; set; }
+        public List<MealViewModel> Items { get; set; }
         public int ItemCount { get; set; }
     }
 }

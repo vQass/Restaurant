@@ -1,5 +1,5 @@
 <form class="form-container"
-      [formGroup]="editIngredientForm">
+      [formGroup]="mainForm">
   <div>
     <h1 style="margin-bottom: 20px;">Edytowanie składnika</h1>
 
@@ -31,7 +31,7 @@
             (click)="onSubmit()"
             mat-raised-button
             color="primary"
-            [disabled]="!editIngredientForm.valid || disableSubmitButton">
+            [disabled]="!mainForm.valid || disableSubmitButton">
       Edytuj składnik
     </button>
   </div>

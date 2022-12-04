@@ -1,78 +1,48 @@
-﻿using Restaurant.Business.IRepositories;
+﻿using AutoMapper;
+using Restaurant.Business.IRepositories;
 using Restaurant.Business.IServices;
 using Restaurant.Data.Models.IngredientModels;
 using Restaurant.Data.Models.MealModels;
-using Restaurant.DB;
 using Restaurant.Entities.Entities;
-
 
 namespace Restaurant.Business.Services
 {
     public class MealService : IMealService
     {
         private readonly IMealRepository _mealRepository;
-        private readonly IMealCategoryRepository _mealCategoryRepository;
+        private readonly IMapper _mapper;
 
         public MealService(
             IMealRepository mealRepository,
-            IMealCategoryRepository mealCategoryRepository,
-            IRecipeRepository recipeRepository,
-            RestaurantDbContext dbContext)
+            IMapper mapper)
         {
             _mealRepository = mealRepository;
-            _mealCategoryRepository = mealCategoryRepository;
+            _mapper = mapper;
         }
 
-
-        public async Task<IEnumerable<Meal>> GetMeals()
-        {
-            return await _mealRepository.GetMeals();
-        }
-
-        public async Task<MealAdminPanelWrapper> GetMealsForAdminPanel(int pageIndex, int pageSize)
-        {
-            var meals = await _mealRepository.GetMeals(pageIndex, pageSize);
-
-            var mealCategories = _mealCategoryRepository.GetMealCategories();
-
-            var mealAdminPanelItems = meals.Select(x => new MealAdminPanelItem
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Available = x.Available,
-                Price = x.Price,
-                MealCategoryId = x.MealCategoryId,
-                MealCategoryName = mealCategories.FirstOrDefault(y => y.Id == x.MealCategoryId).Name
-            });
-
-            var mealsCount = _mealRepository.GetMealsCount();
-
-            var mealWrapper = new MealAdminPanelWrapper
-            {
-                ItemCount = mealsCount,
-                Items = mealAdminPanelItems.ToList()
-            };
-
-            return mealWrapper;
-        }
-
-        public MealAdminPanelItem GetMealForAdminPanel(int id)
+        public MealViewModel GetMeal(int id)
         {
             var meal = _mealRepository.GetMeal(id);
 
-            var mealCategory = _mealCategoryRepository.GetMealCategory(meal.MealCategoryId);
+            var mealVM = _mapper.Map<MealViewModel>(meal);
 
-            var mealAdminPanelItem = new MealAdminPanelItem
+            return mealVM;
+        }
+
+        public async Task<MealWrapper> GetMealPage(int pageIndex, int pageSize)
+        {
+            var meals = await _mealRepository.GetMeals(pageIndex, pageSize);
+
+            var mealsVM = _mapper.Map<List<MealViewModel>>(meals);
+            var mealsCount = _mealRepository.GetMealsCount();
+
+            var wrapper = new MealWrapper
             {
-                Id = meal.Id,
-                Name = meal.Name,
-                Price = meal.Price,
-                Available = meal.Available,
-                MealCategoryId = meal.MealCategoryId,
-                MealCategoryName = mealCategory.Name
+                Items = mealsVM,
+                ItemCount = mealsCount
             };
 
-            return mealAdminPanelItem;
+            return wrapper;
         }
 
         public async Task<IEnumerable<MealGroupViewModel>> GetActiveMealsGroupedByCategory()
@@ -84,39 +54,23 @@ namespace Restaurant.Business.Services
                 GroupName = x.Name,
                 Meals = x.Meals
                 .Where(x => x.Available)
-                .Select(y => new MealViewModel()
+                .Select(y => new MealGroupItemViewModel()
                 {
                     Id = y.Id,
                     Name = y.Name,
                     Price = y.Price,
-                    Ingredients = y.Ingredients.Select(z => new IngredientViewModel()
-                    {
-                        Name = z.Name
-                    }).ToList()
+                    Ingredients = _mapper.Map<List<IngredientViewModel>>(y.Ingredients)
                 }).ToList()
             });
 
             return mealGroups;
         }
 
-        public int AddMeal(MealCreateRequest mealCreateRequest)
+        public void AddMeal(MealCreateRequest mealCreateRequest)
         {
             _mealRepository.EnsureMealNameNotTaken(mealCreateRequest.Name);
 
-            var id = _mealRepository.AddMeal(mealCreateRequest);
-
-            return id;
-        }
-
-        public void DeleteMeal(int id)
-        {
-            var meal = _mealRepository.GetMeal(id);
-
-            _mealRepository.EnsureMealExists(meal);
-
-            _mealRepository.EnsureMealNotInUse(meal);
-
-            _mealRepository.DeleteMeal(meal);
+            _mealRepository.AddMeal(mealCreateRequest);
         }
 
         public void UpdateMeal(int id, MealUpdateRequest mealUpdateRequest)
@@ -130,6 +84,26 @@ namespace Restaurant.Business.Services
             _mealRepository.EnsureMealNotInUse(meal);
 
             _mealRepository.UpdateMeal(meal, mealUpdateRequest);
+        }
+
+        public void UpdateMealsPrice(int id, decimal newPrice)
+        {
+            var meal = _mealRepository.GetMeal(id);
+
+            _mealRepository.EnsureMealExists(meal);
+
+            _mealRepository.UpdateMealsPrice(meal, newPrice);
+        }
+
+        public void DeleteMeal(int id)
+        {
+            var meal = _mealRepository.GetMeal(id);
+
+            _mealRepository.EnsureMealExists(meal);
+
+            _mealRepository.EnsureMealNotInUse(meal);
+
+            _mealRepository.DeleteMeal(meal);
         }
 
         public void SetMealAsUnavailable(int id)
@@ -148,15 +122,6 @@ namespace Restaurant.Business.Services
             _mealRepository.EnsureMealExists(meal);
 
             _mealRepository.SetMealAsAvailable(meal);
-        }
-
-        public void UpdateMealsPrice(int id, decimal newPrice)
-        {
-            var meal = _mealRepository.GetMeal(id);
-
-            _mealRepository.EnsureMealExists(meal);
-
-            _mealRepository.UpdateMealsPrice(meal, newPrice);
         }
     }
 }

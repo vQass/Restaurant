@@ -23,7 +23,7 @@ export class MealCategoryAddPageComponent extends PagingHelper {
     private toastService: ToastService,
     router: Router,
     route: ActivatedRoute) {
-    super(route, router)
+    super(route, router, 'meal-category-main-page')
     this.mainForm = fb.group({
       name: fb.control('', [Validators.required, Validators.maxLength(127)]),
     })
@@ -54,12 +54,5 @@ export class MealCategoryAddPageComponent extends PagingHelper {
         this.toastService.showDanger("Błąd podczas dodawania kategorii: " + e.message);
       }
     });
-  }
-
-  goToMainPage() {
-    this.goToPage(
-      this.getPageIndex(),
-      this.getPageSize(),
-      'meal-category-main-page');
   }
 }

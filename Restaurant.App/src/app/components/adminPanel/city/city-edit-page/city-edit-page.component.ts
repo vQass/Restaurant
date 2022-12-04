@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { CityService } from 'src/app/services/ApiServices/city.service';
+import { IdentifierParserService } from 'src/app/services/OtherServices/identifier-parser.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
 import { City } from 'src/models/city/City';
@@ -17,39 +18,32 @@ export class CityEditPageComponent extends PagingHelper implements OnInit {
   singleControlMatcher = new SingleControlErrorStateMatcher();
   mainForm: FormGroup;
   disableSubmitButton = false;
-  id?: number;
   city?: City;
 
   constructor(
     fb: FormBuilder,
     private cityService: CityService,
     private toastService: ToastService,
+    private idParser: IdentifierParserService,
     router: Router,
     route: ActivatedRoute) {
-    super(route, router);
+    super(route, router, 'city-admin-main-page');
     this.mainForm = fb.group({
       name: fb.control('', [Validators.required, Validators.maxLength(127)]),
     })
   }
 
   ngOnInit(): void {
-    let tempId = this.route.snapshot.paramMap.get('id');
-    if (tempId == null) {
-      this.toastService.showDanger('Błąd podczas pobierania identyfikatora miasta!');
+
+    const id = this.idParser.parseId(this.route);
+
+    if (id == undefined) {
       this.goToMainPage();
       return;
     }
 
-    let parsedId = parseInt(tempId);
-    if (isNaN(parsedId)) {
-      this.toastService.showDanger('Błąd podczas przetwarzania identyfikatora miasta!');
-      this.goToMainPage();
-      return;
-    }
-
-    this.id = parsedId;
     this.cityService
-      .getCity(this.id)
+      .getCity(id)
       .subscribe((data) => this.city = data);
   }
 
@@ -81,12 +75,5 @@ export class CityEditPageComponent extends PagingHelper implements OnInit {
         this.toastService.showDanger("Błąd podczas aktualizacji miasta: " + e.message);
       }
     });
-  }
-
-  goToMainPage() {
-    this.goToPage(
-      this.getPageIndex(),
-      this.getPageSize(),
-      'city-admin-main-page');
   }
 }

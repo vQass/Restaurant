@@ -38,7 +38,7 @@ export class IngredientService {
       );
   }
 
-  edit(id: number, ingredient: IngredientUpdateRequest): Observable<any> {
+  update(ingredient: IngredientUpdateRequest, id: number): Observable<any> {
     return this.http.put<IngredientUpdateRequest>(
       this.baseApiUrl + this.ingredientsEndpoints.udpate + id, ingredient)
       .pipe(

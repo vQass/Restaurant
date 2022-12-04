@@ -6,15 +6,17 @@ export abstract class PagingHelper {
 
   defaultPageIndex = 0;
   defaultPageSize = 5;
+  pagePath: string;
 
   constructor(
     protected route: ActivatedRoute,
-    protected router: Router) {
+    protected router: Router, pagePath: string) {
     this.route.queryParams
       .subscribe(params => {
         this.pageIndex = params['pageIndex'] ?? this.defaultPageIndex;
         this.pageSize = params['pageSize'] ?? this.defaultPageSize;
       });
+    this.pagePath = pagePath;
   }
 
   getPageIndex() {
@@ -33,6 +35,14 @@ export abstract class PagingHelper {
           pageSize: pageSize
         }
       });
+  }
+
+  goToMainPage() {
+    this.goToPage(this.pageIndex, this.pageSize, this.pagePath)
+  }
+
+  goToOptionsPage(id: number) {
+    this.goToPage(this.pageIndex, this.pageSize, this.pagePath + '/' + id)
   }
 
 }

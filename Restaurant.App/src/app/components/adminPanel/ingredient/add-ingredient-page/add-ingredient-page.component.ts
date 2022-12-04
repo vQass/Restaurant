@@ -23,7 +23,7 @@ export class AddIngredientPageComponent extends PagingHelper {
     private toastService: ToastService,
     router: Router,
     route: ActivatedRoute) {
-    super(route, router)
+    super(route, router, 'ingredient-admin-main-page')
     this.addIngredientForm = fb.group({
       name: fb.control('', [Validators.required, Validators.maxLength(127)]),
     })
@@ -54,12 +54,5 @@ export class AddIngredientPageComponent extends PagingHelper {
         this.toastService.showDanger("Błąd podczas dodawania składnika: " + e.message);
       }
     });
-  }
-
-  goToMainPage() {
-    this.goToPage(
-      this.getPageIndex(),
-      this.getPageSize(),
-      'ingredient-admin-main-page');
   }
 }

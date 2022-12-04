@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { IngredientService } from 'src/app/services/ApiServices/ingredient.service';
+import { IdentifierParserService } from 'src/app/services/OtherServices/identifier-parser.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
 import { Ingredient } from 'src/models/ingredient/Ingredient';
@@ -15,57 +16,55 @@ import { IngredientUpdateRequest } from 'src/models/ingredient/IngredientUpdateR
 })
 export class EditIngredientPageComponent extends PagingHelper implements OnInit {
   singleControlMatcher = new SingleControlErrorStateMatcher();
-  editIngredientForm: FormGroup;
+  mainForm: FormGroup;
   disableSubmitButton = false;
   ingredient?: Ingredient;
-  id: number = 0;
 
   constructor(
     fb: FormBuilder,
     private ingredientService: IngredientService,
     private toastService: ToastService,
+    private idParser: IdentifierParserService,
     router: Router,
     route: ActivatedRoute) {
-    super(route, router)
-    this.editIngredientForm = fb.group({
+    super(route, router, 'ingredient-admin-main-page')
+    this.mainForm = fb.group({
       name: fb.control('', [Validators.required, Validators.maxLength(127)]),
     })
   }
 
   ngOnInit(): void {
-    let tempId = this.route.snapshot.paramMap.get('id');
-    if (tempId == null) {
-      this.toastService.showDanger('Błąd podczas pobierania identyfikatora składnika!');
+
+    const id = this.idParser.parseId(this.route);
+
+    if (id == undefined) {
       this.goToMainPage();
       return;
     }
 
-    let parsedId = parseInt(tempId);
-    if (isNaN(parsedId)) {
-      this.toastService.showDanger('Błąd podczas przetwarzania identyfikatora składnika!');
-      this.goToMainPage();
-      return;
-    }
-
-    this.id = parsedId;
     this.ingredientService
-      .get(this.id)
+      .get(id)
       .subscribe((data) => this.ingredient = data);
   }
 
   get name() {
-    return this.editIngredientForm.get('name');
+    return this.mainForm.get('name');
   }
 
   onSubmit() {
+    if (this.ingredient == null) {
+      this.toastService.showDanger("Błąd z pobranym składnikiem!", 4000)
+      return;
+    }
+
     this.disableSubmitButton = true;
 
     let ingredient =
       {
-        name: this.editIngredientForm.value.name
+        name: this.mainForm.value.name
       } as IngredientUpdateRequest;
 
-    this.ingredientService.edit(this.id, ingredient).subscribe({
+    this.ingredientService.update(ingredient, this.ingredient.id).subscribe({
       next: () => {
         this.toastService.showSuccess("Pomyślnie dodano składnik!", 2000)
         this.goToMainPage();
@@ -76,12 +75,5 @@ export class EditIngredientPageComponent extends PagingHelper implements OnInit 
         this.toastService.showDanger("Błąd podczas dodawania składnika: " + e.message);
       }
     });
-  }
-
-  goToMainPage() {
-    this.goToPage(
-      this.getPageIndex(),
-      this.getPageSize(),
-      'ingredient-admin-main-page');
   }
 }

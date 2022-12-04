@@ -23,7 +23,7 @@ export class CityAddPageComponent extends PagingHelper {
     private toastService: ToastService,
     route: ActivatedRoute,
     router: Router) {
-    super(route, router)
+    super(route, router, 'city-admin-main-page')
     this.mainForm = fb.group({
       name: fb.control('', [Validators.required, Validators.maxLength(127)]),
     })
@@ -54,12 +54,5 @@ export class CityAddPageComponent extends PagingHelper {
         this.toastService.showDanger("Błąd podczas dodawania miasta: " + e.message);
       }
     });
-  }
-
-  goToMainPage() {
-    this.goToPage(
-      this.getPageIndex(),
-      this.getPageSize(),
-      'city-admin-main-page');
   }
 }

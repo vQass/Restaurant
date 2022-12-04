@@ -29,7 +29,7 @@ export class CityMainPageComponent extends PagingHelper {
     router: Router,
     route: ActivatedRoute,
     private toastService: ToastService) {
-    super(route, router);
+    super(route, router, 'city-admin-main-page');
   }
 
   ngAfterViewInit(): void {
@@ -116,6 +116,14 @@ export class CityMainPageComponent extends PagingHelper {
       this.paginator.pageIndex,
       this.paginator.pageSize
     ).subscribe((data) => {
+      if (data.items.length == 0) {
+        const pageIndex = this.paginator.pageIndex;
+        if (pageIndex == 0) {
+          return;
+        }
+        this.paginator.pageIndex = pageIndex - 1;
+        this.refreshData();
+      }
       this.resultsLength = data.itemCount;
       this.cities = data.items;
     });

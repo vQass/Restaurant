@@ -30,11 +30,21 @@
 
   </div>
 
-  <button class="button"
-          (click)="onSubmit()"
-          mat-raised-button
-          color="primary"
-          [disabled]="!mainForm.valid || disableSubmitButton">
-    Zatwierdź zmiany
-  </button>
+  <div class="form-button-container">
+    <button class="button"
+            (click)="goBack()"
+            mat-raised-button
+            color="primary">
+      Powrót
+    </button>
+
+    <button class="button"
+            (click)="onSubmit()"
+            mat-raised-button
+            color="primary"
+            [disabled]="!mainForm.valid || disableSubmitButton">
+      Zatwierdź zmiany
+    </button>
+  </div>
+
 </form>

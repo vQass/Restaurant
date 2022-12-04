@@ -10,13 +10,13 @@ namespace Restaurant.Business.IRepositories
         Task<IEnumerable<MealCategory>> GetMealsGroupedByCategory();
         int GetMealsCount();
 
-        int AddMeal(MealCreateRequest mealCreateRequest);
+        void AddMeal(MealCreateRequest mealCreateRequest);
+        void UpdateMeal(Meal meal, MealUpdateRequest mealUpdateRequest);
+        void UpdateMealsPrice(Meal meal, decimal newPrice);
         void DeleteMeal(Meal meal);
 
         void SetMealAsAvailable(Meal meal);
         void SetMealAsUnavailable(Meal meal);
-        void UpdateMeal(Meal meal, MealUpdateRequest mealUpdateRequest);
-        void UpdateMealsPrice(Meal meal, decimal newPrice);
 
         void EnsureMealExists(Meal meal);
         void EnsureMealNameNotTaken(string mealName, int id = 0);

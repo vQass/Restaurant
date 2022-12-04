@@ -21,6 +21,6 @@ export class OrderPageComponent implements OnInit {
   constructor(private mealService: MealService, private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit(): void {
-    this.mealService.getGroupedMeals().subscribe(data => this.mealGroups = data);
+    this.mealService.getGroups().subscribe(data => this.mealGroups = data);
   }
 }

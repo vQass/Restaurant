@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PagingHelper } from 'src/app/abstractClasses/pagingHelper';
 import { MealCategoryService } from 'src/app/services/ApiServices/meal-category.service';
+import { IdentifierParserService } from 'src/app/services/OtherServices/identifier-parser.service';
 import { ToastService } from 'src/app/services/OtherServices/toast.service';
 import { SingleControlErrorStateMatcher } from 'src/app/Validation/ErrorStateMatchers';
 import { MealCategory } from 'src/models/mealCategory/MealCategory';
@@ -23,33 +24,25 @@ export class MealCategoryEditPageComponent extends PagingHelper {
     fb: FormBuilder,
     private mealCategoryService: MealCategoryService,
     private toastService: ToastService,
+    private idParser: IdentifierParserService,
     route: ActivatedRoute,
     router: Router) {
-    super(route, router)
+    super(route, router, 'meal-category-main-page')
     this.mainForm = fb.group({
       name: fb.control('', [Validators.required, Validators.maxLength(127)]),
     })
   }
 
   ngOnInit(): void {
+    const id = this.idParser.parseId(this.route);
 
-    let tempId = this.route.snapshot.paramMap.get('id');
-    if (tempId == null) {
-      this.toastService.showDanger('Błąd podczas pobierania identyfikatora ketegorii dań!');
+    if (id == null) {
       this.goToMainPage();
       return;
     }
 
-    let parsedId = parseInt(tempId);
-    if (isNaN(parsedId)) {
-      this.toastService.showDanger('Błąd podczas przetwarzania identyfikatora kategorii dań!');
-      this.goToMainPage();
-      return;
-    }
-
-    this.id = parsedId;
     this.mealCategoryService
-      .getMealCategory(this.id)
+      .getMealCategory(id)
       .subscribe((data) => this.mealCategory = data);
   }
 
@@ -73,7 +66,6 @@ export class MealCategoryEditPageComponent extends PagingHelper {
     this.mealCategoryService.update(mealCategory, this.mealCategory.id).subscribe({
       next: () => {
         this.disableSubmitButton = false;
-
         this.toastService.showSuccess("Pomyślnie zaktualizowano kategorię!", 2000)
         this.goToMainPage();
       },
@@ -83,12 +75,5 @@ export class MealCategoryEditPageComponent extends PagingHelper {
         this.toastService.showDanger("Błąd podczas aktualizacji kategorii: " + e.message);
       }
     });
-  }
-
-  goToMainPage() {
-    this.goToPage(
-      this.getPageIndex(),
-      this.getPageSize(),
-      'meal-category-main-page');
   }
 }

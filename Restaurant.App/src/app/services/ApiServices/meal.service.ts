@@ -19,43 +19,51 @@ export class MealService {
 
   constructor(private http: HttpClient) { }
 
-  getGroupedMeals(): Observable<MealGroupViewModel[]> {
-    return this.http.get<MealGroupViewModel[]>(this.baseApiUrl + this.mealEndpoints.getMealsGroups);
+  get(id: number) {
+    return this.http.get<MealAdminPanelItem>(this.baseApiUrl + this.mealEndpoints.get + id)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  getMealsForAdminPanel(pageIndex: number, pageSize: number): Observable<MealAdminPanelWrapper> {
+  getGroups(): Observable<MealGroupViewModel[]> {
+    return this.http.get<MealGroupViewModel[]>(this.baseApiUrl + this.mealEndpoints.getGroups);
+  }
+
+  getPage(pageIndex: number, pageSize: number): Observable<MealAdminPanelWrapper> {
     let params = new HttpParams();
     params = params.append("pageIndex", pageIndex);
     params = params.append("pageSize", pageSize);
-    return this.http.get<MealAdminPanelWrapper>(this.baseApiUrl + this.mealEndpoints.getMealsForAdminPanel, { params: params });
+    return this.http.get<MealAdminPanelWrapper>(this.baseApiUrl + this.mealEndpoints.getPage, { params: params });
   }
 
-  getMealAdminPanelItem(id: number) {
-    return this.http.get<MealAdminPanelItem>(this.baseApiUrl + this.mealEndpoints.getMealForAdminPanel + '/' + id)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  addMeal(meal: MealCreateRequest): Observable<any> {
+  add(meal: MealCreateRequest): Observable<any> {
     return this.http.post<MealCreateRequest>(
-      this.baseApiUrl + this.mealEndpoints.addMeal, meal)
+      this.baseApiUrl + this.mealEndpoints.add, meal)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  updateMeal(id: number, meal: MealUpdateRequest): Observable<any> {
+  update(meal: MealUpdateRequest, id: number): Observable<any> {
     return this.http.put<MealUpdateRequest>(
-      this.baseApiUrl + this.mealEndpoints.updateMeal + '/' + id, meal)
+      this.baseApiUrl + this.mealEndpoints.update + id, meal)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  updateMealPrice(id: number, newPrice: number): Observable<number> {
+  updatePrice(id: number, newPrice: number): Observable<number> {
     return this.http.patch<number>(
-      this.baseApiUrl + this.mealEndpoints.updateMealsPrice + '/' + id + '/' + newPrice.toString(), null)
+      this.baseApiUrl + this.mealEndpoints.updatePrice + id + '/' + newPrice.toString(), null)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  delete(id: number): Observable<any> {
+    return this.http.delete(
+      this.baseApiUrl + this.mealEndpoints.delete + id)
       .pipe(
         catchError(this.handleError)
       );
@@ -72,14 +80,6 @@ export class MealService {
   setAsUnavailable(id: number): Observable<any> {
     return this.http.patch(
       this.baseApiUrl + this.mealEndpoints.setAsUnavailable, id)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  deleteMeal(id: number): Observable<any> {
-    return this.http.delete(
-      this.baseApiUrl + this.mealEndpoints.delete + '/' + id)
       .pipe(
         catchError(this.handleError)
       );

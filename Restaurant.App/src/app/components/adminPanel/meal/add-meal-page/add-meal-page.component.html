@@ -61,11 +61,21 @@
 
   </div>
 
-  <button class="button"
-          (click)="onSubmit()"
-          mat-raised-button
-          color="primary"
-          [disabled]="!addMealForm.valid || disableSubmitButton">
-    Dodaj danie
-  </button>
+  <div class="form-button-container">
+    <button class="button"
+            (click)="goToMainPage()"
+            mat-raised-button
+            color="primary">
+      Powrót
+    </button>
+
+    <button class="button"
+            (click)="onSubmit()"
+            mat-raised-button
+            color="primary"
+            [disabled]="!addMealForm.valid || disableSubmitButton">
+      Dodaj danie
+    </button>
+  </div>
+
 </form>

@@ -31,7 +31,7 @@ namespace Restaurant.Data
 
             // Meals
             CreateMap<MealCreateRequest, Meal>();
-            //CreateMap<Meal, MealViewModel>().ForMember(dest => dest.Ingredients, opt => opt.MapFrom(src => src.RecipeElements.Where(x => x.MealId == src.Id).Select(x => x.Ingredient.Name).ToList()));
+            CreateMap<Meal, MealViewModel>().ForMember(dest => dest.MealCategoryName, opt => opt.MapFrom(src => src.MealCategory.Name));
 
             CreateMap<MealCategoryCreateRequest, MealCategory>();
             CreateMap<MealCategory, MealGroupViewModel>()
@@ -45,16 +45,6 @@ namespace Restaurant.Data
                 .ForMember(dest => dest.MealId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.MealName, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.RecipeIngredients, opt => opt.MapFrom(src => src.Ingredients));
-
-            //CreateMap<RecipeElement, RecipeIngredient>()
-            //    .ForMember(dest => dest.IngredientName, opt => opt.MapFrom(src => src.Ingredient.Name))
-            //    .ForMember(dest => dest.IngredientId, opt => opt.MapFrom(src => src.IngredientId));
-
-            //CreateMap<RecipeElement, RecipeElementViewModel>()
-            //    .ForMember(dest => dest.IngredientName, opt => opt.MapFrom(src => src.Ingredient.Name))
-            //    .ForMember(dest => dest.IngredientId, opt => opt.MapFrom(src => src.IngredientId))
-            //    .ForMember(dest => dest.MealName, opt => opt.MapFrom(src => src.Meal.Name))
-            //    .ForMember(dest => dest.MealId, opt => opt.MapFrom(src => src.MealId));
 
             // Orders
             CreateMap<OrderCreateRequest, Order>();

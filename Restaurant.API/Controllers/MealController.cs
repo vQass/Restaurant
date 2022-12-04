@@ -4,7 +4,7 @@ using Restaurant.Data.Models.MealModels;
 
 namespace Restaurant.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class MealController : ControllerBase
     {
@@ -15,66 +15,60 @@ namespace Restaurant.API.Controllers
             _mealService = mealService;
         }
 
-        [HttpGet("GetMeals")]
-        public async Task<IActionResult> GetMeals()
+        [HttpGet("meals/{id}")]
+        public IActionResult GetMeal([FromRoute] int id)
         {
-            return Ok(await _mealService.GetMeals());
+            return Ok(_mealService.GetMeal(id));
         }
 
-        [HttpGet("GetMealForAdminPanel/{id}")]
-        public IActionResult GetMealForAdminPanel([FromRoute] int id)
-        {
-            return Ok(_mealService.GetMealForAdminPanel(id));
-        }
-
-        [HttpGet("GetMealsForAdminPanel")]
+        [HttpGet("meals/page")]
         public async Task<IActionResult> GetMealsForAdminPanel([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 0)
         {
-            return Ok(await _mealService.GetMealsForAdminPanel(pageIndex, pageSize));
+            return Ok(await _mealService.GetMealPage(pageIndex, pageSize));
         }
 
-        [HttpGet("GetActiveMealsGroupedByCategory")]
+        [HttpGet("meals/groups")]
         public async Task<IActionResult> GetActiveMealsGroupedByCategory()
         {
             return Ok(await _mealService.GetActiveMealsGroupedByCategory());
         }
 
-        [HttpPost("AddMeal")]
+        [HttpPost("meals")]
         public IActionResult AddMeal([FromBody] MealCreateRequest mealCreateRequest)
         {
-            var id = _mealService.AddMeal(mealCreateRequest);
-            return Created($"api/User/{id}", null);
+            _mealService.AddMeal(mealCreateRequest);
+            return Ok();
         }
 
-        [HttpPut("UpdateMeal/{id}")]
+        [HttpPut("meals/{id}")]
         public IActionResult UpdateMeal([FromRoute] int id, [FromBody] MealUpdateRequest mealUpdateRequest)
         {
             _mealService.UpdateMeal(id, mealUpdateRequest);
             return Ok();
         }
 
-        [HttpDelete("DeleteMeal/{id}")]
+        [HttpDelete("meals/{id}")]
         public IActionResult DeleteMeal([FromRoute] int id)
         {
             _mealService.DeleteMeal(id);
             return NoContent();
         }
 
-        [HttpPatch("SetMealAsUnavailable")]
+        [HttpPatch("meals/deactivate")]
         public IActionResult SetMealAsUnavailable([FromBody] int id)
         {
             _mealService.SetMealAsUnavailable(id);
             return Ok();
         }
 
-        [HttpPatch("SetMealAsAvailable")]
+        [HttpPatch("meals/activate")]
         public IActionResult SetMealAsAvailable([FromBody] int id)
         {
             _mealService.SetMealAsAvailable(id);
             return Ok();
         }
 
-        [HttpPatch("UpdateMealsPrice/{id}/{newPrice}")]
+        [HttpPatch("meals/updatePrice/{id}/{newPrice}")]
         public IActionResult UpdateMealsPrice([FromRoute] int id, [FromRoute] decimal newPrice)
         {
             _mealService.UpdateMealsPrice(id, newPrice);

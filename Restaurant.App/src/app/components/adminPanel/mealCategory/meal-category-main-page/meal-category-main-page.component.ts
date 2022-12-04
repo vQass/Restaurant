@@ -26,7 +26,7 @@ export class MealCategoryMainPageComponent extends PagingHelper {
     private toastService: ToastService,
     router: Router,
     route: ActivatedRoute,) {
-    super(route, router)
+    super(route, router, 'meal-category-main-page')
   }
 
   ngAfterViewInit(): void {
@@ -60,22 +60,17 @@ export class MealCategoryMainPageComponent extends PagingHelper {
     this.mealCategoryService.delete(id).subscribe({
       next: () => {
         this.disableDeleteButton = false;
-
         this.toastService.showSuccess("Pomyślnie usunięto kategorię dań!", 2000);
         this.refreshData();
       },
       error: (e) => {
         this.disableDeleteButton = false;
-
         this.toastService.showDanger("Błąd podczas kategorii dań: " + e.message);
       }
     });
   }
 
   goToEditPage(id: number) {
-
-    console.log('test');
-
     this.goToPage(
       this.paginator.pageIndex,
       this.paginator.pageSize,
@@ -94,8 +89,18 @@ export class MealCategoryMainPageComponent extends PagingHelper {
       this.paginator.pageIndex,
       this.paginator.pageSize
     ).subscribe((data) => {
-      this.resultsLength = data.itemCount;
-      this.categories = data.items;
+      if (data.items.length == 0) {
+        const pageIndex = this.paginator.pageIndex;
+        if (pageIndex == 0) {
+          return;
+        }
+        this.paginator.pageIndex = pageIndex - 1;
+        this.refreshData();
+      }
+      else {
+        this.resultsLength = data.itemCount;
+        this.categories = data.items;
+      }
     });
   }
 }
