@@ -17,14 +17,14 @@ namespace Restaurant.API.Controllers
             _userService = userService;
         }
 
-        [HttpPost("AddUser")]
+        [HttpPost("users/add")]
         public IActionResult AddUser([FromBody] UserCreateRequest userCreateRequest)
         {
-            var id = _userService.AddUser(userCreateRequest);
-            return Created($"api/User/{id}", null);
+            _userService.AddUser(userCreateRequest);
+            return Ok();
         }
 
-        [HttpPost("SignInUser")]
+        [HttpPost("users/signIn")]
         public IActionResult SignInUser([FromBody] LoginRequest loginRequest)
         {
             var user = _userService.SignInUser(loginRequest);

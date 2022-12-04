@@ -18,8 +18,8 @@ export const apiEndpoints =
     "delete": "ingredients/",
   },
   userEndpoints: {
-    "addUser": "User/AddUser",
-    "singIn": "User/SignInUser"
+    "addUser": "users/add",
+    "singIn": "users/signIn"
   },
   mealEndpoints: {
     "get": "meals/",

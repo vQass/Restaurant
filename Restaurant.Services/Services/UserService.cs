@@ -33,15 +33,13 @@ namespace Restaurant.Business.Services
             _userRepository = userRepository;
         }
 
-        public long AddUser(UserCreateRequest userCreateRequest)
+        public void AddUser(UserCreateRequest userCreateRequest)
         {
             _userRepository.EnsureEmailHasValidFormat(userCreateRequest.Email);
 
             _userRepository.EnsureEmailNotTaken(userCreateRequest.Email);
 
-            var id = _userRepository.AddUser(userCreateRequest);
-
-            return id;
+            _userRepository.AddUser(userCreateRequest);
         }
 
         public LoginResponse SignInUser(LoginRequest loginRequest)

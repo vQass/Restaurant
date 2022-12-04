@@ -51,7 +51,7 @@ namespace Restaurant.Repository.Repositories
 
         #region EntityModificationMethods
 
-        public long AddUser(UserCreateRequest userCreateRequest)
+        public void AddUser(UserCreateRequest userCreateRequest)
         {
             var date = DateTime.Now;
             var user = _mapper.Map<User>(userCreateRequest);
@@ -63,8 +63,6 @@ namespace Restaurant.Repository.Repositories
 
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
-
-            return user.Id;
         }
 
         #endregion

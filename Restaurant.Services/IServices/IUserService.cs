@@ -5,7 +5,7 @@ namespace Restaurant.Business.IServices
 {
     public interface IUserService
     {
-        public long AddUser(UserCreateRequest dto);
+        public void AddUser(UserCreateRequest dto);
         public LoginResponse SignInUser(LoginRequest dto);
     }
 }

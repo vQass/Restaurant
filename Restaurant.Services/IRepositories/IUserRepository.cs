@@ -8,7 +8,7 @@ namespace Restaurant.Business.IRepositories
         User GetUser(string email);
         Task<IEnumerable<User>> GetUsers(List<long> ids);
 
-        long AddUser(UserCreateRequest userCreateRequest);
+        void AddUser(UserCreateRequest userCreateRequest);
 
         void EnsureEmailHasValidFormat(string email);
         void EnsureEmailNotTaken(string email, long id = 0);
