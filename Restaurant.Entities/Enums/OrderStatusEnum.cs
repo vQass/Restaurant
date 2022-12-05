@@ -6,7 +6,6 @@
         InProgress,
         Completed,
         Cancelled,
-        Suspended
     }
 
     public static class OrderStatusDictionary
@@ -19,7 +18,6 @@
                 { (byte)OrderStatusEnum.InProgress, "W trakcie realizacji" },
                 { (byte)OrderStatusEnum.Completed, "Zrealizowane" },
                 { (byte)OrderStatusEnum.Cancelled, "Anulowane" },
-                { (byte)OrderStatusEnum.Suspended, "Tymczasowo zawieszone" }
             };
 
             // DO NOT CHANGE TAGS. THEY ARE BEEING USED AS CSS CLASSES IN FRONT
@@ -29,7 +27,6 @@
                 { (byte)OrderStatusEnum.InProgress, "InProgress" },
                 { (byte)OrderStatusEnum.Completed, "Completed" },
                 { (byte)OrderStatusEnum.Cancelled, "Cancelled" },
-                { (byte)OrderStatusEnum.Suspended, "Suspended" }
             };
         }
 
