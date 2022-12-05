@@ -13,6 +13,8 @@ namespace Restaurant.Business.Services
 
         private readonly string MealCategoryMainMeals = "Dania główne";
         private readonly string MealCategorySoups = "Zupy";
+        private readonly string MealCategoryExtras = "Dodatki";
+        private readonly string MealCategoryDrinks = "Napoje";
 
         public SeederService(RestaurantDbContext dbContext, IPasswordHasher<User> passwordHasher)
         {
@@ -63,6 +65,11 @@ namespace Restaurant.Business.Services
                     _dbContext.Ingredients.AddRange(ingredients);
                     _dbContext.SaveChanges();
                 }
+                if(!_dbContext.Meals.Any(x => x.Ingredients.Any()))
+                {
+                    FillMealRecipe();
+                    _dbContext.SaveChanges();
+                }
             }
         }
 
@@ -73,15 +80,18 @@ namespace Restaurant.Business.Services
             var cities = new List<City>() {
                 new City()
                 {
-                    Name = "Gliwice"
+                    Name = "Gliwice",
+                    IsActive= true,
                 },
                 new City()
                 {
-                    Name = "Zabrze"
+                    Name = "Zabrze",
+                    IsActive= true,
                 },
                 new City()
                 {
-                    Name = "Katowice"
+                    Name = "Katowice",
+                    IsActive= true,
                 }
             };
 
@@ -101,68 +111,33 @@ namespace Restaurant.Business.Services
             {
                 new User()
                 {
-                    Email = "test1@test",
-                    Password = "pass123",
-                    Role = RoleEnum.HeadAdmin,
-                    City = city,
-                    Address = "Testowa 1",
-                    Name = "Patryk",
-                    Surname = "Zub",
-                    PhoneNumber = "123456789",
-                    Inserted = date,
-                    Updated = date
-                },
-                new User()
-                {
-                    Email = "test2@test",
-                    Password = "pass123",
+                    Email = "a@a",
+                    Password = "pass321",
                     Role = RoleEnum.Admin,
                     Inserted = date,
                     Updated = date
-
                 },
                 new User()
                 {
-                    Email = "test3@test",
-                    Password = "pass123",
-                    Role = RoleEnum.Employee,
-                    City =city,
-                    Address = "Testowa 3",
-                    Name = "Patryk 3",
-                    Surname = "Zub 3",
-                    PhoneNumber = "987654321",
+                    Email = "aa@a",
+                    Password = "pass321",
+                    Role = RoleEnum.User,
                     Inserted = date,
                     Updated = date
 
                 },
                 new User()
                 {
-                    Email = "test4@test",
-                    Password = "pass123",
+                    Email = "aaa@a",
+                    Password = "pass321",
                     Role = RoleEnum.User,
-                    City = city,
-                    Address = "Testowa 4",
-                    Name = "Patryk 4",
-                    Surname = "Zub 4",
-                    PhoneNumber = "987654321",
                     Inserted = date,
                     Updated = date
                 },
                 new User()
                 {
-                    Email = "test5@test",
-                    Password = "pass123",
-                    Role = RoleEnum.User,
-                    City =city,
-                    Address = "Testowa 5",
-                    PhoneNumber = "987654321",
-                    Inserted = date,
-                    Updated = date
-                },
-                new User()
-                {
-                    Email = "test6@test",
-                    Password = "pass123",
+                    Email = "aaaa@a",
+                    Password = "pass312",
                     Role = RoleEnum.User,
                     Inserted = date,
                     Updated = date
@@ -186,7 +161,9 @@ namespace Restaurant.Business.Services
             var categories = new List<MealCategory>()
             {
                 new MealCategory() { Name = MealCategoryMainMeals },
-                new MealCategory() { Name = MealCategorySoups }
+                new MealCategory() { Name = MealCategorySoups },
+                new MealCategory() { Name = MealCategoryExtras },
+                new MealCategory() { Name = MealCategoryDrinks }
             };
             return categories;
         }
@@ -203,21 +180,56 @@ namespace Restaurant.Business.Services
                 {
                     Name = "Kotlet z piersi kurczaka",
                     MealCategory = _dbContext.MealsCategories.FirstOrDefault(x => x.Name == MealCategoryMainMeals),
-                    Price = 10.4m,
+                    Price = 15m,
                     Available = true,
                 },
                 new Meal
                 {
                     Name = "Rosół",
                     MealCategory = _dbContext.MealsCategories.FirstOrDefault(x => x.Name == MealCategorySoups),
-                    Price = 6.4m,
+                    Price = 10.5m,
                     Available = true,
                 },
                 new Meal
                 {
                     Name = "Kwaśnica",
                     MealCategory = _dbContext.MealsCategories.FirstOrDefault(x => x.Name == MealCategorySoups),
-                    Price = 17.4m,
+                    Price = 12.5m,
+                    Available = true,
+                },
+                new Meal
+                {
+                    Name = "Frytki",
+                    MealCategory = _dbContext.MealsCategories.FirstOrDefault(x => x.Name == MealCategoryExtras),
+                    Price = 6m,
+                    Available = true,
+                },
+                new Meal
+                {
+                    Name = "Ziemniaki pieczone",
+                    MealCategory = _dbContext.MealsCategories.FirstOrDefault(x => x.Name == MealCategoryExtras),
+                    Price = 6m,
+                    Available = true,
+                },
+                new Meal
+                {
+                    Name = "Ziemniaki gotowane",
+                    MealCategory = _dbContext.MealsCategories.FirstOrDefault(x => x.Name == MealCategoryExtras),
+                    Price = 5m,
+                    Available = true,
+                },
+                new Meal
+                {
+                    Name = "Woda",
+                    MealCategory = _dbContext.MealsCategories.FirstOrDefault(x => x.Name == MealCategoryDrinks),
+                    Price = 3.5m,
+                    Available = true,
+                },
+                new Meal
+                {
+                    Name = "Cola",
+                    MealCategory = _dbContext.MealsCategories.FirstOrDefault(x => x.Name == MealCategoryDrinks),
+                    Price = 6m,
                     Available = true,
                 }
             };
@@ -245,7 +257,7 @@ namespace Restaurant.Business.Services
                     PhoneNumber = "123456789",
                     Name = "Patryk",
                     Surname = "Zub",
-                    //Status = OrderStatusEnum.Realizowane,
+                    Status = OrderStatusEnum.Completed,
                     OrderElements = new List<OrderElement>()
                     {
                         new OrderElement
@@ -271,7 +283,111 @@ namespace Restaurant.Business.Services
                     PhoneNumber = "987654321",
                     Name = "Adam",
                     Surname = "Nowak",
-                    //Status = OrderStatusEnum.Realizowane,
+                    Status = OrderStatusEnum.Pending,
+                    OrderElements = new List<OrderElement>()
+                    {
+                        new OrderElement
+                        {
+                            Meal = meal2,
+                            Amount = 1,
+                            CurrentPrice = meal2.Price
+                        },
+                        new OrderElement
+                        {
+                            Meal = meal1,
+                            Amount = 6,
+                            CurrentPrice = meal1.Price
+                        }
+                    }
+                },
+                new Order
+                {
+                    User = _dbContext.Users.FirstOrDefault(x => x.Role == RoleEnum.User),
+                    OrderDate = DateTime.Now,
+                    Address = "Testowa 13/2",
+                    City = city,
+                    PhoneNumber = "987654321",
+                    Name = "Adam",
+                    Surname = "Nowak",
+                    Status = OrderStatusEnum.Pending,
+                    OrderElements = new List<OrderElement>()
+                    {
+                        new OrderElement
+                        {
+                            Meal = meal2,
+                            Amount = 1,
+                            CurrentPrice = meal2.Price
+                        },
+                        new OrderElement
+                        {
+                            Meal = meal1,
+                            Amount = 6,
+                            CurrentPrice = meal1.Price
+                        }
+                    }
+                },
+                new Order
+                {
+                    User = _dbContext.Users.FirstOrDefault(x => x.Role == RoleEnum.User),
+                    OrderDate = DateTime.Now,
+                    Address = "Testowa 13/2",
+                    City = city,
+                    PhoneNumber = "987654321",
+                    Name = "Adam",
+                    Surname = "Nowak",
+                    Status = OrderStatusEnum.Pending,
+                    OrderElements = new List<OrderElement>()
+                    {
+                        new OrderElement
+                        {
+                            Meal = meal2,
+                            Amount = 1,
+                            CurrentPrice = meal2.Price
+                        },
+                        new OrderElement
+                        {
+                            Meal = meal1,
+                            Amount = 6,
+                            CurrentPrice = meal1.Price
+                        }
+                    }
+                },
+                new Order
+                {
+                    User = _dbContext.Users.FirstOrDefault(x => x.Role == RoleEnum.Admin),
+                    OrderDate = DateTime.Now,
+                    Address = "Testowa 13/2",
+                    City = city,
+                    PhoneNumber = "987654321",
+                    Name = "Patryk",
+                    Surname = "Nowak",
+                    Status = OrderStatusEnum.Pending,
+                    OrderElements = new List<OrderElement>()
+                    {
+                        new OrderElement
+                        {
+                            Meal = meal2,
+                            Amount = 1,
+                            CurrentPrice = meal2.Price
+                        },
+                        new OrderElement
+                        {
+                            Meal = meal1,
+                            Amount = 6,
+                            CurrentPrice = meal1.Price
+                        }
+                    }
+                },
+                new Order
+                {
+                    User = _dbContext.Users.FirstOrDefault(x => x.Role == RoleEnum.User),
+                    OrderDate = DateTime.Now,
+                    Address = "Testowa 13/2",
+                    City = city,
+                    PhoneNumber = "987654321",
+                    Name = "Adam",
+                    Surname = "Nowak",
+                    Status = OrderStatusEnum.Pending,
                     OrderElements = new List<OrderElement>()
                     {
                         new OrderElement
@@ -425,7 +541,7 @@ namespace Restaurant.Business.Services
                     || x.Name == "Sól"
                     || x.Name == "Żeberka wędzone"
                     || x.Name == "Boczek"
-                    || x.Name == "Ziemniakie"
+                    || x.Name == "Ziemniaki"
                     || x.Name == "Kminek"
                     || x.Name == "Majeranek"
                     || x.Name == "Kiszona kapusta"
@@ -433,9 +549,28 @@ namespace Restaurant.Business.Services
                 .ToList();
             thirdMeal.Ingredients.AddRange(thirdMealIngredients);
 
+            var fourthMeal = meals.FirstOrDefault(x => x.Name == "Frytki");
+            var fourthMealIngredients  = ingredients.Where(x =>
+                    x.Name == "Ziemniaki"
+                    || x.Name == "Sól")
+                .ToList();
+            fourthMeal.Ingredients.AddRange(fourthMealIngredients);
+
+            var fifthMeal = meals.FirstOrDefault(x => x.Name == "Ziemniaki pieczone");
+            var fifthMealIngredients = ingredients.Where(x =>
+                    x.Name == "Ziemniaki"
+                    || x.Name == "Sól")
+                .ToList();
+            fifthMeal.Ingredients.AddRange(fifthMealIngredients);
+
+            var sixthMeal = meals.FirstOrDefault(x => x.Name == "Ziemniaki gotowane");
+            var sixthMealIngredients = ingredients.Where(x =>
+                    x.Name == "Ziemniaki"
+                    || x.Name == "Sól")
+                .ToList();
+            sixthMeal.Ingredients.AddRange(fifthMealIngredients);
         }
 
         #endregion
-
     }
 }

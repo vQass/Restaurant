@@ -3,8 +3,6 @@
     public enum RoleEnum : byte
     {
         User,
-        Employee,
-        Admin,
-        HeadAdmin
+        Admin
     }
 }

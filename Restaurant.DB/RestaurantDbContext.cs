@@ -36,7 +36,8 @@ namespace Restaurant.DB
 
             modelBuilder.Entity<Meal>()
                 .HasMany(x => x.Ingredients)
-                .WithMany(x => x.Meals);
+                .WithMany(x => x.Meals)
+                .UsingEntity(x => x.ToTable("Recipes"));
 
             modelBuilder.Entity<Order>()
                 .HasOne(x => x.User)
