@@ -48,25 +48,12 @@ export class UserLoginComponent implements OnInit {
     console.log(user);
 
 
-    this.userService.login(user).subscribe({
+    this.userService.loginRequest(user).subscribe({
       next: (resp) => {
-
-        this.disableSubmitButton = false;
-
-        this.userService.setIsLoggedIn(true);
-        this.userService.setAuthToken(resp.jwtToken);
-        this.userService.setRole(resp.role);
-        this.userService.setId(resp.id);
-
-        var user = JSON.stringify(resp);
-        sessionStorage.setItem('user', user);
-        this.toastService.showSuccess("Pomyślnie zalogowano!", 2000)
-        this.router.navigate(['home']);
-
+        this.userService.login(resp);
       },
       error: (e) => {
         this.disableSubmitButton = false;
-
         this.toastService.showDanger("Błąd logowania: " + e.message);
       }
     });

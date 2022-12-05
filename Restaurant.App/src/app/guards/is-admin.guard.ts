@@ -14,7 +14,7 @@ export class IsAdminGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const role = this.userService.getRole();
+    const role = this.userService.getRoleValue();
     return role == "Admin" || role == "HeadAdmin" || this.router.createUrlTree(['']);
   }
 

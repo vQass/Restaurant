@@ -30,7 +30,6 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("meals/groups")]
-        [AuthorizeWithRoles(RoleEnum.HeadAdmin)]
         public async Task<IActionResult> GetActiveMealsGroupedByCategory()
         {
             return Ok(await _mealService.GetActiveMealsGroupedByCategory());

@@ -94,7 +94,6 @@ namespace Restaurant.Repository.Repositories
             order.Surname = orderUpdateRequest.Surname;
             order.Name = orderUpdateRequest.Name;
             order.CityId = orderUpdateRequest.CityId;
-            order.PromotionCodeId = orderUpdateRequest.PromotionId;
 
             _dbContext.SaveChanges();
         }

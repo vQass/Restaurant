@@ -44,7 +44,7 @@ export class OrderSummaryComponent implements OnInit {
       surname: fb.control('', [Validators.required]),
       city: fb.control('', [Validators.required]),
       address: fb.control('', [Validators.required]),
-      phoneNumber: fb.control('', [Validators.required, Validators.maxLength(32)])
+      phoneNumber: fb.control('', [Validators.required, Validators.maxLength(32), Validators.pattern('(([+]?[(]?[0-9]{1,3}[)]?)|([(]?[0-9]{4}[)]?))\s*[)]?[-\s\.]?[(]?[0-9]{1,3}[)]?([-\s\.]?[0-9]{3})([-\s\.]?[0-9]{3,4})')])
     })
   }
 

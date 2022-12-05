@@ -58,60 +58,6 @@ export class EditMealOptionsPageComponent extends PagingHelper implements OnInit
       '/edit-meal-recipe-page/' + this.meal?.id);
   }
 
-  setAsAvailable() {
-    if (this.meal?.id == null) {
-      this.toastService.showDanger("Błąd podczas odczytu identyfikatora dania");
-      return;
-    }
-
-    this.buttonActive = false;
-
-    this.mealService
-      .setAsAvailable(this.meal.id)
-      .subscribe({
-        next: () => {
-          this.buttonActive = true;
-
-          if (this.meal != null) {
-            this.meal.available = true;
-          }
-
-          this.toastService.showSuccess("Pomyślnie zmieniono aktywność dania!", 1000)
-        },
-        error: (e) => {
-          this.buttonActive = true;
-          this.toastService.showDanger("Błąd podczas zmieniania aktywności dania: \n" + e.message, 3000);
-        }
-      });
-  }
-
-  setAsUnavailable() {
-    if (this.meal?.id == null) {
-      this.toastService.showDanger("Błąd podczas odczytu identyfikatora dania");
-      return;
-    }
-
-    this.buttonActive = false;
-
-    this.mealService
-      .setAsUnavailable(this.meal?.id)
-      .subscribe({
-        next: () => {
-          this.buttonActive = true;
-
-          if (this.meal != null) {
-            this.meal.available = false;
-          }
-
-          this.toastService.showSuccess("Pomyślnie zmieniono aktywność dania!", 1000)
-        },
-        error: (e) => {
-          this.buttonActive = true;
-          this.toastService.showDanger("Błąd podczas zmieniania aktywności dania: \n" + e.message, 3000);
-        }
-      });
-  }
-
   goBack() {
     this.goToMainPage();
   }

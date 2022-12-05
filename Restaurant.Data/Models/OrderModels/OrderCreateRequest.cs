@@ -9,7 +9,6 @@ namespace Restaurant.Data.Models.OrderModels
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Address { get; set; }
-        [Phone(ErrorMessage = "Błędny format numeru telefonu!")]
         public string PhoneNumber { get; set; }
         public virtual List<OrderElementCreateRequest> OrderElements { get; set; }
     }

@@ -41,6 +41,8 @@
 
 
           <button mat-mini-fab
+                  #tooltip="matTooltip"
+                  matTooltip="Zmień status na nieaktywne"
                   *ngIf="element.isActive"
                   (click)="disableCity(element.id)"
                   [disabled]="disableDisableCityButton"
@@ -49,6 +51,8 @@
           </button>
 
           <button mat-mini-fab
+                  #tooltip="matTooltip"
+                  matTooltip="Zmień status na aktywne"
                   *ngIf="!element.isActive"
                   (click)="enableCity(element.id)"
                   [disabled]="disableEnableCityButton"
@@ -57,12 +61,16 @@
           </button>
 
           <button mat-mini-fab
+                  #tooltip="matTooltip"
+                  matTooltip="Edytuj"
                   (click)="goToEditPage(element.id)"
                   class="icon-button action-icon">
             <mat-icon>edit</mat-icon>
           </button>
 
           <button mat-mini-fab
+                  #tooltip="matTooltip"
+                  matTooltip="Usuń"
                   (click)="delete(element.id)"
                   [disabled]="disableDeleteButton"
                   class="icon-button action-icon">
@@ -90,6 +98,8 @@
 
   <div class="add-item-button-container">
     <button mat-mini-fab
+            #tooltip="matTooltip"
+            matTooltip="Dodaj"
             (click)="goToAddPage()"
             class="icon-button add-item-icon">
       <mat-icon>add</mat-icon>

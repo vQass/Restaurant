@@ -18,8 +18,8 @@ export class UserService {
   userEndpoints = apiEndpoints.userEndpoints;
 
   private isLoggedIn: BehaviorSubject<boolean>;
+  private role: BehaviorSubject<string>;
   private authToken: string | null;
-  private role: string;
   private id: number;
 
   constructor(private http: HttpClient, private toastService: ToastService, private router: Router) {
@@ -27,15 +27,15 @@ export class UserService {
 
     if (userStringified == null) {
       this.isLoggedIn = new BehaviorSubject<boolean>(false);
-      this.role = "";
+      this.role = new BehaviorSubject<string>("");
       this.id = 0;
       this.authToken = "";
     }
     else {
       let user = JSON.parse(userStringified);
       this.isLoggedIn = new BehaviorSubject<boolean>(true);
+      this.role = new BehaviorSubject<string>(user.role);
       this.authToken = user.authToken;
-      this.role = user.role;
       this.id = user.id;
     }
   }
@@ -49,7 +49,7 @@ export class UserService {
       );
   }
 
-  login(login: UserLoginRequest): Observable<LoginResponse> {
+  loginRequest(login: UserLoginRequest): Observable<LoginResponse> {
     let url = this.baseApiUrl + this.userEndpoints.singIn;
 
     return this.http.post<LoginResponse>(url, login)
@@ -58,8 +58,23 @@ export class UserService {
       );
   }
 
+  login(resp: LoginResponse) {
+    this.setIsLoggedIn(true);
+    this.setAuthToken(resp.jwtToken);
+    this.setRole(resp.role);
+    this.setId(resp.id);
+
+    var user = JSON.stringify(resp);
+    sessionStorage.setItem('user', user);
+    sessionStorage.setItem('token', resp.jwtToken);
+
+    this.toastService.showSuccess("Pomyślnie zalogowano!", 2000)
+    this.router.navigate(['home']);
+  }
+
   logout() {
     sessionStorage.removeItem("user");
+    sessionStorage.removeItem("token");
     this.setIsLoggedIn(false);
     this.setRole("");
     this.setId(0);
@@ -72,8 +87,21 @@ export class UserService {
     if (error.status === 0) {
       console.log('An error occurred:', error.error);
     } else {
-      console.log(`Backend returned code ${error.status}, body was: `, error.error);
-      return throwError(() => new Error(error.error))
+      var errorLength = Number(error.error.length);
+      var errorMessage = '\n'
+
+      if (isNaN(errorLength)) {
+        errorMessage += `-${error.error}`;
+      }
+      else {
+        for (let i = 0; i < errorLength; i++) {
+          errorMessage += `-${error.error[Object.keys(error.error)[i]]}`;
+        }
+      }
+
+
+      console.log(`Backend returned code ${error.status}, body was: `, errorMessage);
+      return throwError(() => new Error(errorMessage))
     }
     return throwError(() => new Error('Coś poszło nie tak, proszę spróbować później'));
   }
@@ -98,12 +126,16 @@ export class UserService {
     this.authToken = authToken;
   }
 
-  getRole(): string {
-    return this.role;
+  getRoleValue(): string {
+    return this.role.getValue();
+  }
+
+  getRole(): Observable<string> {
+    return this.role.asObservable();
   }
 
   setRole(role: string): void {
-    this.role = role;
+    this.role.next(role);
   }
 
   setId(id: number): void {

@@ -17,6 +17,7 @@ export class MealMainPageComponent extends PagingHelper {
 
   meals: MealAdminPanelItem[] = [];
 
+  disableActivityButton = false;
   disableDeleteButton = false;
   resultsLength = 0;
   isLoadingResults = true;
@@ -73,6 +74,50 @@ export class MealMainPageComponent extends PagingHelper {
         this.toastService.showDanger("Błąd podczas usuwania dania: " + e.message);
       }
     });
+  }
+
+  setAsAvailable(meal: MealAdminPanelItem) {
+    this.disableActivityButton = true;
+
+    this.mealService
+      .setAsAvailable(meal.id)
+      .subscribe({
+        next: () => {
+          this.disableActivityButton = false;
+
+          if (meal != null) {
+            meal.available = true;
+          }
+
+          this.toastService.showSuccess("Pomyślnie zmieniono aktywność dania!", 1000)
+        },
+        error: (e) => {
+          this.disableActivityButton = false;
+          this.toastService.showDanger("Błąd podczas zmieniania aktywności dania: \n" + e.message, 3000);
+        }
+      });
+  }
+
+  setAsUnavailable(meal: MealAdminPanelItem) {
+    this.disableActivityButton = true;
+
+    this.mealService
+      .setAsUnavailable(meal.id)
+      .subscribe({
+        next: () => {
+          this.disableActivityButton = false;
+
+          if (meal != null) {
+            meal.available = false;
+          }
+
+          this.toastService.showSuccess("Pomyślnie zmieniono aktywność dania!", 1000)
+        },
+        error: (e) => {
+          this.disableActivityButton = false;
+          this.toastService.showDanger("Błąd podczas zmieniania aktywności dania: \n" + e.message, 3000);
+        }
+      });
   }
 
   goToAddPage() {

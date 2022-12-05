@@ -31,9 +31,17 @@
 
       <a class="button go-to-order"
          routerLink="/order-summary"
-         [disabled]="cart.length == 0"
+         [disabled]="cart.length == 0 || cartSum() < minCartSum"
          mat-raised-button
-         color="primary">Przejdź do zamówienia</a>
+         color="primary">
+        <span *ngIf="cartSum() >= minCartSum">
+          Przejdź do zamówienia
+        </span>
+        <span *ngIf="cartSum() < minCartSum">
+          Zamówienia od {{minCartSum}} zł.
+        </span>
+
+      </a>
 
     </div>
   </mat-sidenav>

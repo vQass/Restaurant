@@ -11,6 +11,8 @@ import { CartItem } from 'src/models/cart/CartItem';
   styleUrls: ['./cart-sidebar.component.scss']
 })
 export class CartSidebarComponent {
+  minCartSum = 20;
+
   isMobileView$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small])
     .pipe(
       map(result => result.matches),

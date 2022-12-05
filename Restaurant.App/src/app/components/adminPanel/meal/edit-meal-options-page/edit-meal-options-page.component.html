@@ -25,20 +25,6 @@
      color="primary">Edytuj przepis</a>
 
   <button class="button max-width-button"
-          *ngIf="!meal?.available"
-          [disabled]="!buttonActive"
-          (click)="setAsAvailable()"
-          mat-stroked-button
-          color="primary">Ustaw jako aktywne</button>
-
-  <button class="button max-width-button"
-          *ngIf="meal?.available"
-          [disabled]="!buttonActive"
-          (click)="setAsUnavailable()"
-          mat-stroked-button
-          color="primary">Ustaw jako nieaktywne</button>
-
-  <button class="button max-width-button"
           (click)="goBack()"
           mat-raised-button
           color="primary">Powrót</button>

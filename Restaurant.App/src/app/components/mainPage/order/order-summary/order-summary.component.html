@@ -85,7 +85,7 @@
       <mat-form-field class="full-width"
                       appearance="fill">
         <mat-label>Numer telefonu</mat-label>
-        <input type="text"
+        <input type="tel"
                matInput
                [errorStateMatcher]="singleControlMatcher"
                placeholder="123123123"
@@ -96,6 +96,9 @@
         </mat-error>
         <mat-error *ngIf="phoneNumber?.errors?.['maxlength']">
           Przekroczono długość numeru telefonu
+        </mat-error>
+        <mat-error *ngIf="phoneNumber?.errors?.['pattern']">
+          Błędny format numeru telefonu
         </mat-error>
       </mat-form-field>
 

@@ -52,13 +52,38 @@
         <td mat-cell
             *matCellDef="let element">
 
+
           <button mat-mini-fab
+                  #tooltip="matTooltip"
+                  matTooltip="Zmień status na aktywne"
+                  *ngIf="!element.available"
+                  (click)="setAsAvailable(element)"
+                  [disabled]=""
+                  class="icon-button action-icon">
+            <mat-icon>visibility</mat-icon>
+          </button>
+
+          <button mat-mini-fab
+                  #tooltip="matTooltip"
+                  matTooltip="Zmień status na nieaktywne"
+                  *ngIf="element.available"
+                  (click)="setAsUnavailable(element)"
+                  [disabled]=""
+                  class="icon-button action-icon">
+            <mat-icon>visibility_off</mat-icon>
+          </button>
+
+          <button mat-mini-fab
+                  #tooltip="matTooltip"
+                  matTooltip="Edytuj"
                   (click)="goToMealOptionsPage(element.id)"
                   class="icon-button action-icon">
             <mat-icon>edit</mat-icon>
           </button>
 
           <button mat-mini-fab
+                  #tooltip="matTooltip"
+                  matTooltip="Usuń"
                   (click)="delete(element.id)"
                   [disabled]="disableDeleteButton"
                   class="icon-button action-icon">
@@ -86,6 +111,8 @@
 
   <div class="add-item-button-container">
     <button mat-mini-fab
+            #tooltip="matTooltip"
+            matTooltip="Dodaj"
             (click)="goToAddPage()"
             class="icon-button add-item-icon">
       <mat-icon>add</mat-icon>
