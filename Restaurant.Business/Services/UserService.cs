@@ -113,8 +113,8 @@ namespace Restaurant.Business.Services
             SigningCredentials signingCredentials)
         {
             return new JwtSecurityToken(
-                _authenticationSettings.JwtIssuer,
-                _authenticationSettings.JwtIssuer,
+                issuer,
+                audience,
                 claims,
                 expires: expirationDateTime,
                 signingCredentials: signingCredentials);
