@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Restaurant.Authentication.Attributes;
 using Restaurant.Business.IServices;
 using Restaurant.Data.Models.CityModels;
+using Restaurant.Entities.Enums;
 
 namespace Restaurant.API.Controllers
 {
@@ -28,12 +30,14 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("cities/page")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult GetCityPage([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 0)
         {
             return Ok(_cityService.GetCityPage(pageIndex, pageSize));
         }
 
         [HttpPost("cities")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult AddCity([FromBody] CityCreateRequest cityCreateRequest)
         {
             _cityService.AddCity(cityCreateRequest);
@@ -41,6 +45,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPut("cities/{id}")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult UpdateCity([FromRoute] short id, [FromBody] CityUpdateRequest cityUpdateRequest)
         {
             _cityService.UpdateCity(id, cityUpdateRequest);
@@ -48,6 +53,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpDelete("cities/{id}")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult DeleteCity([FromRoute] short id)
         {
             _cityService.DeleteCity(id);
@@ -55,6 +61,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPut("cities/enable/{id}")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult EnableCity([FromRoute] short id)
         {
             _cityService.EnableCity(id);
@@ -62,6 +69,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPut("cities/disable/{id}")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult DisableCity([FromRoute] short id)
         {
             _cityService.DisableCity(id);

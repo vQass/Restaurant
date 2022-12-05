@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Restaurant.Authentication.Attributes;
 using Restaurant.Business.IServices;
 using Restaurant.Data.Models.IngredientModels;
+using Restaurant.Entities.Enums;
 
 namespace Restaurant.API.Controllers
 {
@@ -28,12 +30,14 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("ingredients/page")]
-        public async Task<IActionResult> GetIngredientsForAdminPanel([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 0)
+        [AuthorizeWithRoles(RoleEnum.Admin)]
+        public async Task<IActionResult> GetIngredientsPage([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 0)
         {
             return Ok(await _ingredientServices.GetIngredientPage(pageIndex, pageSize));
         }
 
         [HttpPost("ingredients")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult AddIngredient([FromBody] IngredientCreateRequest ingredientRequest)
         {
             _ingredientServices.AddIngredient(ingredientRequest);
@@ -41,6 +45,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPut("ingredients/{id}")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult UpdateIngredient([FromRoute] int id, [FromBody] IngredientUpdateRequest ingredientRequest)
         {
             _ingredientServices.UpdateIngredient(id, ingredientRequest);
@@ -48,6 +53,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpDelete("ingredients/{id}")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult DeleteIngredient([FromRoute] int id)
         {
             _ingredientServices.DeleteIngredient(id);

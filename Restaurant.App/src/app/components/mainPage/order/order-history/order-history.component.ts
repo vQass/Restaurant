@@ -46,8 +46,6 @@ export class OrderHistoryComponent {
           if (data === null) {
             return [];
           }
-          console.log(data);
-
           this.resultsLength = data.itemCount;
 
           return data.items;

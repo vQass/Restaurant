@@ -128,8 +128,6 @@ export class MealMainPageComponent extends PagingHelper {
   }
 
   goToMealOptionsPage(id: number) {
-    console.log(id);
-
     this.goToPage(
       this.paginator.pageIndex,
       this.paginator.pageSize,

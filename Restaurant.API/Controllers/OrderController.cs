@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Restaurant.Authentication.Attributes;
 using Restaurant.Business.IServices;
 using Restaurant.Data.Models.OrderModels;
 using Restaurant.Entities.Enums;
@@ -33,12 +34,14 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("orders/page")]
-        public async Task<IActionResult> GetOrdersForAdminPanel([FromQuery] int pageIndex, [FromQuery] int pageSize, [FromQuery] string orderByParams = null)
+        [AuthorizeWithRoles(RoleEnum.Admin)]
+        public async Task<IActionResult> GetOrdersPage([FromQuery] int pageIndex, [FromQuery] int pageSize, [FromQuery] string orderByParams = null)
         {
             return Ok(await _orderService.GetOrdersForAdminPanel(pageIndex, pageSize, orderByParams));
         }
 
         [HttpPost("orders")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult AddOrder(OrderCreateRequest orderCreateRequest)
         {
             var id = _orderService.AddOrder(orderCreateRequest);
@@ -46,6 +49,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPatch("orders/changeStatus/{id}")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult ChangeOrderStatus(long id, [FromBody] OrderStatusEnum orderStatus)
         {
             _orderService.ChangeOrderStatus(id, orderStatus);

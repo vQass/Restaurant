@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Restaurant.Authentication.Attributes;
 using Restaurant.Business.IServices;
+using Restaurant.Entities.Enums;
 
 namespace Restaurant.API.Controllers
 {
@@ -15,12 +17,14 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("recipies/{mealId}")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult GetRecipeEditViewModel([FromRoute] int mealId)
         {
             return Ok(_recipeService.GetRecipeEditViewModel(mealId));
         }
 
         [HttpPut("recipies/{mealId}")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult UpdateMealRecipe([FromRoute] int mealId, [FromBody] List<int> ingredientsIds)
         {
             _recipeService.UpdateMealRecipe(mealId, ingredientsIds);

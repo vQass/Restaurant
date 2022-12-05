@@ -137,8 +137,6 @@ export class CityMainPageComponent extends PagingHelper {
   }
 
   goToAddPage() {
-    console.log(this.paginator.pageIndex, this.paginator.pageSize);
-
     this.goToPage(
       this.paginator.pageIndex,
       this.paginator.pageSize,

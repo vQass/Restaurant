@@ -23,19 +23,21 @@ namespace Restaurant.API.Controllers
             return Ok(_mealService.GetMeal(id));
         }
 
-        [HttpGet("meals/page")]
-        public async Task<IActionResult> GetMealsForAdminPanel([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 0)
-        {
-            return Ok(await _mealService.GetMealPage(pageIndex, pageSize));
-        }
-
         [HttpGet("meals/groups")]
         public async Task<IActionResult> GetActiveMealsGroupedByCategory()
         {
             return Ok(await _mealService.GetActiveMealsGroupedByCategory());
         }
 
+        [HttpGet("meals/page")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
+        public async Task<IActionResult> GetMealsPage([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 0)
+        {
+            return Ok(await _mealService.GetMealPage(pageIndex, pageSize));
+        }
+
         [HttpPost("meals")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult AddMeal([FromBody] MealCreateRequest mealCreateRequest)
         {
             _mealService.AddMeal(mealCreateRequest);
@@ -43,6 +45,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPut("meals/{id}")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult UpdateMeal([FromRoute] int id, [FromBody] MealUpdateRequest mealUpdateRequest)
         {
             _mealService.UpdateMeal(id, mealUpdateRequest);
@@ -50,6 +53,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpDelete("meals/{id}")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult DeleteMeal([FromRoute] int id)
         {
             _mealService.DeleteMeal(id);
@@ -57,6 +61,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPatch("meals/deactivate")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult SetMealAsUnavailable([FromBody] int id)
         {
             _mealService.SetMealAsUnavailable(id);
@@ -64,6 +69,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPatch("meals/activate")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult SetMealAsAvailable([FromBody] int id)
         {
             _mealService.SetMealAsAvailable(id);
@@ -71,6 +77,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPatch("meals/updatePrice/{id}/{newPrice}")]
+        [AuthorizeWithRoles(RoleEnum.Admin)]
         public IActionResult UpdateMealsPrice([FromRoute] int id, [FromRoute] decimal newPrice)
         {
             _mealService.UpdateMealsPrice(id, newPrice);

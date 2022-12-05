@@ -45,9 +45,6 @@ export class UserLoginComponent implements OnInit {
       password: this.loginForm.value.password
     } as UserLoginRequest;
 
-    console.log(user);
-
-
     this.userService.loginRequest(user).subscribe({
       next: (resp) => {
         this.userService.login(resp);

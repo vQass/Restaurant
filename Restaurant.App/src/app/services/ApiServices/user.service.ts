@@ -87,21 +87,8 @@ export class UserService {
     if (error.status === 0) {
       console.log('An error occurred:', error.error);
     } else {
-      var errorLength = Number(error.error.length);
-      var errorMessage = '\n'
-
-      if (isNaN(errorLength)) {
-        errorMessage += `-${error.error}`;
-      }
-      else {
-        for (let i = 0; i < errorLength; i++) {
-          errorMessage += `-${error.error[Object.keys(error.error)[i]]}`;
-        }
-      }
-
-
-      console.log(`Backend returned code ${error.status}, body was: `, errorMessage);
-      return throwError(() => new Error(errorMessage))
+      console.log(`Backend returned code ${error.status}, body was: `, error.error);
+      return throwError(() => new Error(error.error))
     }
     return throwError(() => new Error('Coś poszło nie tak, proszę spróbować później'));
   }
