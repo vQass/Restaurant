@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Restaurant.Authentication.Attributes;
 using Restaurant.Business.IServices;
 using Restaurant.Data.Models.OrderModels;
@@ -41,7 +42,7 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpPost("orders")]
-        [AuthorizeWithRoles(RoleEnum.Admin)]
+        [Authorize()]
         public IActionResult AddOrder(OrderCreateRequest orderCreateRequest)
         {
             var id = _orderService.AddOrder(orderCreateRequest);
