@@ -45,9 +45,10 @@ export class EditMealRecipePageComponent extends PagingHelper implements OnInit 
 
     this.recipeService.getRecipeEditViewModel(id).subscribe((data) => {
       this.recipeViewModel = data;
-      let half = Math.ceil(this.recipeViewModel.ingredients.length / 2);
-      this.firstHalfOfRecipe = this.recipeViewModel.ingredients.slice(0, half)
-      this.secondHalfOfRecipe = this.recipeViewModel.ingredients.slice(-half)
+      let firstHalf = Math.ceil(this.recipeViewModel.ingredients.length / 2);
+      let secondHalf = Math.floor(this.recipeViewModel.ingredients.length / 2);
+      this.firstHalfOfRecipe = this.recipeViewModel.ingredients.slice(0, firstHalf)
+      this.secondHalfOfRecipe = this.recipeViewModel.ingredients.slice(-secondHalf)
     })
   }
 
