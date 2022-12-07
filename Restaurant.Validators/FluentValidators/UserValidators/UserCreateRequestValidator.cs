@@ -15,16 +15,6 @@ namespace Restaurant.Validators.FluentValidators.UserValidators
 
             RuleFor(x => x.ConfirmPassword).Equal(x => x.Password).WithMessage("Błędna wartość w polu potwierdzenia hasła");
 
-            RuleFor(x => x.Email).Custom((value, context) =>
-            {
-                var emailInUse = dbContext.Users.Any(x => x.Email.ToLower() == value.ToLower());
-
-                if (emailInUse)
-                {
-                    context.AddFailure("Emial", "Adres email jest zajęty");
-                }
-            });
-
             RuleFor(x => x.CityId).Custom((value, context) =>
             {
                 if (value != null)
@@ -44,7 +34,7 @@ namespace Restaurant.Validators.FluentValidators.UserValidators
 
             RuleFor(x => x.Surname).MaximumLength(127);
 
-            RuleFor(x => x.PhoneNumber).MaximumLength(32); // TODO consider validating phone number with regex
+            RuleFor(x => x.PhoneNumber).MaximumLength(32);
         }
     }
 }

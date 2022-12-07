@@ -75,7 +75,7 @@ export class UserRegisterComponent implements OnInit {
       },
       error: (e) => {
         this.disableSubmitButton = false;
-        this.toastService.showDanger("Błąd podczas rejestracji");
+        this.toastService.showDanger("Błąd podczas rejestracji: " + e.message);
       }
     })
   }

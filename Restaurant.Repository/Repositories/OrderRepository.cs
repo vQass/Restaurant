@@ -34,7 +34,7 @@ namespace Restaurant.Repository.Repositories
                 .FirstOrDefault(x => x.Id == id);
         }
 
-        public async Task<List<Order>> GetOrders(IEnumerable<OrderStatusEnum> orderStatuses = null, long userId = 0, int pageIndex = 0, int pageSize = 0, string orderByParams = null)
+        public List<Order> GetOrders(IEnumerable<OrderStatusEnum> orderStatuses = null, long userId = 0, int pageIndex = 0, int pageSize = 0, string orderByParams = null)
         {
             var ordersQuery = _dbContext.Orders
                 .Include(x => x.OrderElements)
@@ -54,7 +54,7 @@ namespace Restaurant.Repository.Repositories
                 .ApplySorting(orderByParams)
                 .ApplyPaging(pageIndex, pageSize);
 
-            return await ordersQuery.ToListAsync();
+            return ordersQuery.ToList();
         }
 
         public int GetOrdersCount(long userId = 0)

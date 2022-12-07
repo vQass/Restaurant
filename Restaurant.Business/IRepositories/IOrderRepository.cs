@@ -7,7 +7,7 @@ namespace Restaurant.Business.IRepositories
     public interface IOrderRepository
     {
         Order GetOrder(long id);
-        Task<List<Order>> GetOrders(IEnumerable<OrderStatusEnum> orderStatuses = null, long userId = 0, int pageIndex = 0, int pageSize = 0, string orderByParams = null);
+        List<Order> GetOrders(IEnumerable<OrderStatusEnum> orderStatuses = null, long userId = 0, int pageIndex = 0, int pageSize = 0, string orderByParams = null);
         int GetOrdersCount(long userId = 0);
 
         long AddOrder(OrderCreateRequest orderCreateRequest);

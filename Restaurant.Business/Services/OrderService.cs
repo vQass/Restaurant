@@ -42,7 +42,7 @@ namespace Restaurant.Business.Services
 
         public async Task<OrderHistoryWrapper> GetOrdersHistory(int pageIndex, int pageSize, long userId = 0, string orderByParams = null)
         {
-            var orders = await _orderRepository.GetOrders(
+            var orders = _orderRepository.GetOrders(
                 pageIndex: pageIndex,
                 pageSize: pageSize,
                 userId: userId,
@@ -85,7 +85,7 @@ namespace Restaurant.Business.Services
 
         public async Task<OrderAdminPanelWrapper> GetOrdersForAdminPanel(int pageIndex, int pageSize, string orderByParams)
         {
-            var orders = await _orderRepository.GetOrders(pageIndex: pageIndex, pageSize: pageSize, orderByParams: orderByParams);
+            var orders = _orderRepository.GetOrders(pageIndex: pageIndex, pageSize: pageSize, orderByParams: orderByParams);
 
             var userIds = orders.Select(x => x.UserId).ToList();
 
