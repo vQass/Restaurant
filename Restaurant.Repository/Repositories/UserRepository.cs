@@ -57,8 +57,6 @@ namespace Restaurant.Repository.Repositories
             var user = _mapper.Map<User>(userCreateRequest);
 
             user.Password = _passwordHasher.HashPassword(user, user.Password);
-            user.Inserted = date;
-            user.Updated = date;
             user.Role = (byte)RoleEnum.User;
 
             _dbContext.Users.Add(user);

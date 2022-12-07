@@ -22,12 +22,6 @@ namespace Restaurant.DB
             modelBuilder.Entity<OrderElement>()
                 .HasKey(x => new { x.OrderId, x.MealId });
 
-            modelBuilder.Entity<User>()
-                .HasOne(x => x.City)
-                .WithMany(x => x.Users)
-                .HasForeignKey(x => x.CityId)
-                .OnDelete(DeleteBehavior.NoAction);
-
             modelBuilder.Entity<Meal>()
                 .HasOne(x => x.MealCategory)
                 .WithMany(x => x.Meals)
@@ -74,14 +68,6 @@ namespace Restaurant.DB
                 entity.Property(x => x.Email).IsRequired(true).HasMaxLength(320);
                 entity.Property(x => x.Password).IsRequired(true).HasMaxLength(255);
                 entity.Property(x => x.Role).IsRequired(true).HasColumnType("tinyint");
-                entity.Property(x => x.IsActive).IsRequired(true).HasDefaultValue(true);
-                entity.Property(x => x.Name).IsRequired(false).HasMaxLength(127);
-                entity.Property(x => x.Surname).IsRequired(false).HasMaxLength(127);
-                entity.Property(x => x.CityId).IsRequired(false);
-                entity.Property(x => x.Address).IsRequired(false).HasMaxLength(255);
-                entity.Property(x => x.PhoneNumber).IsRequired(false).HasMaxLength(32);
-                entity.Property(x => x.Inserted).IsRequired(true).HasColumnType("smalldatetime");
-                entity.Property(x => x.Updated).IsRequired(true).HasColumnType("smalldatetime");
             });
 
             modelBuilder.Entity<Meal>(entity =>

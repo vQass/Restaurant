@@ -113,34 +113,26 @@ namespace Restaurant.Business.Services
                 {
                     Email = "a@a",
                     Password = "pass321",
-                    Role = RoleEnum.Admin,
-                    Inserted = date,
-                    Updated = date
+                    Role = RoleEnum.Admin
                 },
                 new User()
                 {
                     Email = "aa@a",
                     Password = "pass321",
-                    Role = RoleEnum.User,
-                    Inserted = date,
-                    Updated = date
+                    Role = RoleEnum.User
 
                 },
                 new User()
                 {
                     Email = "aaa@a",
                     Password = "pass321",
-                    Role = RoleEnum.User,
-                    Inserted = date,
-                    Updated = date
+                    Role = RoleEnum.User
                 },
                 new User()
                 {
                     Email = "aaaa@a",
                     Password = "pass312",
-                    Role = RoleEnum.User,
-                    Inserted = date,
-                    Updated = date
+                    Role = RoleEnum.User
                 }
             };
 

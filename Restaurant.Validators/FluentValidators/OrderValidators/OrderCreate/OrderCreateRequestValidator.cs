@@ -20,14 +20,6 @@ namespace Restaurant.Validators.FluentValidators.OrderValidators.OrderCreate
                 {
                     context.AddFailure("UserId", "Użytkownik o podanym id nie istnieje.");
                 }
-
-                var userInactive = dbContext.Users.Where(x => !x.IsActive).Any(x => x.Id == userId);
-
-                if (userInactive)
-                {
-                    context.AddFailure("UserId", "Konto użytkownika o podanym id zostało oznaczone jako nieaktywne.");
-
-                }
             });
 
             RuleFor(x => x.CityId).Custom((cityId, context) =>
