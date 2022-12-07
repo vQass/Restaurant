@@ -14,6 +14,18 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.success-toast {
+  color: green !important
+}
+
+.danger-toast {
+  color: red !important
+}
+
+.info-toast {
+  color: blue !important
+}
+
 /* #region Forms */
 
 .form-button-container {

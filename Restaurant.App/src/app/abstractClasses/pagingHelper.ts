@@ -5,7 +5,7 @@ export abstract class PagingHelper {
   private pageSize!: number;
 
   defaultPageIndex = 0;
-  defaultPageSize = 5;
+  defaultPageSize = 10;
   pagePath: string;
 
   constructor(

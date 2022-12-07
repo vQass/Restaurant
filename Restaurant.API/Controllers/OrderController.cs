@@ -19,12 +19,14 @@ namespace Restaurant.API.Controllers
         }
 
         [HttpGet("orders/statuses")]
+        [Authorize]
         public IActionResult GetOrderStatuses()
         {
             return Ok(_orderService.GetOrderStatuses());
         }
 
         [HttpGet("orders/historyPage")]
+        [Authorize]
         public async Task<IActionResult> GetOrdersHistory(
             [FromQuery] int pageIndex = 0,
             [FromQuery] int pageSize = 0,
