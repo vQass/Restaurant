@@ -96,7 +96,6 @@ namespace Restaurant.DB
                 entity.Property(x => x.Surname).IsRequired(true).HasMaxLength(127);
                 entity.Property(x => x.Address).IsRequired(true).HasMaxLength(255);
                 entity.Property(x => x.Status).IsRequired(true).HasColumnType("tinyint");
-                entity.Property(x => x.PromotionCodeId).IsRequired(false);
                 entity.Property(x => x.OrderDate).IsRequired(true).HasColumnType("smalldatetime");
             });
 
