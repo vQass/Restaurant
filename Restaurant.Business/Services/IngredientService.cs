@@ -5,7 +5,7 @@ using Restaurant.Data.Models.IngredientModels;
 
 namespace Restaurant.Business.Services
 {
-    public class IngredientService : IIngredientService
+    internal class IngredientService : IIngredientService
     {
         private readonly IIngredientRepository _ingredientRepository;
         private readonly IMapper _mapper;

@@ -4,7 +4,7 @@ using Restaurant.Data.Models.RecipeModels;
 
 namespace Restaurant.Business.Services
 {
-    public class RecipeService : IRecipeService
+    internal class RecipeService : IRecipeService
     {
         private readonly IRecipeRepository _recipeRepository;
         private readonly IMealRepository _mealRepository;

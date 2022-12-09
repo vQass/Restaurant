@@ -5,7 +5,7 @@ using Restaurant.Data.Models.CityModels;
 
 namespace Restaurant.Business.Services
 {
-    public class CityService : ICityService
+    internal class CityService : ICityService
     {
         private readonly ICityRepository _cityRepository;
         private readonly IMapper _mapper;

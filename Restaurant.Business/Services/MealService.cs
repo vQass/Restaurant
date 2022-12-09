@@ -6,7 +6,7 @@ using Restaurant.Data.Models.MealModels;
 
 namespace Restaurant.Business.Services
 {
-    public class MealService : IMealService
+    internal class MealService : IMealService
     {
         private readonly IMealRepository _mealRepository;
         private readonly IMapper _mapper;

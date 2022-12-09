@@ -6,7 +6,7 @@ using Restaurant.Entities.Enums;
 
 namespace Restaurant.Business.Services
 {
-    public class SeederService : ISeederService
+    internal class SeederService : ISeederService
     {
         private readonly RestaurantDbContext _dbContext;
         private readonly IPasswordHasher<User> _passwordHasher;

@@ -7,7 +7,7 @@ using Restaurant.Entities.Enums;
 
 namespace Restaurant.Business.Services
 {
-    public class OrderService : IOrderService
+    internal class OrderService : IOrderService
     {
         private readonly IOrderRepository _orderRepository;
         private readonly ICityRepository _cityRepository;

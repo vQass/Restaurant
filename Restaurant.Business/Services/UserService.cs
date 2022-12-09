@@ -13,7 +13,7 @@ using System.Text;
 
 namespace Restaurant.Business.Services
 {
-    public class UserService : IUserService
+    internal class UserService : IUserService
     {
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IUserRepository _userRepository;
