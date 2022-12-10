@@ -12,6 +12,5 @@
         public bool IsActive { get; set; }
 
         public virtual List<Order> Orders { get; set; }
-        public virtual List<User> Users { get; set; }
     }
 }
