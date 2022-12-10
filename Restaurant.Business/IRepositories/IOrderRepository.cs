@@ -11,7 +11,6 @@ namespace Restaurant.Business.IRepositories
         int GetOrdersCount(long userId = 0);
 
         long AddOrder(OrderCreateRequest orderCreateRequest);
-        void UpdateOrder(Order order, OrderUpdateRequest orderUpdateRequest);
         void ChangeOrderStatus(Order order, OrderStatusEnum orderStatus);
 
         void EnsureOrderExists(Order order);

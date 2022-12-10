@@ -130,18 +130,6 @@ namespace Restaurant.Repository.Repositories
         public void EnsureCityNotInUse(City city)
         {
             EnsureCityNotUsedInOrders(city);
-            EnsureCityNotUsedInUsers(city);
-        }
-
-        public void EnsureCityNotUsedInUsers(City city)
-        {
-            var cityUsedInUsers = _dbContext.Users.Any(x => x.City.Id == city.Id);
-
-            if (cityUsedInUsers)
-            {
-                _logger.LogError($"City with name {city.Name} is used in users table.");
-                throw new BadRequestException("Podane miasto używane jest w adresie co najmniej jednego użytkownika.");
-            }
         }
 
         public void EnsureCityNotUsedInOrders(City city)

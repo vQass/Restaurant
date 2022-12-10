@@ -11,7 +11,6 @@ using Restaurant.Validators.FluentValidators.IngredientValidators;
 using Restaurant.Validators.FluentValidators.MealCategoryValidators;
 using Restaurant.Validators.FluentValidators.MealValidators;
 using Restaurant.Validators.FluentValidators.OrderValidators.OrderCreate;
-using Restaurant.Validators.FluentValidators.OrderValidators.OrderUpdate;
 using Restaurant.Validators.FluentValidators.UserValidators;
 
 namespace Restaurant.Validators
@@ -41,11 +40,8 @@ namespace Restaurant.Validators
             services.AddScoped<IValidator<MealUpdateRequest>, MealUpdateRequestValidator>();
 
             // Orders
-            services.AddScoped<IValidator<OrderUpdateRequest>, OrderUpdateRequestValidator>();
             services.AddScoped<IValidator<OrderCreateRequest>, OrderCreateRequestValidator>();
-
             services.AddScoped<IValidator<OrderElementCreateRequest>, OrderElementCreateRequestValidator>();
-            services.AddScoped<IValidator<OrderElementUpdateRequest>, OrderElementUpdateRequestValidator>();
 
             return services;
         }

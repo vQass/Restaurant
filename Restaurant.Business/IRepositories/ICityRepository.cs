@@ -19,7 +19,6 @@ namespace Restaurant.Business.IRepositories
         void EnsureCityExists(City city);
         void EnsureCityNameNotTaken(string cityName, short id = 0);
         void EnsureCityNotInUse(City city);
-        void EnsureCityNotUsedInUsers(City city);
         void EnsureCityNotUsedInOrders(City city);
     }
 }

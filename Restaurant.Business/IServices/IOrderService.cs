@@ -10,7 +10,6 @@ namespace Restaurant.Business.IServices
         IEnumerable<OrderStatusViewModel> GetOrderStatuses();
 
         long AddOrder(OrderCreateRequest orderCreateRequest);
-        void UpdateOrder(long id, OrderUpdateRequest orderUpdateRequest);
         void ChangeOrderStatus(long id, OrderStatusEnum orderStatus);
     }
 }

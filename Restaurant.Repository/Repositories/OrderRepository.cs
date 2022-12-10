@@ -87,17 +87,6 @@ namespace Restaurant.Repository.Repositories
             return order.Id;
         }
 
-        public void UpdateOrder(Order order, OrderUpdateRequest orderUpdateRequest)
-        {
-            order.Address = orderUpdateRequest.Address;
-            order.PhoneNumber = orderUpdateRequest.PhoneNumber;
-            order.Surname = orderUpdateRequest.Surname;
-            order.Name = orderUpdateRequest.Name;
-            order.CityId = orderUpdateRequest.CityId;
-
-            _dbContext.SaveChanges();
-        }
-
         public void ChangeOrderStatus(Order order, OrderStatusEnum orderStatus)
         {
             order.Status = orderStatus;

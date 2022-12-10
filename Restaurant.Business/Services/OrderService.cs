@@ -132,18 +132,6 @@ namespace Restaurant.Business.Services
             return id;
         }
 
-        // TODO consider removing
-        public void UpdateOrder(long id, OrderUpdateRequest orderUpdateRequest)
-        {
-            var order = _orderRepository.GetOrder(id);
-
-            _orderRepository.EnsureOrderExists(order);
-
-            EnsureOrderHasPendingStatus(order);
-
-            _orderRepository.UpdateOrder(order, orderUpdateRequest);
-        }
-
         public void ChangeOrderStatus(long id, OrderStatusEnum orderStatus)
         {
             var order = _orderRepository.GetOrder(id);
