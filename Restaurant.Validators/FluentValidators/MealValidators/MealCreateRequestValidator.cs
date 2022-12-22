@@ -12,17 +12,6 @@ namespace Restaurant.Validators.FluentValidators.MealValidators
 
             RuleFor(x => x.Name).NotEmpty().MaximumLength(127);
 
-            RuleFor(x => x.Name).Custom((value, context) =>
-            {
-                var nameInUse = dbContext.Meals.Any(x =>
-                    x.Name.ToLower().Trim() == value.ToLower().Trim());
-
-                if (nameInUse)
-                {
-                    context.AddFailure("Name", "Nazwa dania jest zajęta");
-                }
-            });
-
             RuleFor(x => x.MealCategoryId).Custom((value, context) =>
             {
                 var validCategoryId = dbContext.MealsCategories.Any(x =>

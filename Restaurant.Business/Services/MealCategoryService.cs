@@ -72,7 +72,7 @@ namespace Restaurant.Business.Services
 
             _mealCategoryRepository.EnsureMealCategoryExists(mealCategory);
 
-            //_mealCategoryRepository.EnsureMealCategoryNotInUse(mealCategory);
+            _mealCategoryRepository.EnsureMealCategoryNotInUse(mealCategory);
 
             _mealCategoryRepository.DeleteMealCategory(mealCategory);
         }
