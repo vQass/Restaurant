@@ -48,6 +48,7 @@ export class OrderMainPageComponent {
   }
 
   ngAfterViewInit(): void {
+    this.paginator._intl.itemsPerPageLabel = "Elementów na stronę: ";
 
     this.orderService
       .getOrderStatuses()

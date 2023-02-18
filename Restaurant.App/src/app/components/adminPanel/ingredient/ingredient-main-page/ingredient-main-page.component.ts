@@ -35,6 +35,8 @@ export class IngredientMainPageComponent extends PagingHelper {
   }
 
   ngAfterViewInit(): void {
+    this.paginator._intl.itemsPerPageLabel = "Elementów na stronę: ";
+
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),

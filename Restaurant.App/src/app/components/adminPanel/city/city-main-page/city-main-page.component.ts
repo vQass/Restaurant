@@ -33,6 +33,8 @@ export class CityMainPageComponent extends PagingHelper {
   }
 
   ngAfterViewInit(): void {
+    this.paginator._intl.itemsPerPageLabel = "Elementów na stronę: ";
+
     merge(this.paginator.page)
       .pipe(
         startWith({}),

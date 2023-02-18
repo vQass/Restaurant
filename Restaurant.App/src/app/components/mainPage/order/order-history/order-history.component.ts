@@ -26,6 +26,8 @@ export class OrderHistoryComponent {
 
   ngAfterViewInit(): void {
 
+    this.paginator._intl.itemsPerPageLabel = "Elementów na stronę";
+
     let userId = this.userService.getId()
     if (userId == 0) { return; }
 
